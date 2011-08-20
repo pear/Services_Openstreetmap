@@ -28,7 +28,7 @@ require_once 'Services/Openstreetmap/Exception.php';
  * @package   Services_Openstreetmap
  * @author    Ken Guest <kguest@php.net>
  * @copyright 2010 Ken Guest
- * @license   LGPL (see http://www.gnu.org/licenses/lgpl.html)
+ * @license   BSD http://www.opensource.org/licenses/bsd-license.php
  * @version   Release: 0.0.1
  * @link      http://pear.php.net/package/Services_Openstreetmap
  */
