@@ -1,0 +1,24 @@
+HTTP/1.1 200 OK
+Date: Mon, 25 Apr 2011 15:24:41 GMT
+Server: Apache/2.2.14 (Ubuntu)
+X-Powered-By: Phusion Passenger (mod_rails/mod_rack) 3.0.7
+X-Runtime: 99
+Cache-Control: private, max-age=0, must-revalidate
+Set-Cookie: _osm_session=44649581f0784057b4d144e57ac92b00; path=/; HttpOnly
+Last-Modified: Mon, 04 Aug 2008 19:47:58 GMT
+Content-Length: 328
+Status: 200
+Vary: Accept-Encoding
+Keep-Alive: timeout=15, max=100
+Connection: Keep-Alive
+Content-Type: text/xml; charset=utf-8
+Length: 328 [text/xml]
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <way id="25978036" visible="true" timestamp="2008-08-04T19:47:58Z" version="1" changeset="54716" user="AndrewMcCarthy" uid="1379">
+    <nd ref="283393706"/>
+    <nd ref="283393707"/>
+    <tag k="highway" v="service"/>
+  </way>
+</osm>

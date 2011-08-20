@@ -1,0 +1,72 @@
+HTTP/1.1 200 OK
+Date: Mon, 25 Apr 2011 15:50:05 GMT
+Server: Apache/2.2.14 (Ubuntu)
+X-Powered-By: Phusion Passenger (mod_rails/mod_rack) 3.0.7
+X-Runtime: 72
+Cache-Control: private, max-age=0, must-revalidate
+Set-Cookie: _osm_session=d393c6749b516b59bdf0e2014e35870d; path=/; HttpOnly
+Last-Modified: Tue, 07 Apr 2009 19:16:12 GMT
+Content-Length: 1265
+Status: 200
+Vary: Accept-Encoding
+Keep-Alive: timeout=15, max=100
+Connection: Keep-Alive
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <node id="52245107" lat="52.881667" lon="-8.195833" changeset="439621" user="mackerski" uid="6367" visible="true" timestamp="2007-09-15T21:14:32Z" version="1">
+    <tag k="name" v="Nenagh Bridge"/>
+    <tag k="gns:FC" v="P"/>
+    <tag k="comment" v="Experimental import of Irish places and POIs from GNS Dataset"/>
+    <tag k="gns:N:xx:MODIFY_DATE" v="1998-03-23"/>
+    <tag k="place_county" v="Tipperary"/>
+    <tag k="gns:JOG" v="NN29-11"/>
+    <tag k="gns:DMS_LONG" v="-81145"/>
+    <tag k="gns:UFI" v="368950"/>
+    <tag k="gns:N:xx:SORT_NAME" v="NENAGHBRIDGE"/>
+    <tag k="gns:LONG" v="-8.195833"/>
+    <tag k="gns:DSG" v="PPL"/>
+    <tag k="gns:ADM1" v="26"/>
+    <tag k="created_by" v="JOSM"/>
+    <tag k="gns:UNI" v="460360"/>
+    <tag k="gns:N:xx:FULL_NAME_ND" v="Nenagh Bridge"/>
+    <tag k="gns:CC1" v="EI"/>
+    <tag k="is_in" v="County Tipperary"/>
+    <tag k="gns:N:xx:NT" v="N"/>
+    <tag k="gns:DMS_LAT" v="525254"/>
+    <tag k="source" v="gns_ei"/>
+    <tag k="place" v="hamlet"/>
+    <tag k="gns:RC" v="1"/>
+    <tag k="gns:N:xx:FULL_NAME" v="Nenagh Bridge"/>
+    <tag k="gns:MGRS" v="29UNU5411559410"/>
+    <tag k="gns:LAT" v="52.881667"/>
+  </node>
+  <node id="52245107" lat="52.881667" lon="-8.195833" changeset="312325" user="xybot" uid="70696" visible="true" timestamp="2009-04-07T19:16:12Z" version="2">
+    <tag k="name" v="Nenagh Bridge"/>
+    <tag k="gns:FC" v="P"/>
+    <tag k="gns:N:xx:MODIFY_DATE" v="1998-03-23"/>
+    <tag k="place_county" v="Tipperary"/>
+    <tag k="gns:JOG" v="NN29-11"/>
+    <tag k="gns:DMS_LONG" v="-81145"/>
+    <tag k="gns:UFI" v="368950"/>
+    <tag k="gns:N:xx:SORT_NAME" v="NENAGHBRIDGE"/>
+    <tag k="gns:LONG" v="-8.195833"/>
+    <tag k="gns:DSG" v="PPL"/>
+    <tag k="gns:ADM1" v="26"/>
+    <tag k="created_by" v="JOSM"/>
+    <tag k="gns:UNI" v="460360"/>
+    <tag k="gns:N:xx:FULL_NAME_ND" v="Nenagh Bridge"/>
+    <tag k="note" v="Experimental import of Irish places and POIs from GNS Dataset"/>
+    <tag k="gns:CC1" v="EI"/>
+    <tag k="is_in" v="County Tipperary"/>
+    <tag k="gns:N:xx:NT" v="N"/>
+    <tag k="gns:DMS_LAT" v="525254"/>
+    <tag k="source" v="gns_ei"/>
+    <tag k="place" v="hamlet"/>
+    <tag k="gns:RC" v="1"/>
+    <tag k="gns:N:xx:FULL_NAME" v="Nenagh Bridge"/>
+    <tag k="gns:MGRS" v="29UNU5411559410"/>
+    <tag k="gns:LAT" v="52.881667"/>
+  </node>
+</osm>

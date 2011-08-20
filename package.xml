@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Services_Openstreetmap</name>
+ <uri>.</uri>
+ <summary>Openstreetmap Services</summary>
+ <description>Provide an interface to the Openstreetmap services.</description>
+ <lead>
+  <name>Ken Guest</name>
+  <user>kguest</user>
+  <email>kguest@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-08-20</date>
+ <time>23:52:02</time>
+ <version>
+  <release>0.0.1</release>
+  <api>0.0.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
+ <notes>
+ OpenStreetMap is a global project with an aim of collaboratively collecting
+ map data. This package aims to make communicating with the OSM API intuitive.
+ </notes>
+ <contents>
+  <dir baseinstalldir="Services" name="/">
+   <file baseinstalldir="Services" md5sum="d606c6744bd8758d5a0de6b79bcab750" name="examples/example1_savetolocalfile.php" role="doc" />
+   <file baseinstalldir="Services" md5sum="e061cf00aab7ea30306ef211cf677d81" name="examples/example2_loadandparselocaldata.php" role="doc" />
+   <file baseinstalldir="Services" md5sum="873271ee39618a7bd9cc0820f5d22447" name="examples/example3_genericdemo.php" role="doc" />
+   <file baseinstalldir="Services" md5sum="f938b502dba33dca6b22af369ef4f1c6" name="examples/example4_getchangeset.php" role="doc" />
+   <file baseinstalldir="" md5sum="cb7d2bbf11b910462be986c21be0b8c8" name="Services/Openstreetmap.php" role="php" />
+   <file baseinstalldir="" md5sum="27cab229065ee0a2cb9d326300a42258" name="Services/Openstreetmap/Changeset.php" role="php" />
+   <file baseinstalldir="" md5sum="27cab229065ee0a2cb9d326300a42258" name="Services/Openstreetmap/Exception.php" role="php" />
+   <file baseinstalldir="" md5sum="27cab229065ee0a2cb9d326300a42258" name="Services/Openstreetmap/Object.php" role="php" />
+   <file baseinstalldir="" md5sum="27cab229065ee0a2cb9d326300a42258" name="Services/Openstreetmap/Relation.php" role="php" />
+   <file baseinstalldir="" md5sum="27cab229065ee0a2cb9d326300a42258" name="Services/Openstreetmap/Node.php" role="php" />
+   <file baseinstalldir="" md5sum="27cab229065ee0a2cb9d326300a42258" name="Services/Openstreetmap/Way.php" role="php" />
+  <dir name="tests">
+	<file name="responses/node_history.xml" role="test" />
+	<file name="responses/node.xml" role="test" />
+	<file name="responses/changeset.xml" role="test" />
+	<file name="responses/way.xml" role="test" />
+	<file name="responses/node.osm" role="test" />
+	<file name="responses/capabilities.xml" role="test" />
+	<file name="responses/relation_changeset.xml" role="test" />
+	<file name="responses/relation.xml" role="test" />
+	<file name="OSMTest.php" role="test" />
+  </dir>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>HTTP_Request2</name>
+    <channel>pear.php.net</channel>
+    <min>0.5.1</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-05-29</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
+   <notes>
+ OpenStreetMap is a global project with an aim of collaboratively collecting
+ map data. This package aims to make communicating with the OSM API intuitive.
+   </notes>
+  </release>
+ </changelog>
+</package>

@@ -1,0 +1,4 @@
+OpenStreetMap is a global project with an aim of collaboratively collecting map
+data. This package aims to make communicating with the OSM API intuitive.
+
+It's a definite work in progress - but currently does just what I need.

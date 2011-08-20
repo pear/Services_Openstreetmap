@@ -1,0 +1,40 @@
+HTTP/1.1 200 OK
+Date: Mon, 25 Apr 2011 18:49:15 GMT
+Server: Apache/2.2.14 (Ubuntu)
+X-Powered-By: Phusion Passenger (mod_rails/mod_rack) 3.0.7
+X-Runtime: 101
+Cache-Control: private, max-age=0, must-revalidate
+Set-Cookie: _osm_session=266d070bf2aec57be015763788ade89e; path=/; HttpOnly
+Last-Modified: Sun, 29 Aug 2010 13:34:26 GMT
+Content-Length: 1282
+Status: 200
+Vary: Accept-Encoding
+Keep-Alive: timeout=15, max=100
+Connection: Keep-Alive
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <relation id="1152802" visible="true" timestamp="2010-08-29T13:34:26Z" version="1" changeset="5625799" user="kenguest" uid="11324">
+    <member type="way" ref="75077203" role="house"/>
+    <member type="way" ref="75077206" role="house"/>
+    <member type="way" ref="75077217" role="house"/>
+    <member type="way" ref="75077185" role="house"/>
+    <member type="way" ref="75077193" role="house"/>
+    <member type="way" ref="75077199" role="house"/>
+    <member type="way" ref="75077210" role="house"/>
+    <member type="way" ref="75077213" role="house"/>
+    <member type="way" ref="75077187" role="house"/>
+    <member type="way" ref="75077188" role="house"/>
+    <member type="way" ref="75077200" role="house"/>
+    <member type="way" ref="75077204" role="house"/>
+    <member type="way" ref="75077216" role="house"/>
+    <member type="way" ref="75077219" role="house"/>
+    <member type="way" ref="75077190" role="house"/>
+    <member type="way" ref="75077195" role="house"/>
+    <member type="way" ref="75077208" role="house"/>
+    <member type="way" ref="75077212" role="house"/>
+    <tag k="name" v="Mitchell Street"/>
+    <tag k="type" v="associatedStreet"/>
+  </relation>
+</osm>

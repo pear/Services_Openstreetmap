@@ -1,0 +1,27 @@
+HTTP/1.1 200 OK
+Date: Mon, 25 Apr 2011 13:58:17 GMT
+Server: Apache/2.2.14 (Ubuntu)
+X-Powered-By: Phusion Passenger (mod_rails/mod_rack) 3.0.7
+ETag: "1bdab42a76bdbcfb7464e852f67fe4fc"
+X-Runtime: 6
+Cache-Control: private, max-age=0, must-revalidate
+Set-Cookie: _osm_session=1493a0304d710d5f920a503ccb770e29; path=/; HttpOnly
+Content-Length: 324
+Status: 200
+Vary: Accept-Encoding
+Keep-Alive: timeout=15, max=100
+Connection: Keep-Alive
+Content-Type: text/xml; charset=utf-8
+Length: 324 [text/xml]
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <api>
+    <version minimum="0.5" maximum="0.6"/>
+    <area maximum="0.25"/>
+    <tracepoints per_page="5000"/>
+    <waynodes maximum="2000"/>
+    <changesets maximum_elements="50000"/>
+    <timeout seconds="300"/>
+  </api>
+</osm>

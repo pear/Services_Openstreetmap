@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Date: Mon, 25 Apr 2011 18:55:45 GMT
+Server: Apache/2.2.14 (Ubuntu)
+X-Powered-By: Phusion Passenger (mod_rails/mod_rack) 3.0.7
+ETag: "221419144358f041f735b50b89b5f591"
+X-Runtime: 39
+Cache-Control: private, max-age=0, must-revalidate
+Set-Cookie: _osm_session=8be0a9613d57cbe2b710c9b85abf1b97; path=/; HttpOnly
+Content-Length: 442
+Status: 200
+Vary: Accept-Encoding
+Keep-Alive: timeout=15, max=100
+Connection: Keep-Alive
+Content-Type: text/xml; charset=utf-8
+
+<osm version="0.6" generator="OpenStreetMap server">
+  <changeset id="5625799" user="kenguest" uid="11324" created_at="2010-08-29T13:34:04Z" closed_at="2010-08-29T13:34:29Z" open="false" min_lon="-8.2008232" min_lat="52.8627727" max_lon="-8.1995919" max_lat="52.8635989">
+    <tag k="comment" v="IE. Nenagh. Mitchell Street POIs"/>
+    <tag k="created_by" v="JOSM/1.5 (3376 en)"/>
+  </changeset>
+</osm>

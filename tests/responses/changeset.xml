@@ -1,0 +1,23 @@
+HTTP/1.1 200 OK
+Date: Mon, 25 Apr 2011 14:39:35 GMT
+Server: Apache/2.2.14 (Ubuntu)
+X-Powered-By: Phusion Passenger (mod_rails/mod_rack) 3.0.7
+ETag: "42c819c49eb2cb4740a0b5208dd8cdd8"
+X-Runtime: 38
+Cache-Control: private, max-age=0, must-revalidate
+Set-Cookie: _osm_session=72f7ded2cbf68e8b3feb372f7f521ce1; path=/; HttpOnly
+Content-Length: 492
+Status: 200
+Vary: Accept-Encoding
+Keep-Alive: timeout=15, max=100
+Connection: Keep-Alive
+Content-Type: text/xml; charset=utf-8
+Length: 492 [text/xml]
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <changeset id="2217466" user="kenguest" uid="11324" created_at="2009-08-20T22:31:06Z" closed_at="2009-08-20T22:31:08Z" open="false" min_lon="-8.2205445" min_lat="52.857758" max_lon="-8.2055278" max_lat="52.8634333">
+    <tag k="comment" v="added rough &quot;Deliveries Only&quot; driveway into Careys Glass + estimated size of land used."/>
+    <tag k="created_by" v="JOSM"/>
+  </changeset>
+</osm>
