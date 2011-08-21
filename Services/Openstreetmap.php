@@ -166,6 +166,24 @@ class Services_Openstreetmap
         return $this->config[$name];
     }
 
+
+    /**
+     * Convert a 'bbox' ordered set of coordinates to ordering required for get
+     * method.
+     *
+     * @param mixed $minLat
+     * @param mixed $minLon
+     * @param mixed $maxLat
+     * @param mixed $maxLon
+     *
+     * @access public
+     * @return array
+     */
+    function bboxToMinMax($minLat, $minLon, $maxLat, $maxLon)
+    {
+        return array($minLon, $minLat, $maxLon, $maxLat);
+    }
+
     /**
      * get XML describing area prescribed by the given co-ordinates.
      *

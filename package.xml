@@ -14,7 +14,7 @@
   <active>yes</active>
  </lead>
  <date>2011-08-21</date>
- <time>11:04:36</time>
+ <time>21:53:06</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -196,6 +196,12 @@ Initial release
     <file name="osm.osm" role="doc">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
+    <file name="p1.osm" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="pinevalley.osm" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
     <file name="_osm.osm" role="doc">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
@@ -260,12 +266,6 @@ Initial release
     </file>
    </dir> <!-- /tests -->
    <file name="builddocs.sh" role="data">
-    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-   </file>
-   <file name="package.xml.orig" role="data">
-    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-   </file>
-   <file name="packagegen.xml" role="data">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
    </file>
    <file name="README" role="data">

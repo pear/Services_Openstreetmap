@@ -32,6 +32,7 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
     /**
      * isClosed
      *
+     * @todo   Implement this - determine if the way is closed.
      * @access public
      * @return void
      */
@@ -58,6 +59,7 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
     /**
      * addNode
      *
+     * @todo   Add node to way.
      * @access public
      * @return void
      */
@@ -68,6 +70,7 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
     /**
      * removeNode
      *
+     * @todo   Remove node from way.
      * @access public
      * @return void
      */

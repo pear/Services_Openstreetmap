@@ -48,11 +48,21 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
 
     /**
      * role
-     *
+     * @todo return role attribute of relation
      * @access public
-     * @return void
+     * @return string
      */
     function role()
+    {
+    }
+
+    /**
+     * addRole
+     * @todo add role attribute of relation
+     * @access public
+     * @return string
+     */
+    function addRole()
     {
     }
 
@@ -69,6 +79,7 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
     /**
      * removeNode
      *
+     * @todo   remove node from relation
      * @access public
      * @return void
      */

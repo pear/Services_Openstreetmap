@@ -23,16 +23,18 @@ require_once 'PHPUnit/Framework/TestCase.php';
 
 class OSMTest extends PHPUnit_Framework_TestCase
 {
-    public function testConfig() {
+    public function testConfig()
+    {
         $osm = new Services_Openstreetmap();
-        $this->assertEquals($osm->getConfig(),
-                array (
-                    'server' => 'http://www.openstreetmap.org/',
-                    'api_version' => '0.6',
-                    'User-Agent' => 'Services_Openstreetmap',
-                    'adapter' => 'HTTP_Request2_Adapter_Socket',
-                    )
-                );
+        $this->assertEquals(
+            $osm->getConfig(),
+            array (
+                'server' => 'http://www.openstreetmap.org/',
+                'api_version' => '0.6',
+                'User-Agent' => 'Services_Openstreetmap',
+                'adapter' => 'HTTP_Request2_Adapter_Socket',
+            )
+        );
         $this->assertEquals('0.6', $osm->getConfig('api_version'));
         $osm->setConfig('User-Agent', 'Acme 1.2');
         $this->assertEquals($osm->getConfig('User-Agent'), 'Acme 1.2');
@@ -41,17 +43,26 @@ class OSMTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test unknown config detection
+     *
      * @expectedException Services_Openstreetmap_Exception
      * @expectedExceptionMessage Unknown config parameter 'api'
+     *
+     * @return void
      */
     public function testConfig2()
     {
         $osm = new Services_Openstreetmap();
         $osm->setConfig('api', '0.5');
     }
+
     /**
+     * Test unknown config detection
+     *
      * @expectedException Services_Openstreetmap_Exception
      * @expectedExceptionMessage Unknown config parameter 'api'
+     *
+     * @return void
      */
     public function testConfig3()
     {
@@ -59,7 +70,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $osm->getConfig('api');
     }
 
-    public function testCapabilities() {
+    public function testCapabilities()
+    {
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
 
@@ -68,7 +80,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($osm->getTimeout(), 300);
     }
 
-    public function testCapabilities2() {
+    public function testCapabilities2()
+    {
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen('./responses/capabilities2.xml', 'rb'));
 
@@ -145,8 +158,13 @@ class OSMTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test that the getHistory method detects that it's been passed
+     * an unsupported element type.
+     *
      * @expectedException Services_Openstreetmap_Exception
      * @expectedExceptionMessage Invalid Element Type
+     *
+     * @return void
      */
     public function testGetHistoryUnsupportedElement()
     {
@@ -183,6 +201,22 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($changeset_id, $changeset->id());
         $tags = $changeset->tags();
         $this->assertEquals($tags['comment'], 'IE. Nenagh. Mitchell Street POIs');
+    }
+
+    public function testBboxToMinMax()
+    {
+        $osm = new Services_Openstreetmap();
+        $this->assertEquals(
+            $osm->bboxToMinMax(
+                "0.0327873", "52.260074599999996",
+                "0.0767326", "52.282047299999995"
+            ),
+            array(
+                "52.260074599999996", "0.0327873",
+                "52.282047299999995", "0.0767326",
+            )
+        );
+
     }
 }
 // vim:set et ts=4 sw=4:
