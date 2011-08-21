@@ -106,6 +106,8 @@ class Services_Openstreetmap
      * </ul>
      *
      * @param mixed $config array containing config settings
+     * @param mixed $value  config value if $config is not an array
+     * @throws Services_Openstreetmap_Exception If the parameter is unknown
      *
      * @access public
      * @return void
@@ -143,6 +145,15 @@ class Services_Openstreetmap
         }
     }
 
+    /**
+     * getConfig
+     *
+     * @param string $name name. optional.
+     *
+     * @return mixed  value of $name parameter, array of all configuration
+     *                parameters if $name is not given
+     * @throws Services_Openstreetmap_Exception If the parameter is unknown
+     */
     public function getConfig($name = null)
     {
         if ($name === null) {
@@ -150,7 +161,6 @@ class Services_Openstreetmap
         } elseif (!array_key_exists($name, $this->config)) {
             throw new Services_Openstreetmap_Exception(
                 "Unknown config parameter '$name'"
-
             );
         }
         return $this->config[$name];
@@ -289,6 +299,7 @@ class Services_Openstreetmap
      *
      * @access public
      * @return string
+     * @throws Services_Openstreetmap_Exception If the element type is unknown
      */
     function getHistory($type, $id)
     {
@@ -311,6 +322,9 @@ class Services_Openstreetmap
      *
      * @access public
      * @return HTTP_Request2_Response
+     * @throws  Services_Openstreetmap_Exception If something unexpected has
+     *                                           happened while conversing with
+     *                                           the server.
      */
     function getResponse($url)
     {
@@ -327,16 +341,16 @@ class Services_Openstreetmap
         $status = 0;
         try {
             $response = $request->send();
-            $status = $response->getStatus();
-            if (200 == $status) {
+            $code = $response->getStatus();
+            if (200 == $code) {
                 return $response;
             } else {
                 $eMsg = 'Unexpected HTTP status: '
-                    . $status . ' '
+                    . $code . ' '
                     . $response->getReasonPhrase();
             }
         } catch (HTTP_Request2_Exception $e) {
-            throw new Services_Openstreetmap_Exception($e->getMessage(), $status, $e);
+            throw new Services_Openstreetmap_Exception($e->getMessage(), $code, $e);
         }
         if ($eMsg != null) {
             throw new Services_Openstreetmap_Exception($eMsg);
@@ -470,6 +484,8 @@ class Services_Openstreetmap
      * @see timeout
      *
      * @return void
+     * @throws   Services_Openstreetmap_Exception If the API Version is not
+     *                                            supported.
      */
     private function _checkCapabilities($capabilities)
     {

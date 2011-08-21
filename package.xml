@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
  <name>Services_Openstreetmap</name>
- <uri>.</uri>
+ <channel>pear.php.net</channel>
  <summary>Openstreetmap Services</summary>
  <description>Provide an interface to the Openstreetmap services.</description>
  <lead>
@@ -10,8 +13,8 @@
   <email>kguest@php.net</email>
   <active>yes</active>
  </lead>
- <date>2010-08-20</date>
- <time>23:52:02</time>
+ <date>2011-08-21</date>
+ <time>11:04:36</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -20,41 +23,260 @@
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
+ <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
  <notes>
- OpenStreetMap is a global project with an aim of collaboratively collecting
- map data. This package aims to make communicating with the OSM API intuitive.
+Initial release
  </notes>
  <contents>
-  <dir baseinstalldir="Services" name="/">
-   <file baseinstalldir="Services" md5sum="d606c6744bd8758d5a0de6b79bcab750" name="examples/example1_savetolocalfile.php" role="doc" />
-   <file baseinstalldir="Services" md5sum="e061cf00aab7ea30306ef211cf677d81" name="examples/example2_loadandparselocaldata.php" role="doc" />
-   <file baseinstalldir="Services" md5sum="873271ee39618a7bd9cc0820f5d22447" name="examples/example3_genericdemo.php" role="doc" />
-   <file baseinstalldir="Services" md5sum="f938b502dba33dca6b22af369ef4f1c6" name="examples/example4_getchangeset.php" role="doc" />
-   <file baseinstalldir="" md5sum="cb7d2bbf11b910462be986c21be0b8c8" name="Services/Openstreetmap.php" role="php" />
-   <file baseinstalldir="" md5sum="27cab229065ee0a2cb9d326300a42258" name="Services/Openstreetmap/Changeset.php" role="php" />
-   <file baseinstalldir="" md5sum="27cab229065ee0a2cb9d326300a42258" name="Services/Openstreetmap/Exception.php" role="php" />
-   <file baseinstalldir="" md5sum="27cab229065ee0a2cb9d326300a42258" name="Services/Openstreetmap/Object.php" role="php" />
-   <file baseinstalldir="" md5sum="27cab229065ee0a2cb9d326300a42258" name="Services/Openstreetmap/Relation.php" role="php" />
-   <file baseinstalldir="" md5sum="27cab229065ee0a2cb9d326300a42258" name="Services/Openstreetmap/Node.php" role="php" />
-   <file baseinstalldir="" md5sum="27cab229065ee0a2cb9d326300a42258" name="Services/Openstreetmap/Way.php" role="php" />
-  <dir name="tests">
-	<file name="responses/node_history.xml" role="test" />
-	<file name="responses/node.xml" role="test" />
-	<file name="responses/changeset.xml" role="test" />
-	<file name="responses/way.xml" role="test" />
-	<file name="responses/node.osm" role="test" />
-	<file name="responses/capabilities.xml" role="test" />
-	<file name="responses/relation_changeset.xml" role="test" />
-	<file name="responses/relation.xml" role="test" />
-	<file name="OSMTest.php" role="test" />
-  </dir>
-  </dir>
+  <dir baseinstalldir="/" name="/">
+   <dir name="docs">
+    <dir name="Changeset">
+     <file name="Services_OpenStreetMap_Changeset.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="_OpenStreetMap---Changeset.php.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+    </dir> <!-- /docs/Changeset -->
+    <dir name="media">
+     <file name="banner.css" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="stylesheet.css" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+    </dir> <!-- /docs/media -->
+    <dir name="Node">
+     <file name="Services_OpenStreetMap_Node.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="_OpenStreetMap---Node.php.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+    </dir> <!-- /docs/Node -->
+    <dir name="Object">
+     <file name="Services_OpenStreetMap_Object.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="_OpenStreetMap---Object.php.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+    </dir> <!-- /docs/Object -->
+    <dir name="Relation">
+     <file name="Services_OpenStreetMap_Relation.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="_OpenStreetMap---Relation.php.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+    </dir> <!-- /docs/Relation -->
+    <dir name="Services_OpenStreetMap">
+     <file name="Services_OpenStreetMap.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="Services_OpenStreetMap_Exception.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="_OpenStreetMap---Exception.php.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="_OpenStreetMap.php.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+    </dir> <!-- /docs/Services_OpenStreetMap -->
+    <dir name="Way">
+     <file name="Services_OpenStreetMap_Way.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="_OpenStreetMap---Way.php.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+    </dir> <!-- /docs/Way -->
+    <file name="blank.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="classtrees_Changeset.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="classtrees_Node.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="classtrees_Object.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="classtrees_Relation.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="classtrees_Services_OpenStreetMap.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="classtrees_Way.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="elementindex.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="elementindex_Changeset.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="elementindex_Node.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="elementindex_Object.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="elementindex_Relation.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="elementindex_Services_OpenStreetMap.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="elementindex_Way.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="errors.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="index.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="li_Changeset.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="li_Node.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="li_Object.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="li_Relation.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="li_Services_OpenStreetMap.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="li_Way.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="packages.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="todolist.html" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+   </dir> <!-- /docs -->
+   <dir name="examples">
+    <file name="cahir.osm" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="example1_cahir.php" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="example1_savetolocalfile.php" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="example2_loadandparselocaldata.php" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="example3_genericdemo.php" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="example4_getchangeset.php" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="example5_history.php" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="homelands.osm" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="osm.o.osm" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="osm.osm" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="_osm.osm" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+   </dir> <!-- /examples -->
+   <dir name="Services">
+    <dir name="Openstreetmap">
+     <file name="Changeset.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="Exception.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="Node.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="Object.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="Relation.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="Way.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+    </dir> <!-- /Services/Openstreetmap -->
+    <file name="Openstreetmap.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+   </dir> <!-- /Services -->
+   <dir name="tests">
+    <dir name="responses">
+     <file name="capabilities.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="capabilities2.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="changeset.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="node.osm" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="node.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="node_history.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="relation.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="relation_changeset.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="way.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+    </dir> <!-- /tests/responses -->
+    <file name="OSMTest.php" role="test">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+   </dir> <!-- /tests -->
+   <file name="builddocs.sh" role="data">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file name="package.xml.orig" role="data">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file name="packagegen.xml" role="data">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file name="README" role="data">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+  </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
    <php>
-    <min>5</min>
+    <min>5.2.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -77,11 +299,10 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-05-29</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
+   <date>2011-08-21</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
    <notes>
- OpenStreetMap is a global project with an aim of collaboratively collecting
- map data. This package aims to make communicating with the OSM API intuitive.
+Initial release
    </notes>
   </release>
  </changelog>
