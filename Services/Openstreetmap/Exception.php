@@ -13,11 +13,6 @@
  */
 
 /**
- * Extending PEAR_Exception
- */
-require_once 'PEAR/Exception.php';
-
-/**
  * Exception thrown by Services_Openstreetmap
  *
  * @category  Services
@@ -28,7 +23,7 @@ require_once 'PEAR/Exception.php';
  * @version   Release: 0.0.1
  * @link      http://pear.php.net/package/Services_Openstreetmap
  */
-class Services_Openstreetmap_Exception extends PEAR_Exception
+class Services_Openstreetmap_Exception extends Exception
 {
 }
 // vim:set et ts=4 sw=4:

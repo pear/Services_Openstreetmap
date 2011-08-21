@@ -23,13 +23,49 @@ require_once 'PHPUnit/Framework/TestCase.php';
 
 class OSMTest extends PHPUnit_Framework_TestCase
 {
+    public function testConfig() {
+        $osm = new Services_Openstreetmap();
+        $this->assertEquals($osm->getConfig(),
+                array (
+                    'server' => 'http://www.openstreetmap.org/',
+                    'api_version' => '0.6',
+                    'User-Agent' => 'Services_Openstreetmap',
+                    'adapter' => 'HTTP_Request2_Adapter_Socket',
+                    )
+                );
+        $this->assertEquals('0.6', $osm->getConfig('api_version'));
+        $osm->setConfig('User-Agent', 'Acme 1.2');
+        $this->assertEquals($osm->getConfig('User-Agent'), 'Acme 1.2');
+        $osm->setConfig('api_version', '0.5');
+        $this->assertEquals($osm->getConfig('api_version'), '0.5');
+    }
+
+    /**
+     * @expectedException Services_Openstreetmap_Exception
+     * @expectedExceptionMessage Unknown config parameter 'api'
+     */
+    public function testConfig2()
+    {
+        $osm = new Services_Openstreetmap();
+        $osm->setConfig('api', '0.5');
+    }
+    /**
+     * @expectedException Services_Openstreetmap_Exception
+     * @expectedExceptionMessage Unknown config parameter 'api'
+     */
+    public function testConfig3()
+    {
+        $osm = new Services_Openstreetmap();
+        $osm->getConfig('api');
+    }
+
     public function testCapabilities() {
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
 
         $config = array('adapter' => $mock);
         $osm = new Services_Openstreetmap($config);
-        $this->assertEquals($osm->timeout(), 300);
+        $this->assertEquals($osm->getTimeout(), 300);
     }
 
     public function testCapabilities2() {
@@ -38,8 +74,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
 
         $config = array('adapter' => $mock);
         $osm = new Services_Openstreetmap($config);
-        $this->assertEquals($osm->minVersion(), "0.5");
-        $this->assertEquals($osm->maxVersion(), "0.6");
+        $this->assertEquals($osm->getMinVersion(), "0.5");
+        $this->assertEquals($osm->getMaxVersion(), "0.6");
     }
 
     public function testGetChangeset()
@@ -109,7 +145,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     *@expectedException Services_Openstreetmap_Exception
+     * @expectedException Services_Openstreetmap_Exception
+     * @expectedExceptionMessage Invalid Element Type
      */
     public function testGetHistoryUnsupportedElement()
     {

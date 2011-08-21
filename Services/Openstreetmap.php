@@ -110,7 +110,7 @@ class Services_Openstreetmap
      * @access public
      * @return void
      */
-    function setConfig($config)
+    function setConfig($config, $value = null)
     {
         $server_set = false;
         if (is_array($config)) {
@@ -127,13 +127,34 @@ class Services_Openstreetmap
                     $this->config[$key] = $value;
                 }
             }
+        } else {
+            if (!array_key_exists($config, $this->config)) {
+                throw new Services_Openstreetmap_Exception(
+                    "Unknown config parameter '$config'"
+                );
+            }
+            $this->config[$config] = $value;
+            if ($config == 'server') {
+                $server_set = true;
+            }
         }
-        if ($server_set == false) {
+        if (!$server_set) {
             $this->setServer($this->server);
-
         }
     }
 
+    public function getConfig($name = null)
+    {
+        if ($name === null) {
+            return $this->config;
+        } elseif (!array_key_exists($name, $this->config)) {
+            throw new Services_Openstreetmap_Exception(
+                "Unknown config parameter '$name'"
+
+            );
+        }
+        return $this->config[$name];
+    }
 
     /**
      * get XML describing area prescribed by the given co-ordinates.
@@ -303,17 +324,19 @@ class Services_Openstreetmap
         );
 
         $request->setHeader('User-Agent', $this->config['User-Agent']);
+        $status = 0;
         try {
             $response = $request->send();
-            if (200 == $response->getStatus()) {
+            $status = $response->getStatus();
+            if (200 == $status) {
                 return $response;
             } else {
                 $eMsg = 'Unexpected HTTP status: '
-                    . $response->getStatus() . ' '
+                    . $status . ' '
                     . $response->getReasonPhrase();
             }
         } catch (HTTP_Request2_Exception $e) {
-            throw new Services_Openstreetmap_Exception($e->getMessage(), $e);
+            throw new Services_Openstreetmap_Exception($e->getMessage(), $status, $e);
         }
         if ($eMsg != null) {
             throw new Services_Openstreetmap_Exception($eMsg);
@@ -411,7 +434,7 @@ class Services_Openstreetmap
      *
      * @return int
      */
-    public function timeout()
+    public function getTimeout()
     {
         return $this->timeout;
     }
@@ -421,7 +444,7 @@ class Services_Openstreetmap
      *
      * @return float
      */
-    public function minVersion()
+    public function getMinVersion()
     {
         return $this->minVersion;
     }
@@ -431,7 +454,7 @@ class Services_Openstreetmap
      *
      * @return float
      */
-    public function maxVersion()
+    public function getMaxVersion()
     {
         return $this->maxVersion;
     }
