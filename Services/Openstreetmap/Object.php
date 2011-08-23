@@ -9,6 +9,7 @@
  * @package  Services_Openstreemap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
+ * @version  Release: @package_version@
  * @link     Object.php
  */
 
@@ -59,17 +60,47 @@ class Services_Openstreetmap_Object
      *
      * @return string id of the object
      */
-    public function id()
+    public function getId()
     {
-        return (string) $this->attributes()->id;
+        return (integer) $this->getAttributes()->id;
     }
 
     /**
-     * attributes
+     * Retrieve the uid of the object in question
      *
-     * @return string attributes
+     * @return string uid of the object
      */
-    public function attributes()
+    public function getUid()
+    {
+        return (integer) $this->getAttributes()->uid;
+    }
+
+    /**
+     * Retrieve the user (creator/editor) of the object in question
+     *
+     * @return string user of the object
+     */
+    public function getUser()
+    {
+        return (string) $this->getAttributes()->user;
+    }
+
+    /**
+     * Retrieve the version of the object in question
+     *
+     * @return string version of the object
+     */
+    public function getVersion()
+    {
+        return (integer) $this->getAttributes()->version;
+    }
+
+    /**
+     * getAttributes()
+     *
+     * @return string getAttributes()
+     */
+    public function getAttributes()
     {
         return $this->obj[0]->attributes();
     }
@@ -79,7 +110,7 @@ class Services_Openstreetmap_Object
      *
      * @return string tags
      */
-    public function tags()
+    public function getTags()
     {
         return $this->tags;
     }
@@ -89,7 +120,7 @@ class Services_Openstreetmap_Object
      *
      * @return void
      */
-    public function history()
+    public function getHistory()
     {
         echo "type: ", $this->type, "\n";
         echo "id: ", $this->id(), "\n";

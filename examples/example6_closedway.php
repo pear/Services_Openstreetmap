@@ -1,16 +1,16 @@
 <?php
 /**
- * example4_getchangeset.php
- * 22-Nov-2009
+ * example6_closedway.php
+ * 21-Aug-2011
  *
  * PHP Version 5
  *
- * @category Services
- * @package  Services_Openstreetmap
- * @author   Ken Guest <kguest@php.net>
- * @license  BSD http://www.opensource.org/licenses/bsd-license.php
+ * @category example6_closedway
+ * @package  example6_closedway
+ * @author   Ken Guest <ken.guest@blacknight.com>
+ * @license  GPL (see http://www.gnu.org/licenses/gpl.txt)
  * @version  Release: @package_version@
- * @link     osmx.php
+ * @link     example6_closedway.php
  * @todo
 */
 
@@ -20,14 +20,14 @@ if (strstr($version, 'package_version')) {
 }
 
 require_once 'Services/Openstreetmap.php';
-
+$id = 18197393;
 $osm = new Services_Openstreetmap();
 try {
-    var_dump($osm->getChangeset(2217466));
+    $w = $osm->getWay($id);
 }
 catch (Services_Openstreetmap_Exception $e) {
     var_dump($e);
 }
-
-// vim:set et ts=4 sw=4:
+$h = $w->isClosed();
+echo "Way $id is ", $h ? 'closed' : 'not closed', "\n";
 ?>

@@ -8,7 +8,7 @@
  * @package  Services_Openstreetmap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @version  SVN: $$
+ * @version  Release: @package_version@
  * @link     http://pear.php.net/package/Services_Openstreetmap
  * @link     http://wiki.openstreetmap.org/wiki/Api06
  */
@@ -248,7 +248,7 @@ class Services_Openstreetmap
      * @param mixed  $id      id of object to retrieve
      * @param mixed  $version version of object
      *
-     * @return void
+     * @return object
      */
     private function _getObject($type, $id, $version)
     {
@@ -356,7 +356,7 @@ class Services_Openstreetmap
         );
 
         $request->setHeader('User-Agent', $this->config['User-Agent']);
-        $status = 0;
+        $code = 0;
         try {
             $response = $request->send();
             $code = $response->getStatus();

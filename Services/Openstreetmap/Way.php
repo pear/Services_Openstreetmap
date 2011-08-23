@@ -9,7 +9,7 @@
  * @package  Services_Openstreemap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @version  CVS: <cvs_id>
+ * @version  Release: @package_version@
  * @link     Way.php
  * @todo
 */
@@ -32,20 +32,29 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
     /**
      * isClosed
      *
-     * @todo   Implement this - determine if the way is closed.
      * @access public
-     * @return void
+     * @return boolean
      */
     function isClosed()
     {
+        // Not closed if there's just one node.
+        // Otherwise a way is considered closed if the first node has
+        // the same id as the last.
+        $nodes = $this->getNodes();
+        if (sizeof($nodes) == 1) {
+            $closed = false;
+        } else {
+            $closed = ($nodes[0]) == ($nodes[count($nodes) - 1]);
+        }
+        return $closed;
     }
 
     /**
      * nodes
      *
-     * @return void
+     * @return array
      */
-    public function nodes()
+    public function getNodes()
     {
         $x = simplexml_load_string($this->xml);
         $o = $x->xpath('//nd');

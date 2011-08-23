@@ -9,6 +9,7 @@
  * @package  Services_Openstreemap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
+ * @version  Release: @package_version@
  * @link     Relation.php
  * @todo
 */
@@ -48,6 +49,7 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
 
     /**
      * role
+     *
      * @todo return role attribute of relation
      * @access public
      * @return string
@@ -58,6 +60,7 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
 
     /**
      * addRole
+     *
      * @todo add role attribute of relation
      * @access public
      * @return string

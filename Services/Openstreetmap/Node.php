@@ -9,6 +9,7 @@
  * @package  Services_Openstreemap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
+ * @version  Release: @package_version@
  * @link     Node.php
 */
 
@@ -30,9 +31,9 @@ class Services_Openstreetmap_Node extends Services_Openstreetmap_Object
      *
      * @return string
      */
-    public function lat()
+    public function getLat()
     {
-        return (string) $this->attributes()->lat;
+        return (float) $this->getAttributes()->lat;
     }
 
     /**
@@ -40,9 +41,9 @@ class Services_Openstreetmap_Node extends Services_Openstreetmap_Object
      *
      * @return string
      */
-    public function lon()
+    public function getLon()
     {
-        return (string) $this->attributes()->lon;
+        return (float) $this->getAttributes()->lon;
     }
 }
 // vim:set et ts=4 sw=4:

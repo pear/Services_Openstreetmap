@@ -9,8 +9,8 @@
  * @package  Services_Openstreemap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @version  CVS: <cvs_id>
- * @link     FooTest.php
+ * @version  Release: @package_version@
+ * @link     OSMTest.php
  * @todo
  */
 
@@ -23,53 +23,6 @@ require_once 'PHPUnit/Framework/TestCase.php';
 
 class OSMTest extends PHPUnit_Framework_TestCase
 {
-    public function testConfig()
-    {
-        $osm = new Services_Openstreetmap();
-        $this->assertEquals(
-            $osm->getConfig(),
-            array (
-                'server' => 'http://www.openstreetmap.org/',
-                'api_version' => '0.6',
-                'User-Agent' => 'Services_Openstreetmap',
-                'adapter' => 'HTTP_Request2_Adapter_Socket',
-            )
-        );
-        $this->assertEquals('0.6', $osm->getConfig('api_version'));
-        $osm->setConfig('User-Agent', 'Acme 1.2');
-        $this->assertEquals($osm->getConfig('User-Agent'), 'Acme 1.2');
-        $osm->setConfig('api_version', '0.5');
-        $this->assertEquals($osm->getConfig('api_version'), '0.5');
-    }
-
-    /**
-     * Test unknown config detection
-     *
-     * @expectedException Services_Openstreetmap_Exception
-     * @expectedExceptionMessage Unknown config parameter 'api'
-     *
-     * @return void
-     */
-    public function testConfig2()
-    {
-        $osm = new Services_Openstreetmap();
-        $osm->setConfig('api', '0.5');
-    }
-
-    /**
-     * Test unknown config detection
-     *
-     * @expectedException Services_Openstreetmap_Exception
-     * @expectedExceptionMessage Unknown config parameter 'api'
-     *
-     * @return void
-     */
-    public function testConfig3()
-    {
-        $osm = new Services_Openstreetmap();
-        $osm->getConfig('api');
-    }
-
     public function testCapabilities()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -102,7 +55,14 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $config = array('adapter' => $mock);
         $osm = new Services_Openstreetmap($config);
         $changeset = $osm->getChangeSet($cId);
-        $this->assertEquals($cId, (int) $changeset->id());
+        $this->assertEquals($cId, (int) $changeset->getId());
+        $this->assertEquals("2009-08-20T22:31:06Z", $changeset->getCreatedAt());
+        $this->assertEquals("2009-08-20T22:31:08Z", $changeset->getClosedAt());
+        $this->assertEquals(false, $changeset->isOpen());
+        $this->assertEquals("-8.2205445", $changeset->getMinLon());
+        $this->assertEquals("52.857758", $changeset->getMinLat());
+        $this->assertEquals("-8.2055278", $changeset->getMaxLon());
+        $this->assertEquals("52.8634333", $changeset->getMaxLat());
     }
 
     public function testGetNode()
@@ -116,12 +76,12 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $config = array('adapter' => $mock);
         $osm = new Services_Openstreetmap($config);
         $node = $osm->getNode($id);
-        $tags = $node->tags();
+        $getTags = $node->getTags();
 
-        $this->assertEquals($id, $node->id());
-        $this->assertEquals($tags['name'], 'Nenagh Bridge');
-        $this->assertEquals("52.881667", $node->lat());
-        $this->assertEquals("-8.195833", $node->lon());
+        $this->assertEquals($id, $node->getId());
+        $this->assertEquals($getTags['name'], 'Nenagh Bridge');
+        $this->assertEquals("52.881667", $node->getLat());
+        $this->assertEquals("-8.195833", $node->getLon());
     }
 
     public function testGetWay()
@@ -135,12 +95,31 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $config = array('adapter' => $mock);
         $osm = new Services_Openstreetmap($config);
         $way = $osm->getWay($id);
-        $tags = $way->tags();
-        $this->assertEquals($id, (int) $way->attributes()->id);
-        $this->assertEquals($tags['highway'], 'service');
-        $this->assertEquals($way->nodes(), array("283393706","283393707"));
+        $getTags = $way->getTags();
+        $this->assertEquals($id, (int) $way->getAttributes()->id);
+        $this->assertEquals($getTags['highway'], 'service');
+        $this->assertEquals($way->getUid(), 1379);
+        $this->assertEquals($way->getVersion(), 1);
+        $this->assertEquals($way->getUser(), "AndrewMcCarthy");
+        $this->assertEquals($way->getNodes(), array("283393706","283393707"));
     }
 
+    public function testGetClosedWay()
+    {
+        $id = 18197393;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen('./responses/way_closed.xml', 'rb'));
+
+        $config = array('adapter' => $mock);
+        $osm = new Services_Openstreetmap($config);
+        $way = $osm->getWay($id);
+        $getTags = $way->getTags();
+        $this->assertEquals($id, (int) $way->getAttributes()->id);
+        $this->assertEquals($getTags['building'], 'yes');
+        $this->assertTrue($way->isClosed());
+    }
     public function testGetHistory()
     {
         $id = 52245107;
@@ -190,17 +169,17 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $config = array('adapter' => $mock);
         $osm = new Services_Openstreetmap($config);
         $relation = $osm->getRelation($id);
-        $this->assertEquals($id, $relation->id());
-        $changeset_id = (int) $relation->attributes()->changeset;
-        $tags = $relation->tags();
-        $this->assertEquals($tags['name'], 'Mitchell Street');
-        $this->assertEquals($tags['type'], 'associatedStreet');
+        $this->assertEquals($id, $relation->getId());
+        $changeset_id = (int) $relation->getAttributes()->changeset;
+        $getTags = $relation->getTags();
+        $this->assertEquals($getTags['name'], 'Mitchell Street');
+        $this->assertEquals($getTags['type'], 'associatedStreet');
 
 
         $changeset = $osm->getChangeset($changeset_id);
-        $this->assertEquals($changeset_id, $changeset->id());
-        $tags = $changeset->tags();
-        $this->assertEquals($tags['comment'], 'IE. Nenagh. Mitchell Street POIs');
+        $this->assertEquals($changeset_id, $changeset->getId());
+        $getTags = $changeset->getTags();
+        $this->assertEquals($getTags['comment'], 'IE. Nenagh. Mitchell Street POIs');
     }
 
     public function testBboxToMinMax()

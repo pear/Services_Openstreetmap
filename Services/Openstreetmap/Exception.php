@@ -8,7 +8,7 @@
  * @package  Services_Openstreetmap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @version  SVN: $$
+ * @version  Release: @package_version@
  * @link     http://pear.php.net/package/Services_Openstreetmap
  */
 
