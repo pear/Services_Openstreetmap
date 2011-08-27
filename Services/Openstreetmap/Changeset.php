@@ -31,32 +31,62 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
         return (string) $this->getAttributes()->created_at;
     }
 
+    /**
+     * getClosedAt
+     *
+     * @return string
+     */
     public function getClosedAt()
     {
         return (string) $this->getAttributes()->closed_at;
     }
 
+    /**
+     * isOpen
+     *
+     * @return boolean
+     */
     public function isOpen()
     {
         return $this->getAttributes()->open == 'true';
     }
 
+    /**
+     * getMinLon
+     *
+     * @return float
+     */
     public function getMinLon()
     {
         return (float) $this->getAttributes()->min_lon;
     }
 
+    /**
+     * getMinLat
+     *
+     * @return float
+     */
     public function getMinLat()
     {
         return (float) $this->getAttributes()->min_lat;
     }
 
 
+    /**
+     * getMaxLon
+     *
+     * @return float
+     */
     public function getMaxLon()
     {
         return (float) $this->getAttributes()->max_lon;
     }
 
+    /**
+     * getMaxLat
+     *
+     * @return float
+     */
     public function getMaxLat()
     {
         return (float) $this->getAttributes()->max_lat;

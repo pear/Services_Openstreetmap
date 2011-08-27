@@ -33,6 +33,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
                 'api_version' => '0.6',
                 'User-Agent' => 'Services_Openstreetmap',
                 'adapter' => 'HTTP_Request2_Adapter_Socket',
+                'verbose' => false,
             )
         );
         $this->assertEquals('0.6', $osm->getConfig('api_version'));

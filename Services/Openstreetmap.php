@@ -61,10 +61,11 @@ class Services_Openstreetmap
      * @var array
      */
     protected $config = array(
-        'server'      => 'http://www.openstreetmap.org/',
-        'api_version' => '0.6',
-        'User-Agent'  => 'Services_Openstreetmap',
         'adapter'     => 'HTTP_Request2_Adapter_Socket',
+        'api_version' => '0.6',
+        'server'      => 'http://www.openstreetmap.org/',
+        'User-Agent'  => 'Services_Openstreetmap',
+        'verbose'     => false,
     );
 
     /**
@@ -349,6 +350,9 @@ class Services_Openstreetmap
         $response = null;
         $eMsg = null;
 
+        if ($this->config['verbose']) {
+            echo $url, "\n";
+        }
         $request = new HTTP_Request2(
             $url,
             HTTP_Request2::METHOD_GET,
@@ -409,8 +413,16 @@ class Services_Openstreetmap
      */
     function setServer($server)
     {
+        try {
+
+        $c = $this->getResponse($server . 'api/capabilities');
+        } catch (Exception $ex) {
+            throw new Services_Openstreetmap_Exception(
+                'Could not get a valid response from server',
+                $ex->getCode(),
+                $ex);
+        }
         $this->server = $server;
-        $c = $this->getResponse($server . '/api/capabilities');
         $capabilities = $c->getBody();
         $this->_checkCapabilities($capabilities);
     }

@@ -21,9 +21,15 @@ if (strstr($version, 'package_version')) {
 
 require_once 'Services/Openstreetmap.php';
 
-$osm = new Services_Openstreetmap();
+$osm = new Services_Openstreetmap(array('verbose' => true));
+var_dump ($osm->getConfig());
 
-$osm->setServer('http://apidev2.openstreetmap.ie/');
+try {
+    $osm->setServer('http://apidev2.openstreetmap.ie/');
+} catch (Exception $ex) {
+    var_dump ($ex->getMessage());
+    // Fall back to default server...so carry on.
+}
 
 $osm->get(
     52.84824191354071, -8.247245026639696,
