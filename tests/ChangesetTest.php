@@ -14,6 +14,11 @@
  * @todo
  */
 
+$version = '@package_version@';
+if (strstr($version, 'package_version')) {
+    set_include_path(dirname(dirname(__FILE__)) . ':' . get_include_path());
+}
+
 require_once 'Services/Openstreetmap.php';
 
 require_once 'HTTP/Request2.php';
@@ -72,6 +77,52 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $way->setTag('highway', 'residential');
         $way->setTag('lit', 'yes');
         $way2 = $osm->getWay($way2Id);
+        $way2->setTag('highway', 'residential');
+        $way2->setTag('lit', 'yes');
+        $this->assertEquals(false, $changeset->isOpen());
+        $changeset->begin("Undo accidental highway change from residential to service");
+        $changeset->add($way);
+        $changeset->add($way2);
+        $user = $changeset->getUser();
+        $this->assertEquals(true, $changeset->isOpen());
+        $changeset->commit();
+    }
+
+    /**
+     * Test that the same object can not be added to the same changeset.
+     *
+     * @expectedException Services_Openstreetmap_Exception
+     * @expectedExceptionMessage Object added to changeset already
+     *
+     * @return void
+     */
+    public function testSameObjectAddedToChangeset() {
+        $wayId = 30357328;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen('./responses/way_30357328.xml', 'rb'));
+        $mock->addResponse(fopen('./responses/way_30357328.xml', 'rb'));
+        $mock->addResponse(fopen('./responses/changeset_id', 'rb'));
+        $mock->addResponse(fopen('./responses/diff_30357328_30357329.xml', 'rb'));
+        $mock->addResponse(fopen('./responses/changeset_closed', 'rb'));
+
+        $config = array(
+            'adapter'  => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+            'passwordfile' => './credentials'
+        );
+        $osm = new Services_Openstreetmap($config);
+        try {
+            $changeset = $osm->createChangeset();
+        } catch (Services_Openstreetmap_Exception $e) {
+            echo  $e->getMessage();
+            return;
+        }
+        $way = $osm->getWay($wayId);
+        $way->setTag('highway', 'residential');
+        $way->setTag('lit', 'yes');
+        $way2 = $osm->getWay($wayId);
         $way2->setTag('highway', 'residential');
         $way2->setTag('lit', 'yes');
         $this->assertEquals(false, $changeset->isOpen());

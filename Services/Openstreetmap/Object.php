@@ -61,7 +61,7 @@ class Services_Openstreetmap_Object
     {
         $this->xml = $xml;
         $cxml = simplexml_load_string($xml);
-        $obj = $cxml->xpath('//' . $this->type);
+        $obj = $cxml->xpath('//' . $this->getType());
         foreach ($obj[0]->children() as $child) {
             $key = (string) $child->attributes()->k;
             if ($key != '') {
@@ -96,13 +96,14 @@ class Services_Openstreetmap_Object
             $domd = new DomDocument();
             $domd->loadXML($this->getXML());
             $xpath = new DomXPath($domd);
-            $nodelist = $xpath->query("//{$this->type}");
+            $type = $this->getType();
+            $nodelist = $xpath->query("//{$type}");
             $nodelist->item(0)->setAttribute("action", "modify");
 
             if ($this->changeset_id !== null) {
                 $nodelist->item(0)->setAttribute("changeset", $this->changeset_id);
             }
-            $tags = $xpath->query("//{$this->type}/tag");
+            $tags = $xpath->query("//{$type}/tag");
 
             $set = array();
             for ($i = 0; $i < $tags->length; $i++) {
@@ -221,6 +222,16 @@ class Services_Openstreetmap_Object
     }
 
     /**
+     * type
+     *
+     * @return string type
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * setTag
      *
      * @param mixed $key   key
@@ -260,7 +271,7 @@ class Services_Openstreetmap_Object
      */
     public function getHistory()
     {
-        echo "type: ", $this->type, "\n";
+        echo "type: ", $this->getType(), "\n";
         echo "id: ", $this->getId(), "\n";
     }
 

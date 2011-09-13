@@ -27,6 +27,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
     protected $type = 'changeset';
     protected $atomic = true;
     protected $members = array();
+    protected $members_ids = array();
     protected $open = false;
     protected $id = null;
 
@@ -101,11 +102,19 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
     {
         if ($this->open === false) {
             throw new Services_Openstreetmap_Exception(
-                "Object added to closed changeset."
+                "Object added to closed changeset"
             );
         }
         $object->setChangesetId($this->getId());
-        $this->members[] = $object;
+        $object_id = $object->getType() . $object->getId();
+        if (!in_array($object_id, $this->members_ids)) {
+            $this->members[] = $object;
+            $this->members_ids[] = $object_id;
+        } else {
+            throw new Services_Openstreetmap_Exception(
+                "Object added to changeset already"
+            );
+        }
     }
 
     /**
@@ -117,7 +126,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
     {
         if (!$this->open) {
             throw new Services_Openstreetmap_Exception(
-                "Attempt to commit a closed changeset."
+                "Attempt to commit a closed changeset"
             );
         }
 
