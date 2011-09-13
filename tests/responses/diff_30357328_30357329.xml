@@ -1,0 +1,18 @@
+HTTP/1.1 200 OK
+Date: Sat, 10 Sep 2011 23:47:40 GMT
+Server: Apache/2.2.14 (Ubuntu)
+X-Powered-By: Phusion Passenger (mod_rails/mod_rack) 3.0.9
+Etag: "712cc2a8316955d7203f0457beccffb9"
+X-Runtime: 453
+Cache-Control: private, max-age=0, must-revalidate
+Content-Encoding: gzip
+Content-Length: 157
+Status: 200
+Content-Type: text/xml; charset=utf-8
+Via: 1.1 soup.openstreetmap.org
+
+<?xml version="1.0" encoding="UTF-8"?>
+<diffResult version="0.6" generator="OpenStreetMap server">
+  <way old_id="30357328" new_id="30357328" new_version="5"/>
+  <way old_id="30357329" new_id="30357329" new_version="5"/>
+</diffResult>

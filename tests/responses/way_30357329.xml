@@ -1,0 +1,13 @@
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <way id="30357329" visible="true" timestamp="2011-09-10T23:47:41Z" version="5" changeset="9266905" user="kenguest" uid="11324">
+    <nd ref="334838545"/>
+    <nd ref="334838549"/>
+    <tag k="highway" v="service"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="Annbrook Heights"/>
+  </way>
+</osm>
+
