@@ -55,9 +55,9 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
 
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen('./responses/changeset_id', 'rb'));
         $mock->addResponse(fopen('./responses/way_30357328.xml', 'rb'));
         $mock->addResponse(fopen('./responses/way_30357329.xml', 'rb'));
-        $mock->addResponse(fopen('./responses/changeset_id', 'rb'));
         $mock->addResponse(fopen('./responses/diff_30357328_30357329.xml', 'rb'));
         $mock->addResponse(fopen('./responses/changeset_closed', 'rb'));
 
@@ -73,17 +73,14 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             echo  $e->getMessage();
             return;
         }
-        $way = $osm->getWay($wayId);
-        $way->setTag('highway', 'residential');
-        $way->setTag('lit', 'yes');
-        $way2 = $osm->getWay($way2Id);
-        $way2->setTag('highway', 'residential');
-        $way2->setTag('lit', 'yes');
         $this->assertEquals(false, $changeset->isOpen());
         $changeset->begin("Undo accidental highway change from residential to service");
-        $changeset->add($way);
-        $changeset->add($way2);
-        $user = $changeset->getUser();
+        $ways = $osm->getWays($wayId, $way2Id);
+        foreach ($ways as $way) {
+            $way->setTag('highway', 'residential');
+            $way->setTag('lit', 'yes');
+            $changeset->add($way);
+        }
         $this->assertEquals(true, $changeset->isOpen());
         $changeset->commit();
     }

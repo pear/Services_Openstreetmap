@@ -261,6 +261,70 @@ class Services_Openstreetmap
         return $this->_getObject('node', $nodeID, $version);
     }
 
+    public function getNodes()
+    {
+        $nodes = array();
+
+        $IDs = $this->_getIDs(func_get_args());
+
+        foreach ($IDs as $nodeID) {
+            if (is_numeric($nodeID)) {
+                $nodes[] = $this->_getObject('node', $nodeID);
+            }
+        }
+        return $nodes;
+    }
+
+    /**
+     * Set various properties to describe the capabilities that the connected
+     * server supports.
+     *
+     * @param mixed $capabilities XML describing the capabilities of the server
+     *
+     * @see maxVersion
+     * @see minVersion
+     * @see timeout
+     *
+     * @return void
+     * @throws   Services_Openstreetmap_Exception If the API Version is not
+     *                                            supported.
+     */
+    private function _checkCapabilities($capabilities)
+    {
+        $xml = simplexml_load_string($capabilities);
+        if ($xml === false) {
+            return;
+        }
+        $v = $xml->xpath('//version');
+        $this->minVersion = (float) $v[0]->attributes()->minimum;
+        $this->maxVersion = (float) $v[0]->attributes()->maximum;
+        if (($this->minVersion > $this->api_version
+            || $this->api_version > $this->maxVersion)
+        ) {
+            throw new Services_Openstreetmap_Exception(
+                'Specified API Version ' . $this->api_version .' not supported.'
+            );
+        }
+        $v = $xml->xpath('//timeout');
+        $this->timeout = (int) $v[0]->attributes()->seconds;
+        //changesets
+        //waynodes
+        //tracepoints
+        //max area
+    }
+
+    private function _getIDs($args)
+    {
+        $IDs = array();
+        foreach ($args as $arg) {
+            if (is_array($arg)) {
+                $IDs = array_merge($arg, $IDs);
+            } elseif (is_numeric($arg)) {
+                $IDs[] = $arg;
+            }
+        }
+        return array_unique($IDs);
+    }
 
     /**
      * _getObject
@@ -271,7 +335,7 @@ class Services_Openstreetmap
      *
      * @return object
      */
-    private function _getObject($type, $id, $version)
+    private function _getObject($type, $id, $version = null)
     {
         $url = $this->getConfig('server')
             . 'api/'
@@ -302,6 +366,20 @@ class Services_Openstreetmap
         return $this->_getObject('way', $wayID, $version);
     }
 
+    public function getWays()
+    {
+        $ways = array();
+
+        $IDs = $this->_getIDs(func_get_args());
+
+        foreach ($IDs as $wayID) {
+            if (is_numeric($wayID)) {
+                $ways[] = $this->_getObject('way', $wayID);
+            }
+        }
+        return $ways;
+    }
+
     /**
      * Get details of specified relation
      *
@@ -314,6 +392,20 @@ class Services_Openstreetmap
     function getRelation($relationID, $version = null)
     {
         return $this->_getObject('relation', $relationID, $version);
+    }
+
+    public function getRelations()
+    {
+        $relations = array();
+
+        $IDs = $this->_getIDs(func_get_args());
+
+        foreach ($IDs as $relationID) {
+            if (is_numeric($relationID)) {
+                $relations[] = $this->_getObject('relation', $relationID);
+            }
+        }
+        return $relations;
     }
 
     /**
@@ -608,44 +700,6 @@ class Services_Openstreetmap
     public function getMaxVersion()
     {
         return $this->maxVersion;
-    }
-
-    /**
-     * Set various properties to describe the capabilities that the connected
-     * server supports.
-     *
-     * @param mixed $capabilities XML describing the capabilities of the server
-     *
-     * @see maxVersion
-     * @see minVersion
-     * @see timeout
-     *
-     * @return void
-     * @throws   Services_Openstreetmap_Exception If the API Version is not
-     *                                            supported.
-     */
-    private function _checkCapabilities($capabilities)
-    {
-        $xml = simplexml_load_string($capabilities);
-        if ($xml === false) {
-            return;
-        }
-        $v = $xml->xpath('//version');
-        $this->minVersion = (float) $v[0]->attributes()->minimum;
-        $this->maxVersion = (float) $v[0]->attributes()->maximum;
-        if (($this->minVersion > $this->api_version
-            || $this->api_version > $this->maxVersion)
-        ) {
-            throw new Services_Openstreetmap_Exception(
-                'Specified API Version ' . $this->api_version .' not supported.'
-            );
-        }
-        $v = $xml->xpath('//timeout');
-        $this->timeout = (int) $v[0]->attributes()->seconds;
-        //changesets
-        //waynodes
-        //tracepoints
-        //max area
     }
 
     /**
