@@ -25,15 +25,32 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 {
     public function testConfig()
     {
-        $osm = new Services_Openstreetmap();
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
+
+        $config = array(
+            'api_version' => '0.6',
+            'adapter' => $mock,
+            'password' => null,
+            'passwordfile' => null,
+            'user' => null,
+            'verbose' => false,
+            'User-Agent' => 'Services_Openstreetmap',
+        );
+
+        $osm = new Services_Openstreetmap($config);
+
         $this->assertEquals(
             $osm->getConfig(),
             array (
-                'server' => 'http://www.openstreetmap.org/',
                 'api_version' => '0.6',
                 'User-Agent' => 'Services_Openstreetmap',
-                'adapter' => 'HTTP_Request2_Adapter_Socket',
+                'adapter' => $mock,
+                'server' => 'http://www.openstreetmap.org/',
                 'verbose' => false,
+                'user' => null,
+                'password' => null,
+                'passwordfile' => null,
             )
         );
         $this->assertEquals('0.6', $osm->getConfig('api_version'));
@@ -53,7 +70,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      */
     public function testConfig2()
     {
-        $osm = new Services_Openstreetmap();
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
+
+        $config = array('adapter' => $mock);
+        $osm = new Services_Openstreetmap($config);
+
         $osm->setConfig('api', '0.5');
     }
 
@@ -67,7 +89,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      */
     public function testConfig3()
     {
-        $osm = new Services_Openstreetmap();
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
+
+        $config = array('adapter' => $mock);
+        $osm = new Services_Openstreetmap($config);
+
         $osm->getConfig('api');
     }
 

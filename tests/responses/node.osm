@@ -1,3 +1,6 @@
+HTTP/1.1 200 OK
+Status: 200
+
 <?xml version="1.0" encoding="UTF-8"?>
 <osm version="0.6" generator="OpenStreetMap server">
   <node id="52245107" lat="52.881667" lon="-8.195833" version="2" changeset="312325" user="xybot" uid="70696" visible="true" timestamp="2009-04-07T19:16:12Z">

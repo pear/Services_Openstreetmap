@@ -14,6 +14,11 @@
  * @todo
  */
 
+$version = '@package_version@';
+if (strstr($version, 'package_version')) {
+    set_include_path(dirname(dirname(__FILE__)) . ':' . get_include_path());
+}
+
 require_once 'Services/Openstreetmap.php';
 
 require_once 'HTTP/Request2.php';
@@ -28,7 +33,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
 
-        $config = array('adapter' => $mock);
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/',
+        );
         $osm = new Services_Openstreetmap($config);
         $this->assertEquals($osm->getTimeout(), 300);
     }
@@ -38,32 +46,15 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen('./responses/capabilities2.xml', 'rb'));
 
-        $config = array('adapter' => $mock);
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/',
+        );
         $osm = new Services_Openstreetmap($config);
-        $this->assertEquals($osm->getMinVersion(), "0.5");
-        $this->assertEquals($osm->getMaxVersion(), "0.6");
+        $this->assertEquals($osm->getMinVersion(), 0.5);
+        $this->assertEquals($osm->getMaxVersion(), 0.6);
     }
 
-    public function testGetChangeset()
-    {
-        $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
-        $mock->addResponse(fopen('./responses/changeset.xml', 'rb'));
-
-        $cId = 2217466;
-
-        $config = array('adapter' => $mock);
-        $osm = new Services_Openstreetmap($config);
-        $changeset = $osm->getChangeSet($cId);
-        $this->assertEquals($cId, (int) $changeset->getId());
-        $this->assertEquals("2009-08-20T22:31:06Z", $changeset->getCreatedAt());
-        $this->assertEquals("2009-08-20T22:31:08Z", $changeset->getClosedAt());
-        $this->assertEquals(false, $changeset->isOpen());
-        $this->assertEquals("-8.2205445", $changeset->getMinLon());
-        $this->assertEquals("52.857758", $changeset->getMinLat());
-        $this->assertEquals("-8.2055278", $changeset->getMaxLon());
-        $this->assertEquals("52.8634333", $changeset->getMaxLat());
-    }
 
     public function testGetNode()
     {
@@ -73,7 +64,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen('./responses/node.xml', 'rb'));
 
-        $config = array('adapter' => $mock);
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org'
+        );
         $osm = new Services_Openstreetmap($config);
         $node = $osm->getNode($id);
         $getTags = $node->getTags();
@@ -92,7 +86,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen('./responses/way.xml', 'rb'));
 
-        $config = array('adapter' => $mock);
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org'
+        );
         $osm = new Services_Openstreetmap($config);
         $way = $osm->getWay($id);
         $getTags = $way->getTags();
@@ -112,7 +109,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen('./responses/way_closed.xml', 'rb'));
 
-        $config = array('adapter' => $mock);
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org'
+        );
         $osm = new Services_Openstreetmap($config);
         $way = $osm->getWay($id);
         $getTags = $way->getTags();
@@ -128,7 +128,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen('./responses/node_history.xml', 'rb'));
 
-        $config = array('adapter' => $mock);
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org'
+        );
         $osm = new Services_Openstreetmap($config);
         $history = $osm->getHistory('node', $id);
         $xml = simplexml_load_string($history);
@@ -166,7 +169,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen('./responses/relation.xml', 'rb'));
         $mock->addResponse(fopen('./responses/relation_changeset.xml', 'rb'));
 
-        $config = array('adapter' => $mock);
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org'
+        );
         $osm = new Services_Openstreetmap($config);
         $relation = $osm->getRelation($id);
         $this->assertEquals($id, $relation->getId());
@@ -174,7 +180,6 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $getTags = $relation->getTags();
         $this->assertEquals($getTags['name'], 'Mitchell Street');
         $this->assertEquals($getTags['type'], 'associatedStreet');
-
 
         $changeset = $osm->getChangeset($changeset_id);
         $this->assertEquals($changeset_id, $changeset->getId());
@@ -184,7 +189,11 @@ class OSMTest extends PHPUnit_Framework_TestCase
 
     public function testBboxToMinMax()
     {
-        $osm = new Services_Openstreetmap();
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
+
+        $config = array('adapter' => $mock);
+        $osm = new Services_Openstreetmap($config);
         $this->assertEquals(
             $osm->bboxToMinMax(
                 "0.0327873", "52.260074599999996",
@@ -197,6 +206,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
         );
 
     }
+
 }
 // vim:set et ts=4 sw=4:
 ?>

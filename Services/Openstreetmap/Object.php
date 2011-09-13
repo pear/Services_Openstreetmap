@@ -34,6 +34,22 @@ class Services_Openstreetmap_Object
 
     protected $obj = null;
 
+    protected $dirty = false;
+
+    protected $action = null;
+
+    protected $changeset_id = null;
+
+    /**
+     * getXml
+     *
+     * @return string
+     */
+    public function getXml()
+    {
+        return $this->xml;
+    }
+
     /**
      * setXml
      *
@@ -56,13 +72,83 @@ class Services_Openstreetmap_Object
     }
 
     /**
+     * set the Changeset Id for this object
+     *
+     * @param integer $id Changeset Id (numeric)
+     *
+     * @return void
+     */
+    public function setChangesetId($id)
+    {
+        $this->changeset_id = $id;
+    }
+
+    /**
+     * getOsmChangeXML
+     *
+     * @return void
+     */
+    public function getOsmChangeXML()
+    {
+        if ($this->dirty) {
+            $version = $this->getVersion();
+            $version++;
+            $domd = new DomDocument();
+            $domd->loadXML($this->getXML());
+            $xpath = new DomXPath($domd);
+            $nodelist = $xpath->query("//{$this->type}");
+            $nodelist->item(0)->setAttribute("action", "modify");
+
+            if ($this->changeset_id !== null) {
+                $nodelist->item(0)->setAttribute("changeset", $this->changeset_id);
+            }
+            $tags = $xpath->query("//{$this->type}/tag");
+
+            $set = array();
+            for ($i = 0; $i < $tags->length; $i++) {
+                $key = $tags->item($i)->getAttribute("k");
+                $val = $tags->item($i)->getAttribute("v");
+                $set[$key] = $val;
+            }
+
+            $diff = array_diff($this->getTags(), $set);
+
+            // Remove existing tags
+            for ($i = 0; $i < $tags->length; $i++) {
+                $rkey = $tags->item($i)->getAttribute("k");
+                if (isset($diff[$rkey])) {
+                    $nodelist->item(0)->removeChild($tags->item($i));
+                }
+            }
+
+            foreach ($diff as $key=>$value) {
+                $new = $domd->createElement("tag");
+                $new->setAttribute("k", $key);
+                $new->setAttribute("v", $value);
+                $nodelist->item(0)->appendChild($new);
+            }
+
+            $xml = $domd->saveXML($nodelist->item(0));
+            return "<{$this->action}>{$xml}</{$this->action}>";
+
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Retrieve the id of the object in question
      *
      * @return string id of the object
      */
     public function getId()
     {
-        return (integer) $this->getAttributes()->id;
+        $attribs = $this->getAttributes();
+        if ($attribs !== null) {
+            return (integer) $attribs->id;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -72,7 +158,12 @@ class Services_Openstreetmap_Object
      */
     public function getUid()
     {
-        return (integer) $this->getAttributes()->uid;
+        $attribs = $this->getAttributes();
+        if ($attribs !== null) {
+            return (integer) $attribs->uid;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -82,7 +173,12 @@ class Services_Openstreetmap_Object
      */
     public function getUser()
     {
-        return (string) $this->getAttributes()->user;
+        $attribs = $this->getAttributes();
+        if ($attribs !== null) {
+            return (string) $attribs->user;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -92,7 +188,12 @@ class Services_Openstreetmap_Object
      */
     public function getVersion()
     {
-        return (integer) $this->getAttributes()->version;
+        $attribs = $this->getAttributes();
+        if ($attribs !== null) {
+            return (integer) $attribs->version;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -102,6 +203,10 @@ class Services_Openstreetmap_Object
      */
     public function getAttributes()
     {
+
+        if ($this->obj[0] === null) {
+            return null;
+        }
         return $this->obj[0]->attributes();
     }
 
@@ -116,6 +221,39 @@ class Services_Openstreetmap_Object
     }
 
     /**
+     * setTag
+     *
+     * @param mixed $key   key
+     * @param mixed $value value
+     *
+     * @return void
+     */
+    public function setTag($key, $value)
+    {
+        if ($this->action == null) {
+            if ($this->getId() < 0) {
+                $this->action = 'create';
+            } else {
+                $this->action = 'modify';
+            }
+        }
+        $this->dirty = true;
+        $this->tags[$key] = $value;
+        return $this;
+    }
+
+    /**
+     * delete
+     *
+     * @return void
+     */
+    public function delete()
+    {
+        $this->action = 'delete';
+        return $this;
+    }
+
+    /**
      * Display type and id of the object.
      *
      * @return void
@@ -123,7 +261,7 @@ class Services_Openstreetmap_Object
     public function getHistory()
     {
         echo "type: ", $this->type, "\n";
-        echo "id: ", $this->id(), "\n";
+        echo "id: ", $this->getId(), "\n";
     }
 
 }
