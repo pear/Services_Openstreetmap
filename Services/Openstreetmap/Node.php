@@ -27,7 +27,7 @@ class Services_Openstreetmap_Node extends Services_Openstreetmap_Object
     protected $type = 'node';
 
     /**
-     * Latitude of note
+     * Latitude of node
      *
      * @return string
      */
