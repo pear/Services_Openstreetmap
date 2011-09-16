@@ -9,8 +9,8 @@
  * @package  Services_Openstreetmap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @version  CVS: <cvs_id>
- * @link     osmx.php
+ * @version  Release: @package_version@
+ * @link     example5_history.php
  * @todo
 */
 

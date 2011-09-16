@@ -7,8 +7,8 @@
  *
  * @category example6_closedway
  * @package  example6_closedway
- * @author   Ken Guest <ken.guest@blacknight.com>
- * @license  GPL (see http://www.gnu.org/licenses/gpl.txt)
+ * @author   Ken Guest <kguest@php.net>
+ * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
  * @link     example6_closedway.php
  * @todo
