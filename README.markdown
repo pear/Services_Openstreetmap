@@ -52,3 +52,22 @@ Simply require and initialize the Services_Openstreetmap class:
 
     Getting specific changesets, ways etc follow the same pattern.
 
+
+### Updating a way, or several.
+    require_once 'Services/Openstreetmap.php';
+
+    // A password file, is a colon delimited file.
+    // Eg. fred@example.com:yabbadabbado
+    $config = array('passwordfile' => './credentials');
+    $osm = new Services_Openstreetmap();
+
+    $changeset = $osm->createChangeset();
+    $changeset->begin("These ways are lit");
+    $ways = $osm->getWays($wayId, $way2Id);
+    foreach ($ways as $way) {
+        $way->setTag('highway', 'residential');
+        $way->setTag('lit', 'yes');
+        $changeset->add($way);
+    }
+    $changeset->commit();
+
