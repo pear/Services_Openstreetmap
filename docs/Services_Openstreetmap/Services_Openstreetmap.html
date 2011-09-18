@@ -1,0 +1,1162 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Services_Openstreetmap</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class Services_Openstreetmap</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Services_Openstreetmap - interface with Openstreetmap</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Ken Guest &lt;<a href="mailto:kguest@php.net">kguest@php.net</a>&gt;</li>
+				<li><span class="field">version:</span> Release: 0.0.1</li>
+				<li><span class="field">copyright:</span> 2010 Ken Guest</li>
+				<li><span class="field">link:</span> <a href="http://pear.php.net/package/Services_Openstreetmap">http://pear.php.net/package/Services_Openstreetmap</a></li>
+				<li><span class="field">license:</span> BSD</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_Openstreetmap.php.html">/Openstreetmap.php</a> (line <span class="field">35</span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																																																																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$api_version" title="details" class="var-name">$api_version</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$config" title="details" class="var-name">$config</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$elements" title="details" class="var-name">$elements</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">float</span>
+					<a href="#$maxVersion" title="details" class="var-name">$maxVersion</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">float</span>
+					<a href="#$minVersion" title="details" class="var-name">$minVersion</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$server" title="details" class="var-name">$server</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">integer</span>
+					<a href="#$timeout" title="details" class="var-name">$timeout</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$xml" title="details" class="var-name">$xml</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																																																				
+												<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											([<span class="var-type">array</span>&nbsp;<span class="var-name">$config</span> = <span class="var-default">array()</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#bboxToMinMax" title="details" class="method-name">bboxToMinMax</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$minLat</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$minLon</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$maxLat</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$maxLon</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../Services_Openstreetmap/Services_Openstreetmap_Changeset.html">Services_Openstreetmap_Changeset</a></span>
+										<a href="#createChangeset" title="details" class="method-name">createChangeset</a>
+											([<span class="var-type">boolean</span>&nbsp;<span class="var-name">$atomic</span> = <span class="var-default">true</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#get" title="details" class="method-name">get</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$minLon</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$minLat</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$maxLon</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$maxLat</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getChangeset" title="details" class="method-name">getChangeset</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$id</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$version</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#getConfig" title="details" class="method-name">getConfig</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getCoordsOfPlace" title="details" class="method-name">getCoordsOfPlace</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$place</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getHistory" title="details" class="method-name">getHistory</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$id</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">float</span>
+										<a href="#getMaxVersion" title="details" class="method-name">getMaxVersion</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">float</span>
+										<a href="#getMinVersion" title="details" class="method-name">getMinVersion</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getNode" title="details" class="method-name">getNode</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$nodeID</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$version</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getNodes" title="details" class="method-name">getNodes</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getRelation" title="details" class="method-name">getRelation</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$relationID</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$version</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getRelations" title="details" class="method-name">getRelations</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">HTTP_Request2_Response</span>
+										<a href="#getResponse" title="details" class="method-name">getResponse</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$url</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$method</span> = <span class="var-default">HTTP_Request2::METHOD_GET</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$user</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$password</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$body</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$post_data</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$headers</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getTimeout" title="details" class="method-name">getTimeout</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getWay" title="details" class="method-name">getWay</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$wayID</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$version</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getWays" title="details" class="method-name">getWays</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getXML" title="details" class="method-name">getXML</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#loadXML" title="details" class="method-name">loadXML</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$file</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#search" title="details" class="method-name">search</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$criteria</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setConfig" title="details" class="method-name">setConfig</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$config</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setPasswordfile" title="details" class="method-name">setPasswordfile</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$file</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setServer" title="details" class="method-name">setServer</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$server</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="var$api_version" id="$api_version"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$api_version</span>
+			 = <span class="var-default"> '0.6'</span>			(line <span class="line-number">47</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Version of the API which communications will be over</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$config" id="$config"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$config</span>
+			 = <span class="var-default">array(<br />        'adapter'      =&gt; 'HTTP_Request2_Adapter_Socket',<br />        'api_version'  =&gt; '0.6',<br />        'password'     =&gt; null,<br />        'passwordfile' =&gt; null,<br />        'server'       =&gt; 'http://www.openstreetmap.org/',<br />        'User-Agent'   =&gt; 'Services_Openstreetmap',<br />        'user'         =&gt; null,<br />        'verbose'      =&gt; false,<br />    )</span>			(line <span class="line-number">71</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Default config settings</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$elements" id="$elements"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$elements</span>
+			 = <span class="var-default">array('node', 'way', 'relation')</span>			(line <span class="line-number">92</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Supported elements</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$maxVersion" id="$maxVersion"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">float</span>
+			<span class="var-name">$maxVersion</span>
+			 = <span class="var-default"> null</span>			(line <span class="line-number">59</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Maximum version of the API that is supported.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$minVersion" id="$minVersion"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">float</span>
+			<span class="var-name">$minVersion</span>
+			 = <span class="var-default"> null</span>			(line <span class="line-number">53</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Minimum version of the API that is supported.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$server" id="$server"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$server</span>
+			 = <span class="var-default"> 'http://www.openstreetmap.org/'</span>			(line <span class="line-number">41</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">server to connect to</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$timeout" id="$timeout"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">integer</span>
+			<span class="var-name">$timeout</span>
+			 = <span class="var-default"> null</span>			(line <span class="line-number">65</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">timeout</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$xml" id="$xml"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$xml</span>
+			 = <span class="var-default"> null</span>			(line <span class="line-number">86</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">[Retrieved] XML</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">102</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">constructor; which optionally sets config details.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			__construct
+		</span>
+					([<span class="var-type">array</span>&nbsp;<span class="var-name">$config</span> = <span class="var-default">array()</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$config</span><span class="var-description">: Defaults to empty array if none provided</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodbboxToMinMax" id="bboxToMinMax"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">bboxToMinMax</span> (line <span class="line-number">203</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Convert a 'bbox' ordered set of coordinates to ordering required for get  method.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			bboxToMinMax
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$minLat</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$minLon</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$maxLat</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$maxLon</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$minLat</span><span class="var-description">: min Latitude</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$minLon</span><span class="var-description">: min Longitude</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$maxLat</span><span class="var-description">: max Latitude</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$maxLon</span><span class="var-description">: max Longitude</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcreateChangeset" id="createChangeset"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">createChangeset</span> (line <span class="line-number">730</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">createChangeset</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../Services_Openstreetmap/Services_Openstreetmap_Changeset.html">Services_Openstreetmap_Changeset</a></span>
+		<span class="method-name">
+			createChangeset
+		</span>
+					([<span class="var-type">boolean</span>&nbsp;<span class="var-name">$atomic</span> = <span class="var-default">true</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$atomic</span><span class="var-description">: atomic changeset?</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodget" id="get"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">get</span> (line <span class="line-number">220</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">get XML describing area prescribed by the given co-ordinates.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			get
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$minLon</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$minLat</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$maxLon</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$maxLat</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$minLon</span><span class="var-description">: min Longitude (leftmost point)</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$minLat</span><span class="var-description">: min Latitude (bottom point)</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$maxLon</span><span class="var-description">: max Longitude (rightmost point)</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$maxLat</span><span class="var-description">: max Latitude (top point)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetChangeset" id="getChangeset"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getChangeset</span> (line <span class="line-number">433</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get details of specified changeset</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getChangeset
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$id</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$version</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$id</span><span class="var-description">: numeric ID of changeset</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$version</span><span class="var-description">: optional</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetConfig" id="getConfig"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getConfig</span> (line <span class="line-number">178</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">getConfig</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> value of $name parameter, array of all configuration                 parameters if $name is not given</li>
+				<li><span class="field">throws:</span> Services_Openstreetmap_Exception If the parameter is unknown</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			getConfig
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: name. optional.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetCoordsOfPlace" id="getCoordsOfPlace"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getCoordsOfPlace</span> (line <span class="line-number">238</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get co-ordinates of some named place</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getCoordsOfPlace
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$place</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$place</span><span class="var-description">: name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetHistory" id="getHistory"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getHistory</span> (line <span class="line-number">448</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Retrieve all versions of a specified element</p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> Services_Openstreetmap_Exception If the element type is unknown</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getHistory
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$id</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$type</span><span class="var-description">: Any one of the supported element types</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$id</span><span class="var-description">: numeric Id of element</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetMaxVersion" id="getMaxVersion"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getMaxVersion</span> (line <span class="line-number">718</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">maxVersion - max API version supported by connected server.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">float</span>
+		<span class="method-name">
+			getMaxVersion
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetMinVersion" id="getMinVersion"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getMinVersion</span> (line <span class="line-number">708</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">minVersion - min API version supported by connected server.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">float</span>
+		<span class="method-name">
+			getMinVersion
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetNode" id="getNode"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getNode</span> (line <span class="line-number">259</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get details of specified node</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getNode
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$nodeID</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$version</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$nodeID</span><span class="var-description">: nodeID</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$version</span><span class="var-description">: [optional] version of node</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetNodes" id="getNodes"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getNodes</span> (line <span class="line-number">264</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getNodes
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetRelation" id="getRelation"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getRelation</span> (line <span class="line-number">405</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get details of specified relation</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getRelation
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$relationID</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$version</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$relationID</span><span class="var-description">: ID of relation</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$version</span><span class="var-description">: [optional] version of relation</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetRelations" id="getRelations"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getRelations</span> (line <span class="line-number">410</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getRelations
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetResponse" id="getResponse"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getResponse</span> (line <span class="line-number">479</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Send request to OSM server and return the response.</p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> Services_Openstreetmap_Exception If something unexpected has                                            happened while conversing with                                            the server.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">HTTP_Request2_Response</span>
+		<span class="method-name">
+			getResponse
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$url</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$method</span> = <span class="var-default">HTTP_Request2::METHOD_GET</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$user</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$password</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$body</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$post_data</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$headers</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$url</span><span class="var-description">: URL</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$method</span><span class="var-description">: GET (default)/POST/PUT</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$user</span><span class="var-description">: user (optional for read-only actions)</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$password</span><span class="var-description">: password (optional for read-only actions)</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$body</span><span class="var-description">: body (optional)</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$post_data</span><span class="var-description">: (optional)</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$headers</span><span class="var-description">: (optional)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetTimeout" id="getTimeout"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getTimeout</span> (line <span class="line-number">698</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Number of seconds</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getTimeout
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetWay" id="getWay"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getWay</span> (line <span class="line-number">377</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get details of specified way</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getWay
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$wayID</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$version</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$wayID</span><span class="var-description">: wayID</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$version</span><span class="var-description">: [optional] version of way</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetWays" id="getWays"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getWays</span> (line <span class="line-number">382</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getWays
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetXML" id="getXML"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getXML</span> (line <span class="line-number">570</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">return XML</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getXML
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodloadXML" id="loadXML"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">loadXML</span> (line <span class="line-number">559</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Load XML from [cache] file</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			loadXML
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$file</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$file</span><span class="var-description">: filename</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsearch" id="search"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">search</span> (line <span class="line-number">655</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">search based on given criteria</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			search
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$criteria</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$criteria</span><span class="var-description">: what to search for</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetConfig" id="setConfig"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setConfig</span> (line <span class="line-number">133</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">set configuration</p>
+<p class="description"><p>The following parameters are available:  <ul><li>'adapter'      - adapter to use (string)</li><li>'api_version'  - Version of API to communicate via (string)</li><li>'password'     - password (string, optional)</li><li>'passwordfile' - passwordfile (string, optional)</li><li>'server'       - server to connect to (string)</li><li>'User-Agent'   - User-Agent (string)</li><li>'user'         - user (string, optional)</li><li>'verbose'      - verbose (boolean, optional)</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> Services_Openstreetmap_Exception If the parameter is unknown</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setConfig
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$config</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$config</span><span class="var-description">: array containing config settings</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$value</span><span class="var-description">: config value if $config is not an array</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetPasswordfile" id="setPasswordfile"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setPasswordfile</span> (line <span class="line-number">585</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse passwordfile, setting username and password as specified in the  file</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setPasswordfile
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$file</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$file</span><span class="var-description">: file containing credentials</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetServer" id="setServer"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setServer</span> (line <span class="line-number">631</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Connect to specified server.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setServer
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$server</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$server</span><span class="var-description">: base server details</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Sun, 18 Sep 2011 15:24:05 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

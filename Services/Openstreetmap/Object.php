@@ -6,7 +6,7 @@
  * PHP Version 5
  *
  * @category Services
- * @package  Services_Openstreemap
+ * @package  Services_Openstreetmap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
@@ -17,7 +17,7 @@
  * Services_Openstreetmap_Object
  *
  * @category Services
- * @package  Services_Openstreemap
+ * @package  Services_Openstreetmap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     Object.php
@@ -90,13 +90,13 @@ class Services_Openstreetmap_Object
      */
     public function getOsmChangeXML()
     {
+        $type = $this->getType();
         if ($this->dirty) {
             $version = $this->getVersion();
             $version++;
             $domd = new DomDocument();
             $domd->loadXML($this->getXML());
             $xpath = new DomXPath($domd);
-            $type = $this->getType();
             $nodelist = $xpath->query("//{$type}");
             $nodelist->item(0)->setAttribute("action", "modify");
 
@@ -132,6 +132,20 @@ class Services_Openstreetmap_Object
             $xml = $domd->saveXML($nodelist->item(0));
             return "<{$this->action}>{$xml}</{$this->action}>";
 
+        } elseif ($this->action == 'delete') {
+            $xml = null;
+            $domd = new DomDocument();
+            $domd->loadXML($this->getXML());
+            $xpath = new DomXPath($domd);
+            $n = $xpath->query("//{$type}");
+            $version = $this->getVersion();
+            $version++;
+            if ($this->changeset_id !== null) {
+                $n->item(0)->setAttribute("changeset", $this->changeset_id);
+            }
+            $n->item(0)->setAttribute('action', 'delete');
+            $xml = $domd->saveXML($n->item(0));
+            return "<delete>{$xml}</delete>";
         } else {
             return null;
         }

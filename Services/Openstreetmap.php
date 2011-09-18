@@ -329,6 +329,8 @@ class Services_Openstreetmap
     /**
      * _getObject
      *
+     * Returns false if the object is not found
+     *
      * @param string $type    object type
      * @param mixed  $id      id of object to retrieve
      * @param mixed  $version version of object
@@ -345,7 +347,18 @@ class Services_Openstreetmap
         if ($version !== null) {
             $url .= "/$version";
         }
-        $r = $this->getResponse($url);
+        try {
+            $r = $this->getResponse($url);
+        } catch (Services_Openstreetmap_Exception $ex) {
+            $code = $ex->getCode();
+            if (404 == $code) {
+                return false;
+            } elseif (410 == $code) {
+                return false;
+            } else {
+                throw $ex;
+            }
+        }
         $class =  "Services_Openstreetmap_" . ucfirst(strtolower($type));
         $obj = new $class();
         $obj->setXml($r->getBody());
@@ -506,6 +519,11 @@ class Services_Openstreetmap
         try {
             $response = $request->send();
             $code = $response->getStatus();
+
+        if ($this->getConfig('verbose')) {
+            var_dump ($response->getHeader());
+            var_dump ($response->getBody());
+        }
             if (200 == $code) {
                 return $response;
             } else {
@@ -526,7 +544,7 @@ class Services_Openstreetmap
             );
         }
         if ($eMsg != null) {
-            throw new Services_Openstreetmap_Exception($eMsg);
+            throw new Services_Openstreetmap_Exception($eMsg, $code);
         }
     }
 

@@ -6,7 +6,7 @@
  * PHP Version 5
  *
  * @category Services
- * @package  Services_Openstreemap
+ * @package  Services_Openstreetmap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
@@ -17,7 +17,7 @@
  * Services_Openstreetmap_Node
  *
  * @category Services
- * @package  Services_Openstreemap
+ * @package  Services_Openstreetmap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     Node.php

@@ -6,7 +6,7 @@
  * PHP Version 5
  *
  * @category Services
- * @package  Services_Openstreemap
+ * @package  Services_Openstreetmap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
@@ -126,9 +126,41 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $changeset->begin("Undo accidental highway change from residential to service");
         $changeset->add($way);
         $changeset->add($way2);
-        $user = $changeset->getUser();
         $this->assertEquals(true, $changeset->isOpen());
         $changeset->commit();
+    }
+
+    public function testDeleteNode() {
+        $nodeID = 1436433375;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen('./responses/node_1436433375.xml', 'rb'));
+        $mock->addResponse(fopen('./responses/changeset_id', 'rb'));
+        $mock->addResponse(fopen('./responses/diff_1436433375_deleted.xml', 'rb'));
+        $mock->addResponse(fopen('./responses/changeset_closed', 'rb'));
+        $mock->addResponse(fopen('./responses/410', 'rb'));
+
+        $config = array(
+            'adapter'  => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+            'passwordfile' => './credentials',
+        );
+        $osm = new Services_Openstreetmap($config);
+        try {
+            $changeset = $osm->createChangeset();
+        } catch (Services_Openstreetmap_Exception $e) {
+            echo  $e->getMessage();
+            return;
+        }
+        $node = $osm->getNode($nodeID);
+        $this->assertTrue($node != false);
+        $changeset->begin("Delete unrequired node.");
+        $changeset->add($node->delete());
+        $this->assertEquals(true, $changeset->isOpen());
+        $changeset->commit();
+        $node = $osm->getNode($nodeID);
+        $this->assertFalse($node);
     }
 }
 // vim:set et ts=4 sw=4:

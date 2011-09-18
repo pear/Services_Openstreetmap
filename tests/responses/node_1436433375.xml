@@ -1,0 +1,6 @@
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <node id="1436433375" lat="52.8638729" lon="-8.1983611" version="1" changeset="9332543" user="kenguest" uid="11324" visible="true" timestamp="2011-09-18T12:53:22Z"/>
+</osm>
