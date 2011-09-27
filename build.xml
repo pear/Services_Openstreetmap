@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- build xml -->
+
+<project name="services_openstreetmap" default="main">
+    <fileset dir="tests" id="tests" includes="**/*.php"/>
+    <fileset dir="Services" id="Services" includes="**/*.php"/>
+
+    <target name="main" depends="test,phpcs,docs"/>
+
+    <target name="docs" description="Generate Documentation">
+        <phpdoc title="Services_Openstreetmap" output="HTML:Smarty:PHP" destdir="docs" sourcecode="yes">
+            <fileset refid="Services"/>
+        </phpdoc>
+    </target>
+
+    <target name="phpcs" description="coding standards">
+        <phpcodesniffer standard="PEAR" haltonerror="yes"> 
+            <fileset refid="Services"/>
+        </phpcodesniffer>
+    </target>
+
+    <target name="lint" description="Check syntax">
+        <phplint>
+            <fileset refid="Services"/>
+            <fileset refid="tests"/>
+        </phplint>
+    </target>
+
+    <target name="test" description="run unit tests" depends="lint">
+        <coverage-setup database="./coverage.db">
+            <fileset dir="tests" includes="**/*.php"/>
+            <fileset dir="Services" includes="**/*.php"/>
+        </coverage-setup>
+        <phpunit printsummary="yes" codecoverage="yes">
+            <formatter type="plain" usefile="no"/>
+            <batchtest>
+                <fileset refid="tests"/>
+            </batchtest>
+        </phpunit>
+        <coverage-report outfile="coverage.xml">
+            <report todir="tests/coverage" usesorttable="yes" styledir="/usr/share/php/data/phing/etc"/>
+        </coverage-report>
+    </target>
+
+</project>

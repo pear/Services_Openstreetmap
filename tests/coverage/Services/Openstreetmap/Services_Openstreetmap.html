@@ -1,0 +1,4006 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<LINK REL="stylesheet" TYPE="text/css" TITLE="Style" href="../../stylesheet.css">
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="bannercell" rowspan="2"><a href="http://www.phing.info/"><img src="http://www.phing.info/images/phing.gif" alt="http://www.phing.info/" align="left" border="0"></a></td>
+<td style="text-align:right"><h2>Source Code Coverage</h2></td>
+</tr>
+<tr><td style="text-align:right">Designed for use with <a href="http://www.phpunit.de">PHPUnit</a>, <a href="http://www.xdebug.org/">Xdebug</a> and <a href="http://www.phing.info/">Phing</a>.</td></tr>
+</table>
+<hr size="1">
+<table class="log" cellpadding="5" cellspacing="0" width="100%"><tr class="a">
+<td class="small">Methods: 28</td>
+<td class="small">LOC: 791</td>
+<td class="small">Statements: 255</td>
+</tr></table>
+<table class="log" cellpadding="5" cellspacing="0" width="100%"><tbody><tr>
+<td class="legendItem" width="0%">Legend:</td>
+<td class="legendValue" width="100%">
+<span class="legendCovered">executed</span><span class="legendUncovered">not executed</span><span class="legendDeadCode">dead code</span>
+</td>
+</tr></tbody></table>
+<table class="log" cellpadding="5" cellspacing="0" width="100%">
+<tr>
+<th width="100%">Source file</th>
+<th>Statements</th>
+<th>Methods</th>
+<th width="250" colspan="2" nowrap>Total coverage</th>
+</tr>
+<tr class="a">
+<td>Openstreetmap.php</td>
+<td>59.2%</td>
+<td>46.4%</td>
+<td>58.0%</td>
+<td><table cellspacing="0" cellpadding="0" border="0" width="100%" style="display: inline"><tr>
+<td class="covered" width="116" height="12"> </td>
+<td class="uncovered" width="84" height="12"> </td>
+</tr></table></td>
+</tr>
+</table>
+<table cellspacing="0" cellpadding="0" width="100%">
+<tr>
+<td class="lineCount">1</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">&lt;?php</pre></td>
+</tr>
+<tr>
+<td class="lineCount">2</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">/**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">3</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * Provide a method of interfacing with Openstreetmap servers.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">4</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">5</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * PHP Version 5</pre></td>
+</tr>
+<tr>
+<td class="lineCount">6</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">7</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * @category Services</pre></td>
+</tr>
+<tr>
+<td class="lineCount">8</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * @package  Services_Openstreetmap</pre></td>
+</tr>
+<tr>
+<td class="lineCount">9</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * @author   Ken Guest &lt;kguest@php.net&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">10</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * @license  BSD http://www.opensource.org/licenses/bsd-license.php</pre></td>
+</tr>
+<tr>
+<td class="lineCount">11</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * @version  Release: @package_version@</pre></td>
+</tr>
+<tr>
+<td class="lineCount">12</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * @link     http://pear.php.net/package/Services_Openstreetmap</pre></td>
+</tr>
+<tr>
+<td class="lineCount">13</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * @link     http://wiki.openstreetmap.org/wiki/Api06</pre></td>
+</tr>
+<tr>
+<td class="lineCount">14</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">15</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">16</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">require_once 'HTTP/Request2.php';</pre></td>
+</tr>
+<tr>
+<td class="lineCount">17</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">require_once 'Services/Openstreetmap/Object.php';</pre></td>
+</tr>
+<tr>
+<td class="lineCount">18</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">require_once 'Services/Openstreetmap/Relation.php';</pre></td>
+</tr>
+<tr>
+<td class="lineCount">19</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">require_once 'Services/Openstreetmap/Changeset.php';</pre></td>
+</tr>
+<tr>
+<td class="lineCount">20</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">require_once 'Services/Openstreetmap/Node.php';</pre></td>
+</tr>
+<tr>
+<td class="lineCount">21</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">require_once 'Services/Openstreetmap/Way.php';</pre></td>
+</tr>
+<tr>
+<td class="lineCount">22</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">require_once 'Services/Openstreetmap/Exception.php';</pre></td>
+</tr>
+<tr>
+<td class="lineCount">23</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">24</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">/**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">25</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * Services_Openstreetmap - interface with Openstreetmap</pre></td>
+</tr>
+<tr>
+<td class="lineCount">26</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">27</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * @category  Services</pre></td>
+</tr>
+<tr>
+<td class="lineCount">28</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * @package   Services_Openstreetmap</pre></td>
+</tr>
+<tr>
+<td class="lineCount">29</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * @author    Ken Guest &lt;kguest@php.net&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">30</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * @copyright 2010 Ken Guest</pre></td>
+</tr>
+<tr>
+<td class="lineCount">31</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * @license   BSD http://www.opensource.org/licenses/bsd-license.php</pre></td>
+</tr>
+<tr>
+<td class="lineCount">32</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * @version   Release: 0.0.1</pre></td>
+</tr>
+<tr>
+<td class="lineCount">33</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> * @link      http://pear.php.net/package/Services_Openstreetmap</pre></td>
+</tr>
+<tr>
+<td class="lineCount">34</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"> */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">35</td>
+<td class="coverageCount"></td>
+<td class="srcLineClassStart"><pre class="srcLine">class Services_Openstreetmap</pre></td>
+</tr>
+<tr>
+<td class="lineCount">36</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">{</pre></td>
+</tr>
+<tr>
+<td class="lineCount">37</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">38</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * server to connect to</pre></td>
+</tr>
+<tr>
+<td class="lineCount">39</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @var string</pre></td>
+</tr>
+<tr>
+<td class="lineCount">40</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">41</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    protected $server = 'http://www.openstreetmap.org/';</pre></td>
+</tr>
+<tr>
+<td class="lineCount">42</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">43</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">44</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Version of the API which communications will be over</pre></td>
+</tr>
+<tr>
+<td class="lineCount">45</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @var string</pre></td>
+</tr>
+<tr>
+<td class="lineCount">46</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">47</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    protected $api_version = '0.6';</pre></td>
+</tr>
+<tr>
+<td class="lineCount">48</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">49</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">50</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Minimum version of the API that is supported.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">51</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @var float</pre></td>
+</tr>
+<tr>
+<td class="lineCount">52</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">53</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    protected $minVersion = null;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">54</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">55</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">56</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Maximum version of the API that is supported.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">57</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @var float</pre></td>
+</tr>
+<tr>
+<td class="lineCount">58</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">59</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    protected $maxVersion = null;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">60</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">61</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">62</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * timeout</pre></td>
+</tr>
+<tr>
+<td class="lineCount">63</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @var integer</pre></td>
+</tr>
+<tr>
+<td class="lineCount">64</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">65</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    protected $timeout = null;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">66</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">67</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">68</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Default config settings</pre></td>
+</tr>
+<tr>
+<td class="lineCount">69</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @var array</pre></td>
+</tr>
+<tr>
+<td class="lineCount">70</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">71</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    protected $config = array(</pre></td>
+</tr>
+<tr>
+<td class="lineCount">72</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        'adapter'      =&gt; 'HTTP_Request2_Adapter_Socket',</pre></td>
+</tr>
+<tr>
+<td class="lineCount">73</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        'api_version'  =&gt; '0.6',</pre></td>
+</tr>
+<tr>
+<td class="lineCount">74</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        'password'     =&gt; null,</pre></td>
+</tr>
+<tr>
+<td class="lineCount">75</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        'passwordfile' =&gt; null,</pre></td>
+</tr>
+<tr>
+<td class="lineCount">76</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        'server'       =&gt; 'http://www.openstreetmap.org/',</pre></td>
+</tr>
+<tr>
+<td class="lineCount">77</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        'User-Agent'   =&gt; 'Services_Openstreetmap',</pre></td>
+</tr>
+<tr>
+<td class="lineCount">78</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        'user'         =&gt; null,</pre></td>
+</tr>
+<tr>
+<td class="lineCount">79</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        'verbose'      =&gt; false,</pre></td>
+</tr>
+<tr>
+<td class="lineCount">80</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    );</pre></td>
+</tr>
+<tr>
+<td class="lineCount">81</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">82</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">83</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * [Retrieved] XML</pre></td>
+</tr>
+<tr>
+<td class="lineCount">84</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @var string</pre></td>
+</tr>
+<tr>
+<td class="lineCount">85</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">86</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    protected $xml = null;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">87</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">88</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">89</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Supported elements</pre></td>
+</tr>
+<tr>
+<td class="lineCount">90</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @var array</pre></td>
+</tr>
+<tr>
+<td class="lineCount">91</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">92</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    protected $elements = array('node', 'way', 'relation');</pre></td>
+</tr>
+<tr>
+<td class="lineCount">93</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">94</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">95</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * constructor; which optionally sets config details.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">96</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">97</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param array $config Defaults to empty array if none provided</pre></td>
+</tr>
+<tr>
+<td class="lineCount">98</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">99</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access protected</pre></td>
+</tr>
+<tr>
+<td class="lineCount">100</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return void</pre></td>
+</tr>
+<tr>
+<td class="lineCount">101</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">102</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function __construct($config = array())</pre></td>
+</tr>
+<tr>
+<td class="lineCount">103</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">104</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if ($config == array()) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">105</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            $config = $this-&gt;config;</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">106</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">107</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $this-&gt;setConfig($config);</pre></td>
+</tr>
+<tr>
+<td class="lineCount">108</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">109</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">110</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">111</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * set configuration</pre></td>
+</tr>
+<tr>
+<td class="lineCount">112</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">113</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * The following parameters are available:</pre></td>
+</tr>
+<tr>
+<td class="lineCount">114</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * &lt;ul&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">115</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *  &lt;li&gt; 'adapter'      - adapter to use (string)&lt;/li&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">116</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *  &lt;li&gt; 'api_version'  - Version of API to communicate via (string)&lt;/li&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">117</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *  &lt;li&gt; 'password'     - password (string, optional)&lt;/li&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">118</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *  &lt;li&gt; 'passwordfile' - passwordfile (string, optional)&lt;/li&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">119</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *  &lt;li&gt; 'server'       - server to connect to (string)&lt;/li&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">120</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *  &lt;li&gt; 'User-Agent'   - User-Agent (string)&lt;/li&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">121</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *  &lt;li&gt; 'user'         - user (string, optional)&lt;/li&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">122</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *  &lt;li&gt; 'verbose'      - verbose (boolean, optional)&lt;/li&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">123</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * &lt;/ul&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">124</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">125</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed $config array containing config settings</pre></td>
+</tr>
+<tr>
+<td class="lineCount">126</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed $value  config value if $config is not an array</pre></td>
+</tr>
+<tr>
+<td class="lineCount">127</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">128</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @throws Services_Openstreetmap_Exception If the parameter is unknown</pre></td>
+</tr>
+<tr>
+<td class="lineCount">129</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">130</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">131</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return void</pre></td>
+</tr>
+<tr>
+<td class="lineCount">132</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">133</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function setConfig($config, $value = null)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">134</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">135</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if (is_array($config)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">136</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            if (isset($config['adapter'])) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">137</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                $this-&gt;config['adapter'] = $config['adapter'];</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">138</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">139</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            foreach ($config as $key=&gt;$value) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">140</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                if (!array_key_exists($key, $this-&gt;config)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">141</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                    throw new Services_Openstreetmap_Exception("Unknown config");</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">142</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">                }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">143</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">                switch($key) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">144</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                case 'server':</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">145</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                    $this-&gt;setServer($value);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">146</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                    break;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">147</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                case 'passwordfile':</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">148</td>
+<td class="lineCountCovered">8</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                    $this-&gt;setPasswordfile($value);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">149</td>
+<td class="lineCountCovered">8</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                    break;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">150</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                default:</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">151</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                    $this-&gt;config[$key] = $value;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">152</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">153</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">154</td>
+<td class="lineCountCovered">23</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        } else {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">155</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            if (!array_key_exists($config, $this-&gt;config)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">156</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                throw new Services_Openstreetmap_Exception(</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">157</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                    "Unknown config parameter '$config'"</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">158</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                );</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">159</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">160</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            $this-&gt;config[$config] = $value;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">161</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            if ($config == 'server') {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">162</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                $this-&gt;setServer($this-&gt;server);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">163</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            } elseif ($config == 'passwordfile') {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">164</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                $this-&gt;setPasswordfile($value);</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">165</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">166</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">167</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">168</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">169</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">170</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * getConfig</pre></td>
+</tr>
+<tr>
+<td class="lineCount">171</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">172</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $name name. optional.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">173</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">174</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return mixed  value of $name parameter, array of all configuration</pre></td>
+</tr>
+<tr>
+<td class="lineCount">175</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *                parameters if $name is not given</pre></td>
+</tr>
+<tr>
+<td class="lineCount">176</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @throws Services_Openstreetmap_Exception If the parameter is unknown</pre></td>
+</tr>
+<tr>
+<td class="lineCount">177</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">178</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    public function getConfig($name = null)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">179</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">180</td>
+<td class="lineCountCovered">20</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if ($name === null) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">181</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            return $this-&gt;config;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">182</td>
+<td class="lineCountCovered">20</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        } elseif (!array_key_exists($name, $this-&gt;config)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">183</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            throw new Services_Openstreetmap_Exception(</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">184</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                "Unknown config parameter '$name'"</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">185</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            );</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">186</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">187</td>
+<td class="lineCountCovered">19</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return $this-&gt;config[$name];</pre></td>
+</tr>
+<tr>
+<td class="lineCount">188</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">189</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">190</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">191</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">192</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Convert a 'bbox' ordered set of coordinates to ordering required for get</pre></td>
+</tr>
+<tr>
+<td class="lineCount">193</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * method.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">194</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">195</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed $minLat min Latitude</pre></td>
+</tr>
+<tr>
+<td class="lineCount">196</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed $minLon min Longitude</pre></td>
+</tr>
+<tr>
+<td class="lineCount">197</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed $maxLat max Latitude</pre></td>
+</tr>
+<tr>
+<td class="lineCount">198</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed $maxLon max Longitude</pre></td>
+</tr>
+<tr>
+<td class="lineCount">199</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">200</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">201</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return array</pre></td>
+</tr>
+<tr>
+<td class="lineCount">202</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">203</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function bboxToMinMax($minLat, $minLon, $maxLat, $maxLon)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">204</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">205</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return array($minLon, $minLat, $maxLon, $maxLat);</pre></td>
+</tr>
+<tr>
+<td class="lineCount">206</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">207</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">208</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">209</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * get XML describing area prescribed by the given co-ordinates.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">210</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">211</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $minLon min Longitude (leftmost point)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">212</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $minLat min Latitude (bottom point)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">213</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $maxLon max Longitude (rightmost point)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">214</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $maxLat max Latitude (top point)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">215</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">216</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">217</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return void</pre></td>
+</tr>
+<tr>
+<td class="lineCount">218</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">219</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">220</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function get($minLon, $minLat, $maxLon, $maxLat)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">221</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">222</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $url = $this-&gt;config['server'] .</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">223</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        "api/" .</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">224</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            $this-&gt;config['api_version'] .</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">225</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        "/map?bbox=$minLat,$minLon,$maxLat,$maxLon";</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">226</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $response = $this-&gt;getResponse($url);</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">227</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $this-&gt;xml = $response-&gt;getBody();</pre></td>
+</tr>
+<tr>
+<td class="lineCount">228</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">229</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">230</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">231</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Get co-ordinates of some named place</pre></td>
+</tr>
+<tr>
+<td class="lineCount">232</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">233</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $place name</pre></td>
+</tr>
+<tr>
+<td class="lineCount">234</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">235</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">236</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return array</pre></td>
+</tr>
+<tr>
+<td class="lineCount">237</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">238</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function getCoordsOfPlace($place)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">239</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCount">240</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        $url = 'http://gazetteer.openstreetmap.org/namefinder/search.xml?find='</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">241</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">             . urlencode($place) . '&amp;max=1';</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">242</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $response = $this-&gt;getResponse($url);</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">243</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $xml = simplexml_load_string($response-&gt;getBody());</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">244</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $attrs = $xml-&gt;named[0]-&gt;attributes();</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">245</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $lat = (string) $attrs['lat'];</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">246</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $lon = (string) $attrs['lon'];</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">247</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        return compact("lat", "lon");</pre></td>
+</tr>
+<tr>
+<td class="lineCount">248</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">249</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">250</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">251</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Get details of specified node</pre></td>
+</tr>
+<tr>
+<td class="lineCount">252</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">253</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $nodeID  nodeID</pre></td>
+</tr>
+<tr>
+<td class="lineCount">254</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed  $version [optional] version of node</pre></td>
+</tr>
+<tr>
+<td class="lineCount">255</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">256</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">257</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return string</pre></td>
+</tr>
+<tr>
+<td class="lineCount">258</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">259</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function getNode($nodeID, $version = null)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">260</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">261</td>
+<td class="lineCountCovered">5</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return $this-&gt;_getObject('node', $nodeID, $version);</pre></td>
+</tr>
+<tr>
+<td class="lineCount">262</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">263</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">264</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">265</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * return an array of specified nodes.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">266</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">267</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return void</pre></td>
+</tr>
+<tr>
+<td class="lineCount">268</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">269</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    public function getNodes()</pre></td>
+</tr>
+<tr>
+<td class="lineCount">270</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">271</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $nodes = array();</pre></td>
+</tr>
+<tr>
+<td class="lineCount">272</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">273</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $IDs = $this-&gt;_getIDs(func_get_args());</pre></td>
+</tr>
+<tr>
+<td class="lineCount">274</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">275</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        foreach ($IDs as $nodeID) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">276</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            if (is_numeric($nodeID)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">277</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                $nodes[] = $this-&gt;_getObject('node', $nodeID);</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">278</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">279</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">280</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        return $nodes;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">281</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">282</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">283</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">284</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Set various properties to describe the capabilities that the connected</pre></td>
+</tr>
+<tr>
+<td class="lineCount">285</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * server supports.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">286</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">287</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed $capabilities XML describing the capabilities of the server</pre></td>
+</tr>
+<tr>
+<td class="lineCount">288</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">289</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @see maxVersion</pre></td>
+</tr>
+<tr>
+<td class="lineCount">290</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @see minVersion</pre></td>
+</tr>
+<tr>
+<td class="lineCount">291</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @see timeout</pre></td>
+</tr>
+<tr>
+<td class="lineCount">292</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">293</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return void</pre></td>
+</tr>
+<tr>
+<td class="lineCount">294</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @throws   Services_Openstreetmap_Exception If the API Version is not</pre></td>
+</tr>
+<tr>
+<td class="lineCount">295</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *                                            supported.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">296</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">297</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    private function _checkCapabilities($capabilities)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">298</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">299</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $xml = simplexml_load_string($capabilities);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">300</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if ($xml === false) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">301</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            return;</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">302</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">303</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $v = $xml-&gt;xpath('//version');</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">304</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $this-&gt;minVersion = (float) $v[0]-&gt;attributes()-&gt;minimum;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">305</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $this-&gt;maxVersion = (float) $v[0]-&gt;attributes()-&gt;maximum;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">306</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if (($this-&gt;minVersion &gt; $this-&gt;api_version</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">307</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            || $this-&gt;api_version &gt; $this-&gt;maxVersion)</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">308</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        ) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">309</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            throw new Services_Openstreetmap_Exception(</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">310</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                'Specified API Version ' . $this-&gt;api_version .' not supported.'</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">311</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            );</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">312</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">313</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $v = $xml-&gt;xpath('//timeout');</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">314</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $this-&gt;timeout = (int) $v[0]-&gt;attributes()-&gt;seconds;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">315</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        //changesets</pre></td>
+</tr>
+<tr>
+<td class="lineCount">316</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        //waynodes</pre></td>
+</tr>
+<tr>
+<td class="lineCount">317</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        //tracepoints</pre></td>
+</tr>
+<tr>
+<td class="lineCount">318</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        //max area</pre></td>
+</tr>
+<tr>
+<td class="lineCount">319</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">320</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">321</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">322</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Given the results of a call to func_get_args return an array of unique</pre></td>
+</tr>
+<tr>
+<td class="lineCount">323</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * valid IDs specified in those results (either 1 per argument or each</pre></td>
+</tr>
+<tr>
+<td class="lineCount">324</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * argument containing an array of IDs).</pre></td>
+</tr>
+<tr>
+<td class="lineCount">325</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">326</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed $args results of call to func_get_args</pre></td>
+</tr>
+<tr>
+<td class="lineCount">327</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">328</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return array</pre></td>
+</tr>
+<tr>
+<td class="lineCount">329</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">330</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    private function _getIDs($args)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">331</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">332</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $IDs = array();</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">333</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        foreach ($args as $arg) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">334</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            if (is_array($arg)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">335</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                $IDs = array_merge($arg, $IDs);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">336</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            } elseif (is_numeric($arg)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">337</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                $IDs[] = $arg;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">338</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">339</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">340</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return array_unique($IDs);</pre></td>
+</tr>
+<tr>
+<td class="lineCount">341</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">342</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">343</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">344</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * _getObject</pre></td>
+</tr>
+<tr>
+<td class="lineCount">345</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">346</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Returns false if the object is not found</pre></td>
+</tr>
+<tr>
+<td class="lineCount">347</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">348</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $type    object type</pre></td>
+</tr>
+<tr>
+<td class="lineCount">349</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed  $id      id of object to retrieve</pre></td>
+</tr>
+<tr>
+<td class="lineCount">350</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed  $version version of object</pre></td>
+</tr>
+<tr>
+<td class="lineCount">351</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">352</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return object</pre></td>
+</tr>
+<tr>
+<td class="lineCount">353</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">354</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    private function _getObject($type, $id, $version = null)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">355</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">356</td>
+<td class="lineCountCovered">12</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $url = $this-&gt;getConfig('server')</pre></td>
+</tr>
+<tr>
+<td class="lineCount">357</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">            . 'api/'</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">358</td>
+<td class="lineCountCovered">12</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            . $this-&gt;getConfig('api_version')</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">359</td>
+<td class="lineCountCovered">12</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            . '/' . $type . '/'</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">360</td>
+<td class="lineCountCovered">12</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            . $id;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">361</td>
+<td class="lineCountCovered">12</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if ($version !== null) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">362</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            $url .= "/$version";</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">363</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">364</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        try {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">365</td>
+<td class="lineCountCovered">12</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            $r = $this-&gt;getResponse($url);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">366</td>
+<td class="lineCountCovered">12</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        } catch (Services_Openstreetmap_Exception $ex) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">367</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">            $code = $ex-&gt;getCode();</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">368</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">            if (404 == $code) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">369</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">                return false;</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">370</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">            } elseif (410 == $code) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">371</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">                return false;</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">372</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">            } else {</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">373</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">                throw $ex;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">374</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">375</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">376</td>
+<td class="lineCountCovered">12</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $class =  "Services_Openstreetmap_" . ucfirst(strtolower($type));</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">377</td>
+<td class="lineCountCovered">12</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $obj = new $class();</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">378</td>
+<td class="lineCountCovered">12</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $obj-&gt;setXml($r-&gt;getBody());</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">379</td>
+<td class="lineCountCovered">12</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return $obj;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">380</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">381</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">382</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">383</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Get details of specified way</pre></td>
+</tr>
+<tr>
+<td class="lineCount">384</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">385</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed $wayID   wayID</pre></td>
+</tr>
+<tr>
+<td class="lineCount">386</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed $version [optional] version of way</pre></td>
+</tr>
+<tr>
+<td class="lineCount">387</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">388</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">389</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return string</pre></td>
+</tr>
+<tr>
+<td class="lineCount">390</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">391</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    public function getWay($wayID, $version = null)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">392</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">393</td>
+<td class="lineCountCovered">3</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return $this-&gt;_getObject('way', $wayID, $version);</pre></td>
+</tr>
+<tr>
+<td class="lineCount">394</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">395</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">396</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">397</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Return an array of specified ways.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">398</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">399</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return array</pre></td>
+</tr>
+<tr>
+<td class="lineCount">400</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">401</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    public function getWays()</pre></td>
+</tr>
+<tr>
+<td class="lineCount">402</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">403</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $ways = array();</pre></td>
+</tr>
+<tr>
+<td class="lineCount">404</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">405</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $IDs = $this-&gt;_getIDs(func_get_args());</pre></td>
+</tr>
+<tr>
+<td class="lineCount">406</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">407</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        foreach ($IDs as $wayID) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">408</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            if (is_numeric($wayID)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">409</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                $ways[] = $this-&gt;_getObject('way', $wayID);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">410</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">411</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">412</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return $ways;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">413</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">414</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">415</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">416</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Get details of specified relation</pre></td>
+</tr>
+<tr>
+<td class="lineCount">417</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">418</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed $relationID ID of relation</pre></td>
+</tr>
+<tr>
+<td class="lineCount">419</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed $version    [optional] version of relation</pre></td>
+</tr>
+<tr>
+<td class="lineCount">420</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">421</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">422</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return string</pre></td>
+</tr>
+<tr>
+<td class="lineCount">423</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">424</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function getRelation($relationID, $version = null)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">425</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">426</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return $this-&gt;_getObject('relation', $relationID, $version);</pre></td>
+</tr>
+<tr>
+<td class="lineCount">427</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">428</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">429</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">430</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Return an array of specified relations</pre></td>
+</tr>
+<tr>
+<td class="lineCount">431</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">432</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return array</pre></td>
+</tr>
+<tr>
+<td class="lineCount">433</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">434</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    public function getRelations()</pre></td>
+</tr>
+<tr>
+<td class="lineCount">435</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">436</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $relations = array();</pre></td>
+</tr>
+<tr>
+<td class="lineCount">437</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">438</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $IDs = $this-&gt;_getIDs(func_get_args());</pre></td>
+</tr>
+<tr>
+<td class="lineCount">439</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">440</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        foreach ($IDs as $relationID) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">441</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            if (is_numeric($relationID)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">442</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                $relations[] = $this-&gt;_getObject('relation', $relationID);</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">443</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">444</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">445</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        return $relations;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">446</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">447</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">448</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">449</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Get details of specified changeset</pre></td>
+</tr>
+<tr>
+<td class="lineCount">450</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">451</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $id      numeric ID of changeset</pre></td>
+</tr>
+<tr>
+<td class="lineCount">452</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $version optional</pre></td>
+</tr>
+<tr>
+<td class="lineCount">453</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">454</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">455</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return string</pre></td>
+</tr>
+<tr>
+<td class="lineCount">456</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">457</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function getChangeset($id, $version = null)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">458</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">459</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return $this-&gt;_getObject('changeset', $id, $version);</pre></td>
+</tr>
+<tr>
+<td class="lineCount">460</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">461</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">462</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">463</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Retrieve all versions of a specified element</pre></td>
+</tr>
+<tr>
+<td class="lineCount">464</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">465</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $type Any one of the supported element types</pre></td>
+</tr>
+<tr>
+<td class="lineCount">466</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $id   numeric Id of element</pre></td>
+</tr>
+<tr>
+<td class="lineCount">467</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">468</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">469</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return string</pre></td>
+</tr>
+<tr>
+<td class="lineCount">470</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @throws Services_Openstreetmap_Exception If the element type is unknown</pre></td>
+</tr>
+<tr>
+<td class="lineCount">471</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">472</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function getHistory($type, $id)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">473</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">474</td>
+<td class="lineCountCovered">2</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if (!in_array($type, $this-&gt;elements)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">475</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            throw new Services_Openstreetmap_Exception('Invalid Element Type');</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">476</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">477</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">478</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $url = $this-&gt;getConfig('server')</pre></td>
+</tr>
+<tr>
+<td class="lineCount">479</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">            . 'api/'</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">480</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            . $this-&gt;getConfig('api_version')</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">481</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            . "/$type/$id/history";</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">482</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $r = $this-&gt;getResponse($url);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">483</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return $r-&gt;getBody();</pre></td>
+</tr>
+<tr>
+<td class="lineCount">484</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">485</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">486</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">487</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Send request to OSM server and return the response.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">488</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">489</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $url       URL</pre></td>
+</tr>
+<tr>
+<td class="lineCount">490</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $method    GET (default)/POST/PUT</pre></td>
+</tr>
+<tr>
+<td class="lineCount">491</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $user      user (optional for read-only actions)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">492</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $password  password (optional for read-only actions)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">493</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $body      body (optional)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">494</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param array  $post_data (optional)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">495</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param array  $headers   (optional)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">496</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">497</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">498</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return HTTP_Request2_Response</pre></td>
+</tr>
+<tr>
+<td class="lineCount">499</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @throws  Services_Openstreetmap_Exception If something unexpected has</pre></td>
+</tr>
+<tr>
+<td class="lineCount">500</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *                                           happened while conversing with</pre></td>
+</tr>
+<tr>
+<td class="lineCount">501</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *                                           the server.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">502</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">503</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function getResponse(</pre></td>
+</tr>
+<tr>
+<td class="lineCount">504</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        $url,</pre></td>
+</tr>
+<tr>
+<td class="lineCount">505</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        $method = HTTP_Request2::METHOD_GET,</pre></td>
+</tr>
+<tr>
+<td class="lineCount">506</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        $user = null,</pre></td>
+</tr>
+<tr>
+<td class="lineCount">507</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        $password = null,</pre></td>
+</tr>
+<tr>
+<td class="lineCount">508</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        $body = null,</pre></td>
+</tr>
+<tr>
+<td class="lineCount">509</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        array $post_data = null,</pre></td>
+</tr>
+<tr>
+<td class="lineCount">510</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        array $headers = null</pre></td>
+</tr>
+<tr>
+<td class="lineCount">511</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    ) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">512</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $response = null;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">513</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $eMsg = null;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">514</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">515</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if ($this-&gt;getConfig('verbose')) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">516</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            echo $url, "\n";</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">517</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">518</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $request = new HTTP_Request2(</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">519</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            $url,</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">520</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            $method,</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">521</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            array('adapter' =&gt; $this-&gt;getConfig('adapter'))</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">522</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        );</pre></td>
+</tr>
+<tr>
+<td class="lineCount">523</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">524</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $request-&gt;setHeader('User-Agent', $this-&gt;getConfig('User-Agent'));</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">525</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if ($user !== null &amp;&amp; $password !== null) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">526</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            $request-&gt;setAuth($user, $password);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">527</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">528</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if ($post_data != array()) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">529</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            $request-&gt;setMethod(HTTP_Request2::METHOD_POST);</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">530</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            foreach ($post_data as $key =&gt; $value) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">531</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                $request-&gt;addPostParameter($key, $value);</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">532</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">533</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">534</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if ($headers != array()) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">535</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            foreach ($headers as $header) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">536</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                $request-&gt;setHeader($header[0], $header[1], $header[2]);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">537</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">538</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">539</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if ($body !== null) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">540</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            $request-&gt;setBody($body);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">541</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">542</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $code = 0;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">543</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        try {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">544</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            $response = $request-&gt;send();</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">545</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            $code = $response-&gt;getStatus();</pre></td>
+</tr>
+<tr>
+<td class="lineCount">546</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">547</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            if ($this-&gt;getConfig('verbose')) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">548</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                var_dump($response-&gt;getHeader());</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">549</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                var_dump($response-&gt;getBody());</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">550</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">551</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">552</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            if (200 == $code) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">553</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                return $response;</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">554</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">            } else {</pre></td>
+</tr>
+<tr>
+<td class="lineCount">555</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">                $eMsg = 'Unexpected HTTP status: '</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">556</td>
+<td class="lineCountCovered">3</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                    . $code . ' '</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">557</td>
+<td class="lineCountCovered">3</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                    . $response-&gt;getReasonPhrase();</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">558</td>
+<td class="lineCountCovered">3</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                $error = $response-&gt;getHeader('error');</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">559</td>
+<td class="lineCountCovered">3</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                if (!is_null($error)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">560</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                    $eMsg .= " ($error)";</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">561</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">562</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">563</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">564</td>
+<td class="lineCountCovered">3</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        } catch (HTTP_Request2_Exception $e) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">565</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">            throw new Services_Openstreetmap_Exception(</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">566</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">                $e-&gt;getMessage(),</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">567</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">                $code,</pre></td>
+</tr>
+<tr>
+<td class="lineCount">568</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">                $e</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">569</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">            );</pre></td>
+</tr>
+<tr>
+<td class="lineCount">570</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">571</td>
+<td class="lineCountCovered">3</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if ($eMsg != null) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">572</td>
+<td class="lineCountCovered">3</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            throw new Services_Openstreetmap_Exception($eMsg, $code);</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">573</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">574</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">575</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">576</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">577</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Load XML from [cache] file</pre></td>
+</tr>
+<tr>
+<td class="lineCount">578</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">579</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $file filename</pre></td>
+</tr>
+<tr>
+<td class="lineCount">580</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">581</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">582</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return void</pre></td>
+</tr>
+<tr>
+<td class="lineCount">583</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">584</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function loadXML($file)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">585</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">586</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $this-&gt;xml = file_get_contents($file);</pre></td>
+</tr>
+<tr>
+<td class="lineCount">587</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">588</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">589</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">590</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * return XML</pre></td>
+</tr>
+<tr>
+<td class="lineCount">591</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">592</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">593</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return string</pre></td>
+</tr>
+<tr>
+<td class="lineCount">594</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">595</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function getXML()</pre></td>
+</tr>
+<tr>
+<td class="lineCount">596</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">597</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        return $this-&gt;xml;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">598</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">599</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">600</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">601</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">602</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Parse passwordfile, setting username and password as specified in the</pre></td>
+</tr>
+<tr>
+<td class="lineCount">603</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * file</pre></td>
+</tr>
+<tr>
+<td class="lineCount">604</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">605</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param string $file file containing credentials</pre></td>
+</tr>
+<tr>
+<td class="lineCount">606</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">607</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">608</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return void</pre></td>
+</tr>
+<tr>
+<td class="lineCount">609</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">610</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function setPasswordfile($file)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">611</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">612</td>
+<td class="lineCountCovered">8</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if (is_null($file)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">613</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            return;</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">614</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">615</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $lines = @file($file);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">616</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if ($lines === false) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">617</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            throw new Services_Openstreetmap_Exception(</pre></td>
+</tr>
+<tr>
+<td class="lineCount">618</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">                'Could not read password file'</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">619</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            );</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">620</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">621</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $this-&gt;config['passwordfile'] =  $file;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">622</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        array_walk($lines, create_function('&amp;$val', '$val = trim($val);'));</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">623</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if (sizeof($lines) == 1) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">624</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            if (strpos($lines[0], '#') !== 0) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">625</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                list($this-&gt;config['user'], $this-&gt;config['password'])</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">626</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                    = explode(':', $lines[0]);</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">627</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">628</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        } elseif (sizeof($lines) == 2) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">629</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            if (strpos($lines[0], '#') === 0) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">630</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                if (strpos($lines[1], '#') !== 0) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">631</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                    list($this-&gt;config['user'], $this-&gt;config['password'])</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">632</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                        = explode(':', $lines[1]);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">633</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">                }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">634</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">635</td>
+<td class="lineCountCovered">7</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        } else {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">636</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            foreach ($lines as $line) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">637</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                if (strpos($line, '#') === 0) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">638</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                    continue;</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">639</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">                }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">640</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                list($user, $pwd) = explode(':', $line);</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">641</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                if ($user == $this-&gt;config['user']) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">642</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                    $this-&gt;config['password'] = $pwd;</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">643</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">644</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">645</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">646</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">647</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">648</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">649</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Connect to specified server.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">650</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">651</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed $server base server details</pre></td>
+</tr>
+<tr>
+<td class="lineCount">652</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">653</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">654</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return void</pre></td>
+</tr>
+<tr>
+<td class="lineCount">655</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">656</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function setServer($server)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">657</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCount">658</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        try {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">659</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">            $c = $this-&gt;getResponse($server . 'api/capabilities');</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">660</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        } catch (Exception $ex) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">661</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">            throw new Services_Openstreetmap_Exception(</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">662</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">                'Could not get a valid response from server',</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">663</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">                $ex-&gt;getCode(),</pre></td>
+</tr>
+<tr>
+<td class="lineCount">664</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">                $ex</pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">665</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">            );</pre></td>
+</tr>
+<tr>
+<td class="lineCount">666</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">667</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $this-&gt;server = $server;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">668</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $capabilities = $c-&gt;getBody();</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">669</td>
+<td class="lineCountCovered">18</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $this-&gt;_checkCapabilities($capabilities);</pre></td>
+</tr>
+<tr>
+<td class="lineCount">670</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">671</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">672</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">673</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * search based on given criteria</pre></td>
+</tr>
+<tr>
+<td class="lineCount">674</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">675</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param mixed $criteria what to search for</pre></td>
+</tr>
+<tr>
+<td class="lineCount">676</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">677</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @access public</pre></td>
+</tr>
+<tr>
+<td class="lineCount">678</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return array</pre></td>
+</tr>
+<tr>
+<td class="lineCount">679</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">680</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    function search($criteria)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">681</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">682</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $results = array();</pre></td>
+</tr>
+<tr>
+<td class="lineCount">683</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">684</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $xml = simplexml_load_string($this-&gt;xml);</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">685</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        if ($xml === false) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">686</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            return array();</pre></td>
+</tr>
+<tr>
+<td class="lineCount">687</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCountDeadCode">688</td>
+<td class="coverageCountDeadCode"></td>
+<td class="srcLineDeadCode"><pre class="srcLineDeadCode">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">689</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        foreach ($criteria as $key =&gt; $value) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">690</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            foreach ($xml-&gt;xpath('//way') as $node) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">691</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                foreach ($node-&gt;tag as $tag) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">692</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                    if (($tag['k'] == $key) &amp;&amp; ($tag['v'] == $value)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">693</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                        $results[] = $node;</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">694</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                    }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">695</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">696</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">697</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            foreach ($xml-&gt;xpath('//node') as $node) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">698</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                foreach ($node-&gt;tag as $tag) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">699</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                    if (($tag['k'] == $key) &amp;&amp; ($tag['v'] == $value)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">700</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                        $results[] = $node;</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">701</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                    }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">702</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">703</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">704</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">705</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        $ares = array();</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">706</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        foreach ($results as $resultnode) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">707</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            $ar = array();</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">708</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            foreach ($resultnode-&gt;tag as $tag) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">709</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                $ar[str_replace(':', '_', $tag['k'])] = (string) $tag['v'];</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">710</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">711</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            $ares[] = $ar;</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">712</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            unset($ar); //ensure $ar is wiped clean for each iteration</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">713</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">714</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        return $ares;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">715</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">716</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">717</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">718</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">719</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Number of seconds</pre></td>
+</tr>
+<tr>
+<td class="lineCount">720</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">721</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return int</pre></td>
+</tr>
+<tr>
+<td class="lineCount">722</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">723</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    public function getTimeout()</pre></td>
+</tr>
+<tr>
+<td class="lineCount">724</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">725</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return $this-&gt;timeout;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">726</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">727</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">728</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">729</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * minVersion - min API version supported by connected server.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">730</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">731</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return float</pre></td>
+</tr>
+<tr>
+<td class="lineCount">732</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">733</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    public function getMinVersion()</pre></td>
+</tr>
+<tr>
+<td class="lineCount">734</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">735</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return $this-&gt;minVersion;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">736</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">737</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">738</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">739</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * maxVersion - max API version supported by connected server.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">740</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">741</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return float</pre></td>
+</tr>
+<tr>
+<td class="lineCount">742</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">743</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    public function getMaxVersion()</pre></td>
+</tr>
+<tr>
+<td class="lineCount">744</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">745</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return $this-&gt;maxVersion;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">746</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">747</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">748</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">749</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * createChangeset</pre></td>
+</tr>
+<tr>
+<td class="lineCount">750</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">751</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param boolean $atomic atomic changeset?</pre></td>
+</tr>
+<tr>
+<td class="lineCount">752</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">753</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return Services_Openstreetmap_Changeset</pre></td>
+</tr>
+<tr>
+<td class="lineCount">754</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">755</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    public function createChangeset($atomic = true)</pre></td>
+</tr>
+<tr>
+<td class="lineCount">756</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">757</td>
+<td class="lineCountCovered">9</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $changeset = new Services_Openstreetmap_Changeset($atomic);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">758</td>
+<td class="lineCountCovered">9</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $changeset-&gt;_osm = $this;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">759</td>
+<td class="lineCountCovered">9</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return $changeset;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">760</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">761</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">762</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine"></pre></td>
+</tr>
+<tr>
+<td class="lineCount">763</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    /**</pre></td>
+</tr>
+<tr>
+<td class="lineCount">764</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * Create and return a Services_Openstreetmap_Node</pre></td>
+</tr>
+<tr>
+<td class="lineCount">765</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">766</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param float $latitude  Latitude of node</pre></td>
+</tr>
+<tr>
+<td class="lineCount">767</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param float $longitude Longitude of node</pre></td>
+</tr>
+<tr>
+<td class="lineCount">768</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @param array $tags      Array of key-&gt;value tag pairs.</pre></td>
+</tr>
+<tr>
+<td class="lineCount">769</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     *</pre></td>
+</tr>
+<tr>
+<td class="lineCount">770</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     * @return Services_Openstreetmap_Node</pre></td>
+</tr>
+<tr>
+<td class="lineCount">771</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">     */</pre></td>
+</tr>
+<tr>
+<td class="lineCount">772</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    public function createNode($latitude, $longitude, array $tags = array())</pre></td>
+</tr>
+<tr>
+<td class="lineCount">773</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    {</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">774</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $node = new Services_Openstreetmap_Node();</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">775</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $api_version = $this-&gt;getConfig('api_version');</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">776</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $user_agent =  $this-&gt;getConfig('User-Agent');</pre></td>
+</tr>
+<tr>
+<td class="lineCount">777</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">        $xml = "&lt;?xml version='1.0' encoding='UTF-8'?&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">778</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">&lt;osm version='{$api_version}' generator='{$user_agent}'&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">779</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">&lt;node lat='{$latitude}' lon='{$longitude}' version='1'/&gt;</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">780</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">&lt;/osm&gt;";</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">781</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        $node-&gt;setXml($xml);</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">782</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        if (!empty($tags)) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">783</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            foreach ($tags as $key=&gt;$value) {</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">784</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">                $node-&gt;setTag($key, $value);</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">785</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">            }</pre></td>
+</tr>
+<tr>
+<td class="lineCountUncovered">786</td>
+<td class="coverageCountUncovered"></td>
+<td class="srcLineUncovered"><pre class="srcLineUncovered">        }</pre></td>
+</tr>
+<tr>
+<td class="lineCountCovered">787</td>
+<td class="lineCountCovered">1</td>
+<td class="srcLineCovered"><pre class="srcLineCovered">        return $node;</pre></td>
+</tr>
+<tr>
+<td class="lineCount">788</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">    }</pre></td>
+</tr>
+<tr>
+<td class="lineCount">789</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">}</pre></td>
+</tr>
+<tr>
+<td class="lineCount">790</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">// vim:set et ts=4 sw=4:</pre></td>
+</tr>
+<tr>
+<td class="lineCount">791</td>
+<td class="coverageCount"></td>
+<td><pre class="srcLine">?&gt;</pre></td>
+</tr>
+</table>
+<br><table width="100%">
+<tr><td><hr noshade size="1"></td></tr>
+<tr><td class="small">Report generated at 2011-09-27T16:17:28+01:00</td></tr>
+</table>
+</body>
+</html>

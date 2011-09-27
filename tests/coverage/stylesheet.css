@@ -1,0 +1,173 @@
+
+	.sortable th {
+	    cursor: pointer;
+	}
+	
+    .bannercell {
+      border: 0px;
+      padding: 0px;
+    }
+    body {
+      margin-left: 10;
+      margin-right: 10;
+      background-color:#FFFFFF;
+      font-family: verdana,arial,sanserif;
+      color:#000000;
+    }
+    a {
+      color: #003399;
+    }
+    a:hover {
+      color: #888888;
+    }
+    .a td {
+      background: #efefef;
+    }
+    .b td {
+      background: #fff;
+    }
+    th, td {
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      font-weight:bold;
+      background: #ccc;
+      color: black;
+    }
+    table, th, td {
+      font-size: 12px;
+      border: none
+    }
+    table.log tr td, tr th {
+    }
+    h2 {
+      font-weight:bold;
+      font-size: 12px;
+      margin-bottom: 5;
+    }
+    h3 {
+      font-size:100%;
+      font-weight: 12px;
+       background: #DFDFDF
+      color: white;
+      text-decoration: none;
+      padding: 5px;
+      margin-right: 2px;
+      margin-left: 2px;
+      margin-bottom: 0;
+    }
+    .small {
+       font-size: 9px;
+    }
+    td.legendItem {
+      font-weight: bold;
+      padding-bottom: 2px;
+      padding-right: 6px;
+      padding-top: 6px;
+      text-align: right;
+    }
+    td.legendValue {
+      color: #2E3436;
+      font-weight: bold;
+      padding-bottom: 2px;
+      padding-top: 6px;
+      text-align: left;
+    }
+    span.LegendCovered {
+      background-color: #8AE234;
+      margin-right: 2px;
+      padding-left: 10px;
+      padding-right: 10px;
+      text-align: center;
+    }
+    span.LegendUncovered {
+      background-color: #F0C8C8;
+      margin-right: 2px;
+      padding-left: 10px;
+      padding-right: 10px;
+      text-align: center;
+    }
+    span.LegendDeadCode {
+      background-color: #D3D7CF;
+      margin-right: 2px;
+      padding-left: 10px;
+      padding-right: 10px;
+      text-align: center;
+    }
+TD.empty {
+    FONT-SIZE: 2px; BACKGROUND: #c0c0c0; BORDER:#9c9c9c 1px solid;
+    color: #c0c0c0;
+}
+TD.fullcover {
+    FONT-SIZE: 2px; BACKGROUND: #00df00; BORDER:#9c9c9c 1px solid;
+    color: #00df00;
+}
+TD.covered {
+    FONT-SIZE: 2px; BACKGROUND: #00df00; BORDER-LEFT:#9c9c9c 1px solid;BORDER-TOP:#9c9c9c 1px solid;BORDER-BOTTOM:#9c9c9c 1px solid;
+    color: #00df00;
+}
+TD.uncovered {
+    FONT-SIZE: 2px; BACKGROUND: #df0000; BORDER:#9c9c9c 1px solid;
+    color: #df0000;
+}
+PRE.srcLine {
+  BACKGROUND: #ffffff; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; 
+}
+    PRE.srcLineUncovered {
+  BACKGROUND: #F0C8C8; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; 
+}
+    PRE.srcLineCovered {
+      BACKGROUND: #8AE234; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px;
+    }
+    PRE.srcLineDeadCode {
+      BACKGROUND: #D3D7CF; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px;
+    }
+td.lineCount, td.coverageCount {
+      BACKGROUND: #F0F0F0; PADDING-RIGHT: 3px;
+      text-align: right;
+}
+    td.lineCountCovered, td.coverageCountCovered {
+          background: #8AE234; PADDING-RIGHT: 3px;
+      text-align: right;
+}
+    td.srcLineCovered {
+          background: #8AE234;
+    }
+    td.lineCountUncovered, td.coverageCountUncovered {
+      background: #F0C8C8; PADDING-RIGHT: 3px;
+      text-align: right;
+}
+    td.srcLineUncovered {
+      background: #F0C8C8;
+}
+    td.lineCountDeadCode, td.coverageCountDeadCode {
+          background: #D3D7CF; PADDING-RIGHT: 3px;
+          text-align: right;
+    }
+    td.srcLineDeadCode {
+          background: #D3D7CF;
+    }
+td.srcLine {
+      background: #C8C8F0;
+}
+TD.srcLineClassStart {
+   WIDTH: 100%; BORDER-TOP:#dcdcdc 1px solid; FONT-WEIGHT: bold;    
+}
+.srcLine , .srcLine ol, .srcLine ol li {margin: 0;}
+.srcLine .de1, .srcLine .de2 {font-family: 'Courier New', Courier, monospace; font-weight: normal;}
+.srcLine .imp {font-weight: bold; color: red;}
+.srcLine .kw1 {color: #b1b100;}
+.srcLine .kw2 {color: #000000; font-weight: bold;}
+.srcLine .kw3 {color: #000066;}
+.srcLine .co1 {color: #808080; font-style: italic;}
+.srcLine .co2 {color: #808080; font-style: italic;}
+.srcLine .coMULTI {color: #808080; font-style: italic;}
+.srcLine .es0 {color: #000099; font-weight: bold;}
+.srcLine .br0 {color: #66cc66;}
+.srcLine .st0 {color: #ff0000;}
+.srcLine .nu0 {color: #cc66cc;}
+.srcLine .me1 {color: #006600;}
+.srcLine .me2 {color: #006600;}
+.srcLine .re0 {color: #0000ff;}
+
