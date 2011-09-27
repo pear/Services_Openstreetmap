@@ -69,6 +69,7 @@ class Services_Openstreetmap_Object
             }
         }
         $this->obj = $obj;
+        return $this;
     }
 
     /**
@@ -81,6 +82,7 @@ class Services_Openstreetmap_Object
     public function setChangesetId($id)
     {
         $this->changeset_id = $id;
+        return $this;
     }
 
     /**
@@ -146,38 +148,32 @@ class Services_Openstreetmap_Object
             $n->item(0)->setAttribute('action', 'delete');
             $xml = $domd->saveXML($n->item(0));
             return "<delete>{$xml}</delete>";
-        } else {
-            return null;
         }
     }
 
     /**
      * Retrieve the id of the object in question
      *
-     * @return string id of the object
+     * @return integer id of the object
      */
     public function getId()
     {
         $attribs = $this->getAttributes();
         if ($attribs !== null) {
             return (integer) $attribs->id;
-        } else {
-            return null;
         }
     }
 
     /**
      * Retrieve the uid of the object in question
      *
-     * @return string uid of the object
+     * @return integer uid of the object
      */
     public function getUid()
     {
         $attribs = $this->getAttributes();
         if ($attribs !== null) {
             return (integer) $attribs->uid;
-        } else {
-            return null;
         }
     }
 
@@ -191,8 +187,6 @@ class Services_Openstreetmap_Object
         $attribs = $this->getAttributes();
         if ($attribs !== null) {
             return (string) $attribs->user;
-        } else {
-            return null;
         }
     }
 
@@ -206,8 +200,6 @@ class Services_Openstreetmap_Object
         $attribs = $this->getAttributes();
         if ($attribs !== null) {
             return (integer) $attribs->version;
-        } else {
-            return null;
         }
     }
 

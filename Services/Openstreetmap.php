@@ -261,6 +261,11 @@ class Services_Openstreetmap
         return $this->_getObject('node', $nodeID, $version);
     }
 
+    /**
+     * return an array of specified nodes.
+     *
+     * @return void
+     */
     public function getNodes()
     {
         $nodes = array();
@@ -313,6 +318,15 @@ class Services_Openstreetmap
         //max area
     }
 
+    /**
+     * Given the results of a call to func_get_args return an array of unique
+     * valid IDs specified in those results (either 1 per argument or each
+     * argument containing an array of IDs).
+     *
+     * @param mixed $args results of call to func_get_args
+     *
+     * @return array
+     */
     private function _getIDs($args)
     {
         $IDs = array();
@@ -379,6 +393,11 @@ class Services_Openstreetmap
         return $this->_getObject('way', $wayID, $version);
     }
 
+    /**
+     * Return an array of specified ways.
+     *
+     * @return array
+     */
     public function getWays()
     {
         $ways = array();
@@ -407,6 +426,11 @@ class Services_Openstreetmap
         return $this->_getObject('relation', $relationID, $version);
     }
 
+    /**
+     * Return an array of specified relations
+     *
+     * @return array
+     */
     public function getRelations()
     {
         $relations = array();
@@ -520,10 +544,11 @@ class Services_Openstreetmap
             $response = $request->send();
             $code = $response->getStatus();
 
-        if ($this->getConfig('verbose')) {
-            var_dump ($response->getHeader());
-            var_dump ($response->getBody());
-        }
+            if ($this->getConfig('verbose')) {
+                var_dump($response->getHeader());
+                var_dump($response->getBody());
+            }
+
             if (200 == $code) {
                 return $response;
             } else {
@@ -733,6 +758,33 @@ class Services_Openstreetmap
         $changeset->_osm = $this;
         return $changeset;
 
+    }
+
+    /**
+     * Create and return a Services_Openstreetmap_Node
+     *
+     * @param float $latitude  Latitude of node
+     * @param float $longitude Longitude of node
+     * @param array $tags      Array of key->value tag pairs.
+     *
+     * @return Services_Openstreetmap_Node
+     */
+    public function createNode($latitude, $longitude, array $tags = array())
+    {
+        $node = new Services_Openstreetmap_Node();
+        $api_version = $this->getConfig('api_version');
+        $user_agent =  $this->getConfig('User-Agent');
+        $xml = "<?xml version='1.0' encoding='UTF-8'?>
+<osm version='{$api_version}' generator='{$user_agent}'>
+<node lat='{$latitude}' lon='{$longitude}' version='1'/>
+</osm>";
+        $node->setXml($xml);
+        if (!empty($tags)) {
+            foreach ($tags as $key=>$value) {
+                $node->setTag($key, $value);
+            }
+        }
+        return $node;
     }
 }
 // vim:set et ts=4 sw=4:

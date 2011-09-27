@@ -26,7 +26,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     public function testConfig()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $config = array(
             'api_version' => '0.6',
@@ -71,7 +71,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     public function testConfig2()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $config = array('adapter' => $mock);
         $osm = new Services_Openstreetmap($config);
@@ -90,7 +90,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     public function testConfig3()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $config = array('adapter' => $mock);
         $osm = new Services_Openstreetmap($config);

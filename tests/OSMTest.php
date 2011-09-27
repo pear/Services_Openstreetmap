@@ -31,7 +31,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
     public function testCapabilities()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $config = array(
             'adapter' => $mock,
@@ -44,7 +44,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
     public function testCapabilities2()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen('./responses/capabilities2.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities2.xml', 'rb'));
 
         $config = array(
             'adapter' => $mock,
@@ -61,8 +61,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $id = 52245107;
 
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
-        $mock->addResponse(fopen('./responses/node.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/node.xml', 'rb'));
 
         $config = array(
             'adapter' => $mock,
@@ -83,8 +83,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $id = 25978036;
 
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
-        $mock->addResponse(fopen('./responses/way.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/way.xml', 'rb'));
 
         $config = array(
             'adapter' => $mock,
@@ -106,8 +106,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $id = 18197393;
 
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
-        $mock->addResponse(fopen('./responses/way_closed.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/way_closed.xml', 'rb'));
 
         $config = array(
             'adapter' => $mock,
@@ -125,8 +125,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $id = 52245107;
 
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
-        $mock->addResponse(fopen('./responses/node_history.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/node_history.xml', 'rb'));
 
         $config = array(
             'adapter' => $mock,
@@ -153,7 +153,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $id = 25978036;
 
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $config = array('adapter' => $mock);
         $osm = new Services_Openstreetmap($config);
@@ -165,9 +165,9 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $id = 1152802;
 
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
-        $mock->addResponse(fopen('./responses/relation.xml', 'rb'));
-        $mock->addResponse(fopen('./responses/relation_changeset.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/relation.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/relation_changeset.xml', 'rb'));
 
         $config = array(
             'adapter' => $mock,
@@ -190,7 +190,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
     public function testBboxToMinMax()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen('./responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $config = array('adapter' => $mock);
         $osm = new Services_Openstreetmap($config);

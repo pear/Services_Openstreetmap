@@ -1,250 +1,461 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-  <html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class Services_Openstreetmap_Node</title>
-			<link rel="stylesheet" href="../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
-		</head>
-		<body>
-			<div class="page-body">			
-<h2 class="class-name">Class Services_Openstreetmap_Node</h2>
+<html>
+<head>
+<title>Docs For Class Services_Openstreetmap_Node</title>
+<link rel="stylesheet" type="text/css" href="../media/style.css">
+</head>
+<body>
 
-<a name="sec-description"></a>
-<div class="info-box">
-	<div class="info-box-title">Description</div>
-	<div class="nav-bar">
-					<span class="disabled">Description</span> |
-													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
-						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-						
-					</div>
-	<div class="info-box-body">
-        		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Services_Openstreetmap_Node</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Ken Guest &lt;<a href="mailto:kguest@php.net">kguest@php.net</a>&gt;</li>
-				<li><span class="field">link:</span> <a href="../Services_Openstreetmap/_Openstreetmap---Node.php.html">Node.php</a></li>
-				<li><span class="field">license:</span> BSD</li>
-			</ul>
-		<p class="notes">
-			Located in <a class="field" href="_Openstreetmap---Node.php.html">/Openstreetmap/Node.php</a> (line <span class="field">25</span>)
-		</p>
-		
-				
-		<pre><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html">Services_Openstreetmap_Object</a>
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+    <td class="header_top">Services_Openstreetmap</td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td class="header_menu">
+        
+                                    
+                              		  [ <a href="../classtrees_Services_Openstreetmap.html" class="menu">class tree: Services_Openstreetmap</a> ]
+		  [ <a href="../elementindex_Services_Openstreetmap.html" class="menu">index: Services_Openstreetmap</a> ]
+		  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="200" class="menu">
+	<div id="todolist">
+			<p><a href="../todolist.html">Todo List</a></p>
+	</div>
+      <b>Packages:</b><br />
+              <a href="../li_Services_Openstreetmap.html">Services_Openstreetmap</a><br />
+            <br /><br />
+                        <b>Files:</b><br />
+      	  <div class="package">
+			<a href="../Services_Openstreetmap/_Openstreetmap---Changeset.php.html">		Changeset.php
+		</a><br>
+			<a href="../Services_Openstreetmap/_Openstreetmap---Exception.php.html">		Exception.php
+		</a><br>
+			<a href="../Services_Openstreetmap/_Openstreetmap---Node.php.html">		Node.php
+		</a><br>
+			<a href="../Services_Openstreetmap/_Openstreetmap---Object.php.html">		Object.php
+		</a><br>
+			<a href="../Services_Openstreetmap/_Openstreetmap.php.html">		Openstreetmap.php
+		</a><br>
+			<a href="../Services_Openstreetmap/_Openstreetmap---Relation.php.html">		Relation.php
+		</a><br>
+			<a href="../Services_Openstreetmap/_Openstreetmap---Way.php.html">		Way.php
+		</a><br>
+	  </div><br />
+      
+      
+            <b>Classes:</b><br />
+        <div class="package">
+		    		<a href="../Services_Openstreetmap/Services_Openstreetmap.html">Services_Openstreetmap</a><br />
+	    		<a href="../Services_Openstreetmap/Services_Openstreetmap_Changeset.html">Services_Openstreetmap_Changeset</a><br />
+	    		<a href="../Services_Openstreetmap/Services_Openstreetmap_Exception.html">Services_Openstreetmap_Exception</a><br />
+	    		<a href="../Services_Openstreetmap/Services_Openstreetmap_Node.html">Services_Openstreetmap_Node</a><br />
+	    		<a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html">Services_Openstreetmap_Object</a><br />
+	    		<a href="../Services_Openstreetmap/Services_Openstreetmap_Relation.html">Services_Openstreetmap_Relation</a><br />
+	    		<a href="../Services_Openstreetmap/Services_Openstreetmap_Way.html">Services_Openstreetmap_Way</a><br />
+	  </div>
+                </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>Class: Services_Openstreetmap_Node</h1>
+Source Location: /Openstreetmap/Node.php<br /><br />
+
+
+<table width="100%" border="0">
+<tr><td valign="top">
+
+<h3><a href="#class_details">Class Overview</a></h3>
+<pre><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html">Services_Openstreetmap_Object</a>
    |
-   --Services_Openstreetmap_Node</pre>
-	
-			</div>
+   --Services_Openstreetmap_Node</pre><br />
+<div class="description">Services_Openstreetmap_Node</div><br /><br />
+<h4>Author(s):</h4>
+<ul>
+          <li>Ken Guest &lt;<a href="mailto:kguest@php.net">kguest@php.net</a>&gt;</li>
+                  </ul>
+
+
+
+
+            
+
+        
+</td>
+
+<td valign="top">
+<h3><a href="#class_vars">Variables</a></h3>
+<ul>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Node.html#var$type">$type</a></li>
+  </ul>
+</td>
+
+
+<td valign="top">
+<h3><a href="#class_methods">Methods</a></h3>
+<ul>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Node.html#methodgetLat">getLat</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Node.html#methodgetLon">getLon</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Node.html#methodsetLat">setLat</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Node.html#methodsetLon">setLon</a></li>
+  </ul>
+</td>
+
+</tr></table>
+<hr />
+
+<table width="100%" border="0"><tr>
+
+
+
+
+<td valign="top">
+<h3>Inherited Variables</h3>
+<div class="tags">
+<h4>Class: <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html">Services_Openstreetmap_Object</a></h4>
+<dl>
+<dt>
+  <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$action">Services_Openstreetmap_Object::$action</a>
+  </dt>
+<dd>
+   
+</dd>
+<dt>
+  <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$changeset_id">Services_Openstreetmap_Object::$changeset_id</a>
+  </dt>
+<dd>
+   
+</dd>
+<dt>
+  <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$dirty">Services_Openstreetmap_Object::$dirty</a>
+  </dt>
+<dd>
+   
+</dd>
+<dt>
+  <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$id">Services_Openstreetmap_Object::$id</a>
+  </dt>
+<dd>
+   
+</dd>
+<dt>
+  <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$obj">Services_Openstreetmap_Object::$obj</a>
+  </dt>
+<dd>
+   
+</dd>
+<dt>
+  <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$tags">Services_Openstreetmap_Object::$tags</a>
+  </dt>
+<dd>
+   
+</dd>
+<dt>
+  <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$xml">Services_Openstreetmap_Object::$xml</a>
+  </dt>
+<dd>
+   
+</dd>
+</dl>
+</div>
+</td>
+
+<td valign="top">
+<h3>Inherited Methods</h3>
+<div class="tags">
+<h4>Class: <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html">Services_Openstreetmap_Object</a></h4>
+<dl>
+    <dt>
+    <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methoddelete">Services_Openstreetmap_Object::delete()</a>
+  </dt>
+  <dd>
+    delete
+  </dd>
+    <dt>
+    <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetAttributes">Services_Openstreetmap_Object::getAttributes()</a>
+  </dt>
+  <dd>
+    getAttributes()
+  </dd>
+    <dt>
+    <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetHistory">Services_Openstreetmap_Object::getHistory()</a>
+  </dt>
+  <dd>
+    Display type and id of the object.
+  </dd>
+    <dt>
+    <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetId">Services_Openstreetmap_Object::getId()</a>
+  </dt>
+  <dd>
+    Retrieve the id of the object in question
+  </dd>
+    <dt>
+    <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetOsmChangeXML">Services_Openstreetmap_Object::getOsmChangeXML()</a>
+  </dt>
+  <dd>
+    getOsmChangeXML
+  </dd>
+    <dt>
+    <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetTags">Services_Openstreetmap_Object::getTags()</a>
+  </dt>
+  <dd>
+    tags
+  </dd>
+    <dt>
+    <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetType">Services_Openstreetmap_Object::getType()</a>
+  </dt>
+  <dd>
+    type
+  </dd>
+    <dt>
+    <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetUid">Services_Openstreetmap_Object::getUid()</a>
+  </dt>
+  <dd>
+    Retrieve the uid of the object in question
+  </dd>
+    <dt>
+    <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetUser">Services_Openstreetmap_Object::getUser()</a>
+  </dt>
+  <dd>
+    Retrieve the user (creator/editor) of the object in question
+  </dd>
+    <dt>
+    <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetVersion">Services_Openstreetmap_Object::getVersion()</a>
+  </dt>
+  <dd>
+    Retrieve the version of the object in question
+  </dd>
+    <dt>
+    <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetXml">Services_Openstreetmap_Object::getXml()</a>
+  </dt>
+  <dd>
+    getXml
+  </dd>
+    <dt>
+    <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodsetChangesetId">Services_Openstreetmap_Object::setChangesetId()</a>
+  </dt>
+  <dd>
+    set the Changeset Id for this object
+  </dd>
+    <dt>
+    <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodsetTag">Services_Openstreetmap_Object::setTag()</a>
+  </dt>
+  <dd>
+    setTag
+  </dd>
+    <dt>
+    <a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodsetXml">Services_Openstreetmap_Object::setXml()</a>
+  </dt>
+  <dd>
+    setXml
+  </dd>
+  </dl>
+</div>
+</td>
+
+</tr></table>
+<hr />
+
+<a name="class_details"></a>
+<h3>Class Details</h3>
+<div class="tags">
+[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapNode.php.html#a25">25</a>]<br />
+Services_Openstreetmap_Node<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>author:</b>&nbsp;&nbsp;</td><td>Ken Guest &lt;<a href="mailto:kguest@php.net">kguest@php.net</a>&gt;</td>
+  </tr>
+  <tr>
+    <td><b>link:</b>&nbsp;&nbsp;</td><td><a href="../Services_Openstreetmap/_Openstreetmap---Node.php.html">Node.php</a></td>
+  </tr>
+  <tr>
+    <td><b>license:</b>&nbsp;&nbsp;</td><td>BSD</td>
+  </tr>
+</table>
+</div>
+</div><br /><br />
+<div class="top">[ <a href="#top">Top</a> ]</div><br />
+
+<hr />
+<a name="class_vars"></a>
+<h3>Class Variables</h3>
+<div class="tags">
+	<a name="var$type"></a>
+	<p></p>
+	<h4>$type = <span class="value">&nbsp;'node'</span></h4>
+	<p>[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapNode.php.html#a27">27</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
 </div>
 
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+        <tr>
+      <td><b>Overrides:</b>&nbsp;&nbsp;</td>
+      <td>Array</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+</div><br />
 
+<hr />
+<a name="class_methods"></a>
+<h3>Class Methods</h3>
+<div class="tags">
 
-	<a name="sec-var-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Variable Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
-							| 
-									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-							
-								</div>
-		<div class="info-box-body">
-			<div class="var-summary">
-																								<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$type" title="details" class="var-name">$type</a>
-				</div>
-											</div>
-		</div>
-	</div>
-
-	<a name="sec-method-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Method Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
-				 
-				|
-						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
-		</div>
-		<div class="info-box-body">			
-			<div class="method-summary">
-																				
-												<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getLat" title="details" class="method-name">getLat</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getLon" title="details" class="method-name">getLon</a>
-										()
-									</div>
-								</div>
-		</div>
-	</div>		
-
-	<a name="sec-vars"></a>
-	<div class="info-box">
-		<div class="info-box-title">Variables</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
-						
-			
-										| 
-									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-							
-					</div>
-		<div class="info-box-body">
-			<a name="var$type" id="$type"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$type</span>
-			 = <span class="var-default"> 'node'</span>			(line <span class="line-number">27</span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
+  <hr />
+	<a name="methodgetLat"></a>
+	<h3>method getLat <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapNode.php.html#a34">34</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getLat(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
 	
-	
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$type">Services_Openstreetmap_Object::$type</a></dt>
-					</dl>
-		
-		
-
+		Latitude of node<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
 </div>
-							<h4>Inherited Variables</h4>
-				<A NAME='inherited_vars'><!-- --></A>
-									<p>Inherited from <span class="classname"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html">Services_Openstreetmap_Object</a></span></p>
-					<blockquote>
-													<span class="var-title">
-								<span class="var-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$action">Services_Openstreetmap_Object::$action</a></span><br>
-							</span>
-													<span class="var-title">
-								<span class="var-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$changeset_id">Services_Openstreetmap_Object::$changeset_id</a></span><br>
-							</span>
-													<span class="var-title">
-								<span class="var-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$dirty">Services_Openstreetmap_Object::$dirty</a></span><br>
-							</span>
-													<span class="var-title">
-								<span class="var-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$id">Services_Openstreetmap_Object::$id</a></span><br>
-							</span>
-													<span class="var-title">
-								<span class="var-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$obj">Services_Openstreetmap_Object::$obj</a></span><br>
-							</span>
-													<span class="var-title">
-								<span class="var-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$tags">Services_Openstreetmap_Object::$tags</a></span><br>
-							</span>
-													<span class="var-title">
-								<span class="var-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$xml">Services_Openstreetmap_Object::$xml</a></span><br>
-							</span>
-											</blockquote> 
-										
-		</div>
-	</div>
-	
-	<a name="sec-methods"></a>
-	<div class="info-box">
-		<div class="info-box-title">Methods</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
-																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
-						
-		</div>
-		<div class="info-box-body">
-			<A NAME='method_detail'></A>
+<br /><br />
 
-<a name="methodgetLat" id="getLat"><!-- --></a>
-<div class="oddrow">
 	
-	<div class="method-header">
-		<span class="method-title">getLat</span> (line <span class="line-number">34</span>)
-	</div> 
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetLon"></a>
+	<h3>method getLon <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapNode.php.html#a44">44</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getLon(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
 	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Latitude of node</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
+		Longitude of node<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
 	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getLat
-		</span>
-				()
-			</div>
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetLat"></a>
+	<h3>method setLat <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapNode.php.html#a56">56</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code><a href="../Services_Openstreetmap/Services_Openstreetmap_Node.html">Services_Openstreetmap_Node</a> setLat(
+float
+$value)</code>
+    </td></tr></table>
+    </td></tr></table><br />
 	
-		
-			
-	</div>
-<a name="methodgetLon" id="getLon"><!-- --></a>
-<div class="evenrow">
+		set the Latitude of the node<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
 	
-	<div class="method-header">
-		<span class="method-title">getLon</span> (line <span class="line-number">44</span>)
-	</div> 
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">float&nbsp;&nbsp;</td>
+        <td><b>$value</b>&nbsp;&nbsp;</td>
+        <td>Latitude (-90 &lt; x &lt; 90)</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetLon"></a>
+	<h3>method setLon <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapNode.php.html#a77">77</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code><a href="../Services_Openstreetmap/Services_Openstreetmap_Node.html">Services_Openstreetmap_Node</a> setLon(
+float
+$value)</code>
+    </td></tr></table>
+    </td></tr></table><br />
 	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Longitude of node</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
+		set the Longitude of the node<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
 	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getLon
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-							<h4>Inherited Methods</h4>
-				<a name='inherited_methods'><!-- --></a>	
-									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html">Services_Openstreetmap_Object</a></span></p>
-					<blockquote>
-													<span class="method-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methoddelete">Services_Openstreetmap_Object::delete()</a></span><br>
-													<span class="method-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetAttributes">Services_Openstreetmap_Object::getAttributes()</a></span><br>
-													<span class="method-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetHistory">Services_Openstreetmap_Object::getHistory()</a></span><br>
-													<span class="method-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetId">Services_Openstreetmap_Object::getId()</a></span><br>
-													<span class="method-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetOsmChangeXML">Services_Openstreetmap_Object::getOsmChangeXML()</a></span><br>
-													<span class="method-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetTags">Services_Openstreetmap_Object::getTags()</a></span><br>
-													<span class="method-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetType">Services_Openstreetmap_Object::getType()</a></span><br>
-													<span class="method-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetUid">Services_Openstreetmap_Object::getUid()</a></span><br>
-													<span class="method-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetUser">Services_Openstreetmap_Object::getUser()</a></span><br>
-													<span class="method-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetVersion">Services_Openstreetmap_Object::getVersion()</a></span><br>
-													<span class="method-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetXml">Services_Openstreetmap_Object::getXml()</a></span><br>
-													<span class="method-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodsetChangesetId">Services_Openstreetmap_Object::setChangesetId()</a></span><br>
-													<span class="method-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodsetTag">Services_Openstreetmap_Object::setTag()</a></span><br>
-													<span class="method-name"><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodsetXml">Services_Openstreetmap_Object::setXml()</a></span><br>
-											</blockquote>
-										
-		</div>
-	</div>
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">float&nbsp;&nbsp;</td>
+        <td><b>$value</b>&nbsp;&nbsp;</td>
+        <td>Longitude (-90 &lt; x &lt; 90)</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+</div><br />
 
 
-	<p class="notes" id="credit">
-		Documentation generated on Sun, 18 Sep 2011 15:24:04 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
-	</p>
-	</div></body>
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Wed, 21 Sep 2011 01:27:33 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
 </html>

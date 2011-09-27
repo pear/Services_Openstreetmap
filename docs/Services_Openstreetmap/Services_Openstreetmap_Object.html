@@ -1,823 +1,810 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-  <html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class Services_Openstreetmap_Object</title>
-			<link rel="stylesheet" href="../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
-		</head>
-		<body>
-			<div class="page-body">			
-<h2 class="class-name">Class Services_Openstreetmap_Object</h2>
+<html>
+<head>
+<title>Docs For Class Services_Openstreetmap_Object</title>
+<link rel="stylesheet" type="text/css" href="../media/style.css">
+</head>
+<body>
 
-<a name="sec-description"></a>
-<div class="info-box">
-	<div class="info-box-title">Description</div>
-	<div class="nav-bar">
-					<span class="disabled">Description</span> |
-							<a href="#sec-descendents">Descendents</a>
-			|											<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
-						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-						
-					</div>
-	<div class="info-box-body">
-        		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Services_Openstreetmap_Object</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Ken Guest &lt;<a href="mailto:kguest@php.net">kguest@php.net</a>&gt;</li>
-				<li><span class="field">link:</span> <a href="../Services_Openstreetmap/_Openstreetmap---Object.php.html">Object.php</a></li>
-				<li><span class="field">license:</span> BSD</li>
-			</ul>
-		<p class="notes">
-			Located in <a class="field" href="_Openstreetmap---Object.php.html">/Openstreetmap/Object.php</a> (line <span class="field">25</span>)
-		</p>
-		
-				
-		<pre></pre>
-	
-			</div>
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+    <td class="header_top">Services_Openstreetmap</td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td class="header_menu">
+        
+                                    
+                              		  [ <a href="../classtrees_Services_Openstreetmap.html" class="menu">class tree: Services_Openstreetmap</a> ]
+		  [ <a href="../elementindex_Services_Openstreetmap.html" class="menu">index: Services_Openstreetmap</a> ]
+		  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="200" class="menu">
+	<div id="todolist">
+			<p><a href="../todolist.html">Todo List</a></p>
+	</div>
+      <b>Packages:</b><br />
+              <a href="../li_Services_Openstreetmap.html">Services_Openstreetmap</a><br />
+            <br /><br />
+                        <b>Files:</b><br />
+      	  <div class="package">
+			<a href="../Services_Openstreetmap/_Openstreetmap---Changeset.php.html">		Changeset.php
+		</a><br>
+			<a href="../Services_Openstreetmap/_Openstreetmap---Exception.php.html">		Exception.php
+		</a><br>
+			<a href="../Services_Openstreetmap/_Openstreetmap---Node.php.html">		Node.php
+		</a><br>
+			<a href="../Services_Openstreetmap/_Openstreetmap---Object.php.html">		Object.php
+		</a><br>
+			<a href="../Services_Openstreetmap/_Openstreetmap.php.html">		Openstreetmap.php
+		</a><br>
+			<a href="../Services_Openstreetmap/_Openstreetmap---Relation.php.html">		Relation.php
+		</a><br>
+			<a href="../Services_Openstreetmap/_Openstreetmap---Way.php.html">		Way.php
+		</a><br>
+	  </div><br />
+      
+      
+            <b>Classes:</b><br />
+        <div class="package">
+		    		<a href="../Services_Openstreetmap/Services_Openstreetmap.html">Services_Openstreetmap</a><br />
+	    		<a href="../Services_Openstreetmap/Services_Openstreetmap_Changeset.html">Services_Openstreetmap_Changeset</a><br />
+	    		<a href="../Services_Openstreetmap/Services_Openstreetmap_Exception.html">Services_Openstreetmap_Exception</a><br />
+	    		<a href="../Services_Openstreetmap/Services_Openstreetmap_Node.html">Services_Openstreetmap_Node</a><br />
+	    		<a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html">Services_Openstreetmap_Object</a><br />
+	    		<a href="../Services_Openstreetmap/Services_Openstreetmap_Relation.html">Services_Openstreetmap_Relation</a><br />
+	    		<a href="../Services_Openstreetmap/Services_Openstreetmap_Way.html">Services_Openstreetmap_Way</a><br />
+	  </div>
+                </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>Class: Services_Openstreetmap_Object</h1>
+Source Location: /Openstreetmap/Object.php<br /><br />
+
+
+<table width="100%" border="0">
+<tr><td valign="top">
+
+<h3><a href="#class_details">Class Overview</a></h3>
+<pre></pre><br />
+<div class="description">Services_Openstreetmap_Object</div><br /><br />
+<h4>Author(s):</h4>
+<ul>
+          <li>Ken Guest &lt;<a href="mailto:kguest@php.net">kguest@php.net</a>&gt;</li>
+                  </ul>
+
+
+
+
+            
+
+        
+</td>
+
+<td valign="top">
+<h3><a href="#class_vars">Variables</a></h3>
+<ul>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$action">$action</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$changeset_id">$changeset_id</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$dirty">$dirty</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$id">$id</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$obj">$obj</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$tags">$tags</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$type">$type</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#var$xml">$xml</a></li>
+  </ul>
+</td>
+
+
+<td valign="top">
+<h3><a href="#class_methods">Methods</a></h3>
+<ul>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methoddelete">delete</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetAttributes">getAttributes</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetHistory">getHistory</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetId">getId</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetOsmChangeXML">getOsmChangeXML</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetTags">getTags</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetType">getType</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetUid">getUid</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetUser">getUser</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetVersion">getVersion</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodgetXml">getXml</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodsetChangesetId">setChangesetId</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodsetTag">setTag</a></li>
+    <li><a href="../Services_Openstreetmap/Services_Openstreetmap_Object.html#methodsetXml">setXml</a></li>
+  </ul>
+</td>
+
+</tr></table>
+<hr />
+
+<table width="100%" border="0"><tr>
+
+
+<td valign="top">
+<h3>Child classes:</h3>
+<div class="tags">
+<dl>
+<dt><a href="../Services_Openstreetmap/Services_Openstreetmap_Way.html">Services_Openstreetmap_Way</a></dt>
+	<dd>Services_Openstreetmap_Way</dd>
+</dl>
+<dl>
+<dt><a href="../Services_Openstreetmap/Services_Openstreetmap_Relation.html">Services_Openstreetmap_Relation</a></dt>
+	<dd>Services_Openstreetmap_Relation</dd>
+</dl>
+<dl>
+<dt><a href="../Services_Openstreetmap/Services_Openstreetmap_Changeset.html">Services_Openstreetmap_Changeset</a></dt>
+	<dd>Services_Openstreetmap_Changeset</dd>
+</dl>
+<dl>
+<dt><a href="../Services_Openstreetmap/Services_Openstreetmap_Node.html">Services_Openstreetmap_Node</a></dt>
+	<dd>Services_Openstreetmap_Node</dd>
+</dl>
+</div>
+</td>
+
+
+
+
+</tr></table>
+<hr />
+
+<a name="class_details"></a>
+<h3>Class Details</h3>
+<div class="tags">
+[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a25">25</a>]<br />
+Services_Openstreetmap_Object<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>author:</b>&nbsp;&nbsp;</td><td>Ken Guest &lt;<a href="mailto:kguest@php.net">kguest@php.net</a>&gt;</td>
+  </tr>
+  <tr>
+    <td><b>link:</b>&nbsp;&nbsp;</td><td><a href="../Services_Openstreetmap/_Openstreetmap---Object.php.html">Object.php</a></td>
+  </tr>
+  <tr>
+    <td><b>license:</b>&nbsp;&nbsp;</td><td>BSD</td>
+  </tr>
+</table>
+</div>
+</div><br /><br />
+<div class="top">[ <a href="#top">Top</a> ]</div><br />
+
+<hr />
+<a name="class_vars"></a>
+<h3>Class Variables</h3>
+<div class="tags">
+	<a name="var$action"></a>
+	<p></p>
+	<h4>$action = <span class="value">&nbsp;null</span></h4>
+	<p>[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a39">39</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
 </div>
 
-	<a name="sec-descendents"></a>
-	<div class="info-box">
-		<div class="info-box-title">Direct descendents</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-			<span class="disabled">Descendents</span>
-			|												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
-								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-							
-								</div>
-		<div class="info-box-body">
-			<table cellpadding="2" cellspacing="0" class="class-table">
-				<tr>
-					<th class="class-table-header">Class</th>
-					<th class="class-table-header">Description</th>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../Services_Openstreetmap/Services_Openstreetmap_Way.html">Services_Openstreetmap_Way</a></td>
-					<td>
-											Services_Openstreetmap_Way
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../Services_Openstreetmap/Services_Openstreetmap_Relation.html">Services_Openstreetmap_Relation</a></td>
-					<td>
-											Services_Openstreetmap_Relation
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../Services_Openstreetmap/Services_Openstreetmap_Changeset.html">Services_Openstreetmap_Changeset</a></td>
-					<td>
-											Services_Openstreetmap_Changeset
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../Services_Openstreetmap/Services_Openstreetmap_Node.html">Services_Openstreetmap_Node</a></td>
-					<td>
-											Services_Openstreetmap_Node
-										</td>
-				</tr>
-							</table>
-		</div>
-	</div>
-
-
-	<a name="sec-var-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Variable Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-							<a href="#sec-descendents">Descendents</a> |
-						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
-							| 
-									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-							
-								</div>
-		<div class="info-box-body">
-			<div class="var-summary">
-																																																																																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$action" title="details" class="var-name">$action</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$changeset_id" title="details" class="var-name">$changeset_id</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$dirty" title="details" class="var-name">$dirty</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$id" title="details" class="var-name">$id</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$obj" title="details" class="var-name">$obj</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$tags" title="details" class="var-name">$tags</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$type" title="details" class="var-name">$type</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$xml" title="details" class="var-name">$xml</a>
-				</div>
-											</div>
-		</div>
-	</div>
-
-	<a name="sec-method-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Method Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-							<a href="#sec-descendents">Descendents</a> |
-																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
-				 
-				|
-						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
-		</div>
-		<div class="info-box-body">			
-			<div class="method-summary">
-																																																																																																																				
-												<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#delete" title="details" class="method-name">delete</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getAttributes" title="details" class="method-name">getAttributes</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#getHistory" title="details" class="method-name">getHistory</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getId" title="details" class="method-name">getId</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#getOsmChangeXML" title="details" class="method-name">getOsmChangeXML</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getTags" title="details" class="method-name">getTags</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getType" title="details" class="method-name">getType</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getUid" title="details" class="method-name">getUid</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getUser" title="details" class="method-name">getUser</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getVersion" title="details" class="method-name">getVersion</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getXml" title="details" class="method-name">getXml</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#setChangesetId" title="details" class="method-name">setChangesetId</a>
-											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$id</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#setTag" title="details" class="method-name">setTag</a>
-											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$key</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#setXml" title="details" class="method-name">setXml</a>
-											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$xml</span>)
-									</div>
-								</div>
-		</div>
-	</div>		
-
-	<a name="sec-vars"></a>
-	<div class="info-box">
-		<div class="info-box-title">Variables</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-							<a href="#sec-descendents">Descendents</a> |
-										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
-						
-			
-										| 
-									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-							
-					</div>
-		<div class="info-box-body">
-			<a name="var$action" id="$action"><!-- --></A>
-<div class="oddrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$action</span>
-			 = <span class="var-default"> null</span>			(line <span class="line-number">39</span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	
-		
-		
-
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$changeset_id"></a>
+	<p></p>
+	<h4>$changeset_id = <span class="value">&nbsp;null</span></h4>
+	<p>[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a41">41</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
 </div>
-<a name="var$changeset_id" id="$changeset_id"><!-- --></A>
-<div class="evenrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$changeset_id</span>
-			 = <span class="var-default"> null</span>			(line <span class="line-number">41</span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	
-		
-		
-
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$dirty"></a>
+	<p></p>
+	<h4>$dirty = <span class="value">&nbsp;false</span></h4>
+	<p>[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a37">37</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
 </div>
-<a name="var$dirty" id="$dirty"><!-- --></A>
-<div class="oddrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$dirty</span>
-			 = <span class="var-default"> false</span>			(line <span class="line-number">37</span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	
-		
-		
-
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$id"></a>
+	<p></p>
+	<h4>$id = <span class="value">&nbsp;null</span></h4>
+	<p>[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a31">31</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
 </div>
-<a name="var$id" id="$id"><!-- --></A>
-<div class="evenrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$id</span>
-			 = <span class="var-default"> null</span>			(line <span class="line-number">31</span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	
-		
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../Services_Openstreetmap/Services_Openstreetmap_Changeset.html#var$id">Services_Openstreetmap_Changeset::$id</a>
-							</li>
-				</ul>
-		
-
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$obj"></a>
+	<p></p>
+	<h4>$obj = <span class="value">&nbsp;null</span></h4>
+	<p>[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a35">35</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
 </div>
-<a name="var$obj" id="$obj"><!-- --></A>
-<div class="oddrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$obj</span>
-			 = <span class="var-default"> null</span>			(line <span class="line-number">35</span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	
-		
-		
-
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$tags"></a>
+	<p></p>
+	<h4>$tags = <span class="value">array()</span></h4>
+	<p>[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a29">29</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
 </div>
-<a name="var$tags" id="$tags"><!-- --></A>
-<div class="evenrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$tags</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number">29</span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	
-		
-		
-
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$type"></a>
+	<p></p>
+	<h4>$type = <span class="value">&nbsp;null</span></h4>
+	<p>[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a33">33</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
 </div>
-<a name="var$type" id="$type"><!-- --></A>
-<div class="oddrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$type</span>
-			 = <span class="var-default"> null</span>			(line <span class="line-number">33</span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	
-		
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../Services_Openstreetmap/Services_Openstreetmap_Way.html#var$type">Services_Openstreetmap_Way::$type</a>
-							</li>
-					<li>
-				<a href="../Services_Openstreetmap/Services_Openstreetmap_Relation.html#var$type">Services_Openstreetmap_Relation::$type</a>
-							</li>
-					<li>
-				<a href="../Services_Openstreetmap/Services_Openstreetmap_Changeset.html#var$type">Services_Openstreetmap_Changeset::$type</a>
-							</li>
-					<li>
-				<a href="../Services_Openstreetmap/Services_Openstreetmap_Node.html#var$type">Services_Openstreetmap_Node::$type</a>
-							</li>
-				</ul>
-		
-
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$xml"></a>
+	<p></p>
+	<h4>$xml = <span class="value">&nbsp;null</span></h4>
+	<p>[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a27">27</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
 </div>
-<a name="var$xml" id="$xml"><!-- --></A>
-<div class="evenrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$xml</span>
-			 = <span class="var-default"> null</span>			(line <span class="line-number">27</span>)
-		</span>
-	</div>
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+</div><br />
 
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
+<hr />
+<a name="class_methods"></a>
+<h3>Class Methods</h3>
+<div class="tags">
+
+  <hr />
+	<a name="methoddelete"></a>
+	<h3>method delete <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a267">267</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void delete(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
 	
-	
-		
-		
-
+		delete<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
 </div>
-						
-		</div>
-	</div>
-	
-	<a name="sec-methods"></a>
-	<div class="info-box">
-		<div class="info-box-title">Methods</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-							<a href="#sec-descendents">Descendents</a> |
-															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
-																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
-						
-		</div>
-		<div class="info-box-body">
-			<A NAME='method_detail'></A>
+<br /><br />
 
-<a name="methoddelete" id="delete"><!-- --></a>
-<div class="oddrow">
 	
-	<div class="method-header">
-		<span class="method-title">delete</span> (line <span class="line-number">275</span>)
-	</div> 
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetAttributes"></a>
+	<h3>method getAttributes <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a211">211</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getAttributes(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
 	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">delete</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			delete
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetAttributes" id="getAttributes"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getAttributes</span> (line <span class="line-number">219</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">getAttributes()</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getAttributes
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetHistory" id="getHistory"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getHistory</span> (line <span class="line-number">286</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Display type and id of the object.</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			getHistory
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetId" id="getId"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getId</span> (line <span class="line-number">159</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Retrieve the id of the object in question</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> id of the object</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getId
-		</span>
-				()
-			</div>
-	
-		
-			
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../Services_Openstreetmap/Services_Openstreetmap_Changeset.html#methodgetId">Services_Openstreetmap_Changeset::getId()</a>
-								: getId
-							</li>
-				</ul>
-	</div>
-<a name="methodgetOsmChangeXML" id="getOsmChangeXML"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getOsmChangeXML</span> (line <span class="line-number">91</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">getOsmChangeXML</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			getOsmChangeXML
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetTags" id="getTags"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getTags</span> (line <span class="line-number">233</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">tags</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> tags</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getTags
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetType" id="getType"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getType</span> (line <span class="line-number">243</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">type</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> type</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getType
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetUid" id="getUid"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getUid</span> (line <span class="line-number">174</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Retrieve the uid of the object in question</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> uid of the object</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getUid
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetUser" id="getUser"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getUser</span> (line <span class="line-number">189</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Retrieve the user (creator/editor) of the object in question</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> user of the object</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getUser
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetVersion" id="getVersion"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getVersion</span> (line <span class="line-number">204</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Retrieve the version of the object in question</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> version of the object</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getVersion
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetXml" id="getXml"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getXml</span> (line <span class="line-number">48</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">getXml</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getXml
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodsetChangesetId" id="setChangesetId"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">setChangesetId</span> (line <span class="line-number">81</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">set the Changeset Id for this object</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			setChangesetId
-		</span>
-					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$id</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">integer</span>
-				<span class="var-name">$id</span><span class="var-description">: Changeset Id (numeric)</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetTag" id="setTag"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">setTag</span> (line <span class="line-number">256</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">setTag</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			setTag
-		</span>
-					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$key</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$key</span><span class="var-description">: key</span>			</li>
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$value</span><span class="var-description">: value</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetXml" id="setXml"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">setXml</span> (line <span class="line-number">60</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">setXml</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			setXml
-		</span>
-					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$xml</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$xml</span><span class="var-description">: OSM XML</span>			</li>
-				</ul>
-		
-			
-	</div>
-						
-		</div>
-	</div>
+		getAttributes()<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
 
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetHistory"></a>
+	<h3>method getHistory <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a278">278</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void getHistory(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Display type and id of the object.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
 
-	<p class="notes" id="credit">
-		Documentation generated on Sun, 18 Sep 2011 15:24:04 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetId"></a>
+	<h3>method getId <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a159">159</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>integer getId(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Retrieve the id of the object in question<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>id of the object</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../Services_Openstreetmap/Services_Openstreetmap_Changeset.html#methodgetId">Services_Openstreetmap_Changeset::getId()</a></dt>
+		<dd>getId</dd>
+	</dl>
 	</p>
-	</div></body>
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetOsmChangeXML"></a>
+	<h3>method getOsmChangeXML <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a93">93</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void getOsmChangeXML(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		getOsmChangeXML<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetTags"></a>
+	<h3>method getTags <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a225">225</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getTags(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		tags<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>tags</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetType"></a>
+	<h3>method getType <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a235">235</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getType(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		type<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>type</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetUid"></a>
+	<h3>method getUid <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a172">172</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>integer getUid(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Retrieve the uid of the object in question<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>uid of the object</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetUser"></a>
+	<h3>method getUser <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a185">185</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getUser(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Retrieve the user (creator/editor) of the object in question<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>user of the object</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetVersion"></a>
+	<h3>method getVersion <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a198">198</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getVersion(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Retrieve the version of the object in question<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>version of the object</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetXml"></a>
+	<h3>method getXml <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a48">48</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getXml(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		getXml<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetChangesetId"></a>
+	<h3>method setChangesetId <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a82">82</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setChangesetId(
+integer
+$id)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		set the Changeset Id for this object<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">integer&nbsp;&nbsp;</td>
+        <td><b>$id</b>&nbsp;&nbsp;</td>
+        <td>Changeset Id (numeric)</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetTag"></a>
+	<h3>method setTag <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a248">248</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setTag(
+mixed
+$key, mixed
+$value)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		setTag<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">mixed&nbsp;&nbsp;</td>
+        <td><b>$key</b>&nbsp;&nbsp;</td>
+        <td>key</td>
+      </tr>
+          <tr>
+        <td class="type">mixed&nbsp;&nbsp;</td>
+        <td><b>$value</b>&nbsp;&nbsp;</td>
+        <td>value</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetXml"></a>
+	<h3>method setXml <span class="smalllinenumber">[line <a href="../__filesource/fsource_Services_Openstreetmap__OpenstreetmapObject.php.html#a60">60</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setXml(
+mixed
+$xml)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		setXml<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">mixed&nbsp;&nbsp;</td>
+        <td><b>$xml</b>&nbsp;&nbsp;</td>
+        <td>OSM XML</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+</div><br />
+
+
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Wed, 21 Sep 2011 01:27:34 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
 </html>

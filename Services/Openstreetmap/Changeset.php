@@ -25,7 +25,6 @@
 class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
 {
     protected $type = 'changeset';
-    protected $atomic = true;
     protected $members = array();
     protected $members_ids = array();
     protected $open = false;
@@ -34,13 +33,10 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
     /**
      * __construct
      *
-     * @param boolean $atomic true if changeset should be treated as atomic
-     *
-     * @return void
+     * @return Services_Openstreetmap_Changeset
      */
-    public function __construct($atomic = true)
+    public function __construct()
     {
-        $this->atomic = $atomic;
     }
 
     /**
@@ -146,17 +142,23 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
              . $blocks
              . '</osmChange>';
 
-        $response = $this->_osm->getResponse(
-            $url,
-            HTTP_Request2::METHOD_POST,
-            $this->_osm->getConfig('user'),
-            $this->_osm->getConfig('password'),
-            $doc,
-            null,
-            array(array('Content-type', 'text/xml', true))
-        );
+        try {
+            $response = $this->_osm->getResponse(
+                $url,
+                HTTP_Request2::METHOD_POST,
+                $this->_osm->getConfig('user'),
+                $this->_osm->getConfig('password'),
+                $doc,
+                null,
+                array(array('Content-type', 'text/xml', true))
+            );
+        } catch (Exception $ex) {
+            $code = $ex->getCode();
+        }
 
-        $code = $response->getStatus();
+        if (isset($response) && is_object($response)) {
+            $code = $response->getStatus();
+        }
         if (200 != $code) {
             throw new Services_Openstreetmap_Exception(
                 "Error posting changeset",
@@ -170,19 +172,27 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
             . $this->_osm->getConfig('api_version') .
             "/changeset/{$cId}/close";
 
-        $response = $this->_osm->getResponse(
-            $url,
-            HTTP_Request2::METHOD_PUT,
-            $this->_osm->getConfig('user'),
-            $this->_osm->getConfig('password'),
-            null,
-            null,
-            array(array('Content-type', 'text/xml', true))
-        );
-        $code = $response->getStatus();
+        $code = null;
+        $response = null;
+        try {
+            $response = $this->_osm->getResponse(
+                $url,
+                HTTP_Request2::METHOD_PUT,
+                $this->_osm->getConfig('user'),
+                $this->_osm->getConfig('password'),
+                null,
+                null,
+                array(array('Content-type', 'text/xml', true))
+            );
+        } catch (Exception $ex) {
+            $code = $ex->getCode();
+        }
+        if (isset($response) && is_object($response)) {
+            $code = $response->getStatus();
+        }
         if (200 != $code) {
             throw new Services_Openstreetmap_Exception(
-                "Error posting changeset",
+                "Error closing changeset",
                 $code
             );
 
