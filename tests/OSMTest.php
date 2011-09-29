@@ -55,29 +55,6 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($osm->getMaxVersion(), 0.6);
     }
 
-
-    public function testGetNode()
-    {
-        $id = 52245107;
-
-        $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/node.xml', 'rb'));
-
-        $config = array(
-            'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org'
-        );
-        $osm = new Services_Openstreetmap($config);
-        $node = $osm->getNode($id);
-        $getTags = $node->getTags();
-
-        $this->assertEquals($id, $node->getId());
-        $this->assertEquals($getTags['name'], 'Nenagh Bridge');
-        $this->assertEquals("52.881667", $node->getLat());
-        $this->assertEquals("-8.195833", $node->getLon());
-    }
-
     public function testGetWay()
     {
         $id = 25978036;

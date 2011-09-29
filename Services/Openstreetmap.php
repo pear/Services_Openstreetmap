@@ -780,6 +780,8 @@ class Services_Openstreetmap
 <osm version='{$api_version}' generator='{$user_agent}'>
 <node lat='{$latitude}' lon='{$longitude}' version='1'/>
 </osm>";
+        $node->setLat($latitude);
+        $node->setLon($longitude);
         $node->setXml($xml);
         $node->setId($this->newId--);
         $node->setTag('created_by', $user_agent);

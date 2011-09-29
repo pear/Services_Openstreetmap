@@ -368,7 +368,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $changeset->commit();
     }
 
-    public function testCreateNode()
+    public function testSaveNode()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));

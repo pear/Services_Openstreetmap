@@ -49,20 +49,20 @@ class Services_Openstreetmap_Node extends Services_Openstreetmap_Object
     /**
      * set the Latitude of the node
      *
-     * @param float $value Latitude (-90 < x < 90)
+     * @param float $value Latitude (-90 < y < 90)
      *
      * @return Services_Openstreetmap_Node
      */
     public function setLat($value)
     {
         if (!is_numeric($value)) {
-            throw new InvalidArgumentException("Must be numeric");
+            throw new InvalidArgumentException("Latitude must be numeric");
         }
         if ($value < -90 ) {
-            throw new InvalidArgumentException("Can't be less than -90");
+            throw new InvalidArgumentException("Latitude can't be less than -90");
         }
         if ($value > 90 ) {
-            throw new InvalidArgumentException("Can't be greater than 90");
+            throw new InvalidArgumentException("Latitude can't be greater than 90");
         }
         return $this;
     }
@@ -77,13 +77,13 @@ class Services_Openstreetmap_Node extends Services_Openstreetmap_Object
     public function setLon($value)
     {
         if (!is_numeric($value)) {
-            throw new InvalidArgumentException("Must be numeric");
+            throw new InvalidArgumentException("Longitude must be numeric");
         }
         if ($value < -90 ) {
-            throw new InvalidArgumentException("Can't be less than -90");
+            throw new InvalidArgumentException("Longitude can't be less than -90");
         }
         if ($value > 90 ) {
-            throw new InvalidArgumentException("Can't be greater than 90");
+            throw new InvalidArgumentException("Longitude can't be greater than 90");
         }
         return $this;
     }
