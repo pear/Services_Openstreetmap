@@ -137,10 +137,8 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
             $blocks .= $member->getOsmChangeXML() . "\n";
         }
 
-        $doc = '<osmChange version="0.6" generator="Services_Openstreetmap">'
-            . "\n"
-             . $blocks
-             . '</osmChange>';
+        $doc = "<osmChange version='0.6' generator='Services_Openstreetmap'>\n"
+             . $blocks . '</osmChange>';
 
         try {
             $response = $this->_osm->getResponse(
@@ -152,6 +150,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
                 null,
                 array(array('Content-type', 'text/xml', true))
             );
+            $this->updateObjectIds($response->getBody());
         } catch (Exception $ex) {
             $code = $ex->getCode();
         }
@@ -195,9 +194,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
                 "Error closing changeset",
                 $code
             );
-
         }
-
         $this->open = false;
     }
 
@@ -290,6 +287,51 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
             return $this->id;
         } else {
             return $p_id;
+        }
+    }
+
+    /**
+     * Given diffResult xml, update Ids of objects that are members of the
+     * current changeset.
+     *
+     * @param string $xml diffResult xml
+     *
+     * @return void
+     */
+    public function updateObjectIds($xml)
+    {
+        $xml = trim($xml);
+        $cxml = simplexml_load_string($xml);
+        $obj = $cxml->xpath('//diffResult');
+        foreach ($obj[0]->children() as $child) {
+            $old_id = null;
+            $new_id = null;
+            $old_id = (string) $child->attributes()->old_id;
+            $new_id = (string) $child->attributes()->new_id;
+            $this->updateObjectId($child->getName(), $old_id, $new_id);
+        }
+    }
+
+    /**
+     * Update id of some type of object
+     *
+     * @param string  $type   Object type
+     * @param integer $old_id Old id
+     * @param integer $new_id New id
+     *
+     * @return void
+     */
+    public function updateObjectId($type, $old_id, $new_id)
+    {
+        if ($old_id == $new_id) {
+            return;
+        }
+        foreach ($this->members as $member) {
+            if ($member->getType() == $type) {
+                if ($member->getId() == $old_id) {
+                    $member->setId($new_id);
+                }
+            }
         }
     }
 }

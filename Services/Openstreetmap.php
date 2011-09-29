@@ -91,6 +91,8 @@ class Services_Openstreetmap
      */
     protected $elements = array('node', 'way', 'relation');
 
+    protected $newId = -1;
+
     /**
      * constructor; which optionally sets config details.
      *
@@ -779,6 +781,8 @@ class Services_Openstreetmap
 <node lat='{$latitude}' lon='{$longitude}' version='1'/>
 </osm>";
         $node->setXml($xml);
+        $node->setId($this->newId--);
+        $node->setTag('created_by', $user_agent);
         if (!empty($tags)) {
             foreach ($tags as $key=>$value) {
                 $node->setTag($key, $value);

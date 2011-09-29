@@ -372,19 +372,48 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
     {
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/diff_create_node.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/changeset_closed', 'rb'));
         $config = array(
-            'adapter'  => $mock,
-            'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+                'adapter'  => $mock,
+                'server'   => 'http://api06.dev.openstreetmap.org/',
+                'passwordfile' => __DIR__ . '/credentials',
+                );
         $osm = new Services_Openstreetmap($config);
-        $node = $osm->createNode(52.8638729, -8.1983611);
-        $lat = $node->getLat();
-/*
-    $changeset = $osm->createChangeset();
-    $changeset->begin("test");
-    $changeset->add($node);
-    $changeset->commit();
-*/
+        $lat = 52.8638729;
+        $lon = -8.1983611;
+        $node = $osm->createNode($lat, $lon, array(
+                    'building' => 'yes',
+                    'amenity' => 'vet')
+                );
+        $this->assertEquals(
+                $node->getTags(),
+                array(
+                    'created_by' => 'Services_Openstreetmap',
+                    'building' => 'yes',
+                    'amenity' => 'vet',
+                    )
+                );
+        $this->assertEquals($lat, $node->getlat());
+        $this->assertEquals($lon, $node->getlon());
+        $node->setTag('amenity', 'veterinary')->setTag('name', 'O\'Kennedy');
+        $this->assertEquals(
+                $node->getTags(),
+                array(
+                    'created_by' => 'Services_Openstreetmap',
+                    'building' => 'yes',
+                    'amenity' => 'veterinary',
+                    'name' => 'O\'Kennedy'
+                    )
+                );
+        $this->assertEquals(-1, $node->getId());
+
+        $changeset = $osm->createChangeset();
+        $changeset->begin("Add O'Kennedy vets in Nenagh");
+        $changeset->add($node);
+        $changeset->commit();
+        $this->assertEquals($node->getId(), 1448499623);
     }
 }
 // vim:set et ts=4 sw=4:

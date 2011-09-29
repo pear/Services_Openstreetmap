@@ -100,7 +100,8 @@ class Services_Openstreetmap_Object
             $domd->loadXML($this->getXML());
             $xpath = new DomXPath($domd);
             $nodelist = $xpath->query("//{$type}");
-            $nodelist->item(0)->setAttribute("action", "modify");
+            $nodelist->item(0)->setAttribute("action", $this->action);
+            $nodelist->item(0)->setAttribute("id", $this->getId());
 
             if ($this->changeset_id !== null) {
                 $nodelist->item(0)->setAttribute("changeset", $this->changeset_id);
@@ -148,6 +149,8 @@ class Services_Openstreetmap_Object
             $n->item(0)->setAttribute('action', 'delete');
             $xml = $domd->saveXML($n->item(0));
             return "<delete>{$xml}</delete>";
+        } else {
+            echo "wha?";
         }
     }
 
@@ -158,10 +161,26 @@ class Services_Openstreetmap_Object
      */
     public function getId()
     {
+        if (!is_null($this->id)) {
+            return $this->id;
+        }
+
         $attribs = $this->getAttributes();
         if ($attribs !== null) {
             return (integer) $attribs->id;
         }
+    }
+
+    /**
+     * set the id value of the object in question
+     *
+     * @param integer $value new id of the object
+     *
+     * @return void
+     */
+    public function setId($value)
+    {
+        $this->id = $value;
     }
 
     /**

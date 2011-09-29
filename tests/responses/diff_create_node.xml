@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<diffResult version="0.6" generator="OpenStreetMap server">
+  <node old_id="-1" new_id="1448499623" new_version="1"/>
+</diffResult>
+
