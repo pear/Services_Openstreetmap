@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Status: 200
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+ <way id="23010475" user="Nick Burrett" uid="166593" visible="true" version="4" changeset="6377680" timestamp="2010-11-15T14:13:54Z">
+  <nd ref="248081834"/>
+ </way>
+</osm>
+
+

@@ -120,6 +120,47 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($getTags['building'], 'yes');
         $this->assertTrue($way->isClosed());
     }
+
+    public function testOpenWay()
+    {
+        $id = 23010474;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/way_open.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org'
+        );
+        $osm = new Services_Openstreetmap($config);
+        $way = $osm->getWay($id);
+        $getTags = $way->getTags();
+        $this->assertEquals($id, (int) $way->getAttributes()->id);
+        $this->assertFalse($way->isClosed());
+    }
+
+    public function testWayWithOneNode()
+    {
+        $id = 23010475;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/way_one_node.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org'
+        );
+        $osm = new Services_Openstreetmap($config);
+        $way = $osm->getWay($id);
+        $getTags = $way->getTags();
+        $this->assertEquals($id, (int) $way->getAttributes()->id);
+        $this->assertFalse($way->isClosed());
+    }
+
+
+
     public function testGetHistory()
     {
         $id = 52245107;

@@ -1,0 +1,28 @@
+HTTP/1.1 200 OK
+Status: 200
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+ <way id="23010474" user="Nick Burrett" uid="166593" visible="true" version="4" changeset="6377680" timestamp="2010-11-15T14:13:54Z">
+  <nd ref="248081834"/>
+  <nd ref="248081835"/>
+  <nd ref="248081837"/>
+  <nd ref="248081838"/>
+  <nd ref="248081840"/>
+  <nd ref="248081841"/>
+  <nd ref="248081843"/>
+  <nd ref="248081844"/>
+  <nd ref="248081845"/>
+  <nd ref="248081847"/>
+  <nd ref="248081848"/>
+  <nd ref="248081850"/>
+  <nd ref="248081798"/>
+  <tag k="highway" v="residential"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Kingston Park"/>
+  <tag k="name:en" v="Kingston Park"/>
+  <tag k="name:ga" v="Páirc Kingston"/>
+ </way>
+</osm>
+
+
