@@ -205,6 +205,34 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $lon = 'TheBlessing';
         $node = $osm->createNode($lat, $lon);
     }
+
+    public function testGetNodes()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/nodes_621953926_621953928_621953939.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/',
+        );
+        $osm = new Services_Openstreetmap($config);
+        $nodes = $osm->getNodes(array(621953926,621953928,621953939));
+        $this->assertEquals(3, sizeof($nodes));
+
+        $nodes_info = array(
+            array('id' => 621953926, 'source' => 'survey'),
+            array('id' => 621953928, 'source' => 'survey'),
+            array('id' => 621953939, 'source' => 'survey'),
+            );
+        $pos = 0;
+        foreach($nodes as $node) {
+            $tags = $node->getTags();
+            $this->assertEquals($node->getId(), $nodes_info[$pos]['id']);
+            $this->assertEquals($tags['source'], $nodes_info[$pos]['source']);
+            $pos++;
+        }
+    }
 }
 
 ?>
