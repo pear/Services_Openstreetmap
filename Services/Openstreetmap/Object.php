@@ -288,18 +288,6 @@ class Services_Openstreetmap_Object
         $this->action = 'delete';
         return $this;
     }
-
-    /**
-     * Display type and id of the object.
-     *
-     * @return void
-     */
-    public function getHistory()
-    {
-        echo "type: ", $this->getType(), "\n";
-        echo "id: ", $this->getId(), "\n";
-    }
-
 }
 
 // vim:set et ts=4 sw=4:

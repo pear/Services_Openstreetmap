@@ -106,9 +106,8 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
 
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/way_30357328_30357329.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/way_30357328.xml', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/way_30357329.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/diff_30357328_30357329.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_closed', 'rb'));
 
@@ -125,8 +124,9 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             return;
         }
         $this->assertEquals(false, $changeset->isOpen());
-        $changeset->begin("Undo accidental highway change from residential to service");
         $ways = $osm->getWays($wayId, $way2Id);
+        $this->assertEquals(2, count($ways));
+        $changeset->begin("Undo accidental highway change from residential to service");
         foreach ($ways as $way) {
             $way->setTag('highway', 'residential');
             $way->setTag('lit', 'yes');
@@ -152,8 +152,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/way_30357328.xml', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/way_30357329.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/way_30357328_30357329.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/diff_30357328_30357329.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_closed', 'rb'));
 
@@ -172,6 +171,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(false, $changeset->isOpen());
         $changeset->begin("Undo accidental highway change from residential to service");
         $ways = $osm->getWays($wayId, $way2Id);
+        $this->assertEquals(2, count($ways));
         foreach ($ways as $way) {
             $way->setTag('highway', 'residential');
             $way->setTag('lit', 'yes');

@@ -37,8 +37,8 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/node.xml', 'rb'));
 
         $config = array(
-            'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org'
+            #'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $node = $osm->getNode($id);

@@ -15,10 +15,12 @@
 
 require_once 'HTTP/Request2.php';
 require_once 'Services/Openstreetmap/Object.php';
+require_once 'Services/Openstreetmap/Objects.php';
 require_once 'Services/Openstreetmap/Relation.php';
 require_once 'Services/Openstreetmap/Changeset.php';
 require_once 'Services/Openstreetmap/Node.php';
 require_once 'Services/Openstreetmap/Way.php';
+require_once 'Services/Openstreetmap/Ways.php';
 require_once 'Services/Openstreetmap/Exception.php';
 
 /**
@@ -270,16 +272,7 @@ class Services_Openstreetmap
      */
     public function getNodes()
     {
-        $nodes = array();
-
-        $IDs = $this->_getIDs(func_get_args());
-
-        foreach ($IDs as $nodeID) {
-            if (is_numeric($nodeID)) {
-                $nodes[] = $this->_getObject('node', $nodeID);
-            }
-        }
-        return $nodes;
+        return $this->_getObjects('node', $this->_getIDs(func_get_args()));
     }
 
     /**
@@ -382,6 +375,39 @@ class Services_Openstreetmap
     }
 
     /**
+     * _getObjects
+     *
+     * @param string $type object type
+     * @param array  $ids  ids of objects to retrieve
+     *
+     * @return void
+     */
+    private function _getObjects($type, array $ids)
+    {
+        $url = $this->getConfig('server')
+            . 'api/'
+            . $this->getConfig('api_version')
+            . '/' . $type . 's?' . $type . 's='
+            . implode(',', $ids);
+        try {
+            $r = $this->getResponse($url);
+        } catch (Services_Openstreetmap_Exception $ex) {
+            $code = $ex->getCode();
+            if (404 == $code || 401 == $code) {
+                return false;
+            } elseif (410 == $code) {
+                return false;
+            } else {
+                throw $ex;
+            }
+        }
+        $class =  'Services_Openstreetmap_' . ucfirst(strtolower($type)) . 's';
+        $obj = new $class();
+        $obj->setXml($r->getBody());
+        return $obj;
+    }
+
+    /**
      * Get details of specified way
      *
      * @param mixed $wayID   wayID
@@ -402,16 +428,7 @@ class Services_Openstreetmap
      */
     public function getWays()
     {
-        $ways = array();
-
-        $IDs = $this->_getIDs(func_get_args());
-
-        foreach ($IDs as $wayID) {
-            if (is_numeric($wayID)) {
-                $ways[] = $this->_getObject('way', $wayID);
-            }
-        }
-        return $ways;
+        return $this->_getObjects('way', $this->_getIDs(func_get_args()));
     }
 
     /**
@@ -435,16 +452,7 @@ class Services_Openstreetmap
      */
     public function getRelations()
     {
-        $relations = array();
-
-        $IDs = $this->_getIDs(func_get_args());
-
-        foreach ($IDs as $relationID) {
-            if (is_numeric($relationID)) {
-                $relations[] = $this->_getObject('relation', $relationID);
-            }
-        }
-        return $relations;
+        return $this->_getObjects('relation', $this->_getIDs(func_get_args()));
     }
 
     /**

@@ -64,8 +64,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/way.xml', 'rb'));
 
         $config = array(
-            'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org'
+            #'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $way = $osm->getWay($id);
@@ -87,8 +87,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/way_closed.xml', 'rb'));
 
         $config = array(
-            'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org'
+            #'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $way = $osm->getWay($id);
@@ -188,8 +188,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/relation_changeset.xml', 'rb'));
 
         $config = array(
-            'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org'
+            #'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $relation = $osm->getRelation($id);
