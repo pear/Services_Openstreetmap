@@ -178,33 +178,6 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $history = $osm->getHistory('note', $id);
     }
 
-    public function testGetRelation()
-    {
-        $id = 1152802;
-
-        $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/relation.xml', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/relation_changeset.xml', 'rb'));
-
-        $config = array(
-            #'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org/'
-        );
-        $osm = new Services_Openstreetmap($config);
-        $relation = $osm->getRelation($id);
-        $this->assertEquals($id, $relation->getId());
-        $changeset_id = (int) $relation->getAttributes()->changeset;
-        $getTags = $relation->getTags();
-        $this->assertEquals($getTags['name'], 'Mitchell Street');
-        $this->assertEquals($getTags['type'], 'associatedStreet');
-
-        $changeset = $osm->getChangeset($changeset_id);
-        $this->assertEquals($changeset_id, $changeset->getId());
-        $getTags = $changeset->getTags();
-        $this->assertEquals($getTags['comment'], 'IE. Nenagh. Mitchell Street POIs');
-    }
-
     public function testBboxToMinMax()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
