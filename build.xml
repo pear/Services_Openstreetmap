@@ -26,7 +26,7 @@
         </phplint>
     </target>
 
-    <target name="test" description="run unit tests" depends="lint,clean_phpcs">
+    <target name="test" description="run unit tests" depends="lint,clean_phpunit">
         <coverage-setup database="./coverage.db">
             <fileset dir="tests" includes="**/*.php"/>
             <fileset dir="Services" includes="**/*.php"/>
@@ -42,9 +42,9 @@
         </coverage-report>
     </target>
 
-    <target name="clean" depends="clean_phpcs,clean_docs"/>
+    <target name="clean" depends="clean_phpunit,clean_docs"/>
 
-    <target name="clean_phpcs">
+    <target name="clean_phpunit">
         <delete verbose='yes'>
             <fileset dir="tests/coverage">
                 <include name="**.*" />
