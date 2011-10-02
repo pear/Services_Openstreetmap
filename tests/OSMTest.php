@@ -54,6 +54,123 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($osm->getMaxVersion(), 0.6);
     }
 
+    public function testGetArea()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/area.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/'
+        );
+        $osm = new Services_Openstreetmap($config);
+        $results = $osm->search(array("amenity" => "pharmacy"));
+        $this->AssertTrue(empty($results));
+        $osm->get(
+            52.84824191354071, -8.247245026639696,
+            52.89957825532213, -8.174161478654796
+        );
+        $results = $osm->search(array("amenity" => "pharmacy"));
+        $this->assertEquals(
+            $results,
+            array (
+                0 => array (
+                    'addr_city' => 'Nenagh',
+                    'addr_country' => 'IE',
+                    'addr_housename' => '20-21',
+                    'addr_street' => 'Pearse Street',
+                    'amenity' => 'pharmacy',
+                    'building' => 'yes',
+                    'building_levels' => '3',
+                    'building_use' => 'retail',
+                    'dispensing' => 'yes',
+                    'fax' => '+353 67 34540',
+                    'name' => 'Ryans Pharmacy and Beauty Salon',
+                    'phone' => '+353 67 31464',
+                ),
+                1 => array (
+                    'addr_city' => 'Nenagh',
+                    'addr_country' => 'IE',
+                    'addr_housename' => '7',
+                    'addr_street' => 'Pearse Street',
+                    'amenity' => 'pharmacy',
+                    'building' => 'yes',
+                    'dispensing' => 'yes',
+                    'name' => 'Ray Walsh',
+                    'opening_hours' => 'Mo-Fr 09:30-19:00',
+                    'phone' => '+353 67 31249',
+                    'shop' => 'chemist',
+                ),
+                2 => array (
+                    'addr_city' => 'Nenagh',
+                    'addr_country' => 'IE',
+                    'addr_housename' => '20-21',
+                    'addr_street' => 'Pearse Street',
+                    'amenity' => 'pharmacy',
+                    'building' => 'yes',
+                    'building_levels' => '3',
+                    'building_use' => 'retail',
+                    'dispensing' => 'yes',
+                    'fax' => '+353 67 34540',
+                    'name' => 'Ryans Pharmacy and Beauty Salon',
+                    'phone' => '+353 67 31464',
+                ),
+                3 => array (
+                    'addr_city' => 'Nenagh',
+                    'addr_country' => 'IE',
+                    'addr_housenumber' => 'Unit 1A',
+                    'addr_street' => 'O\'Connors Shopping Centre',
+                    'amenity' => 'pharmacy',
+                    'name' => 'Ann Kelly\'s',
+                    'opening_hours' =>
+                        'Mo-Th 09:00-18:00; Fr 09:00-19:30; Sa 09:00-18:00',
+                    'phone' => '+353 67 34244',
+                ),
+                4 => array (
+                    'addr_city' => 'Nenagh',
+                    'addr_country' => 'IE',
+                    'addr_housename' => '7',
+                    'addr_street' => 'Mitchell Street',
+                    'amenity' => 'pharmacy',
+                    'dispensing' => 'yes',
+                    'name' => 'Guierins',
+                    'phone' => '+353 67 31447',
+                    ),
+                5 => array (
+                    'addr_city' => 'Nenagh',
+                    'addr_country' => 'IE',
+                    'addr_housenumber' => '69',
+                    'addr_street' => 'Kenyon Street',
+                    'amenity' => 'pharmacy',
+                    'dispensing' => 'yes',
+                    'name' => 'Finnerty\'s',
+                    'phone' => '+353 67 34155',
+                ),
+                6 => array (
+                    'addr_city' => 'Nenagh',
+                    'addr_country' => 'IE',
+                    'addr_housenumber' => '67',
+                    'addr_street' => 'Kenyon Street',
+                    'amenity' => 'pharmacy',
+                    'name' => 'Cuddys',
+                    'phone' => '+353 67 31262',
+                ),
+                7 => array (
+                    'addr_city' => 'Nenagh',
+                    'addr_country' => 'IE',
+                    'addr_street' => 'Clare Street',
+                    'amenity' => 'pharmacy',
+                    'dispensing' => 'yes',
+                    'fax' => '+3536742775',
+                    'name' => 'Clare Street Pharmacy',
+                    'opening_hours' => 'Mo-Sa 09:15-18:00',
+                    'phone' => '+3536742775',
+                ),
+            )
+        );
+    }
+
     public function testGetWay()
     {
         $id = 25978036;
@@ -63,7 +180,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/way.xml', 'rb'));
 
         $config = array(
-            #'adapter' => $mock,
+            'adapter' => $mock,
             'server' => 'http://www.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
@@ -86,7 +203,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/way_closed.xml', 'rb'));
 
         $config = array(
-            #'adapter' => $mock,
+            'adapter' => $mock,
             'server' => 'http://www.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
@@ -135,7 +252,17 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($way->isClosed());
     }
 
+    public function testGetCoordsOfPlace()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/nominatim_search_limerick.xml', 'rb'));
 
+        $osm = new Services_Openstreetmap(array('adapter' => $mock));
+        $this->AssertEquals(
+            $osm->getCoordsOfPlace("Limerick, Ireland"),
+            array("lat"=> "52.6612577", "lon"=> "-8.6302084")
+        );
+    }
 
     public function testGetHistory()
     {
@@ -194,7 +321,6 @@ class OSMTest extends PHPUnit_Framework_TestCase
                 "52.282047299999995", "0.0767326",
             )
         );
-
     }
 
 }

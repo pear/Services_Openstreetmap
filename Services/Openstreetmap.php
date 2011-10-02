@@ -243,11 +243,13 @@ class Services_Openstreetmap
      */
     function getCoordsOfPlace($place)
     {
-        $url = 'http://gazetteer.openstreetmap.org/namefinder/search.xml?find='
-             . urlencode($place) . '&max=1';
+        $url = 'http://nominatim.openstreetmap.org/search?q='
+             . urlencode($place) . '&limit=1&format=xml';
         $response = $this->getResponse($url);
         $xml = simplexml_load_string($response->getBody());
-        $attrs = $xml->named[0]->attributes();
+        $obj = $xml->xpath('//place');
+        $attrs = $xml->named[0];
+        $attrs = $obj[0]->attributes();
         $lat = (string) $attrs['lat'];
         $lon = (string) $attrs['lon'];
         return compact("lat", "lon");
