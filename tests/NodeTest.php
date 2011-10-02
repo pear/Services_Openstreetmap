@@ -225,7 +225,6 @@ class NodeTest extends PHPUnit_Framework_TestCase
             array('id' => 621953939, 'source' => 'survey'),
             );
         foreach($nodes as $key=>$node) {
-            var_dump ($key);
             $tags = $node->getTags();
             $this->assertEquals($node->getId(), $nodes_info[$key]['id']);
             $this->assertEquals($tags['source'], $nodes_info[$key]['source']);
