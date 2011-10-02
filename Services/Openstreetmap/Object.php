@@ -149,8 +149,6 @@ class Services_Openstreetmap_Object
             $n->item(0)->setAttribute('action', 'delete');
             $xml = $domd->saveXML($n->item(0));
             return "<delete>{$xml}</delete>";
-        } else {
-            echo "wha?";
         }
     }
 
