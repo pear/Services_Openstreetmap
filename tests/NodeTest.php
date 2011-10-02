@@ -11,7 +11,6 @@
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
  * @link     NodeTest.php
- * @todo
  */
 
 $version = '@package_version@';
@@ -225,12 +224,11 @@ class NodeTest extends PHPUnit_Framework_TestCase
             array('id' => 621953928, 'source' => 'survey'),
             array('id' => 621953939, 'source' => 'survey'),
             );
-        $pos = 0;
-        foreach($nodes as $node) {
+        foreach($nodes as $key=>$node) {
+            var_dump ($key);
             $tags = $node->getTags();
-            $this->assertEquals($node->getId(), $nodes_info[$pos]['id']);
-            $this->assertEquals($tags['source'], $nodes_info[$pos]['source']);
-            $pos++;
+            $this->assertEquals($node->getId(), $nodes_info[$key]['id']);
+            $this->assertEquals($tags['source'], $nodes_info[$key]['source']);
         }
     }
 }

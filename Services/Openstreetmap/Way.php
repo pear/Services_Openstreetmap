@@ -11,8 +11,7 @@
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
  * @link     Way.php
- * @todo
-*/
+ */
 
 /**
  * Services_Openstreetmap_Way

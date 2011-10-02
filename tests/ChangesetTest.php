@@ -11,7 +11,6 @@
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
  * @link     OSMTest.php
- * @todo
  */
 
 $version = '@package_version@';

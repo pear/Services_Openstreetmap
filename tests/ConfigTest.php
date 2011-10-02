@@ -11,7 +11,6 @@
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
  * @link     ConfigTest.php
- * @todo
  */
 
 require_once 'Services/Openstreetmap.php';

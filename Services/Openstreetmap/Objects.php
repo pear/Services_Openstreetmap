@@ -10,8 +10,7 @@
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     Ways.php
- * @todo
-*/
+ */
 
 /**
  * Services_Openstreetmap_Objects

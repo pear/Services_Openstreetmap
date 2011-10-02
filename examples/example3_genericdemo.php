@@ -11,7 +11,6 @@
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  CVS: <cvs_id>
  * @link     osmx.php
- * @todo
 */
 
 $version = '@package_version@';
