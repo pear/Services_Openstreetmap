@@ -7,7 +7,7 @@
 
     <target name="main" depends="test,phpcs,docs"/>
 
-    <target name="docs" description="Generate Documentation">
+    <target name="docs" description="Generate Documentation" depends="clean_docs">
         <phpdoc title="Services_Openstreetmap" output="HTML:Smarty:PHP" destdir="docs" sourcecode="yes">
             <fileset refid="Services"/>
         </phpdoc>
@@ -26,7 +26,7 @@
         </phplint>
     </target>
 
-    <target name="test" description="run unit tests" depends="lint">
+    <target name="test" description="run unit tests" depends="lint,clean_phpcs">
         <coverage-setup database="./coverage.db">
             <fileset dir="tests" includes="**/*.php"/>
             <fileset dir="Services" includes="**/*.php"/>
@@ -40,6 +40,24 @@
         <coverage-report outfile="coverage.xml">
             <report todir="tests/coverage" usesorttable="yes" styledir="/usr/share/php/data/phing/etc"/>
         </coverage-report>
+    </target>
+
+    <target name="clean" depends="clean_phpcs,clean_docs"/>
+
+    <target name="clean_phpcs">
+        <delete verbose='yes'>
+            <fileset dir="tests/coverage">
+                <include name="**.*" />
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="clean_docs">
+        <delete verbose='yes'>
+            <fileset dir="docs">
+                <include name="**.*" />
+            </fileset>
+        </delete>
     </target>
 
 </project>
