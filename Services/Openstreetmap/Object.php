@@ -26,10 +26,20 @@ class Services_Openstreetmap_Object
 {
     protected $xml = null;
 
+    /**
+     * Array of tags in key/value format
+     *
+     * @var array
+     */
     protected $tags = array();
 
     protected $id = null;
 
+    /**
+     * type of object
+     *
+     * @var string
+     */
     protected $type = null;
 
     protected $obj = null;
@@ -73,11 +83,11 @@ class Services_Openstreetmap_Object
     }
 
     /**
-     * set the Changeset Id for this object
+     * Set the Changeset Id for this object.
      *
      * @param integer $id Changeset Id (numeric)
      *
-     * @return void
+     * @return Services_Openstreetmap_Object
      */
     public function setChangesetId($id)
     {
@@ -86,9 +96,10 @@ class Services_Openstreetmap_Object
     }
 
     /**
-     * getOsmChangeXML
+     * Generate and return the OSM Change XML required to record the changes
+     * made to the object in question.
      *
-     * @return void
+     * @return string
      */
     public function getOsmChangeXML()
     {
@@ -153,7 +164,7 @@ class Services_Openstreetmap_Object
     }
 
     /**
-     * Retrieve the id of the object in question
+     * Retrieve the id of the object in question.
      *
      * @return integer id of the object
      */
@@ -170,19 +181,24 @@ class Services_Openstreetmap_Object
     }
 
     /**
-     * set the id value of the object in question
+     * Set the id value of the object in question.
+     *
+     * <pre>
+     * $obj->setId($id)->...
+     * </pre>
      *
      * @param integer $value new id of the object
      *
-     * @return void
+     * @return Services_Openstreetmap_Object
      */
     public function setId($value)
     {
         $this->id = $value;
+        return $this;
     }
 
     /**
-     * Retrieve the uid of the object in question
+     * Retrieve the uid of the object in question.
      *
      * @return integer uid of the object
      */
@@ -195,7 +211,7 @@ class Services_Openstreetmap_Object
     }
 
     /**
-     * Retrieve the user (creator/editor) of the object in question
+     * Retrieve the user (creator/editor) of the object in question.
      *
      * @return string user of the object
      */
@@ -221,7 +237,7 @@ class Services_Openstreetmap_Object
     }
 
     /**
-     * getAttributes()
+     * Return the attributes set for this object in question.
      *
      * @return string getAttributes()
      */
@@ -235,9 +251,9 @@ class Services_Openstreetmap_Object
     }
 
     /**
-     * tags
+     * Return the tags set for this object in question.
      *
-     * @return string tags
+     * @return array tags
      */
     public function getTags()
     {
@@ -245,7 +261,7 @@ class Services_Openstreetmap_Object
     }
 
     /**
-     * type
+     * Return which type of object this is.
      *
      * @return string type
      */
@@ -256,6 +272,10 @@ class Services_Openstreetmap_Object
 
     /**
      * setTag
+     *
+     * <pre>
+     * $obj->setTag('key', 'value')->setTag(...);
+     * </pre>
      *
      * @param mixed $key   key
      * @param mixed $value value
@@ -277,7 +297,11 @@ class Services_Openstreetmap_Object
     }
 
     /**
-     * delete
+     * Mark the object as deleted.
+     *
+     * <pre>
+     * $obj->delete();
+     * </pre>
      *
      * @return void
      */

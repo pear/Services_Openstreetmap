@@ -29,7 +29,7 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
     protected $members = array();
 
     /**
-     * members
+     * Return all members of the relation.
      *
      * @access public
      * @return void
@@ -62,7 +62,7 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
     }
 
     /**
-     * removeNode
+     * remove a member from the relation.
      *
      * @todo   remove member from relation
      * @access public

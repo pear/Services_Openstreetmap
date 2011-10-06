@@ -29,7 +29,7 @@ class Services_Openstreetmap_Node extends Services_Openstreetmap_Object
     /**
      * Latitude of node
      *
-     * @return string
+     * @return float
      */
     public function getLat()
     {
@@ -39,7 +39,7 @@ class Services_Openstreetmap_Node extends Services_Openstreetmap_Object
     /**
      * Longitude of node
      *
-     * @return string
+     * @return float
      */
     public function getLon()
     {
@@ -49,9 +49,14 @@ class Services_Openstreetmap_Node extends Services_Openstreetmap_Object
     /**
      * set the Latitude of the node
      *
+     * <pre>
+     * $node->setLat($lat)->setLon($lon);
+     * </pre>
+     *
      * @param float $value Latitude (-90 < y < 90)
      *
      * @return Services_Openstreetmap_Node
+     * @throws InvalidArgumentException
      */
     public function setLat($value)
     {
@@ -70,9 +75,14 @@ class Services_Openstreetmap_Node extends Services_Openstreetmap_Object
     /**
      * set the Longitude of the node
      *
+     * <pre>
+     * $node->setLat($lat)->setLon($lon);
+     * </pre>
+     *
      * @param float $value Longitude (-90 < x < 90)
      *
      * @return Services_Openstreetmap_Node
+     * @throws InvalidArgumentException
      */
     public function setLon($value)
     {

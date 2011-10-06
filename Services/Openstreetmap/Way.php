@@ -29,7 +29,7 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
     private $_pointer = 0;
 
     /**
-     * isClosed
+     * Return true if the way can be considered 'closed'.
      *
      * @access public
      * @return boolean
@@ -49,7 +49,7 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
     }
 
     /**
-     * nodes
+     * Return an array containing the IDs of all nodes in the way.
      *
      * @return array
      */
