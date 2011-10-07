@@ -16,13 +16,7 @@
 require_once 'HTTP/Request2.php';
 require_once 'Services/Openstreetmap/Object.php';
 require_once 'Services/Openstreetmap/Objects.php';
-require_once 'Services/Openstreetmap/Relation.php';
-require_once 'Services/Openstreetmap/Relations.php';
 require_once 'Services/Openstreetmap/Changeset.php';
-require_once 'Services/Openstreetmap/Node.php';
-require_once 'Services/Openstreetmap/Nodes.php';
-require_once 'Services/Openstreetmap/Way.php';
-require_once 'Services/Openstreetmap/Ways.php';
 require_once 'Services/Openstreetmap/Exception.php';
 
 /**
@@ -101,7 +95,7 @@ class Services_Openstreetmap
      * @var array
      * @internal
      */
-    protected $elements = array('node', 'way', 'relation');
+    protected $elements = array('changeset', 'node', 'relation', 'way');
 
     /**
      * Counter for assigning IDs to [newly] created objects.
@@ -417,7 +411,9 @@ class Services_Openstreetmap
     private function _getObject($type, $id, $version = null)
     {
         if (!in_array($type, $this->elements)) {
-            throw new Services_Openstreetmap_Exception('Invalid Element Type');
+            throw new Services_Openstreetmap_Exception(
+                sprintf("Invalid Element Type '%s'", $type)
+            );
         }
 
         $url = $this->getConfig('server')
@@ -441,6 +437,7 @@ class Services_Openstreetmap
             }
         }
         $class =  "Services_Openstreetmap_" . ucfirst(strtolower($type));
+        require_once str_replace('_', '/', $class) . '.php';
         $obj = new $class();
         $obj->setXml($r->getBody());
         return $obj;
@@ -479,6 +476,7 @@ class Services_Openstreetmap
             }
         }
         $class =  'Services_Openstreetmap_' . ucfirst(strtolower($type)) . 's';
+        require_once str_replace('_', '/', $class) . '.php';
         $obj = new $class();
         $obj->setXml($r->getBody());
         return $obj;
