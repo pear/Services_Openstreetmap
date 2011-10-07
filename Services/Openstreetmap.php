@@ -437,7 +437,7 @@ class Services_Openstreetmap
             }
         }
         $class =  "Services_Openstreetmap_" . ucfirst(strtolower($type));
-        require_once str_replace('_', '/', $class) . '.php';
+        include_once str_replace('_', '/', $class) . '.php';
         $obj = new $class();
         $obj->setXml($r->getBody());
         return $obj;
@@ -475,8 +475,8 @@ class Services_Openstreetmap
                 throw $ex;
             }
         }
-        $class =  'Services_Openstreetmap_' . ucfirst(strtolower($type)) . 's';
-        require_once str_replace('_', '/', $class) . '.php';
+        $class = 'Services_Openstreetmap_' . ucfirst(strtolower($type)) . 's';
+        include_once str_replace('_', '/', $class) . '.php';
         $obj = new $class();
         $obj->setXml($r->getBody());
         return $obj;

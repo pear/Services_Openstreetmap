@@ -86,7 +86,7 @@ class Services_Openstreetmap_Objects implements Iterator, Countable
     public function current()
     {
         $class = 'Services_Openstreetmap_' . ucfirst(strtolower($this->getType()));
-        require_once str_replace('_', '/', $class) . '.php';
+        include_once str_replace('_', '/', $class) . '.php';
         $way = new $class();
         $way->setXml($this->objects[$this->position]);
         return $way;
