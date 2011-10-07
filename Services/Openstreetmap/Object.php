@@ -60,6 +60,16 @@ class Services_Openstreetmap_Object
         return $this->xml;
     }
 
+    public function __tostring()
+    {
+        $changeXML = $this->getOsmChangeXML();
+        if (is_null($changeXML)) {
+            return $this->getXml();
+        } else {
+            return $changeXML;
+        }
+    }
+
     /**
      * setXml
      *
