@@ -233,6 +233,72 @@ class NodeTest extends PHPUnit_Framework_TestCase
             $this->assertEquals($tags['source'], $nodes_info[$key]['source']);
         }
     }
+
+    public function testGetNodes401()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/401', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/',
+        );
+        $osm = new Services_Openstreetmap($config);
+        $nodes = $osm->getNodes(array(621953926,621953928,621953939));
+        $this->assertFalse($nodes);
+    }
+
+    public function testGetNodes404()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/404', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/',
+        );
+        $osm = new Services_Openstreetmap($config);
+        $nodes = $osm->getNodes(array(621953926,621953928,621953939));
+        $this->assertFalse($nodes);
+    }
+
+    public function testGetNodes410()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/410', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/',
+        );
+        $osm = new Services_Openstreetmap($config);
+        $nodes = $osm->getNodes(array(621953926,621953928,621953939));
+        $this->assertFalse($nodes);
+    }
+
+    /**
+     * Test how a 500 status code is handled.
+     *
+     * @expectedException Services_Openstreetmap_Exception
+     * @expectedExceptionMessage Unexpected HTTP status: 500 Internal Server Error
+     */
+    public function testGetNodes500()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/500', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/',
+        );
+        $osm = new Services_Openstreetmap($config);
+        $nodes = $osm->getNodes(array(621953926,621953928,621953939));
+        $this->assertFalse($nodes);
+    }
 }
 
 ?>
