@@ -54,6 +54,60 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($osm->getMaxVersion(), 0.6);
     }
 
+    /**
+     * @expectedException Services_Openstreetmap_Exception
+     * @expectedExceptionMessage Specified API Version 0.6 not supported.
+     *
+     * @return void
+     */
+    public function testCapabilitiesMin()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities_min.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/',
+        );
+        $osm = new Services_Openstreetmap($config);
+    }
+
+    /**
+     * @expectedException Services_Openstreetmap_Exception
+     * @expectedExceptionMessage Specified API Version 0.6 not supported.
+     *
+     * @return void
+     */
+    public function testCapabilitiesMax()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities_max.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/',
+        );
+        $osm = new Services_Openstreetmap($config);
+    }
+
+    /**
+     * @expectedException Services_Openstreetmap_Exception
+     * @expectedExceptionMessage Problem checking server capabilities
+     *
+     * @return void
+     */
+    public function testCapabilitiesInvalid()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities_invalid.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/',
+        );
+        $osm = new Services_Openstreetmap($config);
+    }
+
     public function testGetArea()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
