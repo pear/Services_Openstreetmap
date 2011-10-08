@@ -258,7 +258,7 @@ class Services_Openstreetmap
     function get($minLon, $minLat, $maxLon, $maxLat)
     {
         $url = $this->config['server'] .
-        "api/" .
+            "api/" .
             $this->config['api_version'] .
         "/map?bbox=$minLat,$minLon,$maxLat,$maxLon";
         $response = $this->getResponse($url);
@@ -947,8 +947,7 @@ class Services_Openstreetmap
         $user_agent =  $this->getConfig('User-Agent');
         $xml = "<?xml version='1.0' encoding='UTF-8'?>
 <osm version='{$api_version}' generator='{$user_agent}'>
-<node lat='{$latitude}' lon='{$longitude}' version='1'/>
-</osm>";
+<node lat='{$latitude}' lon='{$longitude}' version='1'/></osm>";
         $node->setLat($latitude);
         $node->setLon($longitude);
         $node->setXml($xml);
@@ -960,6 +959,58 @@ class Services_Openstreetmap
             }
         }
         return $node;
+    }
+
+    /**
+     * Get a Services_Openstreetmap_User object for the [current] user.
+     *
+     * @see setConfig
+     *
+     * @return Services_Openstreetmap_User
+     */
+    public function getUser()
+    {
+        $url = $this->config['server'] .
+            "api/" .
+            $this->config['api_version'] .
+            "/user/details";
+        $user = $this->getConfig('user');
+        $password = $this->getConfig('password');
+        try {
+            $c = $this->getResponse($url, HTTP_Request2::METHOD_GET, $user, $password);
+        } catch (Services_Openstreetmap_Exception $ex) {
+            $code = $ex->getCode();
+            if (404 == $code || 401 == $code) {
+                return false;
+            } elseif (410 == $code) {
+                return false;
+            } else {
+                throw $ex;
+            }
+        }
+        $url = $this->config['server'] .
+            "api/" .
+            $this->config['api_version'] .
+            "/user/preferences";
+        $user = $this->getConfig('user');
+        $password = $this->getConfig('password');
+        try {
+            $prefs = $this->getResponse($url, HTTP_Request2::METHOD_GET, $user, $password);
+        } catch (Services_Openstreetmap_Exception $ex) {
+            $code = $ex->getCode();
+            if (404 == $code || 401 == $code) {
+                return false;
+            } elseif (410 == $code) {
+                return false;
+            } else {
+                throw $ex;
+            }
+        }
+        include_once 'Services/Openstreetmap/User.php';
+        $obj = new Services_Openstreetmap_User();
+        $obj->setXml($c->getBody());
+        $obj->setPreferencesXml($prefs->getBody());
+        return $obj;
     }
 }
 // vim:set et ts=4 sw=4:

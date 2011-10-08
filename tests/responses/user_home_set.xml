@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <user display_name="fredflintstone" account_created="2003-09-02T15:27:52Z" id="124">
+    <description>Yabba dabba do!
+
+</description>
+    <contributor-terms agreed="true" pd="true"/>
+    <home lat='1.234567' lon='-1.234567' zoom="3"/>
+    <img href="http://www.openstreetmap.org/user/image/124/me.jpg"/>
+    <languages>
+      <lang>en-US</lang>
+      <lang>en</lang>
+    </languages>
+  </user>
+</osm>

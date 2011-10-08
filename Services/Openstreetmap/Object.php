@@ -60,7 +60,13 @@ class Services_Openstreetmap_Object
         return $this->xml;
     }
 
-    public function __tostring()
+    /**
+     * If modified, return the changeXML for the object, otherwise the defining
+     * XML.
+     *
+     * @return string
+     */
+    public function __toString()
     {
         $changeXML = $this->getOsmChangeXML();
         if (is_null($changeXML)) {

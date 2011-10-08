@@ -1,0 +1,8 @@
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <preferences>
+    <preference k="diary.default_language" v="en"/>
+  </preferences>
+</osm>

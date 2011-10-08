@@ -294,14 +294,14 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
      * Given diffResult xml, update Ids of objects that are members of the
      * current changeset.
      *
-     * @param string $xml diffResult xml
+     * @param string $body diffResult xml
      *
      * @return void
      */
-    public function updateObjectIds($xml)
+    public function updateObjectIds($body)
     {
-        $xml = trim($xml);
-        $cxml = simplexml_load_string($xml);
+        $body = trim($body);
+        $cxml = simplexml_load_string($body);
         $obj = $cxml->xpath('//diffResult');
         foreach ($obj[0]->children() as $child) {
             $old_id = null;
