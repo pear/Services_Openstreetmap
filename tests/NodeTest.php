@@ -49,6 +49,85 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("-8.195833", $node->getLon());
     }
 
+    public function testGetSpecifiedVersionOfNode()
+    {
+        $id = 52245107;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/node.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/'
+        );
+        $osm = new Services_Openstreetmap($config);
+        $node = $osm->getNode($id, 2);
+        $getTags = $node->getTags();
+
+        $this->assertEquals($id, $node->getId());
+        $this->assertEquals($getTags['name'], 'Nenagh Bridge');
+        $this->assertEquals("52.881667", $node->getLat());
+        $this->assertEquals("-8.195833", $node->getLon());
+    }
+
+    public function testGetNode404()
+    {
+        $id = 52245107;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/404', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/'
+        );
+        $osm = new Services_Openstreetmap($config);
+        $node = $osm->getNode($id);
+        $this->assertFalse($node);
+    }
+
+    public function testGetNode410()
+    {
+        $id = 52245107;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/410', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/'
+        );
+        $osm = new Services_Openstreetmap($config);
+        $node = $osm->getNode($id);
+        $this->assertFalse($node);
+    }
+
+    /**
+     * Test how a 500 status code is handled.
+     *
+     * @expectedException Services_Openstreetmap_Exception
+     * @expectedExceptionMessage Unexpected HTTP status: 500 Internal Server Error
+     */
+    public function testGetNode500()
+    {
+        $id = 52245107;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/500', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org/'
+        );
+        $osm = new Services_Openstreetmap($config);
+        $node = $osm->getNode($id);
+        $this->assertFalse($node);
+    }
+
     public function testCreateNode()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
