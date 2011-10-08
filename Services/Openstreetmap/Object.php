@@ -70,7 +70,7 @@ class Services_Openstreetmap_Object
     {
         $changeXML = $this->getOsmChangeXML();
         if (is_null($changeXML)) {
-            return $this->getXml();
+            return '' . $this->getXml();
         } else {
             return $changeXML;
         }

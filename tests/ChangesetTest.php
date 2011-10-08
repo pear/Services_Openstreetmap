@@ -215,9 +215,11 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $way = $osm->getWay($wayId);
         $way->setTag('highway', 'residential');
         $way->setTag('lit', 'yes');
+        $this->assertNotEquals('' . $way, '');
         $way2 = $osm->getWay($wayId);
         $way2->setTag('highway', 'residential');
         $way2->setTag('lit', 'yes');
+        $this->assertNotEquals('' . $way2, '');
         $this->assertEquals(false, $changeset->isOpen());
         $changeset->begin("Undo accidental highway change from residential to service");
         $changeset->add($way);

@@ -32,6 +32,15 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $osm = new Services_Openstreetmap();
     }
 
+    public function testLoadXML()
+    {
+        $osm = new Services_Openstreetmap();
+        $this->assertEquals($osm->getXML(), null);
+        $osm->loadXML(__DIR__ . '/files/osm.osm');
+        $this->assertNotEquals($osm->getXML(), null);
+
+    }
+
     public function testCapabilities()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -446,6 +455,16 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $user = $osm->getUser();
         $this->assertEquals($user->getLat(), 1.234567);
         $this->assertEquals($user->getLon(), -1.234567);
+    }
+
+    public function testAttribsNotSet()
+    {
+        $node = new Services_Openstreetmap_Node();
+        $this->assertEquals($node->getVersion(), null);
+        $this->assertEquals($node->getUser(), null);
+        $this->assertEquals($node->getUid(), null);
+        $this->assertEquals($node->getId(), null);
+        $this->assertEquals('' . $node, '');
     }
 }
 // vim:set et ts=4 sw=4:
