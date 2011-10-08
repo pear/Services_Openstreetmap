@@ -158,7 +158,7 @@ class Services_Openstreetmap
             foreach ($config as $key=>$value) {
                 if (!array_key_exists($key, $this->config)) {
                     throw new Services_Openstreetmap_Exception(
-                        "Unknown config parameter '$config'"
+                        "Unknown config parameter '$key'"
                     );
                 }
                 switch($key) {
@@ -350,7 +350,7 @@ class Services_Openstreetmap
     {
         $xml = simplexml_load_string($capabilities);
         if ($xml === false) {
-            return;
+            return false;
         }
         $v = $xml->xpath('//version');
         $this->minVersion = (float) $v[0]->attributes()->minimum;
@@ -368,6 +368,7 @@ class Services_Openstreetmap
         //waynodes
         //tracepoints
         //max area
+        return true;
     }
 
     /**
@@ -785,7 +786,12 @@ class Services_Openstreetmap
         }
         $this->server = $server;
         $capabilities = $c->getBody();
-        $this->_checkCapabilities($capabilities);
+        if (!$this->_checkCapabilities($capabilities)) {
+            throw new Services_Openstreetmap_Exception(
+                'Problem checking server capabilities'
+            );
+        }
+
         return $this;
     }
 

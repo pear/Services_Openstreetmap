@@ -27,6 +27,11 @@ require_once 'PHPUnit/Framework/TestCase.php';
 
 class OSMTest extends PHPUnit_Framework_TestCase
 {
+    public function testCreateObject()
+    {
+        $osm = new Services_Openstreetmap();
+    }
+
     public function testCapabilities()
     {
         $mock = new HTTP_Request2_Adapter_Mock();

@@ -13,6 +13,11 @@
  * @link     ConfigTest.php
  */
 
+$version = '@package_version@';
+if (strstr($version, 'package_version')) {
+    set_include_path(dirname(dirname(__FILE__)) . ':' . get_include_path());
+}
+
 require_once 'Services/Openstreetmap.php';
 
 require_once 'HTTP/Request2.php';
@@ -97,6 +102,77 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $osm->getConfig('api');
     }
 
+    /**
+     * @expectedException Services_Openstreetmap_Exception
+     * @expectedExceptionMessage Unknown config parameter 'UserAgent'
+     *
+     * @return void
+     */
+    public function testUnrecognisedConfig()
+    {
+        $osm = new Services_Openstreetmap();
+        $osm->setConfig('UserAgent', 'Acme/1.2');
+    }
+
+    /**
+     * @expectedException Services_Openstreetmap_Exception
+     * @expectedExceptionMessage Unknown config parameter 'UserAgent'
+     *
+     * @return void
+     */
+    public function testUnrecognisedConfigByArray()
+    {
+        $osm = new Services_Openstreetmap(array ('UserAgent'=> 'Acme/1.2'));
+    }
+
+    public function testSetServer()
+    {
+        $osm = new Services_Openstreetmap();
+        $osm->setConfig('server', 'http://example.com');
+    }
+
+    public function testSetPasswordFile()
+    {
+        $osm = new Services_Openstreetmap();
+        $osm->setConfig('passwordfile', __DIR__ . '/files/pwd_1line');
+    }
+
+    /**
+     * @expectedException Services_Openstreetmap_Exception
+     * @expectedExceptionMessage Could not read password file
+     *
+     * @return void
+     */
+    public function testSetNonExistingPasswordFile()
+    {
+        $osm = new Services_Openstreetmap();
+        $osm->setConfig('passwordfile', 'credentels');
+    }
+
+    public function testEmptyPasswordFile()
+    {
+        $osm = new Services_Openstreetmap();
+        $osm->setConfig('passwordfile', __DIR__ . '/files/pwd_empty');
+    }
+
+    public function test1LinePasswordFile()
+    {
+        $osm = new Services_Openstreetmap();
+        $osm->setConfig('passwordfile', __DIR__ . '/files/pwd_1line');
+        $config = $osm->getConfig();
+        $this->assertEquals($config['user'], 'fred@example.com');
+        $this->assertEquals($config['password'], 'Wilma4evah');
+    }
+
+    public function testMultiLinedPasswordFile()
+    {
+        $osm = new Services_Openstreetmap(array('user' => 'fred@example.com'));
+        $config = $osm->getConfig();
+        $this->assertEquals($config['password'], null);
+        $osm->setConfig('passwordfile', __DIR__ . '/files/pwd_multi');
+        $config = $osm->getConfig();
+        $this->assertEquals($config['password'], 'Wilma4evah');
+    }
 }
 // vim:set et ts=4 sw=4:
 ?>
