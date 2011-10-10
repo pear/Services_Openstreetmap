@@ -24,7 +24,6 @@ require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 
-
 class ConfigTest extends PHPUnit_Framework_TestCase
 {
     public function testConfig()
@@ -127,14 +126,29 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
     public function testSetServer()
     {
-        $osm = new Services_Openstreetmap();
-        $osm->setConfig('server', 'http://example.com');
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/404', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/404', 'rb'));
+        $osm = new Services_Openstreetmap(array('adapter' => $mock));
+        try {
+            $osm->setConfig('server', 'http://example.com');
+        } catch (Services_Openstreetmap_Exception $ex) {
+            $this->assertEquals(
+                $ex->getMessage(),
+                'Could not get a valid response from server'
+            );
+            $this->assertEquals($ex->getCode(), 404);
+        }
+        $config = $osm->getConfig('server');
+        $this->assertEquals($config, 'http://example.com');
     }
 
     public function testSetPasswordFile()
     {
         $osm = new Services_Openstreetmap();
         $osm->setConfig('passwordfile', __DIR__ . '/files/pwd_1line');
+        $config = $osm->getConfig('passwordfile');
+        $this->assertEquals($config, __DIR__ . '/files/pwd_1line');
     }
 
     /**
@@ -146,13 +160,17 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     public function testSetNonExistingPasswordFile()
     {
         $osm = new Services_Openstreetmap();
-        $osm->setConfig('passwordfile', 'credentels');
+        $osm->setConfig('passwordfile', __DIR__ . '/files/credentels');
     }
 
     public function testEmptyPasswordFile()
     {
         $osm = new Services_Openstreetmap();
         $osm->setConfig('passwordfile', __DIR__ . '/files/pwd_empty');
+        $config = $osm->getConfig('passwordfile');
+        $this->assertEquals($config, __DIR__ . '/files/pwd_empty');
+        $this->assertNull($osm->getConfig('user'));
+        $this->assertNull($osm->getConfig('password'));
     }
 
     public function test1LinePasswordFile()

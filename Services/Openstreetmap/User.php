@@ -25,6 +25,8 @@
 class Services_Openstreetmap_User
 {
 
+    protected $preferences = array();
+
     /**
      * setXml
      *
@@ -171,15 +173,20 @@ class Services_Openstreetmap_User
      */
     public function getPreferences()
     {
-        $prefs = array();
-        foreach ($this->prefObj[0]->children() as $child) {
-            $key = (string) $child->attributes()->k;
-            if ($key != '') {
-                $prefs[$key] = (string) $child->attributes()->v;
+        if ($this->preferences == array()) {
+
+            $preferences = array();
+            foreach ($this->prefObj[0]->children() as $child) {
+                $key = (string) $child->attributes()->k;
+                if ($key != '') {
+                    $preferences[$key] = (string) $child->attributes()->v;
+                }
             }
+            $this->preferences = $preferences;
         }
-        return $prefs;
+        return $this->preferences;
     }
+
 }
 // vim:set et ts=4 sw=4:
 ?>

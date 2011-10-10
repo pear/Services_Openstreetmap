@@ -15,6 +15,8 @@ require_once 'ConfigTest.php';
 require_once 'NodeTest.php';
 require_once 'OSMTest.php';
 require_once 'RelationTest.php';
+require_once 'UserTest.php';
+require_once 'WayTest.php';
 
 class AllTests
 {
@@ -31,6 +33,8 @@ class AllTests
 		$suite->addTestSuite('OSMTest');
 		$suite->addTestSuite('NodeTest');
 		$suite->addTestSuite('RelationTest');
+		$suite->addTestSuite('UserTest');
+		$suite->addTestSuite('WayTest');
 
 		return $suite;
 	}
