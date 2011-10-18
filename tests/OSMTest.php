@@ -29,13 +29,19 @@ class OSMTest extends PHPUnit_Framework_TestCase
 {
     public function testCreateObject()
     {
-        $osm = new Services_Openstreetmap();
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+
+        $osm = new Services_Openstreetmap(array('adapter' => $mock));
         $this->assertInstanceOf('Services_Openstreetmap', $osm);
     }
 
     public function testLoadXML()
     {
-        $osm = new Services_Openstreetmap();
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+
+        $osm = new Services_Openstreetmap(array('adapter' => $mock));
         $this->assertEquals($osm->getXML(), null);
         $osm->loadXML(__DIR__ . '/files/osm.osm');
         $this->assertNotEquals($osm->getXML(), null);

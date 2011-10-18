@@ -107,6 +107,73 @@ class WayTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($way->isClosed());
     }
 
+    public function testAddNodeToWay()
+    {
+        $id = 23010474;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/way_open.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org'
+        );
+        $osm = new Services_Openstreetmap($config);
+        $way = $osm->getWay($id);
+
+        $lat = 52.8638729;
+        $lon = -8.1983611;
+        $nodes = $way->getNodes();
+        $node = $osm->createNode($lat, $lon);
+        $way->addNode($node);
+        $lat = $lat + 0.00002;
+        $node = $osm->createNode($lat, $lon);
+        $way->addNode($node);
+        $this->assertEquals(sizeof($nodes) + 2, sizeof($way->getNodes()));
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage $node must be either an instance of Services_Openstreetmap_Node or a numeric id
+     */
+    public function testIncorrectTypeToRemoveNode()
+    {
+        $id = 23010474;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/way_open.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org'
+        );
+        $osm = new Services_Openstreetmap($config);
+        $way = $osm->getWay($id);
+        $way->removeNode("way5432456");
+    }
+
+    public function testRemoveNode()
+    {
+        $id = 23010474;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/way_open.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://www.openstreetmap.org'
+        );
+        $osm = new Services_Openstreetmap($config);
+        $way = $osm->getWay($id);
+        $nb = count($way->getNodes());
+        $way->removeNode(248081798);
+        $way->setTag('note', 'testing...');
+        $na = count($way->getNodes());
+        $this->assertEquals($na, $nb - 1);
+    }
 }
 
 // vim:set et ts=4 sw=4:

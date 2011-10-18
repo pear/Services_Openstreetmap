@@ -948,6 +948,7 @@ class Services_Openstreetmap
      */
     public function createNode($latitude, $longitude, array $tags = array())
     {
+        include_once "Services/Openstreetmap/Node.php";
         $node = new Services_Openstreetmap_Node();
         $api_version = $this->getConfig('api_version');
         $user_agent =  $this->getConfig('User-Agent');
