@@ -61,11 +61,11 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
     public function getNodes()
     {
         if (empty($this->nodes)) {
-            $x = simplexml_load_string($this->xml);
-            $o = $x->xpath('//nd');
+            $obj = simplexml_load_string($this->xml);
+            $nds = $obj->xpath('//nd');
             $nodes = array();
-            foreach ($o as $n) {
-                $nodes[] = (string) $n->attributes()->ref;
+            foreach ($nds as $node) {
+                $nodes[] = (string) $node->attributes()->ref;
             }
             $this->nodes = $nodes;
         }

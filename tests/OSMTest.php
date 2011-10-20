@@ -73,6 +73,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $osm = new Services_Openstreetmap($config);
         $this->assertEquals($osm->getMinVersion(), 0.5);
         $this->assertEquals($osm->getMaxVersion(), 0.6);
+        $this->assertEquals($osm->getMaxArea(), 0.25);
+        $this->assertEquals($osm->getTracepointsPerPage(), 5000);
+        $this->assertEquals($osm->getMaxNodes(), 2000);
+        $this->assertEquals($osm->getMaxElements(), 50000);
     }
 
     /**

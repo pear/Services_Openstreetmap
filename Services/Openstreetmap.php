@@ -14,10 +14,8 @@
  */
 
 require_once 'HTTP/Request2.php';
-require_once 'Services/Openstreetmap/Object.php';
-require_once 'Services/Openstreetmap/Objects.php';
-require_once 'Services/Openstreetmap/Changeset.php';
-require_once 'Services/Openstreetmap/Exception.php';
+
+spl_autoload_register(array('Services_Openstreetmap', 'autoload'));
 
 /**
  * Services_Openstreetmap - interface with Openstreetmap
@@ -68,6 +66,34 @@ class Services_Openstreetmap
     protected $timeout = null;
 
     /**
+     * number of elements allowed per changeset
+     * @var integer
+     * @internal
+     */
+    protected $changeset_maximum_elements = null;
+
+    /**
+     * maximum number of nodes per way
+     * @var integer
+     * @internal
+     */
+    protected $waynodes_maximum = null;
+
+    /**
+     * Number of tracepoints per way.
+     * @var integer
+     * @internal
+     */
+    protected $tracepoints_per_page = null;
+
+    /**
+     * Max size of area that can be downloaded in one request.
+     * @var float
+     * @internal
+     */
+    protected $area_maximum = null;
+
+    /**
      * Default config settings
      * @var array
      */
@@ -105,6 +131,23 @@ class Services_Openstreetmap
     protected $newId = -1;
 
     /**
+     * autoloader
+     *
+     * @param string $class Name of class
+     *
+     * @return boolean
+     */
+    public static function autoload($class)
+    {
+        $dir  = dirname(dirname(__FILE__));
+        $file = $dir . '/' . str_replace('_', '/', $class) . '.php';
+        if (file_exists($file)) {
+            return include_once $file;
+        }
+        return false;
+    }
+
+    /**
      * constructor; which optionally sets config details.
      *
      * @param array $config Defaults to empty array if none provided
@@ -118,6 +161,29 @@ class Services_Openstreetmap
             $config = $this->config;
         }
         $this->setConfig($config);
+    }
+
+    /**
+     * getXMLValue
+     *
+     * @param SimpleXMLElement $xml       Object
+     * @param string           $tag       name of tag
+     * @param string           $attribute name of attribute
+     * @param mixed            $default   default value
+     *
+     * @return void
+     */
+    public function getXMLValue(
+        SimpleXMLElement $xml,
+        $tag,
+        $attribute,
+        $default = null
+    ) {
+        $obj = $xml->xpath('//' . $tag);
+        if (empty($obj)) {
+            return $default;
+        }
+        return $obj[0]->attributes()->$attribute;
     }
 
     /**
@@ -352,9 +418,9 @@ class Services_Openstreetmap
         if ($xml === false) {
             return false;
         }
-        $v = $xml->xpath('//version');
-        $this->minVersion = (float) $v[0]->attributes()->minimum;
-        $this->maxVersion = (float) $v[0]->attributes()->maximum;
+
+        $this->minVersion = (float) $this->getXMLValue($xml, 'version', 'minimum');
+        $this->maxVersion = (float) $this->getXMLValue($xml, 'version', 'maximum');
         if (($this->minVersion > $this->api_version
             || $this->api_version > $this->maxVersion)
         ) {
@@ -362,12 +428,34 @@ class Services_Openstreetmap
                 'Specified API Version ' . $this->api_version .' not supported.'
             );
         }
-        $v = $xml->xpath('//timeout');
-        $this->timeout = (int) $v[0]->attributes()->seconds;
+        $this->timeout = (int) $this->getXMLValue($xml, 'timeout', 'seconds');
         //changesets
-        //waynodes
-        //tracepoints
-        //max area
+        $this->changeset_maximum_elements = (int) $this->getXMLValue(
+            $xml,
+            'changesets',
+            'maximum_elements'
+        );
+
+        // Maximum number of nodes per way.
+        $this->waynodes_maximum = (int) $this->getXMLValue(
+            $xml,
+            'waynodes',
+            'maximum'
+        );
+
+        // Number of tracepoints per way.
+        $this->tracepoints_per_page = (int) $this->getXMLValue(
+            $xml,
+            'tracepoints',
+            'per_page'
+        );
+
+        // Max size of area that can be downloaded in one request.
+        $this->area_maximum = (float) $this->getXMLValue(
+            $xml,
+            'area',
+            'maximum'
+        );
         return true;
     }
 
@@ -426,7 +514,7 @@ class Services_Openstreetmap
             $url .= "/$version";
         }
         try {
-            $r = $this->getResponse($url);
+            $response = $this->getResponse($url);
         } catch (Services_Openstreetmap_Exception $ex) {
             $code = $ex->getCode();
             if (404 == $code) {
@@ -438,9 +526,8 @@ class Services_Openstreetmap
             }
         }
         $class =  "Services_Openstreetmap_" . ucfirst(strtolower($type));
-        include_once str_replace('_', '/', $class) . '.php';
         $obj = new $class();
-        $obj->setXml($r->getBody());
+        $obj->setXml($response->getBody());
         return $obj;
     }
 
@@ -465,7 +552,7 @@ class Services_Openstreetmap
             . '/' . $type . 's?' . $type . 's='
             . implode(',', $ids);
         try {
-            $r = $this->getResponse($url);
+            $response = $this->getResponse($url);
         } catch (Services_Openstreetmap_Exception $ex) {
             $code = $ex->getCode();
             if (404 == $code || 401 == $code) {
@@ -477,9 +564,8 @@ class Services_Openstreetmap
             }
         }
         $class = 'Services_Openstreetmap_' . ucfirst(strtolower($type)) . 's';
-        include_once str_replace('_', '/', $class) . '.php';
         $obj = new $class();
-        $obj->setXml($r->getBody());
+        $obj->setXml($response->getBody());
         return $obj;
     }
 
@@ -583,8 +669,8 @@ class Services_Openstreetmap
             . 'api/'
             . $this->getConfig('api_version')
             . "/$type/$id/history";
-        $r = $this->getResponse($url);
-        return $r->getBody();
+        $response = $this->getResponse($url);
+        return $response->getBody();
     }
 
     /**
@@ -729,7 +815,7 @@ class Services_Openstreetmap
     function setPasswordfile($file)
     {
         if (is_null($file)) {
-            return;
+            return $this;
         }
         $lines = @file($file);
         if ($lines === false) {
@@ -912,6 +998,68 @@ class Services_Openstreetmap
     }
 
     /**
+     * Max size of area that can be downloaded in one request.
+     *
+     * <code>
+     * $osm = new Services_Openstreetmap();
+     * $area_allowed = $osm->getMaxArea();
+     * </code>
+     *
+     * @return float
+     */
+    public function getMaxArea()
+    {
+        return $this->area_maximum;
+    }
+
+    /**
+     * Maximum number of tracepoints per page.
+     *
+     * <code>
+     * $osm = new Services_Openstreetmap();
+     * $tracepoints = $osm->getTracepointsPerPage();
+     * </code>
+     *
+     * @return float
+     */
+    public function getTracepointsPerPage()
+    {
+        return $this->tracepoints_per_page;
+    }
+
+    /**
+     * Maximum number of nodes per way.
+     *
+     * Anymore than that and the way must be split.
+     *
+     * <code>
+     * $osm = new Services_Openstreetmap();
+     * $max = $osm->getMaxNodes();
+     * </code>
+     *
+     * @return float
+     */
+    public function getMaxNodes()
+    {
+        return $this->waynodes_maximum;
+    }
+
+    /**
+     * Number of elements allowed per changeset
+     *
+     * <code>
+     * $osm = new Services_Openstreetmap();
+     * $max = $osm->getMaxElements();
+     * </code>
+     *
+     * @return float
+     */
+    public function getMaxElements()
+    {
+        return $this->changeset_maximum_elements;
+    }
+
+    /**
      * Create a changeset, used to transmit changes (creation, updates, deletion)
      * to the server. Username and password must be set.
      *
@@ -948,7 +1096,6 @@ class Services_Openstreetmap
      */
     public function createNode($latitude, $longitude, array $tags = array())
     {
-        include_once "Services/Openstreetmap/Node.php";
         $node = new Services_Openstreetmap_Node();
         $api_version = $this->getConfig('api_version');
         $user_agent =  $this->getConfig('User-Agent');
@@ -984,7 +1131,12 @@ class Services_Openstreetmap
         $user = $this->getConfig('user');
         $password = $this->getConfig('password');
         try {
-            $c = $this->getResponse($url, HTTP_Request2::METHOD_GET, $user, $password);
+            $response = $this->getResponse(
+                $url,
+                HTTP_Request2::METHOD_GET,
+                $user,
+                $password
+            );
         } catch (Services_Openstreetmap_Exception $ex) {
             $code = $ex->getCode();
             if (404 == $code || 401 == $code) {
@@ -1002,7 +1154,12 @@ class Services_Openstreetmap
         $user = $this->getConfig('user');
         $password = $this->getConfig('password');
         try {
-            $prefs = $this->getResponse($url, HTTP_Request2::METHOD_GET, $user, $password);
+            $prefs = $this->getResponse(
+                $url,
+                HTTP_Request2::METHOD_GET,
+                $user,
+                $password
+            );
         } catch (Services_Openstreetmap_Exception $ex) {
             $code = $ex->getCode();
             if (404 == $code || 401 == $code) {
@@ -1013,9 +1170,8 @@ class Services_Openstreetmap
                 throw $ex;
             }
         }
-        include_once 'Services/Openstreetmap/User.php';
         $obj = new Services_Openstreetmap_User();
-        $obj->setXml($c->getBody());
+        $obj->setXml($response->getBody());
         $obj->setPreferencesXml($prefs->getBody());
         return $obj;
     }
