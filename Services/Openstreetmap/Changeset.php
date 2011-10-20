@@ -79,7 +79,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
             array(array('Content-type', 'text/xml', true))
         );
         $code = $response->getStatus();
-        if (200 == $code) {
+        if (Services_Openstreetmap::OK == $code) {
             $trimmed = trim($response->getBody());
             if (is_numeric($trimmed)) {
                 $this->id = $trimmed;
@@ -158,7 +158,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
         if (isset($response) && is_object($response)) {
             $code = $response->getStatus();
         }
-        if (200 != $code) {
+        if (Services_Openstreetmap::OK != $code) {
             throw new Services_Openstreetmap_Exception(
                 "Error posting changeset",
                 $code
@@ -168,8 +168,8 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
         // Explicitly close the changeset
         $url = $this->_osm->getConfig('server')
             . 'api/'
-            . $this->_osm->getConfig('api_version') .
-            "/changeset/{$cId}/close";
+            . $this->_osm->getConfig('api_version')
+            . "/changeset/{$cId}/close";
 
         $code = null;
         $response = null;
@@ -189,9 +189,9 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
         if (isset($response) && is_object($response)) {
             $code = $response->getStatus();
         }
-        if (200 != $code) {
+        if (Services_Openstreetmap::OK != $code) {
             throw new Services_Openstreetmap_Exception(
-                "Error closing changeset",
+                'Error closing changeset',
                 $code
             );
         }

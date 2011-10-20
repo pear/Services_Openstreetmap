@@ -31,14 +31,14 @@ spl_autoload_register(array('Services_Openstreetmap', 'autoload'));
 class Services_Openstreetmap
 {
     /**
-     * server to connect to
+     * Server to connect to.
      * @var string
      * @internal
      */
     protected $server = 'http://www.openstreetmap.org/';
 
     /**
-     * Version of the [OSM] API which communications will be over
+     * Version of the [OSM] API which communications will be over.
      * @var string
      * @internal
      */
@@ -59,7 +59,7 @@ class Services_Openstreetmap
     protected $maxVersion = null;
 
     /**
-     * timeout
+     * timeout, in seconds.
      * @var integer
      * @internal
      */
@@ -73,7 +73,7 @@ class Services_Openstreetmap
     protected $changeset_maximum_elements = null;
 
     /**
-     * maximum number of nodes per way
+     * Maximum number of nodes per way.
      * @var integer
      * @internal
      */
@@ -129,6 +129,11 @@ class Services_Openstreetmap
      * @internal
      */
     protected $newId = -1;
+
+    const OK = 200;
+    const UNAUTHORISED = 401;
+    const MISSING = 404;
+    const GONE = 410;
 
     /**
      * autoloader
@@ -323,10 +328,10 @@ class Services_Openstreetmap
 
     function get($minLon, $minLat, $maxLon, $maxLat)
     {
-        $url = $this->config['server'] .
-            "api/" .
-            $this->config['api_version'] .
-        "/map?bbox=$minLat,$minLon,$maxLat,$maxLon";
+        $url = $this->config['server']
+             . 'api/'
+             . $this->config['api_version']
+             . "/map?bbox=$minLat,$minLon,$maxLat,$maxLon";
         $response = $this->getResponse($url);
         $this->xml = $response->getBody();
     }
@@ -354,7 +359,7 @@ class Services_Openstreetmap
         $attrs = $obj[0]->attributes();
         $lat = (string) $attrs['lat'];
         $lon = (string) $attrs['lon'];
-        return compact("lat", "lon");
+        return compact('lat', 'lon');
     }
 
     /**
@@ -517,15 +522,15 @@ class Services_Openstreetmap
             $response = $this->getResponse($url);
         } catch (Services_Openstreetmap_Exception $ex) {
             $code = $ex->getCode();
-            if (404 == $code) {
+            if (Services_Openstreetmap::MISSING == $code) {
                 return false;
-            } elseif (410 == $code) {
+            } elseif (Services_Openstreetmap::GONE == $code) {
                 return false;
             } else {
                 throw $ex;
             }
         }
-        $class =  "Services_Openstreetmap_" . ucfirst(strtolower($type));
+        $class =  'Services_Openstreetmap_' . ucfirst(strtolower($type));
         $obj = new $class();
         $obj->setXml($response->getBody());
         return $obj;
@@ -554,12 +559,12 @@ class Services_Openstreetmap
         try {
             $response = $this->getResponse($url);
         } catch (Services_Openstreetmap_Exception $ex) {
-            $code = $ex->getCode();
-            if (404 == $code || 401 == $code) {
+            switch ($ex->getCode()) {
+            case Services_Openstreetmap::MISSING:
+            case Services_Openstreetmap::UNAUTHORISED:
+            case Services_Openstreetmap::GONE:
                 return false;
-            } elseif (410 == $code) {
-                return false;
-            } else {
+            default:
                 throw $ex;
             }
         }
@@ -739,7 +744,7 @@ class Services_Openstreetmap
                 var_dump($response->getBody());
             }
 
-            if (200 == $code) {
+            if (Services_Openstreetmap::OK == $code) {
                 return $response;
             } else {
                 $eMsg = 'Unexpected HTTP status: '
@@ -923,7 +928,6 @@ class Services_Openstreetmap
         $xml = simplexml_load_string($this->xml);
         if ($xml === false) {
             return array();
-
         }
         foreach ($criteria as $key => $value) {
             foreach ($xml->xpath('//way') as $node) {
@@ -1118,16 +1122,18 @@ class Services_Openstreetmap
     /**
      * Get a Services_Openstreetmap_User object for the [current] user.
      *
+     * May return false if the user could not be found for any reason.
+     *
      * @see setConfig
      *
      * @return Services_Openstreetmap_User
      */
     public function getUser()
     {
-        $url = $this->config['server'] .
-            "api/" .
-            $this->config['api_version'] .
-            "/user/details";
+        $url = $this->config['server']
+             . 'api/'
+             . $this->config['api_version']
+             . '/user/details';
         $user = $this->getConfig('user');
         $password = $this->getConfig('password');
         try {
@@ -1138,19 +1144,19 @@ class Services_Openstreetmap
                 $password
             );
         } catch (Services_Openstreetmap_Exception $ex) {
-            $code = $ex->getCode();
-            if (404 == $code || 401 == $code) {
+            switch ($ex->getCode()) {
+            case Services_Openstreetmap::MISSING:
+            case Services_Openstreetmap::UNAUTHORISED:
+            case Services_Openstreetmap::GONE:
                 return false;
-            } elseif (410 == $code) {
-                return false;
-            } else {
+            default:
                 throw $ex;
             }
         }
-        $url = $this->config['server'] .
-            "api/" .
-            $this->config['api_version'] .
-            "/user/preferences";
+        $url = $this->config['server']
+             . 'api/'
+             . $this->config['api_version']
+             . '/user/preferences';
         $user = $this->getConfig('user');
         $password = $this->getConfig('password');
         try {
@@ -1161,12 +1167,12 @@ class Services_Openstreetmap
                 $password
             );
         } catch (Services_Openstreetmap_Exception $ex) {
-            $code = $ex->getCode();
-            if (404 == $code || 401 == $code) {
+            switch ($ex->getCode()) {
+            case Services_Openstreetmap::MISSING:
+            case Services_Openstreetmap::UNAUTHORISED:
+            case Services_Openstreetmap::GONE:
                 return false;
-            } elseif (410 == $code) {
-                return false;
-            } else {
+            default:
                 throw $ex;
             }
         }
