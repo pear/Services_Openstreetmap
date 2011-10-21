@@ -22,7 +22,7 @@ require_once 'Services/Openstreetmap.php';
 
 $osm = new Services_Openstreetmap();
 #$osm->setConfig(array('server' => 'http://apidev2.openstreetmap.ie/'));
-$osm->setConfig(array('server' => 'http://www.openstreetmap.org/'));
+$osm->setConfig(array('server' => 'http://api.openstreetmap.org/'));
 
 try {
     $osm->get(-8.3564758, 52.821022799999994, -7.7330017, 53.0428644);

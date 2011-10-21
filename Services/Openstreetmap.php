@@ -35,7 +35,7 @@ class Services_Openstreetmap
      * @var string
      * @internal
      */
-    protected $server = 'http://www.openstreetmap.org/';
+    protected $server = 'http://api.openstreetmap.org/';
 
     /**
      * Version of the [OSM] API which communications will be over.
@@ -102,7 +102,7 @@ class Services_Openstreetmap
         'api_version'  => '0.6',
         'password'     => null,
         'passwordfile' => null,
-        'server'       => 'http://www.openstreetmap.org/',
+        'server'       => 'http://api.openstreetmap.org/',
         'User-Agent'   => 'Services_Openstreetmap',
         'user'         => null,
         'verbose'      => false,
@@ -859,7 +859,7 @@ class Services_Openstreetmap
     /**
      * Connect to specified server.
      *
-     * @param string $server base server details, e.g. http://www.openstreetmap.org
+     * @param string $server base server details, e.g. http://api.openstreetmap.org
      *
      * @access public
      * @return Services_Openstreetmap

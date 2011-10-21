@@ -36,7 +36,7 @@ class WayTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org/'
+            'server' => 'http://api.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $way = $osm->getWay($id);
@@ -59,7 +59,7 @@ class WayTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org/'
+            'server' => 'http://api.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $way = $osm->getWay($id);
@@ -79,7 +79,7 @@ class WayTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org'
+            'server' => 'http://api.openstreetmap.org'
         );
         $osm = new Services_Openstreetmap($config);
         $way = $osm->getWay($id);
@@ -98,7 +98,7 @@ class WayTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org'
+            'server' => 'http://api.openstreetmap.org'
         );
         $osm = new Services_Openstreetmap($config);
         $way = $osm->getWay($id);
@@ -117,7 +117,7 @@ class WayTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org'
+            'server' => 'http://api.openstreetmap.org'
         );
         $osm = new Services_Openstreetmap($config);
         $way = $osm->getWay($id);
@@ -147,7 +147,7 @@ class WayTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org'
+            'server' => 'http://api.openstreetmap.org'
         );
         $osm = new Services_Openstreetmap($config);
         $way = $osm->getWay($id);
@@ -164,7 +164,7 @@ class WayTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org'
+            'server' => 'http://api.openstreetmap.org'
         );
         $osm = new Services_Openstreetmap($config);
         $way = $osm->getWay($id);

@@ -35,7 +35,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
 
         $cId = 2217466;
 
-        $config = array('adapter' => $mock, 'server' => 'http://www.openstreetmap.org');
+        $config = array('adapter' => $mock, 'server' => 'http://api.openstreetmap.org');
         $osm = new Services_Openstreetmap($config);
         $changeset = $osm->getChangeSet($cId);
         $this->assertEquals($cId, (int) $changeset->getId());

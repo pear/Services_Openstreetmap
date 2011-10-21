@@ -55,7 +55,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org/',
+            'server' => 'http://api.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
         $this->assertEquals($osm->getTimeout(), 300);
@@ -68,7 +68,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org/',
+            'server' => 'http://api.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
         $this->assertEquals($osm->getMinVersion(), 0.5);
@@ -92,7 +92,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org/',
+            'server' => 'http://api.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
     }
@@ -110,7 +110,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org/',
+            'server' => 'http://api.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
     }
@@ -128,7 +128,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org/',
+            'server' => 'http://api.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
     }
@@ -141,7 +141,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org/'
+            'server' => 'http://api.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $results = $osm->search(array("amenity" => "pharmacy"));
@@ -272,7 +272,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://www.openstreetmap.org'
+            'server' => 'http://api.openstreetmap.org'
         );
         $osm = new Services_Openstreetmap($config);
         $history = $osm->getHistory('node', $id);
