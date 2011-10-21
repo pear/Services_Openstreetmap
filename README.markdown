@@ -84,9 +84,21 @@ Simply require and initialize the Services_Openstreetmap class:
     $lat = 52.8638729;
     $lon = -8.1983611;
     $node = $osm->createNode($lat, $lon, array(
-                'name' => 'Acme Vets',
-                'building' => 'yes',
-                'amenity' => 'vet')
-            );
+        'name' => 'Acme Vets',
+        'building' => 'yes',
+        'amenity' => 'vet')
+    );
     $changeset->add($node);
     $changeset->commit();
+
+### Working with user information.
+
+    $config = array(
+        'user' => 'fred@example.com',
+        'password' => 'w1lma4evah'
+    );
+
+    $osm = new Services_Openstreetmap($config);
+    $user = $osm->getUser();
+
+    echo 'My OSM Mugshot is at ', $user->getImage(), "\n";
