@@ -33,13 +33,13 @@ $packagexml->setAPIStability('alpha');
 $packagexml->setSummary('Openstreetmap Services');
 $packagexml->setDescription('Provide an interface to the Openstreetmap services.');
 $packagexml->setNotes('Initial release');
-$packagexml->setPhpDep('5.2.0');
+$packagexml->setPhpDep('5.3.0');
 $packagexml->setPearinstallerDep('1.7.0');
 $packagexml->addPackageDepWithChannel(
     'required',
     'HTTP_Request2',
     'pear.php.net',
-    '0.5.1'
+    '2.0.0'
 );
 $packagexml->addMaintainer('lead', 'kguest', 'Ken Guest', 'kguest@php.net');
 $packagexml->setLicense(
