@@ -59,7 +59,7 @@ Simply require and initialize the Services_Openstreetmap class:
     // A password file, is a colon delimited file.
     // Eg. fred@example.com:yabbadabbado
     $config = array('passwordfile' => './credentials');
-    $osm = new Services_Openstreetmap();
+    $osm = new Services_Openstreetmap($config);
 
     $changeset = $osm->createChangeset();
     $changeset->begin("These ways are lit");
@@ -71,3 +71,22 @@ Simply require and initialize the Services_Openstreetmap class:
     }
     $changeset->commit();
 
+### Creating a node.
+    require_once 'Services/Openstreetmap.php';
+
+    // A password file, is a colon delimited file.
+    // Eg. fred@example.com:yabbadabbado
+    $config = array('passwordfile' => './credentials');
+    $osm = new Services_Openstreetmap($config);
+
+    $changeset = $osm->createChangeset();
+    $changeset->begin("Added Acme Vets.");
+    $lat = 52.8638729;
+    $lon = -8.1983611;
+    $node = $osm->createNode($lat, $lon, array(
+                'name' => 'Acme Vets',
+                'building' => 'yes',
+                'amenity' => 'vet')
+            );
+    $changeset->add($node);
+    $changeset->commit();
