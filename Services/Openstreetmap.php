@@ -95,7 +95,10 @@ class Services_Openstreetmap
 
     /**
      * Default config settings
+     *
      * @var array
+     * @see Services_Openstreetmap::getConfig
+     * @see Services_Openstreetmap::setConfig
      */
     protected $config = array(
         'adapter'      => 'HTTP_Request2_Adapter_Socket',
@@ -107,6 +110,19 @@ class Services_Openstreetmap
         'user'         => null,
         'verbose'      => false,
     );
+
+    /**
+     * The HTTP_Request2 instance.
+     *
+     * Customise this for proxy settings etc with the getRequest/setRequest
+     * methods if necessary.
+     *
+     * @var HTTP_Request2 $request
+     * @internal
+     * @see Services_Openstreetmap::getRequest
+     * @see Services_Openstreetmap::setRequest
+     */
+    protected $request = null;
 
     /**
      * [Retrieved] XML
@@ -679,6 +695,27 @@ class Services_Openstreetmap
     }
 
     /**
+     * Set the HTTP_Request2 instance and return the Services_Openstreetmap
+     * instance.
+     *
+     * @param HTTP_Request2 $request The HTTP_Request2 instance to set.
+     * @return Services_Openstreetmap
+     */
+    public function setRequest(HTTP_Request2 $request)
+    {
+        $this->request = $request;
+        return $this;
+    }
+
+    function getRequest()
+    {
+        if ($this->request === null) {
+            $this->request = new HTTP_Request2();
+        }
+        return $this->request;
+    }
+
+    /**
      * Send request to OSM server and return the response.
      *
      * @param string $url       URL
@@ -710,11 +747,18 @@ class Services_Openstreetmap
         if ($this->getConfig('verbose')) {
             echo $url, "\n";
         }
+        /*
         $request = new HTTP_Request2(
             $url,
             $method,
             array('adapter' => $this->getConfig('adapter'))
         );
+        */
+        $request = $this->getRequest();
+        $request->setUrl($url);
+        $request->setMethod($method);
+        $request->setAdapter($this->getConfig('adapter'));
+
 
         $request->setHeader('User-Agent', $this->getConfig('User-Agent'));
         if ($user !== null && $password !== null) {
