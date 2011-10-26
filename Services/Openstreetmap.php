@@ -146,10 +146,27 @@ class Services_Openstreetmap
      */
     protected $newId = -1;
 
+    /**#@+
+     * @link http://tools.ietf.org/html/rfc2616
+     * @access public
+     */
+    /**
+     * Ok
+     */
     const OK = 200;
+    /**
+     * Unauthorised, e.g. login credentials wrong.
+     */
     const UNAUTHORISED = 401;
-    const MISSING = 404;
+    /**
+     * Resource not found.
+     */
+    const NOT_FOUND = 404;
+    /**
+     * Resource no longer available.
+     */
     const GONE = 410;
+    /**#@-*/
 
     /**
      * autoloader
@@ -538,7 +555,7 @@ class Services_Openstreetmap
             $response = $this->getResponse($url);
         } catch (Services_Openstreetmap_Exception $ex) {
             $code = $ex->getCode();
-            if (Services_Openstreetmap::MISSING == $code) {
+            if (Services_Openstreetmap::NOT_FOUND == $code) {
                 return false;
             } elseif (Services_Openstreetmap::GONE == $code) {
                 return false;
@@ -576,7 +593,7 @@ class Services_Openstreetmap
             $response = $this->getResponse($url);
         } catch (Services_Openstreetmap_Exception $ex) {
             switch ($ex->getCode()) {
-            case Services_Openstreetmap::MISSING:
+            case Services_Openstreetmap::NOT_FOUND:
             case Services_Openstreetmap::UNAUTHORISED:
             case Services_Openstreetmap::GONE:
                 return false;
@@ -1189,7 +1206,7 @@ class Services_Openstreetmap
             );
         } catch (Services_Openstreetmap_Exception $ex) {
             switch ($ex->getCode()) {
-            case Services_Openstreetmap::MISSING:
+            case Services_Openstreetmap::NOT_FOUND:
             case Services_Openstreetmap::UNAUTHORISED:
             case Services_Openstreetmap::GONE:
                 return false;
@@ -1212,7 +1229,7 @@ class Services_Openstreetmap
             );
         } catch (Services_Openstreetmap_Exception $ex) {
             switch ($ex->getCode()) {
-            case Services_Openstreetmap::MISSING:
+            case Services_Openstreetmap::NOT_FOUND:
             case Services_Openstreetmap::UNAUTHORISED:
             case Services_Openstreetmap::GONE:
                 return false;
