@@ -75,15 +75,14 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
     /**
      * setXml
      *
-     * @param mixed $xml OSM XML
+     * @param SimpleXMLElement $xml OSM XML
      *
-     * @return void
+     * @return Services_Openstreetmap_Relation
      */
-    public function setXml($xml)
+    public function setXml(SimpleXMLElement $xml)
     {
-        $this->xml = $xml;
-        $cxml = simplexml_load_string($xml);
-        $obj = $cxml->xpath('//' . $this->getType());
+        $this->xml = $xml->saveXML();
+        $obj = $xml->xpath('//' . $this->getType());
         foreach ($obj[0]->children() as $child) {
             $childname = $child->getName();
             if ($childname == 'tag') {

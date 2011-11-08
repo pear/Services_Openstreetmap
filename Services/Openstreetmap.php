@@ -565,7 +565,7 @@ class Services_Openstreetmap
         }
         $class =  'Services_Openstreetmap_' . ucfirst(strtolower($type));
         $obj = new $class();
-        $obj->setXml($response->getBody());
+        $obj->setXml(simplexml_load_string($response->getBody()));
         return $obj;
     }
 
@@ -603,7 +603,7 @@ class Services_Openstreetmap
         }
         $class = 'Services_Openstreetmap_' . ucfirst(strtolower($type)) . 's';
         $obj = new $class();
-        $obj->setXml($response->getBody());
+        $obj->setXml(simplexml_load_string($response->getBody()));
         return $obj;
     }
 
@@ -1169,7 +1169,7 @@ class Services_Openstreetmap
 <node lat='{$latitude}' lon='{$longitude}' version='1'/></osm>";
         $node->setLat($latitude);
         $node->setLon($longitude);
-        $node->setXml($xml);
+        $node->setXml(simplexml_load_string($xml));
         $node->setId($this->newId--);
         $node->setTag('created_by', $user_agent);
         if (!empty($tags)) {
@@ -1238,7 +1238,7 @@ class Services_Openstreetmap
             }
         }
         $obj = new Services_Openstreetmap_User();
-        $obj->setXml($response->getBody());
+        $obj->setXml(simplexml_load_string($response->getBody()));
         $obj->setPreferencesXml($prefs->getBody());
         return $obj;
     }

@@ -30,14 +30,15 @@ class Services_Openstreetmap_User
     /**
      * setXml
      *
-     * @param mixed $xml XML describing a user.
+     * @param SimpleXMLElement $xml XML describing a user.
      *
-     * @return void
+     * @return Services_Openstreetmap_User
      */
-    public function setXml($xml)
+    public function setXml(SimpleXMLElement $xml)
     {
-        $this->xml = $xml;
-        $this->obj = simplexml_load_string($xml)->xpath('//user');
+        $this->xml = $xml->saveXML();
+        $this->obj = $xml->xpath('//user');
+        return $this;
     }
 
     /**

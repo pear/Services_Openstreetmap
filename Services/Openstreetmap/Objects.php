@@ -47,15 +47,14 @@ class Services_Openstreetmap_Objects implements Iterator, Countable
      *
      * @return void
      */
-    public function setXml($xml)
+    public function setXml(SimpleXMLElement $xml)
     {
-        $this->xml = $xml;
-        $cxml = simplexml_load_string($xml);
-        $objs = $cxml->xpath('//' . $this->getType());
+        $this->xml = $xml->saveXML();
+        $objs = $xml->xpath('//' . $this->getType());
         foreach ($objs as $obj) {
-            $this->objects[] = $obj->asXML();
-
+            $this->objects[] = $obj->saveXML();
         }
+        return $this;
     }
 
     /**
@@ -87,7 +86,7 @@ class Services_Openstreetmap_Objects implements Iterator, Countable
     {
         $class = 'Services_Openstreetmap_' . ucfirst(strtolower($this->getType()));
         $way = new $class();
-        $way->setXml($this->objects[$this->position]);
+        $way->setXml(simplexml_load_string($this->objects[$this->position]));
         return $way;
     }
 
