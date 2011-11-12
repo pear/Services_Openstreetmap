@@ -98,6 +98,19 @@ class Services_Openstreetmap_Object
     }
 
     /**
+     * Store a specified value.
+     *
+     * @param string $value Most likely an id value, returned from the server.
+     *
+     * @return void
+     */
+    public function setVal($value)
+    {
+        $this->xml = $value;
+        return $this;
+    }
+
+    /**
      * Set the Changeset Id for this object.
      *
      * @param integer $id Changeset Id (numeric)

@@ -40,7 +40,7 @@ class RelationTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api.openstreetmap.org/'
+            'server' => 'http://api06.dev.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $relation = $osm->getRelation($id);
@@ -77,7 +77,7 @@ class RelationTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api.openstreetmap.org/'
+            'server' => 'http://api06.dev.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $relations = $osm->getRelations(array(917266,20645,2740));
@@ -153,7 +153,7 @@ class RelationTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api.openstreetmap.org/'
+            'server' => 'http://api06.dev.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $relations = $osm->getRelations(917266, 20645, 2740);

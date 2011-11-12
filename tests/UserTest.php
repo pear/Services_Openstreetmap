@@ -34,7 +34,7 @@ class UserTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/user_preferences.xml', 'rb'));
         $config = array(
             'adapter' => $mock,
-            'server'   => 'http://api.openstreetmap.org/',
+            'server'   => 'http://api06.dev.openstreetmap.org/',
             'user' => 'fred@example.com',
             'password' => 'w1lma4evah'
         );
@@ -63,7 +63,7 @@ class UserTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/user_preferences.xml', 'rb'));
         $config = array(
             'adapter' => $mock,
-            'server'   => 'http://api.openstreetmap.org/',
+            'server'   => 'http://api06.dev.openstreetmap.org/',
             'user' => 'fred@example.com',
             'password' => 'w1lma4evah'
         );
@@ -81,7 +81,7 @@ class UserTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/user_preferences.xml', 'rb'));
         $config = array(
             'adapter' => $mock,
-            'server'   => 'http://api.openstreetmap.org/',
+            'server'   => 'http://api06.dev.openstreetmap.org/',
             'user' => 'fred@example.com',
             'password' => 'w1lma4evah'
         );

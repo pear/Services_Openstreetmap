@@ -44,7 +44,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $osm = new Services_Openstreetmap($config);
 
         $this->assertEquals(
-            $osm->getConfig(),
+            $osm->getConfig()->asArray(),
             array (
                 'api_version' => '0.6',
                 'User-Agent' => 'Services_Openstreetmap',
@@ -56,11 +56,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
                 'passwordfile' => null,
             )
         );
-        $this->assertEquals('0.6', $osm->getConfig('api_version'));
-        $osm->setConfig('User-Agent', 'Acme 1.2');
-        $this->assertEquals($osm->getConfig('User-Agent'), 'Acme 1.2');
-        $osm->setConfig('api_version', '0.5');
-        $this->assertEquals($osm->getConfig('api_version'), '0.5');
+        $this->assertEquals('0.6', $osm->getConfig()->getValue('api_version'));
+        $osm->getConfig()->setValue('User-Agent', 'Acme 1.2');
+        $this->assertEquals($osm->getConfig()->getValue('User-Agent'), 'Acme 1.2');
+        $osm->getConfig()->setValue('api_version', '0.5');
+        $this->assertEquals($osm->getConfig()->getValue('api_version'), '0.5');
     }
 
     /**
@@ -79,7 +79,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $config = array('adapter' => $mock);
         $osm = new Services_Openstreetmap($config);
 
-        $osm->setConfig('api', '0.5');
+        $osm->getConfig()->setValue('api', '0.5');
     }
 
     /**
@@ -98,7 +98,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $config = array('adapter' => $mock);
         $osm = new Services_Openstreetmap($config);
 
-        $osm->getConfig('api');
+        $osm->getConfig()->getValue('api');
     }
 
     /**
@@ -113,7 +113,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $osm = new Services_Openstreetmap(array('adapter' => $mock));
-        $osm->setConfig('UserAgent', 'Acme/1.2');
+        $osm->getConfig()->setValue('UserAgent', 'Acme/1.2');
     }
 
     /**
@@ -142,7 +142,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/404', 'rb'));
         $osm = new Services_Openstreetmap(array('adapter' => $mock));
         try {
-            $osm->setConfig('server', 'http://example.com');
+            $osm->getConfig()->setValue('server', 'http://example.com');
         } catch (Services_Openstreetmap_Exception $ex) {
             $this->assertEquals(
                 $ex->getMessage(),
@@ -150,7 +150,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
             );
             $this->assertEquals($ex->getCode(), 404);
         }
-        $config = $osm->getConfig('server');
+        $config = $osm->getConfig()->getValue('server');
         $this->assertEquals($config, 'http://example.com');
     }
 
@@ -159,9 +159,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $osm = new Services_Openstreetmap(array('adapter' => $mock));
-        $osm->setConfig('passwordfile', __DIR__ . '/files/pwd_1line');
-        $config = $osm->getConfig('passwordfile');
+        $osm  = new Services_Openstreetmap(array('adapter' => $mock));
+        $cobj = $osm->getConfig();
+        $cobj->setValue('passwordfile', __DIR__ . '/files/pwd_1line');
+        $config = $cobj->getValue('passwordfile');
         $this->assertEquals($config, __DIR__ . '/files/pwd_1line');
     }
 
@@ -177,7 +178,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $osm = new Services_Openstreetmap(array('adapter' => $mock));
-        $osm->setConfig('passwordfile', __DIR__ . '/files/credentels');
+        $osm->getConfig()->setValue('passwordfile', __DIR__ . '/files/credentels');
     }
 
     public function testEmptyPasswordFile()
@@ -186,11 +187,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $osm = new Services_Openstreetmap(array('adapter' => $mock));
-        $osm->setConfig('passwordfile', __DIR__ . '/files/pwd_empty');
-        $config = $osm->getConfig('passwordfile');
+        $osm->getConfig()->setValue('passwordfile', __DIR__ . '/files/pwd_empty');
+        $config = $osm->getConfig()->getValue('passwordfile');
         $this->assertEquals($config, __DIR__ . '/files/pwd_empty');
-        $this->assertNull($osm->getConfig('user'));
-        $this->assertNull($osm->getConfig('password'));
+        $this->assertNull($osm->getConfig()->getValue('user'));
+        $this->assertNull($osm->getConfig()->getValue('password'));
     }
 
     public function test1LinePasswordFile()
@@ -199,10 +200,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $osm = new Services_Openstreetmap(array('adapter' => $mock));
-        $osm->setConfig('passwordfile', __DIR__ . '/files/pwd_1line');
+        $osm->getConfig()->setValue('passwordfile', __DIR__ . '/files/pwd_1line');
         $config = $osm->getConfig();
-        $this->assertEquals($config['user'], 'fred@example.com');
-        $this->assertEquals($config['password'], 'Wilma4evah');
+        $this->assertEquals($config->getValue('user'), 'fred@example.com');
+        $this->assertEquals($config->getValue('password'), 'Wilma4evah');
     }
 
     public function testMultiLinedPasswordFile()
@@ -217,10 +218,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase
             )
         );
         $config = $osm->getConfig();
-        $this->assertEquals($config['password'], null);
-        $osm->setConfig('passwordfile', __DIR__ . '/files/pwd_multi');
+        $this->assertEquals($config->getValue('password'), null);
+        $config->setValue('passwordfile', __DIR__ . '/files/pwd_multi');
         $config = $osm->getConfig();
-        $this->assertEquals($config['password'], 'Wilma4evah');
+        $this->assertEquals($config->getValue('password'), 'Wilma4evah');
     }
 }
 // vim:set et ts=4 sw=4:

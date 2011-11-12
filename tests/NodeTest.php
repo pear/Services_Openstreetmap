@@ -37,7 +37,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api.openstreetmap.org/'
+            'server' => 'http://api06.dev.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $node = $osm->getNode($id);
@@ -59,7 +59,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api.openstreetmap.org/'
+            'server' => 'http://api06.dev.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $node = $osm->getNode($id, 2);
@@ -81,7 +81,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api.openstreetmap.org/'
+            'server' => 'http://api06.dev.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $node = $osm->getNode($id);
@@ -98,7 +98,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api.openstreetmap.org/'
+            'server' => 'http://api06.dev.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $node = $osm->getNode($id);
@@ -121,7 +121,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api.openstreetmap.org/'
+            'server' => 'http://api06.dev.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $node = $osm->getNode($id);
@@ -295,7 +295,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api.openstreetmap.org/',
+            'server' => 'http://api06.dev.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
         $nodes = $osm->getNodes(array(621953926,621953928,621953939));
@@ -321,7 +321,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api.openstreetmap.org/',
+            'server' => 'http://api06.dev.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
         $nodes = $osm->getNodes(array(621953926,621953928,621953939));
@@ -336,7 +336,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api.openstreetmap.org/',
+            'server' => 'http://api06.dev.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
         $nodes = $osm->getNodes(array(621953926,621953928,621953939));
@@ -351,7 +351,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api.openstreetmap.org/',
+            'server' => 'http://api06.dev.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
         $nodes = $osm->getNodes(array(621953926,621953928,621953939));
@@ -372,7 +372,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api.openstreetmap.org/',
+            'server' => 'http://api06.dev.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
         $nodes = $osm->getNodes(array(621953926,621953928,621953939));

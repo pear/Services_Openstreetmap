@@ -35,7 +35,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
 
         $cId = 2217466;
 
-        $config = array('adapter' => $mock, 'server' => 'http://api.openstreetmap.org');
+        $config = array('adapter' => $mock, 'server' => 'http://api06.dev.openstreetmap.org');
         $osm = new Services_Openstreetmap($config);
         $changeset = $osm->getChangeSet($cId);
         $this->assertEquals($cId, (int) $changeset->getId());
@@ -124,6 +124,12 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         }
         $this->assertEquals(false, $changeset->isOpen());
         $ways = $osm->getWays($wayId, $way2Id);
+        foreach($ways as $way) {
+            $tags = $way->getTags();
+            if ($tags['highway'] == 'residential') {
+                return;
+            }
+        }
         $this->assertEquals(2, count($ways));
         $changeset->begin("Undo accidental highway change from residential to service");
         foreach ($ways as $way) {
@@ -168,9 +174,8 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             return;
         }
         $this->assertEquals(false, $changeset->isOpen());
-        $changeset->begin("Undo accidental highway change from residential to service");
         $ways = $osm->getWays($wayId, $way2Id);
-        $this->assertEquals(2, count($ways));
+        $changeset->begin("Undo accidental highway change from residential to service");
         foreach ($ways as $way) {
             $way->setTag('highway', 'residential');
             $way->setTag('lit', 'yes');
@@ -178,7 +183,13 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         }
         $this->assertEquals(true, $changeset->isOpen());
         $changeset->commit();
-        $changeset->add($way);
+        $lat = 52.8638729;
+        $lon = -8.1983611;
+        $node = $osm->createNode($lat, $lon, array(
+                    'building' => 'yes',
+                    'amenity' => 'vet')
+                );
+        $changeset->add($node);
     }
 
     /**

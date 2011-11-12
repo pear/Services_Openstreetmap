@@ -30,6 +30,11 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
     protected $open = false;
     protected $id = null;
 
+
+    protected $transport = null;
+
+    protected $config = null;
+
     /**
      * __construct
      *
@@ -50,26 +55,27 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
     {
         $this->members = array();
         $this->open = true;
-        $user_agent = $this->_osm->getConfig('User-Agent');
+        $config = $this->getConfig();
+        $user_agent = $config->getValue('User-Agent');
         $doc = "<?xml version='1.0' encoding=\"UTF-8\"?>\n" .
         '<osm version="0.6" generator="' . $user_agent . '">'
             . "<changeset id='0' open='false'>"
             . '<tag k="comment" v="' . $message . '"/>'
             . '<tag k="created_by" v="' . $user_agent . '/0.1"/>'
             . '</changeset></osm>';
-        $url = $this->_osm->getConfig('server')
+        $url = $config->getValue('server')
             . 'api/'
-            . $this->_osm->getConfig('api_version')
+            . $config->getValue('api_version')
             . "/changeset/create";
-        $user = $this->_osm->getConfig('user');
-        $password = $this->_osm->getConfig('password');
+        $user = $config->getValue('user');
+        $password = $config->getValue('password');
         if ($user == null) {
             throw new Services_Openstreetmap_Exception('User must be set');
         }
         if ($password == null) {
             throw new Services_Openstreetmap_Exception('Password must be set');
         }
-        $response = $this->_osm->getResponse(
+        $response = $this->getTransport()->getResponse(
             $url,
             HTTP_Request2::METHOD_PUT,
             $user,
@@ -79,7 +85,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
             array(array('Content-type', 'text/xml', true))
         );
         $code = $response->getStatus();
-        if (Services_Openstreetmap::OK == $code) {
+        if (Services_Openstreetmap_Transport::OK == $code) {
             $trimmed = trim($response->getBody());
             if (is_numeric($trimmed)) {
                 $this->id = $trimmed;
@@ -127,9 +133,10 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
         }
 
         $cId = $this->getId();
-        $url = $this->_osm->getConfig('server')
+        $config = $this->getConfig()->asArray();
+        $url = $config['server']
             . 'api/'
-            . $this->_osm->getConfig('api_version') .
+            . $config['api_version'] .
             "/changeset/{$cId}/upload";
 
         $blocks = null;
@@ -141,11 +148,11 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
              . $blocks . '</osmChange>';
 
         try {
-            $response = $this->_osm->getResponse(
+            $response = $this->getTransport()->getResponse(
                 $url,
                 HTTP_Request2::METHOD_POST,
-                $this->_osm->getConfig('user'),
-                $this->_osm->getConfig('password'),
+                $config['user'],
+                $config['password'],
                 $doc,
                 null,
                 array(array('Content-type', 'text/xml', true))
@@ -158,7 +165,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
         if (isset($response) && is_object($response)) {
             $code = $response->getStatus();
         }
-        if (Services_Openstreetmap::OK != $code) {
+        if (Services_Openstreetmap_Transport::OK != $code) {
             throw new Services_Openstreetmap_Exception(
                 "Error posting changeset",
                 $code
@@ -166,19 +173,19 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
 
         }
         // Explicitly close the changeset
-        $url = $this->_osm->getConfig('server')
+        $url = $config['server']
             . 'api/'
-            . $this->_osm->getConfig('api_version')
+            . $config['api_version']
             . "/changeset/{$cId}/close";
 
         $code = null;
         $response = null;
         try {
-            $response = $this->_osm->getResponse(
+            $response = $this->getTransport()->getResponse(
                 $url,
                 HTTP_Request2::METHOD_PUT,
-                $this->_osm->getConfig('user'),
-                $this->_osm->getConfig('password'),
+                $config['user'],
+                $config['password'],
                 null,
                 null,
                 array(array('Content-type', 'text/xml', true))
@@ -189,7 +196,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
         if (isset($response) && is_object($response)) {
             $code = $response->getStatus();
         }
-        if (Services_Openstreetmap::OK != $code) {
+        if (Services_Openstreetmap_Transport::OK != $code) {
             throw new Services_Openstreetmap_Exception(
                 'Error closing changeset',
                 $code
@@ -334,6 +341,53 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
             }
         }
     }
+
+    /**
+     * Set Config object
+     *
+     * @param Services_Openstreetmap_Config $config Config object
+     *
+     * @return Services_Openstreetmap_Changeset
+     */
+    public function setConfig(Services_Openstreetmap_Config $config)
+    {
+        $this->config = $config;
+        return $this;
+    }
+
+    /**
+     * Get current Config object
+     *
+     * @return Services_Openstreetmap_Config
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * Set the Transport instance.
+     *
+     * @param Services_Openstreetmap_Transport $transport Transport instance.
+     *
+     * @return Services_Openstreetmap_Config
+     */
+    public function setTransport($transport)
+    {
+        $this->transport = $transport;
+        return $this;
+    }
+
+    /**
+     * Retrieve the current Transport instance.
+     *
+     * @return Services_Openstreetmap_Transport.
+     */
+    public function getTransport()
+    {
+        return $this->transport;
+    }
+
 }
 // vim:set et ts=4 sw=4:
 ?>

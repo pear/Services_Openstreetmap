@@ -31,98 +31,13 @@ spl_autoload_register(array('Services_Openstreetmap', 'autoload'));
 class Services_Openstreetmap
 {
     /**
-     * Server to connect to.
-     * @var string
-     * @internal
-     */
-    protected $server = 'http://api.openstreetmap.org/';
-
-    /**
-     * Version of the [OSM] API which communications will be over.
-     * @var string
-     * @internal
-     */
-    protected $api_version = '0.6';
-
-    /**
-     * Minimum version of the OSM API that is supported.
-     * @var float
-     * @internal
-     */
-    protected $minVersion = null;
-
-    /**
-     * Maximum version of the OSM API that is supported.
-     * @var float
-     * @internal
-     */
-    protected $maxVersion = null;
-
-    /**
-     * timeout, in seconds.
-     * @var integer
-     * @internal
-     */
-    protected $timeout = null;
-
-    /**
-     * number of elements allowed per changeset
-     * @var integer
-     * @internal
-     */
-    protected $changeset_maximum_elements = null;
-
-    /**
-     * Maximum number of nodes per way.
-     * @var integer
-     * @internal
-     */
-    protected $waynodes_maximum = null;
-
-    /**
-     * Number of tracepoints per way.
-     * @var integer
-     * @internal
-     */
-    protected $tracepoints_per_page = null;
-
-    /**
-     * Max size of area that can be downloaded in one request.
-     * @var float
-     * @internal
-     */
-    protected $area_maximum = null;
-
-    /**
      * Default config settings
      *
-     * @var array
+     * @var Services_Openstreetmap_Config
      * @see Services_Openstreetmap::getConfig
      * @see Services_Openstreetmap::setConfig
      */
-    protected $config = array(
-        'adapter'      => 'HTTP_Request2_Adapter_Socket',
-        'api_version'  => '0.6',
-        'password'     => null,
-        'passwordfile' => null,
-        'server'       => 'http://api.openstreetmap.org/',
-        'User-Agent'   => 'Services_Openstreetmap',
-        'user'         => null,
-        'verbose'      => false,
-    );
-
-    /**
-     * The HTTP_Request2 instance.
-     *
-     * Customise this for proxy settings etc with the getRequest/setRequest
-     * methods if necessary.
-     *
-     * @var HTTP_Request2 $request
-     * @internal
-     * @see Services_Openstreetmap::getRequest
-     * @see Services_Openstreetmap::setRequest
-     */
-    protected $request = null;
+    protected $config = null;
 
     /**
      * [Retrieved] XML
@@ -131,42 +46,7 @@ class Services_Openstreetmap
      */
     protected $xml = null;
 
-    /**
-     * Elements supported by the API (v0.6).
-     * Used for validation purposes.
-     * @var array
-     * @internal
-     */
-    protected $elements = array('changeset', 'node', 'relation', 'way');
-
-    /**
-     * Counter for assigning IDs to [newly] created objects.
-     * @var int
-     * @internal
-     */
-    protected $newId = -1;
-
-    /**#@+
-     * @link http://tools.ietf.org/html/rfc2616
-     * @access public
-     */
-    /**
-     * Ok
-     */
-    const OK = 200;
-    /**
-     * Unauthorised, e.g. login credentials wrong.
-     */
-    const UNAUTHORISED = 401;
-    /**
-     * Resource not found.
-     */
-    const NOT_FOUND = 404;
-    /**
-     * Resource no longer available.
-     */
-    const GONE = 410;
-    /**#@-*/
+    protected $transport = null;
 
     /**
      * autoloader
@@ -198,126 +78,14 @@ class Services_Openstreetmap
         if ($config == array()) {
             $config = $this->config;
         }
-        $this->setConfig($config);
+        $this->getConfig()->setTransport($this->getTransport());
+        $this->getConfig()->setValue($config);
+        $version = $this->getConfig()->getValue('api_version');
+        $api = "Services_Openstreetmap_API_V" . str_replace('.', '', $version);
+        $this->api = new $api;
+        $this->api->setTransport($this->getTransport());
+        $this->api->setConfig($this->getConfig());
     }
-
-    /**
-     * getXMLValue
-     *
-     * @param SimpleXMLElement $xml       Object
-     * @param string           $tag       name of tag
-     * @param string           $attribute name of attribute
-     * @param mixed            $default   default value
-     *
-     * @return void
-     */
-    public function getXMLValue(
-        SimpleXMLElement $xml,
-        $tag,
-        $attribute,
-        $default = null
-    ) {
-        $obj = $xml->xpath('//' . $tag);
-        if (empty($obj)) {
-            return $default;
-        }
-        return $obj[0]->attributes()->$attribute;
-    }
-
-    /**
-     * set at least one configuration variable.
-     *
-     * <pre>
-     * $osm->setConfig('user', 'fred@example.com');
-     * $osm->setConfig(array('user' => 'fred@example.com', 'password' => 'Simples'));
-     * $osm->setConfig('user' => 'f@example.com')->setConfig('password' => 'Sis');
-     * </pre>
-     *
-     * The following parameters are available:
-     * <ul>
-     *  <li> 'adapter'      - adapter to use (string)</li>
-     *  <li> 'api_version'  - Version of API to communicate via (string)</li>
-     *  <li> 'password'     - password (string, optional)</li>
-     *  <li> 'passwordfile' - passwordfile (string, optional)</li>
-     *  <li> 'server'       - server to connect to (string)</li>
-     *  <li> 'User-Agent'   - User-Agent (string)</li>
-     *  <li> 'user'         - user (string, optional)</li>
-     *  <li> 'verbose'      - verbose (boolean, optional)</li>
-     * </ul>
-     *
-     * @param mixed $config array containing config settings
-     * @param mixed $value  config value if $config is not an array
-     *
-     * @throws Services_Openstreetmap_Exception If the parameter is unknown
-     *
-     * @access public
-     * @return void
-     */
-    function setConfig($config, $value = null)
-    {
-        if (is_array($config)) {
-            if (isset($config['adapter'])) {
-                $this->config['adapter'] = $config['adapter'];
-            }
-            foreach ($config as $key=>$value) {
-                if (!array_key_exists($key, $this->config)) {
-                    throw new Services_Openstreetmap_Exception(
-                        "Unknown config parameter '$key'"
-                    );
-                }
-                switch($key) {
-                case 'server':
-                    $this->setServer($value);
-                    break;
-                case 'passwordfile':
-                    $this->setPasswordfile($value);
-                    break;
-                default:
-                    $this->config[$key] = $value;
-                }
-            }
-        } else {
-            if (!array_key_exists($config, $this->config)) {
-                throw new Services_Openstreetmap_Exception(
-                    "Unknown config parameter '$config'"
-                );
-            }
-            $this->config[$config] = $value;
-            if ($config == 'server') {
-                $this->setServer($this->server);
-            } elseif ($config == 'passwordfile') {
-                $this->setPasswordfile($value);
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Get the value of a configuration setting - if none is set all are
-     * returned.
-     *
-     * <code>
-     * $config = $osm->getConfig();
-     * </code>
-     *
-     * @param string $name name. optional.
-     *
-     * @return mixed  value of $name parameter, array of all configuration
-     *                parameters if $name is not given
-     * @throws Services_Openstreetmap_Exception If the parameter is unknown
-     */
-    public function getConfig($name = null)
-    {
-        if ($name === null) {
-            return $this->config;
-        } elseif (!array_key_exists($name, $this->config)) {
-            throw new Services_Openstreetmap_Exception(
-                "Unknown config parameter '$name'"
-            );
-        }
-        return $this->config[$name];
-    }
-
 
     /**
      * Convert a 'bbox' ordered set of coordinates to ordering required for get
@@ -361,11 +129,12 @@ class Services_Openstreetmap
 
     function get($minLon, $minLat, $maxLon, $maxLat)
     {
-        $url = $this->config['server']
-             . 'api/'
-             . $this->config['api_version']
+        $config = $this->getConfig();
+        $url = $config->getValue('server')
+            . 'api/'
+            . $config->getValue('api_version')
              . "/map?bbox=$minLat,$minLon,$maxLat,$maxLon";
-        $response = $this->getResponse($url);
+        $response = $this->getTransport()->getResponse($url);
         $this->xml = $response->getBody();
     }
 
@@ -385,7 +154,7 @@ class Services_Openstreetmap
     {
         $url = 'http://nominatim.openstreetmap.org/search?q='
              . urlencode($place) . '&limit=1&format=xml';
-        $response = $this->getResponse($url);
+        $response = $this->getTransport()->getResponse($url);
         $xml = simplexml_load_string($response->getBody());
         $obj = $xml->xpath('//place');
         $attrs = $xml->named[0];
@@ -393,108 +162,6 @@ class Services_Openstreetmap
         $lat = (string) $attrs['lat'];
         $lon = (string) $attrs['lon'];
         return compact('lat', 'lon');
-    }
-
-    /**
-     * Get details of specified node
-     *
-     * <code>
-     * $osm = new Services_Openstreetmap();
-     * var_dump($osm->getNode(52245107));
-     * </code>
-     *
-     * @param string $nodeID  nodeID
-     * @param mixed  $version [optional] version of node
-     *
-     * @access public
-     * @return string
-     */
-    function getNode($nodeID, $version = null)
-    {
-        return $this->_getObject('node', $nodeID, $version);
-    }
-
-    /**
-     * Return an array of specified nodes.
-     *
-     * <code>
-     * $osm = new Services_Openstreetmap();
-     * var_dump($osm->getNodes(52245107, 52245108));
-     * </code>
-     * Or
-     * <code>
-     * $osm = new Services_Openstreetmap();
-     * var_dump($osm->getNodes(array(52245107, 52245108)));
-     * </code>
-     *
-     * @return Services_Openstreetmap_Nodes
-     */
-    public function getNodes()
-    {
-        return $this->_getObjects('node', $this->_getIDs(func_get_args()));
-    }
-
-    /**
-     * Set various properties to describe the capabilities that the connected
-     * server supports.
-     *
-     * @param mixed $capabilities XML describing the capabilities of the server
-     *
-     * @see maxVersion
-     * @see minVersion
-     * @see timeout
-     *
-     * @return void
-     *
-     * @internal
-     * @throws   Services_Openstreetmap_Exception If the API Version is not
-     *                                            supported.
-     */
-    private function _checkCapabilities($capabilities)
-    {
-        $xml = simplexml_load_string($capabilities);
-        if ($xml === false) {
-            return false;
-        }
-
-        $this->minVersion = (float) $this->getXMLValue($xml, 'version', 'minimum');
-        $this->maxVersion = (float) $this->getXMLValue($xml, 'version', 'maximum');
-        if (($this->minVersion > $this->api_version
-            || $this->api_version > $this->maxVersion)
-        ) {
-            throw new Services_Openstreetmap_Exception(
-                'Specified API Version ' . $this->api_version .' not supported.'
-            );
-        }
-        $this->timeout = (int) $this->getXMLValue($xml, 'timeout', 'seconds');
-        //changesets
-        $this->changeset_maximum_elements = (int) $this->getXMLValue(
-            $xml,
-            'changesets',
-            'maximum_elements'
-        );
-
-        // Maximum number of nodes per way.
-        $this->waynodes_maximum = (int) $this->getXMLValue(
-            $xml,
-            'waynodes',
-            'maximum'
-        );
-
-        // Number of tracepoints per way.
-        $this->tracepoints_per_page = (int) $this->getXMLValue(
-            $xml,
-            'tracepoints',
-            'per_page'
-        );
-
-        // Max size of area that can be downloaded in one request.
-        $this->area_maximum = (float) $this->getXMLValue(
-            $xml,
-            'area',
-            'maximum'
-        );
-        return true;
     }
 
     /**
@@ -506,9 +173,8 @@ class Services_Openstreetmap
      *
      * @return array
      *
-     * @internal
      */
-    private function _getIDs($args)
+    public static function getIDs($args)
     {
         $IDs = array();
         foreach ($args as $arg) {
@@ -519,314 +185,6 @@ class Services_Openstreetmap
             }
         }
         return array_unique($IDs);
-    }
-
-    /**
-     * _getObject
-     *
-     * Returns false if the object is not found
-     *
-     * @param string $type    object type
-     * @param mixed  $id      id of object to retrieve
-     * @param mixed  $version version of object
-     *
-     * @return object
-     * @throws Services_Openstreetmap_Exception
-     *
-     * @internal
-     */
-    private function _getObject($type, $id, $version = null)
-    {
-        if (!in_array($type, $this->elements)) {
-            throw new Services_Openstreetmap_Exception(
-                sprintf("Invalid Element Type '%s'", $type)
-            );
-        }
-
-        $url = $this->getConfig('server')
-            . 'api/'
-            . $this->getConfig('api_version')
-            . '/' . $type . '/'
-            . $id;
-        if ($version !== null) {
-            $url .= "/$version";
-        }
-        try {
-            $response = $this->getResponse($url);
-        } catch (Services_Openstreetmap_Exception $ex) {
-            $code = $ex->getCode();
-            if (Services_Openstreetmap::NOT_FOUND == $code) {
-                return false;
-            } elseif (Services_Openstreetmap::GONE == $code) {
-                return false;
-            } else {
-                throw $ex;
-            }
-        }
-        $class =  'Services_Openstreetmap_' . ucfirst(strtolower($type));
-        $obj = new $class();
-        $obj->setXml(simplexml_load_string($response->getBody()));
-        return $obj;
-    }
-
-    /**
-     * _getObjects
-     *
-     * @param string $type object type
-     * @param array  $ids  ids of objects to retrieve
-     *
-     * @return void
-     *
-     * @internal
-     */
-    private function _getObjects($type, array $ids)
-    {
-        if (!in_array($type, $this->elements)) {
-            throw new Services_Openstreetmap_Exception('Invalid Element Type');
-        }
-        $url = $this->getConfig('server')
-            . 'api/'
-            . $this->getConfig('api_version')
-            . '/' . $type . 's?' . $type . 's='
-            . implode(',', $ids);
-        try {
-            $response = $this->getResponse($url);
-        } catch (Services_Openstreetmap_Exception $ex) {
-            switch ($ex->getCode()) {
-            case Services_Openstreetmap::NOT_FOUND:
-            case Services_Openstreetmap::UNAUTHORISED:
-            case Services_Openstreetmap::GONE:
-                return false;
-            default:
-                throw $ex;
-            }
-        }
-        $class = 'Services_Openstreetmap_' . ucfirst(strtolower($type)) . 's';
-        $obj = new $class();
-        $obj->setXml(simplexml_load_string($response->getBody()));
-        return $obj;
-    }
-
-    /**
-     * Get details of specified way
-     *
-     * @param mixed $wayID   wayID
-     * @param mixed $version [optional] version of way
-     *
-     * @access public
-     * @return string
-     */
-    public function getWay($wayID, $version = null)
-    {
-        return $this->_getObject('way', $wayID, $version);
-    }
-
-    /**
-     * Return an array of specified ways.
-     *
-     * <pre>
-     * $ways = $osm->getWays($wayId, $way2Id);
-     * </pre>
-     *
-     * @return array
-     */
-    public function getWays()
-    {
-        return $this->_getObjects('way', $this->_getIDs(func_get_args()));
-    }
-
-    /**
-     * Get details of specified relation, optionally specify which version of
-     * the relation to be retrieved.
-     *
-     * <pre>
-     * $r = $osm->getRelation(1234567);
-     * $r = $osm->getRelation(1234567, 2);
-     * </pre>
-     *
-     * @param mixed $relationID ID of relation
-     * @param mixed $version    [optional] version of relation
-     *
-     * @access public
-     * @return string
-     */
-    function getRelation($relationID, $version = null)
-    {
-        return $this->_getObject('relation', $relationID, $version);
-    }
-
-    /**
-     * Return an array of specified relations
-     *
-     * <pre>
-     * $relations = $osm->getRelations($relationId, $relation2Id);
-     * </pre>
-     *
-     * @return array
-     */
-    public function getRelations()
-    {
-        return $this->_getObjects('relation', $this->_getIDs(func_get_args()));
-    }
-
-    /**
-     * Get details of specified changeset
-     *
-     * <code>
-     * $changeset = $osm->getChangeset(123456);
-     * </code>
-     *
-     * @param string $id      numeric ID of changeset
-     * @param string $version optional
-     *
-     * @access public
-     * @return string
-     */
-    function getChangeset($id, $version = null)
-    {
-        return $this->_getObject('changeset', $id, $version);
-    }
-
-    /**
-     * Retrieve all versions of a specified element
-     *
-     * @param string $type Any one of the supported element types
-     * @param string $id   numeric Id of element
-     *
-     * @access public
-     * @return string
-     * @throws Services_Openstreetmap_Exception If the element type is unknown
-     */
-    function getHistory($type, $id)
-    {
-        if (!in_array($type, $this->elements)) {
-            throw new Services_Openstreetmap_Exception('Invalid Element Type');
-        }
-
-        $url = $this->getConfig('server')
-            . 'api/'
-            . $this->getConfig('api_version')
-            . "/$type/$id/history";
-        $response = $this->getResponse($url);
-        return $response->getBody();
-    }
-
-    /**
-     * Set the HTTP_Request2 instance and return the Services_Openstreetmap
-     * instance.
-     *
-     * @param HTTP_Request2 $request The HTTP_Request2 instance to set.
-     * @return Services_Openstreetmap
-     */
-    public function setRequest(HTTP_Request2 $request)
-    {
-        $this->request = $request;
-        return $this;
-    }
-
-    function getRequest()
-    {
-        if ($this->request === null) {
-            $this->request = new HTTP_Request2();
-        }
-        return $this->request;
-    }
-
-    /**
-     * Send request to OSM server and return the response.
-     *
-     * @param string $url       URL
-     * @param string $method    GET (default)/POST/PUT
-     * @param string $user      user (optional for read-only actions)
-     * @param string $password  password (optional for read-only actions)
-     * @param string $body      body (optional)
-     * @param array  $post_data (optional)
-     * @param array  $headers   (optional)
-     *
-     * @access public
-     * @return HTTP_Request2_Response
-     * @throws  Services_Openstreetmap_Exception If something unexpected has
-     *                                           happened while conversing with
-     *                                           the server.
-     */
-    function getResponse(
-        $url,
-        $method = HTTP_Request2::METHOD_GET,
-        $user = null,
-        $password = null,
-        $body = null,
-        array $post_data = null,
-        array $headers = null
-    ) {
-        $response = null;
-        $eMsg = null;
-
-        if ($this->getConfig('verbose')) {
-            echo $url, "\n";
-        }
-        /*
-        $request = new HTTP_Request2(
-            $url,
-            $method,
-            array('adapter' => $this->getConfig('adapter'))
-        );
-        */
-        $request = $this->getRequest();
-        $request->setUrl($url);
-        $request->setMethod($method);
-        $request->setAdapter($this->getConfig('adapter'));
-
-
-        $request->setHeader('User-Agent', $this->getConfig('User-Agent'));
-        if ($user !== null && $password !== null) {
-            $request->setAuth($user, $password);
-        }
-        if ($post_data != array()) {
-            $request->setMethod(HTTP_Request2::METHOD_POST);
-            foreach ($post_data as $key => $value) {
-                $request->addPostParameter($key, $value);
-            }
-        }
-        if ($headers != array()) {
-            foreach ($headers as $header) {
-                $request->setHeader($header[0], $header[1], $header[2]);
-            }
-        }
-        if ($body !== null) {
-            $request->setBody($body);
-        }
-        $code = 0;
-        try {
-            $response = $request->send();
-            $code = $response->getStatus();
-
-            if ($this->getConfig('verbose')) {
-                var_dump($response->getHeader());
-                var_dump($response->getBody());
-            }
-
-            if (Services_Openstreetmap::OK == $code) {
-                return $response;
-            } else {
-                $eMsg = 'Unexpected HTTP status: '
-                    . $code . ' '
-                    . $response->getReasonPhrase();
-                $error = $response->getHeader('error');
-                if (!is_null($error)) {
-                    $eMsg .= " ($error)";
-                }
-
-            }
-        } catch (HTTP_Request2_Exception $e) {
-            throw new Services_Openstreetmap_Exception(
-                $e->getMessage(),
-                $code,
-                $e
-            );
-        }
-        if ($eMsg != null) {
-            throw new Services_Openstreetmap_Exception($eMsg, $code);
-        }
     }
 
     /**
@@ -853,99 +211,6 @@ class Services_Openstreetmap
         return $this->xml;
     }
 
-
-    /**
-     * Set and parse a password file, setting username and password as specified
-     * in the file.
-     *
-     * A password file is a ASCII text file, with username and passwords pairs
-     * on each line, seperated [delimited] by a semicolon.
-     * Lines starting with a hash [#] are comments.
-     * If only one non-commented line is present in the file, that username and
-     * password will be used for authentication.
-     * If more than one set of usernames and passwords are present, the
-     * username must be specified, and the matching password from the file will
-     * be used.
-     *
-     * <pre>
-     * # Example password file.
-     * fredfs@example.com:Wilma4evah
-     * barney@example.net:B3ttyRawks
-     * </pre>
-     *
-     * @param string $file file containing credentials
-     *
-     * @access public
-     * @return Services_Openstreetmap
-     */
-    function setPasswordfile($file)
-    {
-        if (is_null($file)) {
-            return $this;
-        }
-        $lines = @file($file);
-        if ($lines === false) {
-            throw new Services_Openstreetmap_Exception(
-                'Could not read password file'
-            );
-        }
-        $this->config['passwordfile'] =  $file;
-        array_walk($lines, create_function('&$val', '$val = trim($val);'));
-        if (sizeof($lines) == 1) {
-            if (strpos($lines[0], '#') !== 0) {
-                list($this->config['user'], $this->config['password'])
-                    = explode(':', $lines[0]);
-            }
-        } elseif (sizeof($lines) == 2) {
-            if (strpos($lines[0], '#') === 0) {
-                if (strpos($lines[1], '#') !== 0) {
-                    list($this->config['user'], $this->config['password'])
-                        = explode(':', $lines[1]);
-                }
-            }
-        } else {
-            foreach ($lines as $line) {
-                if (strpos($line, '#') === 0) {
-                    continue;
-                }
-                list($user, $pwd) = explode(':', $line);
-                if ($user == $this->config['user']) {
-                    $this->config['password'] = $pwd;
-                }
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Connect to specified server.
-     *
-     * @param string $server base server details, e.g. http://api.openstreetmap.org
-     *
-     * @access public
-     * @return Services_Openstreetmap
-     */
-    function setServer($server)
-    {
-        try {
-            $c = $this->getResponse($server . 'api/capabilities');
-        } catch (Exception $ex) {
-            throw new Services_Openstreetmap_Exception(
-                'Could not get a valid response from server',
-                $ex->getCode(),
-                $ex
-            );
-        }
-        $this->server = $server;
-        $capabilities = $c->getBody();
-        if (!$this->_checkCapabilities($capabilities)) {
-            throw new Services_Openstreetmap_Exception(
-                'Problem checking server capabilities'
-            );
-        }
-
-        return $this;
-    }
 
     /**
      * search based on given criteria
@@ -1018,7 +283,6 @@ class Services_Openstreetmap
         return $ares;
     }
 
-
     /**
      * Return the number of seconds that must elapse before a connection is
      * considered to have timed-out.
@@ -1027,7 +291,7 @@ class Services_Openstreetmap
      */
     public function getTimeout()
     {
-        return $this->timeout;
+        return $this->getConfig()->getTimeout();
     }
 
     /**
@@ -1043,7 +307,7 @@ class Services_Openstreetmap
      */
     public function getMinVersion()
     {
-        return $this->minVersion;
+        return $this->getConfig()->getMinVersion();
     }
 
     /**
@@ -1059,7 +323,7 @@ class Services_Openstreetmap
      */
     public function getMaxVersion()
     {
-        return $this->maxVersion;
+        return $this->getConfig()->getMaxVersion();
     }
 
     /**
@@ -1074,7 +338,7 @@ class Services_Openstreetmap
      */
     public function getMaxArea()
     {
-        return $this->area_maximum;
+        return $this->getConfig()->getMaxArea();
     }
 
     /**
@@ -1089,7 +353,7 @@ class Services_Openstreetmap
      */
     public function getTracepointsPerPage()
     {
-        return $this->tracepoints_per_page;
+        return $this->getConfig()->getTracepointsPerPage();
     }
 
     /**
@@ -1106,7 +370,7 @@ class Services_Openstreetmap
      */
     public function getMaxNodes()
     {
-        return $this->waynodes_maximum;
+        return $this->getConfig()->getMaxNodes();
     }
 
     /**
@@ -1121,126 +385,76 @@ class Services_Openstreetmap
      */
     public function getMaxElements()
     {
-        return $this->changeset_maximum_elements;
+        return $this->getConfig()->getMaxElements();
     }
 
     /**
-     * Create a changeset, used to transmit changes (creation, updates, deletion)
-     * to the server. Username and password must be set.
+     * Set Config object
      *
-     * <code>
-     * $config = array('user' => 'fred@example.net', 'password' => 'wilma4eva');
-     * $osm = new Services_Openstreetmap($config);
-     * $changeset = $osm->createChangeset();
-     * </code>
+     * @param Services_Openstreetmap_Config $config Config settings.
      *
-     * @param boolean $atomic atomic changeset?
-     *
-     * @return Services_Openstreetmap_Changeset
-     * @see setConfig
+     * @return Services_Openstreetmap_API_V06
      */
-    public function createChangeset($atomic = true)
+    public function setConfig(Services_Openstreetmap_Config $config)
     {
-        $changeset = new Services_Openstreetmap_Changeset($atomic);
-        $changeset->_osm = $this;
-        return $changeset;
+        $this->config = $config;
+        return $this;
     }
 
     /**
-     * Create and return a Services_Openstreetmap_Node
+     * Get current Config object
      *
-     * <code>
-     * $node = $osm->createNode($lat, $lon, array('building' => 'yes'));
-     * </code>
-     *
-     * @param float $latitude  Latitude of node
-     * @param float $longitude Longitude of node
-     * @param array $tags      Array of key->value tag pairs.
-     *
-     * @return Services_Openstreetmap_Node
+     * @return Services_Openstreetmap_Config
      */
-    public function createNode($latitude, $longitude, array $tags = array())
+    public function getConfig()
     {
-        $node = new Services_Openstreetmap_Node();
-        $api_version = $this->getConfig('api_version');
-        $user_agent =  $this->getConfig('User-Agent');
-        $xml = "<?xml version='1.0' encoding='UTF-8'?>
-<osm version='{$api_version}' generator='{$user_agent}'>
-<node lat='{$latitude}' lon='{$longitude}' version='1'/></osm>";
-        $node->setLat($latitude);
-        $node->setLon($longitude);
-        $node->setXml(simplexml_load_string($xml));
-        $node->setId($this->newId--);
-        $node->setTag('created_by', $user_agent);
-        if (!empty($tags)) {
-            foreach ($tags as $key=>$value) {
-                $node->setTag($key, $value);
-            }
+        if ($this->config === null) {
+            $config = new Services_Openstreetmap_Config();
+            $this->config = $config;
         }
-        return $node;
+        return $this->config;
     }
 
     /**
-     * Get a Services_Openstreetmap_User object for the [current] user.
+     * Get current Transport object.
      *
-     * May return false if the user could not be found for any reason.
+     * If one is not defined, create it.
      *
-     * @see setConfig
-     *
-     * @return Services_Openstreetmap_User
+     * @return Services_Openstreetmap_Transport
      */
-    public function getUser()
+    public function getTransport()
     {
-        $url = $this->config['server']
-             . 'api/'
-             . $this->config['api_version']
-             . '/user/details';
-        $user = $this->getConfig('user');
-        $password = $this->getConfig('password');
-        try {
-            $response = $this->getResponse(
-                $url,
-                HTTP_Request2::METHOD_GET,
-                $user,
-                $password
+        if ($this->transport == null) {
+            $transport = new Services_Openstreetmap_Transport();
+            $transport->setConfig($this->getConfig());
+            $this->transport = $transport;
+
+        }
+        return $this->transport;
+    }
+
+    /**
+     * __call
+     *
+     * If possible, call the appropriate method of the API instance.
+     *
+     * @param string $name      Name of missing method to call.
+     * @param array  $arguments Arguments to be used when calling method.
+     *
+     * @return void
+     */
+    public function __call($name, $arguments)
+    {
+        if (method_exists($this->api, $name)) {
+            return call_user_func_array(array($this->api, $name), $arguments);
+        } else {
+            throw new Services_Openstreetmap_Exception(
+                sprintf(
+                    'Method %s does not exist.',
+                    $name
+                )
             );
-        } catch (Services_Openstreetmap_Exception $ex) {
-            switch ($ex->getCode()) {
-            case Services_Openstreetmap::NOT_FOUND:
-            case Services_Openstreetmap::UNAUTHORISED:
-            case Services_Openstreetmap::GONE:
-                return false;
-            default:
-                throw $ex;
-            }
         }
-        $url = $this->config['server']
-             . 'api/'
-             . $this->config['api_version']
-             . '/user/preferences';
-        $user = $this->getConfig('user');
-        $password = $this->getConfig('password');
-        try {
-            $prefs = $this->getResponse(
-                $url,
-                HTTP_Request2::METHOD_GET,
-                $user,
-                $password
-            );
-        } catch (Services_Openstreetmap_Exception $ex) {
-            switch ($ex->getCode()) {
-            case Services_Openstreetmap::NOT_FOUND:
-            case Services_Openstreetmap::UNAUTHORISED:
-            case Services_Openstreetmap::GONE:
-                return false;
-            default:
-                throw $ex;
-            }
-        }
-        $obj = new Services_Openstreetmap_User();
-        $obj->setXml(simplexml_load_string($response->getBody()));
-        $obj->setPreferencesXml($prefs->getBody());
-        return $obj;
     }
 }
 // vim:set et ts=4 sw=4:

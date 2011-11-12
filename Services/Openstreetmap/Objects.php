@@ -58,6 +58,20 @@ class Services_Openstreetmap_Objects implements Iterator, Countable
     }
 
     /**
+     * Store a specified value.
+     *
+     * @param string $value Most likely an id value, returned from the server.
+     *
+     * @return void
+     */
+    public function setVal($value)
+    {
+        $this->xml = $value;
+        return $this;
+    }
+
+
+    /**
      * Return the number of objects
      *
      * @return void
