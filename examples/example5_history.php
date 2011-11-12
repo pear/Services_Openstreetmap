@@ -27,7 +27,8 @@ try {
 catch (Services_Openstreetmap_Exception $e) {
     var_dump($e);
 }
-$h = $w->history();
+// @todo history method doesn't exist, yet
+// $h = $w->history();
 
 // vim:set et ts=4 sw=4:
 ?>

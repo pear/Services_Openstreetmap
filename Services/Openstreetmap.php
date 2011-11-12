@@ -79,7 +79,9 @@ class Services_Openstreetmap
             $config = $this->config;
         }
         $this->getConfig()->setTransport($this->getTransport());
-        $this->getConfig()->setValue($config);
+        if ($config !== null) {
+            $this->getConfig()->setValue($config);
+        }
         $version = $this->getConfig()->getValue('api_version');
         $api = "Services_Openstreetmap_API_V" . str_replace('.', '', $version);
         $this->api = new $api;
