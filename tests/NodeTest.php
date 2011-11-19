@@ -389,6 +389,26 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $nodes = $osm->getNodes(array(621953926,621953928,621953939));
         $this->assertFalse($nodes);
     }
+
+    public function testGetWayBackRef()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/node_248081837.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/way_23010474.xml', 'rb'));
+
+        $osm = new Services_Openstreetmap();
+        $ways = $osm->getNode(248081837)->getWays();
+        $this->assertInstanceOf('Services_Openstreetmap_Ways', $ways);
+        $this->assertEquals(sizeof($ways), 1);
+        $this->assertEquals($ways[0]->getTags(), array (
+            'highway' => 'residential',
+            'maxspeed' => '50',
+            'name' => 'Kingston Park',
+            'name:en' => 'Kingston Park',
+            'name:ga' => 'Páirc Kingston',
+        ));
+    }
 }
 
 ?>

@@ -189,7 +189,7 @@ class WayTest extends PHPUnit_Framework_TestCase
         );
         $osm = new Services_Openstreetmap($config);
         $ways = $osm->getWays($wayId, $way2Id);
-        foreach($ways as $key=>$way) {
+        foreach ($ways as $key=>$way) {
             $this->assertEquals($way, $ways[$key]);
         }
     }

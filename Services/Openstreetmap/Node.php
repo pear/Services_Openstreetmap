@@ -125,6 +125,31 @@ class Services_Openstreetmap_Node extends Services_Openstreetmap_Object
         }
         return $ret;
     }
+
+    /**
+     * Return a collection of Services_Openstreetmap_Way objects that use the
+     * node in question.
+     *
+     * @return Services_Openstreetmap_Ways
+     */
+    public function getWays()
+    {
+        $config = $this->getConfig();
+        $id = $this->getId();
+        $url = $config->getValue('server')
+            . 'api/'
+            . $config->getValue('api_version')
+            . "/node/$id/ways";
+        $response = $this->getTransport()->getResponse($url);
+        $obj = new Services_Openstreetmap_Ways();
+        $sxe = @simplexml_load_string($response->getBody());
+        if ($sxe === false) {
+            $obj->setVal(trim($response->getBody()));
+        } else {
+            $obj->setXml($sxe);
+        }
+        return $obj;
+    }
 }
 // vim:set et ts=4 sw=4:
 ?>
