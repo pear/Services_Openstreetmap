@@ -145,31 +145,6 @@ class Services_Openstreetmap_API_V06
     }
 
     /**
-     * Retrieve all versions of a specified element
-     *
-     * @param string $type Any one of the supported element types
-     * @param string $id   numeric Id of element
-     *
-     * @access public
-     * @return string
-     * @throws Services_Openstreetmap_Exception If the element type is unknown
-     */
-    function getHistory($type, $id)
-    {
-        if (!in_array($type, $this->elements)) {
-            throw new Services_Openstreetmap_Exception('Invalid Element Type');
-        }
-
-        $config = $this->getConfig();
-        $url = $config->getValue('server')
-            . 'api/'
-            . $config->getValue('api_version')
-            . "/$type/$id/history";
-        $response = $this->getTransport()->getResponse($url);
-        return $response->getBody();
-    }
-
-    /**
      * Create a changeset, used to transmit changes (creation, updates, deletion)
      * to the server. Username and password must be set.
      *
@@ -299,7 +274,12 @@ class Services_Openstreetmap_API_V06
      */
     public function getWay($wayID, $version = null)
     {
-        return $this->getTransport()->getObject('way', $wayID, $version);
+        $way = $this->getTransport()->getObject('way', $wayID, $version);
+        if ($way !== false) {
+            $way->setTransport($this->getTransport());
+            $way->setConfig($this->getConfig());
+        }
+        return $way;
     }
 
     /**
@@ -335,7 +315,12 @@ class Services_Openstreetmap_API_V06
      */
     function getNode($nodeID, $version = null)
     {
-        return $this->getTransport()->getObject('node', $nodeID, $version);
+        $node = $this->getTransport()->getObject('node', $nodeID, $version);
+        if ($node !== false) {
+            $node->setTransport($this->getTransport());
+            $node->setConfig($this->getConfig());
+        }
+        return $node;
     }
 
     /**

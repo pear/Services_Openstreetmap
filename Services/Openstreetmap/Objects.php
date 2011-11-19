@@ -21,7 +21,7 @@
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     Objects.php
  */
-class Services_Openstreetmap_Objects implements Iterator, Countable
+class Services_Openstreetmap_Objects implements Iterator, ArrayAccess, Countable
 {
 
     protected $xml = null;
@@ -133,6 +133,58 @@ class Services_Openstreetmap_Objects implements Iterator, Countable
     public function valid()
     {
         return isset($this->objects[$this->position]);
+    }
+
+    /**
+     * Check if the specified offset exists.
+     *
+     * @param int $offset N/A.
+     *
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->objects[$offset]);
+    }
+
+    /**
+     * Get object from the specified offset.
+     *
+     * @param int $offset N/A.
+     *
+     * @return Services_Openstreetmap_Object
+     */
+    public function offsetGet($offset)
+    {
+        $class = 'Services_Openstreetmap_' . ucfirst(strtolower($this->getType()));
+        $way = new $class();
+        if (isset($this->objects[$offset])) {
+            $way->setXml(simplexml_load_string($this->objects[$offset]));
+            return $way;
+        }
+    }
+
+    /**
+     * Does nothing as collection is read-only: required for ArrayAccess.
+     *
+     * @param int                           $offset N/A
+     * @param Services_Openstreetmap_Object $value  N/A
+     *
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+    }
+
+    /**
+     * Does nothing as collection is read-only: required for ArrayAccess.
+     *
+     * @param int $offset N/A.
+     *
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
     }
 }
 

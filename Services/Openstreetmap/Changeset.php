@@ -30,11 +30,6 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
     protected $open = false;
     protected $id = null;
 
-
-    protected $transport = null;
-
-    protected $config = null;
-
     /**
      * __construct
      *
@@ -341,53 +336,6 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
             }
         }
     }
-
-    /**
-     * Set Config object
-     *
-     * @param Services_Openstreetmap_Config $config Config object
-     *
-     * @return Services_Openstreetmap_Changeset
-     */
-    public function setConfig(Services_Openstreetmap_Config $config)
-    {
-        $this->config = $config;
-        return $this;
-    }
-
-    /**
-     * Get current Config object
-     *
-     * @return Services_Openstreetmap_Config
-     */
-    public function getConfig()
-    {
-        return $this->config;
-    }
-
-    /**
-     * Set the Transport instance.
-     *
-     * @param Services_Openstreetmap_Transport $transport Transport instance.
-     *
-     * @return Services_Openstreetmap_Config
-     */
-    public function setTransport($transport)
-    {
-        $this->transport = $transport;
-        return $this;
-    }
-
-    /**
-     * Retrieve the current Transport instance.
-     *
-     * @return Services_Openstreetmap_Transport.
-     */
-    public function getTransport()
-    {
-        return $this->transport;
-    }
-
 }
 // vim:set et ts=4 sw=4:
 ?>

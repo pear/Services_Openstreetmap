@@ -97,6 +97,34 @@ class Services_Openstreetmap_Node extends Services_Openstreetmap_Object
         }
         return $this;
     }
+
+    /**
+     * Return address [tags], as an array, if set.
+     *
+     * @return array
+     */
+    public function getAddress()
+    {
+        $ret  = array(
+            'addr_housename' => null,
+            'addr_housenumber' => null,
+            'addr_street' => null,
+            'addr_city' => null,
+            'addr_country' => null
+        );
+        $tags = $this->getTags();
+        $details_set = false;
+        foreach ($tags as $key => $value) {
+            if (strpos($key, 'addr') === 0) {
+                $ret[str_replace(':', '_', $key)] = $value;
+                $details_set = true;
+            }
+        }
+        if (!$details_set) {
+            $ret = null;
+        }
+        return $ret;
+    }
 }
 // vim:set et ts=4 sw=4:
 ?>

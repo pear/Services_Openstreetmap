@@ -1,0 +1,25 @@
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+ <way id="75490756" user="theophrastos" uid="96069" visible="true" version="2" changeset="6420012" timestamp="2010-11-21T06:37:42Z">
+  <nd ref="452495579"/>
+  <nd ref="891141963"/>
+  <nd ref="891141965"/>
+  <nd ref="452495578"/>
+  <nd ref="452495579"/>
+  <tag k="addr:city" v="Nenagh"/>
+  <tag k="addr:country" v="IE"/>
+  <tag k="addr:housenumber" v="20-21"/>
+  <tag k="addr:street" v="Pearse Street"/>
+  <tag k="amenity" v="pharmacy"/>
+  <tag k="building" v="yes"/>
+  <tag k="building:levels" v="3"/>
+  <tag k="building:use" v="retail"/>
+  <tag k="dispensing" v="yes"/>
+  <tag k="fax" v="+353 67 34540"/>
+  <tag k="name" v="Ryans Pharmacy and Beauty Salon"/>
+  <tag k="phone" v="+353 67 31464"/>
+ </way>
+</osm>
+

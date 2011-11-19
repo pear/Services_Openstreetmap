@@ -35,6 +35,10 @@ class Services_Openstreetmap_Object
 
     protected $id = null;
 
+    protected $transport = null;
+
+    protected $config = null;
+
     /**
      * type of object
      *
@@ -313,6 +317,33 @@ class Services_Openstreetmap_Object
     }
 
     /**
+     * Get each distinct version of an object.
+     *
+     * @return Services_Openstreetmap_Objects
+     */
+    public function history()
+    {
+        $type = $this->getType();
+        $id = $this->getId();
+        $config = $this->getConfig();
+        $url = $config->getValue('server')
+            . 'api/'
+            . $config->getValue('api_version')
+            . "/$type/$id/history";
+        $class = 'Services_Openstreetmap_' . ucfirst($type) . 's';
+        $response = $this->getTransport()->getResponse($url);
+        $obj = new $class();
+        $sxe = @simplexml_load_string($response->getBody());
+        if ($sxe === false) {
+            $obj->setVal(trim($response->getBody()));
+        } else {
+            $obj->setXml($sxe);
+        }
+        return $obj;
+
+    }
+
+    /**
      * setTag
      *
      * <pre>
@@ -351,6 +382,52 @@ class Services_Openstreetmap_Object
     {
         $this->action = 'delete';
         return $this;
+    }
+
+    /**
+     * Set Config object
+     *
+     * @param Services_Openstreetmap_Config $config Config object
+     *
+     * @return Services_Openstreetmap_Changeset
+     */
+    public function setConfig(Services_Openstreetmap_Config $config)
+    {
+        $this->config = $config;
+        return $this;
+    }
+
+    /**
+     * Get current Config object
+     *
+     * @return Services_Openstreetmap_Config
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * Set the Transport instance.
+     *
+     * @param Services_Openstreetmap_Transport $transport Transport instance.
+     *
+     * @return Services_Openstreetmap_Config
+     */
+    public function setTransport($transport)
+    {
+        $this->transport = $transport;
+        return $this;
+    }
+
+    /**
+     * Retrieve the current Transport instance.
+     *
+     * @return Services_Openstreetmap_Transport.
+     */
+    public function getTransport()
+    {
+        return $this->transport;
     }
 }
 

@@ -302,14 +302,25 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(3, sizeof($nodes));
 
         $nodes_info = array(
-            array('id' => 621953926, 'source' => 'survey'),
-            array('id' => 621953928, 'source' => 'survey'),
-            array('id' => 621953939, 'source' => 'survey'),
-            );
+            array('id' => 621953926, 'source' => 'survey', 'address' => null),
+            array('id' => 621953928, 'source' => 'survey', 'address' => null),
+            array(
+                'id' => 621953939,
+                'source' => 'survey',
+                'address' => array (
+                    'addr_housename' => NULL,
+                    'addr_housenumber' => '5',
+                    'addr_street' => 'Castle Street',
+                    'addr_city' => 'Cahir',
+                    'addr_country' => 'IE'
+                )
+            )
+        );
         foreach($nodes as $key=>$node) {
             $tags = $node->getTags();
             $this->assertEquals($node->getId(), $nodes_info[$key]['id']);
             $this->assertEquals($tags['source'], $nodes_info[$key]['source']);
+            $this->assertEquals($node->getAddress(), $nodes_info[$key]['address']);
         }
     }
 

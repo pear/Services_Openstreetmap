@@ -174,6 +174,49 @@ class WayTest extends PHPUnit_Framework_TestCase
         $na = count($way->getNodes());
         $this->assertEquals($na, $nb - 1);
     }
+
+    public function testGetWays()
+    {
+        $wayId = 30357328;
+        $way2Id = 30357329;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/way_30357328_30357329.xml', 'rb'));
+        $config = array(
+            'adapter'  => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+        );
+        $osm = new Services_Openstreetmap($config);
+        $ways = $osm->getWays($wayId, $way2Id);
+        foreach($ways as $key=>$way) {
+            $this->assertEquals($way, $ways[$key]);
+        }
+    }
+
+    public function testWayWithAddressSet()
+    {
+        $id = 75490756;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/way_75490756.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://api06.dev.openstreetmap.org'
+        );
+        $osm = new Services_Openstreetmap($config);
+        $way = $osm->getWay($id);
+        $address = array(
+            'addr_housename' => null,
+            'addr_housenumber' => '20-21',
+            'addr_street' => 'Pearse Street',
+            'addr_city' => 'Nenagh',
+            'addr_country' => 'IE',
+        );
+        $this->assertEquals($address, $way->getAddress());
+    }
 }
 
 // vim:set et ts=4 sw=4:

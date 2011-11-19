@@ -268,6 +268,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
 
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/node.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/node_history.xml', 'rb'));
 
         $config = array(
@@ -275,31 +276,16 @@ class OSMTest extends PHPUnit_Framework_TestCase
             'server' => 'http://api06.dev.openstreetmap.org'
         );
         $osm = new Services_Openstreetmap($config);
-        $history = $osm->getHistory('node', $id);
-        $xml = simplexml_load_string($history);
-        $n = $xml->xpath('//osm');
-        $this->assertEquals($id, (int) ($n[0]->node->attributes()->id));
-    }
-
-    /**
-     * Test that the getHistory method detects that it's been passed
-     * an unsupported element type.
-     *
-     * @expectedException Services_Openstreetmap_Exception
-     * @expectedExceptionMessage Invalid Element Type
-     *
-     * @return void
-     */
-    public function testGetHistoryUnsupportedElement()
-    {
-        $id = 25978036;
-
-        $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
-
-        $config = array('adapter' => $mock);
-        $osm = new Services_Openstreetmap($config);
-        $history = $osm->getHistory('note', $id);
+        $node = $osm->getNode($id);
+        $history = $node->history();
+        foreach ($history as $key=>$version) {
+            $this->assertEquals($version, $history[$key]);
+            $this->assertEquals($id, $version->getId());
+        }
+        #$history = $osm->getHistory('node', $id);
+        #$xml = simplexml_load_string($history);
+        #$n = $xml->xpath('//osm');
+        #$this->assertEquals($id, (int) ($n[0]->node->attributes()->id));
     }
 
     public function testBboxToMinMax()
