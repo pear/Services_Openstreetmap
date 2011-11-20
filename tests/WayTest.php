@@ -217,6 +217,28 @@ class WayTest extends PHPUnit_Framework_TestCase
         );
         $this->assertEquals($address, $way->getAddress());
     }
+
+    public function testWayBackRelations()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/way_5850969.xml', 'rb'));
+        $mock->addResponse(fopen(
+            __DIR__ . '/responses/way_5850969_relations.xml',
+            'rb'
+        ));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://api06.dev.openstreetmap.org'
+        );
+        $osm = new Services_Openstreetmap();
+        $relations = $osm->getWay(5850969)->getRelations();
+        $this->assertInstanceOf('Services_Openstreetmap_Relations', $relations);
+        $this->assertEquals(2, sizeof($relations));
+        $this->assertEquals($relations[0]->getTag('name'), 'Dublin Bus route 14');
+        $this->assertEquals($relations[1]->getTag('name'), 'Dublin Bus route 75');
+    }
 }
 
 // vim:set et ts=4 sw=4:

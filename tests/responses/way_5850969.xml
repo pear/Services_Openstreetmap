@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <way id="5850969" visible="true" timestamp="2010-10-12T08:36:41Z" version="2" changeset="6018760" user="Nick Burrett" uid="166593">
+    <nd ref="43289769"/>
+    <nd ref="43289766"/>
+    <nd ref="43289761"/>
+    <nd ref="945679144"/>
+    <nd ref="43289753"/>
+    <nd ref="43289781"/>
+    <nd ref="945679132"/>
+    <nd ref="43289776"/>
+    <nd ref="945679139"/>
+    <nd ref="43289769"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+</osm>

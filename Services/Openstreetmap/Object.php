@@ -306,6 +306,31 @@ class Services_Openstreetmap_Object
         return $this->tags;
     }
 
+
+    /**
+     * Return value of specified tag as set against this object.
+     *
+     * @param string $key Key value, For example, 'amenity', 'highway' etc
+     *
+     * @return string
+     * @throws Services_Openstreetmap_Exception
+     */
+    public function getTag($key)
+    {
+        if (isset($this->tags[$key])) {
+            return $this->tags[$key];
+        } else {
+            throw new Services_Openstreetmap_Exception(
+                sprintf(
+                    'Undefined tag \'%s\' in %s %d',
+                    $key,
+                    $this->getType(),
+                    $this->getId()
+                )
+            );
+        }
+    }
+
     /**
      * Return which type of object this is.
      *
@@ -340,7 +365,31 @@ class Services_Openstreetmap_Object
             $obj->setXml($sxe);
         }
         return $obj;
+    }
 
+    /**
+     * Get all relations referring to the object in question.
+     *
+     * @return Services_Openstreetmap_Relations
+     */
+    public function getRelations()
+    {
+        $type = $this->getType();
+        $id = $this->getId();
+        $config = $this->getConfig();
+        $url = $config->getValue('server')
+            . 'api/'
+            . $config->getValue('api_version')
+            . "/$type/$id/relations";
+        $response = $this->getTransport()->getResponse($url);
+        $obj = new Services_Openstreetmap_Relations();
+        $sxe = @simplexml_load_string($response->getBody());
+        if ($sxe === false) {
+            $obj->setVal(trim($response->getBody()));
+        } else {
+            $obj->setXml($sxe);
+        }
+        return $obj;
     }
 
     /**
