@@ -168,6 +168,18 @@ class Services_Openstreetmap_API_V06
     }
 
     /**
+     * searchChangesets
+     *
+     * @param array $criteria Array of Services_Openstreetmap_Criterion objects.
+     *
+     * @return Services_Openstreetmap_Changesets
+     */
+    public function searchChangesets(array $criteria)
+    {
+        return $this->getTransport()->searchObjects('changeset', $criteria);
+    }
+
+    /**
      * Create and return a Services_Openstreetmap_Node
      *
      * <code>

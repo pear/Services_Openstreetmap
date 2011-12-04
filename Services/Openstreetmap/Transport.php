@@ -107,7 +107,10 @@ class Services_Openstreetmap_Transport
         $request->setAdapter($this->getConfig()->getValue('adapter'));
 
 
-        $request->setHeader('User-Agent', $this->getConfig()->getValue('User-Agent'));
+        $request->setHeader(
+            'User-Agent',
+            $this->getConfig()->getValue('User-Agent')
+        );
         if ($user !== null && $password !== null) {
             $request->setAuth($user, $password);
         }
@@ -302,6 +305,49 @@ class Services_Openstreetmap_Transport
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * searchObjects
+     *
+     * @param string $type     object type (e.g. changeset)
+     * @param array  $criteria array of criterion objects.
+     *
+     * @return Services_Openstreetmap_Objects
+     */
+    public function searchObjects($type, array $criteria)
+    {
+        $query = array();
+        foreach ($criteria as $criterion) {
+            $query[] = $criterion->query();
+        }
+        $config = $this->getConfig();
+        $url = $config->getValue('server')
+            . 'api/'
+            . $config->getValue('api_version')
+            . '/' . $type . 's?' . implode('&', $query);
+        try {
+            $response = $this->getResponse($url);
+        } catch (Services_Openstreetmap_Exception $ex) {
+            switch ($ex->getCode()) {
+            case Services_Openstreetmap_Transport::NOT_FOUND:
+            case Services_Openstreetmap_Transport::UNAUTHORISED:
+            case Services_Openstreetmap_Transport::GONE:
+                return false;
+            default:
+                throw $ex;
+            }
+        }
+        $class = 'Services_Openstreetmap_' . ucfirst(strtolower($type)) . 's';
+        $obj = new $class();
+        $sxe = @simplexml_load_string($response->getBody());
+        if ($sxe === false) {
+            $obj->setVal(trim($response->getBody()));
+        } else {
+            $obj->setXml($sxe);
+        }
+        return $obj;
+
     }
 }
 // vim:set et ts=4 sw=4:
