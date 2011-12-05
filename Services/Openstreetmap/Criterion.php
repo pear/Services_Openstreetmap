@@ -25,7 +25,7 @@
 class Services_Openstreetmap_Criterion
 {
     protected $type = null;
-    protected $uid = null;
+    protected $user = null;
     protected $display_name = null;
 
     /**
@@ -39,16 +39,17 @@ class Services_Openstreetmap_Criterion
         $type = $args[0];
         $this->type = $type;
         switch($type) {
-        case 'uid':
+        case 'user':
             if (is_numeric($args[1])) {
-                $this->uid = $args[1];
+                $this->user = $args[1];
             } else {
-                throw new InvalidArgumentException('UID must be numeric');
+                throw new InvalidArgumentException('User UID must be numeric');
             }
             break;
         case 'display_name':
             $this->display_name = $args[1];
             break;
+        case 'closed':
         case 'open':
             break;
         default:
@@ -65,13 +66,21 @@ class Services_Openstreetmap_Criterion
     public function query()
     {
         switch($this->type) {
-        case 'uid':
-            return http_build_query(array($this->type => $this->uid));
+        case 'closed':
+            return 'closed';
         case 'display_name':
             return http_build_query(array($this->type => $this->display_name));
         case 'open':
             return 'open';
+        case 'user':
+            echo 'V';
+            return http_build_query(array($this->type => $this->user));
         }
+    }
+
+    public function type()
+    {
+        return $this->type;
     }
 }
 

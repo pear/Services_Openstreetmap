@@ -347,7 +347,6 @@ class Services_Openstreetmap_Transport
             $obj->setXml($sxe);
         }
         return $obj;
-
     }
 }
 // vim:set et ts=4 sw=4:

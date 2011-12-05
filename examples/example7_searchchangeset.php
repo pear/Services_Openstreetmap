@@ -23,16 +23,18 @@ $id = 18197393;
 $osm = new Services_Openstreetmap();
 try {
     $changesets = $osm->searchChangesets(
-        array(
-            new Services_Openstreetmap_Criterion('uid', 113243),
-            new Services_Openstreetmap_Criterion('display_name', 'kenguest'),
-        )
+        array(new Services_Openstreetmap_Criterion('user', 11324))
     );
 }
 catch (Services_Openstreetmap_Exception $e) {
-    var_dump($e);
+    die($e->getMessage());
 }
 foreach($changesets as $changeset) {
-    echo $changeset->getCreatedAt(), "\t", $changeset->getTag('comment'), "\n";
+    echo $changeset->getCreatedAt(), "\t";
+    try {
+        echo $changeset->getTag('comment'), "\n";
+    } catch(Exception $e) {
+        echo "\n";
+    }
 }
 ?>
