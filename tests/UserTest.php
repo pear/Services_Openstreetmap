@@ -1,17 +1,18 @@
 <?php
 /**
- * UserTest.php
- * 10-Oct-2011
+ * Unit testing class for retrieving Openstreetmap user data.
  *
  * PHP Version 5
  *
- * @category Services
- * @package  Services_Openstreetmap
- * @author   Ken Guest <kguest@php.net>
- * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @version  Release: @package_version@
- * @link     UserTest.php
-*/
+ * @category   Services
+ * @package    Services_Openstreetmap
+ * @subpackage UnitTesting
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @version    Release: @package_version@
+ * @link       UserTest.php
+ * @todo       update docblocks.
+ */
 
 $version = '@package_version@';
 if (strstr($version, 'package_version')) {
@@ -24,6 +25,16 @@ require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 
+/**
+ * Unit test class for user related functionality.
+ *
+ * @category   Services
+ * @package    Services_Openstreetmap
+ * @subpackage UnitTesting
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @link       UserTest.php
+ */
 class UserTest extends PHPUnit_Framework_TestCase
 {
     public function testUser()

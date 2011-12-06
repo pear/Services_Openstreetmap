@@ -1,16 +1,17 @@
 <?php
 /**
- * OSMTest.php
- * 25-Apr-2011
+ * Unit testing for Services_Openstreetmap_Config class.
  *
  * PHP Version 5
  *
- * @category Services
- * @package  Services_Openstreetmap
- * @author   Ken Guest <kguest@php.net>
- * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @version  Release: @package_version@
- * @link     ConfigTest.php
+ * @category   Services
+ * @package    Services_Openstreetmap
+ * @subpackage UnitTesting
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @version    Release: @package_version@
+ * @link       ConfigTest.php
+ * @todo       update docblocks.
  */
 
 $version = '@package_version@';
@@ -24,6 +25,17 @@ require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 
+/**
+ * Test Services_Openstreetmap_Config functionality and how it's used
+ * throughout the Services_Openstreetmap package.
+ *
+ * @category   Services
+ * @package    Services_Openstreetmap
+ * @subpackage UnitTesting
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @link       ConfigTest.php
+ */
 class ConfigTest extends PHPUnit_Framework_TestCase
 {
     public function testConfig()

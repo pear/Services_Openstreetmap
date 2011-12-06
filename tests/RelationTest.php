@@ -1,16 +1,16 @@
 <?php
 /**
- * RelationTest.php
- * 29-Sep-2011
+ * Unit test class for Relation related functionality.
  *
  * PHP Version 5
  *
- * @category Services
- * @package  Services_Openstreetmap
- * @author   Ken Guest <kguest@php.net>
- * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @version  Release: @package_version@
- * @link     RelationTest.php
+ * @category   Services
+ * @package    Services_Openstreetmap
+ * @subpackage UnitTesting
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @version    Release: @package_version@
+ * @link       RelationTest.php
  */
 
 $version = '@package_version@';
@@ -25,6 +25,16 @@ require_once 'HTTP/Request2/Adapter/Mock.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 
 
+/**
+ * Test retrieving relations.
+ *
+ * @category   Services
+ * @package    Services_Openstreetmap
+ * @subpackage UnitTesting
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @link       RelationTest.php
+ */
 class RelationTest extends PHPUnit_Framework_TestCase
 {
     public function testGetRelation()

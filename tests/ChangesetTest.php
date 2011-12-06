@@ -1,16 +1,16 @@
 <?php
 /**
- * OSMTest.php
- * 25-Apr-2011
+ * Unit test class for Changeset related functionality.
  *
  * PHP Version 5
  *
- * @category Services
- * @package  Services_Openstreetmap
- * @author   Ken Guest <kguest@php.net>
- * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @version  Release: @package_version@
- * @link     OSMTest.php
+ * @category   Services
+ * @package    Services_Openstreetmap
+ * @subpackage UnitTesting
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @version    Release: @package_version@
+ * @link       ChangesetTest.php
  */
 
 $version = '@package_version@';
@@ -25,6 +25,16 @@ require_once 'HTTP/Request2/Adapter/Mock.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 
 
+/**
+ * Unit test class for Changeset related functionality.
+ *
+ * @category   Services
+ * @package    Services_Openstreetmap
+ * @subpackage UnitTesting
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @link       ChangesetTest.php
+ */
 class ChangesetTest extends PHPUnit_Framework_TestCase
 {
     public function testGetChangeset()

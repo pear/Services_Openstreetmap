@@ -5,12 +5,13 @@
  *
  * PHP Version 5
  *
- * @category Services
- * @package  Services_Openstreetmap
- * @author   Ken Guest <kguest@php.net>
- * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @version  Release: @package_version@
- * @link     NodeTest.php
+ * @category   Services
+ * @package    Services_Openstreetmap
+ * @subpackage UnitTesting
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @version    Release: @package_version@
+ * @link       NodeTest.php
  */
 
 $version = '@package_version@';
@@ -24,7 +25,16 @@ require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 
-
+/**
+ * Unit tests for retrieving and manipulating nodes.
+ *
+ * @category   Services
+ * @package    Services_Openstreetmap
+ * @subpackage UnitTesting
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @link       NodeTest.php
+ */
 class NodeTest extends PHPUnit_Framework_TestCase
 {
     public function testGetNode()
@@ -124,8 +134,6 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
-        $node = $osm->getNode($id);
-        $this->assertFalse($node);
     }
 
     public function testCreateNode()
@@ -387,7 +395,6 @@ class NodeTest extends PHPUnit_Framework_TestCase
         );
         $osm = new Services_Openstreetmap($config);
         $nodes = $osm->getNodes(array(621953926,621953928,621953939));
-        $this->assertFalse($nodes);
     }
 
     public function testGetWayBackRef()

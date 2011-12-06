@@ -1,16 +1,17 @@
 <?php
 /**
- * WayTest.php
- * 10-Oct-2011
+ * Unit test class for Way related functionality.
  *
  * PHP Version 5
  *
- * @category Services
- * @package  Services_Openstreetmap
- * @author   Ken Guest <kguest@php.net>
- * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @version  Release: @package_version@
- * @link     WayTest.php
+ * @category   Services
+ * @package    Services_Openstreetmap
+ * @subpackage UnitTesting
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @version    Release: @package_version@
+ * @link       WayTest.php
+ * @todo
  */
 
 $version = '@package_version@';
@@ -23,6 +24,16 @@ require_once 'Services/Openstreetmap.php';
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
 
+/**
+ * Unit test class for manipulation of Services_Openstreetmap_Way.
+ *
+ * @category   Services
+ * @package    Services_Openstreetmap
+ * @subpackage UnitTesting
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @link       WayTest.php
+ */
 class WayTest extends PHPUnit_Framework_TestCase
 {
 
