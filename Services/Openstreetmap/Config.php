@@ -5,11 +5,11 @@
  *
  * PHP Version 5
  *
- * @category Config
- * @package  Config
- * @author   Ken Guest <ken@linux.ie>
- * @license  GPL (see http://www.gnu.org/licenses/gpl.txt)
- * @version  CVS: <cvs_id>
+ * @category Services
+ * @package  Services_Openstreetmap
+ * @author   Ken Guest <kguest@php.net>
+ * @license  BSD http://www.opensource.org/licenses/bsd-license.php
+ * @version  Release: @package_version@
  * @link     Config.php
  */
 
