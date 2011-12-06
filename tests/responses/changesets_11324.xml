@@ -1,0 +1,245 @@
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <changeset id="10037041" user="kenguest" uid="11324" created_at="2011-12-04T20:08:09Z" closed_at="2011-12-04T20:08:12Z" open="false" min_lat="52.8655849" min_lon="-8.1882187" max_lat="52.8715225" max_lon="-8.176605">
+    <tag k="comment" v="Corrected outline of the Lisbonney Business Park based on Corine data."/>
+    <tag k="created_by" v="JOSM/1.5 (4550 en)"/>
+  </changeset>
+  <changeset id="10036690" user="kenguest" uid="11324" created_at="2011-12-04T19:29:56Z" closed_at="2011-12-04T19:30:03Z" open="false" min_lat="52.857052" min_lon="-8.2253551" max_lat="52.8650025" max_lon="-8.2146288">
+    <tag k="comment" v="Split Stereame Centre into industrial &amp; retail landuses."/>
+    <tag k="created_by" v="JOSM/1.5 (4550 en)"/>
+  </changeset>
+  <changeset id="10036311" user="kenguest" uid="11324" created_at="2011-12-04T18:48:06Z" closed_at="2011-12-04T18:48:09Z" open="false" min_lat="52.8634438" min_lon="-8.2245931" max_lat="52.8661239" max_lon="-8.2214845">
+    <tag k="comment" v="More updates from the Corine data for Nenagh."/>
+    <tag k="created_by" v="JOSM/1.5 (4550 en)"/>
+  </changeset>
+  <changeset id="10036247" user="kenguest" uid="11324" created_at="2011-12-04T18:40:09Z" closed_at="2011-12-04T18:40:18Z" open="false" min_lat="52.8593968" min_lon="-8.2266859" max_lat="52.8645954" max_lon="-8.2059206">
+    <tag k="comment" v="More updates from the Corine data for Nenagh."/>
+    <tag k="created_by" v="JOSM/1.5 (4550 en)"/>
+  </changeset>
+  <changeset id="10029288" user="kenguest" uid="11324" created_at="2011-12-03T23:23:33Z" closed_at="2011-12-03T23:23:35Z" open="false" min_lat="52.8619112" min_lon="-8.2185752" max_lat="52.8646876" max_lon="-8.2090724">
+    <tag k="comment" v="Corine data for land adjacant to Civic Offices in Nenagh is incorrect..."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="10028055" user="kenguest" uid="11324" created_at="2011-12-03T20:19:45Z" closed_at="2011-12-03T20:20:06Z" open="false" min_lat="52.8361846" min_lon="-8.2462498" max_lat="52.8848584" max_lon="-8.1531198">
+    <tag k="comment" v="Additional Corine related adjustments for Nenagh regarding landuse."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="10026510" user="kenguest" uid="11324" created_at="2011-12-03T17:18:29Z" closed_at="2011-12-03T17:18:38Z" open="false" min_lat="52.8619112" min_lon="-8.2259027" max_lat="52.8716183" max_lon="-8.2068039">
+    <tag k="comment" v="Some Corine related adjustments for Nenagh regarding landuse."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="10013565" user="kenguest" uid="11324" created_at="2011-12-02T00:21:04Z" closed_at="2011-12-02T00:21:08Z" open="false" min_lat="52.9536224" min_lon="-8.0417416" max_lat="52.9563788" max_lon="-8.0334317">
+    <tag k="comment" v="Gate on forementioned path."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="10013511" user="kenguest" uid="11324" created_at="2011-12-02T00:00:20Z" closed_at="2011-12-02T00:00:39Z" open="false" min_lat="52.9534702" min_lon="-8.0452912" max_lat="52.957453" max_lon="-8.0330765">
+    <tag k="comment" v="Another path added in Knockanacree woods."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="10004398" user="kenguest" uid="11324" created_at="2011-11-30T23:49:50Z" closed_at="2011-11-30T23:49:51Z" open="false" min_lat="52.8646732" min_lon="-8.1925856" max_lat="52.8646732" max_lon="-8.1925856">
+    <tag k="comment" v="Dog bin on dublin road, nenagh."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="10003315" user="kenguest" uid="11324" created_at="2011-11-30T21:14:06Z" closed_at="2011-11-30T21:14:08Z" open="false" min_lat="52.9429859" min_lon="-8.0411292" max_lat="52.9547975" max_lon="-8.0371474">
+    <tag k="comment" v="Correct position of @DjangosHostel in Cloughjordan."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="10002841" user="kenguest" uid="11324" created_at="2011-11-30T20:29:31Z" closed_at="2011-11-30T20:30:21Z" open="false" min_lat="52.9533845" min_lon="-8.0453181" max_lat="52.9585221" max_lon="-8.0331183">
+    <tag k="comment" v="Updates re Knockanacree Woods, Cloughjordan."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9989842" user="kenguest" uid="11324" created_at="2011-11-29T17:16:10Z" closed_at="2011-11-29T17:16:12Z" open="false" min_lat="52.9440939" min_lon="-8.0395898" max_lat="52.9458142" max_lon="-8.0383621">
+    <tag k="comment" v="Additional POIs in Cloughjordan."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9989806" user="kenguest" uid="11324" created_at="2011-11-29T17:13:21Z" closed_at="2011-11-29T17:13:24Z" open="false" min_lat="52.9428828" min_lon="-8.0459511" max_lat="52.9438269" max_lon="-8.0363431">
+    <tag k="comment" v="Additional POIs in Cloughjordan."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9989635" user="kenguest" uid="11324" created_at="2011-11-29T16:56:41Z" closed_at="2011-11-29T16:56:54Z" open="false" min_lat="52.9421043" min_lon="-8.0420069" max_lat="52.9532392" max_lon="-8.0337884">
+    <tag k="comment" v="Additional survey of the ecovillage in Cloughjordan."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9983188" user="kenguest" uid="11324" created_at="2011-11-28T22:43:08Z" closed_at="2011-11-28T22:43:10Z" open="false" min_lat="52.942785" min_lon="-8.0397228" max_lat="52.9446488" max_lon="-8.0367939">
+    <tag k="comment" v="small tweak - closer to the 'gps truth': for lack of a better phrase."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9982692" user="kenguest" uid="11324" created_at="2011-11-28T21:43:53Z" closed_at="2011-11-28T21:44:08Z" open="false" min_lat="52.9427579" min_lon="-8.0421556" max_lat="52.9468883" max_lon="-8.035949">
+    <tag k="comment" v="Quick survey of the ecovillage in Cloughjordan."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9982605" user="kenguest" uid="11324" created_at="2011-11-28T21:34:28Z" closed_at="2011-11-28T21:34:29Z" open="false" min_lat="52.9434191" min_lon="-8.0450045" max_lat="52.9437207" max_lon="-8.0438095">
+    <tag k="comment" v="Some additional POIs in Cloughjordan."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9982540" user="kenguest" uid="11324" created_at="2011-11-28T21:28:31Z" closed_at="2011-11-28T21:28:49Z" open="false" min_lat="52.9517771" min_lon="-8.0618071" max_lat="52.9633804" max_lon="-8.0337757">
+    <tag k="comment" v="In Knocknacree Woods today..."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9961884" user="kenguest" uid="11324" created_at="2011-11-26T22:34:35Z" closed_at="2011-11-26T22:34:36Z" open="false" min_lat="52.8707594" min_lon="-8.2273474" max_lat="52.8746557" max_lon="-8.221909">
+    <tag k="comment" v="dog bins on the way to Dromineer Road roundabout from the Dark Road."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9829873" user="kenguest" uid="11324" created_at="2011-11-14T22:27:06Z" closed_at="2011-11-14T22:27:07Z" open="false" min_lat="52.8679222" min_lon="-8.2113756" max_lat="52.8679222" max_lon="-8.2113756">
+    <tag k="comment" v="dog bin on Gortlandroe Road, just to the right of Whitewalls Drive."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9828513" user="kenguest" uid="11324" created_at="2011-11-14T20:28:53Z" closed_at="2011-11-14T20:28:53Z" open="false" min_lat="52.866978" min_lon="-8.2232703" max_lat="52.866978" max_lon="-8.2232703">
+    <tag k="comment" v="dog bin on Dark Road, just past Wilmots."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9819437" user="kenguest" uid="11324" created_at="2011-11-13T21:21:59Z" closed_at="2011-11-13T21:21:59Z" open="false" min_lat="52.6637565" min_lon="-8.5342954" max_lat="52.6638336" max_lon="-8.5333431">
+    <tag k="comment" v="Road in Carigeen is straight, not jagged."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9801102" user="kenguest" uid="11324" created_at="2011-11-11T23:48:21Z" closed_at="2011-11-11T23:48:23Z" open="false" min_lat="52.6495477" min_lon="-8.6355792" max_lat="52.6505017" max_lon="-8.6344066">
+    <tag k="comment" v="Weston Villas."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9801050" user="kenguest" uid="11324" created_at="2011-11-11T23:36:07Z" closed_at="2011-11-11T23:36:09Z" open="false" min_lat="52.6493786" min_lon="-8.6347869" max_lat="52.6499126" max_lon="-8.6335661">
+    <tag k="comment" v="Some more updates near Childers Road, Limerick."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9799651" user="kenguest" uid="11324" created_at="2011-11-11T20:09:31Z" closed_at="2011-11-11T20:09:37Z" open="false" min_lat="52.6490032" min_lon="-8.6378476" max_lat="52.6526723" max_lon="-8.6328524">
+    <tag k="comment" v="Added Clonard Terrace on Fitzgerald Place."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9799506" user="kenguest" uid="11324" created_at="2011-11-11T19:48:29Z" closed_at="2011-11-11T19:48:32Z" open="false" min_lat="52.648532" min_lon="-8.6380263" max_lat="52.6498644" max_lon="-8.6363518">
+    <tag k="comment" v="Added more POIs along Childers Road including Green Park Shopping Centre"/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9799193" user="kenguest" uid="11324" created_at="2011-11-11T19:09:19Z" closed_at="2011-11-11T19:09:20Z" open="false" min_lat="52.6480698" min_lon="-8.5671483" max_lat="52.6482168" max_lon="-8.5666889">
+    <tag k="comment" v="Bridge ref. added re ballysimon junction (N24/M7)"/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9799082" user="kenguest" uid="11324" created_at="2011-11-11T18:57:01Z" closed_at="2011-11-11T18:57:02Z" open="false" min_lat="52.9428417" min_lon="-8.0454057" max_lat="52.9438488" max_lon="-8.035805">
+    <tag k="comment" v="Some more POIs in Cloughjordan."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9778014" user="kenguest" uid="11324" created_at="2011-11-08T23:33:37Z" closed_at="2011-11-09T00:33:37Z" open="false">
+    <tag k="comment" v="Undo accidental highway change from residential to service"/>
+    <tag k="created_by" v="Services_Openstreetmap/0.1"/>
+  </changeset>
+  <changeset id="9770105" user="kenguest" uid="11324" created_at="2011-11-08T00:25:01Z" closed_at="2011-11-08T00:25:03Z" open="false" min_lat="53.1983361" min_lon="-8.5716904" max_lat="53.2019549" max_lon="-8.5658188">
+    <tag k="comment" v="Added &quot;The Walks&quot; in Loughrea."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9770084" user="kenguest" uid="11324" created_at="2011-11-08T00:15:41Z" closed_at="2011-11-08T00:15:43Z" open="false" min_lat="53.1960315" min_lon="-8.5876874" max_lat="53.1988878" max_lon="-8.573536">
+    <tag k="comment" v="Added playground car park in Loughrea."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9770070" user="kenguest" uid="11324" created_at="2011-11-08T00:09:45Z" closed_at="2011-11-08T00:09:51Z" open="false" min_lat="53.2013675" min_lon="-8.5614241" max_lat="53.2031141" max_lon="-8.5576545">
+    <tag k="comment" v="Added Ard Breeda, Loughrea."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9655181" user="kenguest" uid="11324" created_at="2011-10-25T19:25:26Z" closed_at="2011-10-25T19:25:26Z" open="false" min_lat="52.862707" min_lon="-8.1991801" max_lat="52.862707" max_lon="-8.1991801">
+    <tag k="comment" v="Ryan &amp; Harty's is now Lisa Baker boutique."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9576031" user="kenguest" uid="11324" created_at="2011-10-16T19:18:34Z" closed_at="2011-10-16T19:18:36Z" open="false" min_lat="53.2738528" min_lon="-9.0510323" max_lat="53.2754693" max_lon="-9.0478806">
+    <tag k="comment" v="various POIs along Eyre Square, Galway."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9575321" user="kenguest" uid="11324" created_at="2011-10-16T18:11:32Z" closed_at="2011-10-16T18:11:34Z" open="false" min_lat="53.2705125" min_lon="-9.0546972" max_lat="53.2716043" max_lon="-9.0527001">
+    <tag k="comment" v="setting landuse to commercial would be more appropriate for along Quay Street and High Street, Galway."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9575298" user="kenguest" uid="11324" created_at="2011-10-16T18:09:12Z" closed_at="2011-10-16T18:09:14Z" open="false" min_lat="53.270901" min_lon="-9.053467" max_lat="53.270901" max_lon="-9.053467">
+    <tag k="comment" v="correct name of building."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9574935" user="kenguest" uid="11324" created_at="2011-10-16T17:36:32Z" closed_at="2011-10-16T17:36:33Z" open="false" min_lat="53.2707297" min_lon="-9.0534204" max_lat="53.2712252" max_lon="-9.0527303">
+    <tag k="comment" v="Commerce Court - off Flood Street, Galway"/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9574915" user="kenguest" uid="11324" created_at="2011-10-16T17:34:46Z" closed_at="2011-10-16T17:34:48Z" open="false" min_lat="53.2714872" min_lon="-9.0538909" max_lat="53.2721366" max_lon="-9.0532852">
+    <tag k="comment" v="POIs along High Street in Galway."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9573846" user="kenguest" uid="11324" created_at="2011-10-16T16:07:53Z" closed_at="2011-10-16T16:07:54Z" open="false" min_lat="53.2708903" min_lon="-9.054402" max_lat="53.2714004" max_lon="-9.0537407">
+    <tag k="comment" v="POIs along Quay Street in Galway."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9573560" user="kenguest" uid="11324" created_at="2011-10-16T15:45:17Z" closed_at="2011-10-16T15:45:18Z" open="false" min_lat="53.2708728" min_lon="-9.0537936" max_lat="53.2712408" max_lon="-9.0532206">
+    <tag k="comment" v="POIs along Druid Lane in Galway."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9482416" user="kenguest" uid="11324" created_at="2011-10-05T23:46:31Z" closed_at="2011-10-05T23:46:32Z" open="false" min_lat="52.9430931" min_lon="-8.0389919" max_lat="52.9430931" max_lon="-8.0389919">
+    <tag k="comment" v="Updated details (opening hours &amp; contact info) for The Food Store, Cloughjordan."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9481015" user="kenguest" uid="11324" created_at="2011-10-05T19:44:00Z" closed_at="2011-10-05T19:44:00Z" open="false" min_lat="52.9430931" min_lon="-8.0389919" max_lat="52.9430931" max_lon="-8.0389919">
+    <tag k="comment" v="Updated details (opening hours &amp; contact info) for The Food Store, Cloughjordan."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9480629" user="kenguest" uid="11324" created_at="2011-10-05T19:01:58Z" closed_at="2011-10-05T19:01:59Z" open="false" min_lat="52.8624792" min_lon="-8.20005" max_lat="52.8630474" max_lon="-8.1992952">
+    <tag k="comment" v="Irish Soap &amp; Candle shop closed, Gaffney's Tea Room is now a SVdP shop."/>
+    <tag k="created_by" v="JOSM/1.5 (4399 en)"/>
+  </changeset>
+  <changeset id="9480599" user="kenguest" uid="11324" created_at="2011-10-05T18:57:43Z" closed_at="2011-10-05T18:57:44Z" open="false" min_lat="52.8636882" min_lon="-8.1978669" max_lat="52.8640754" max_lon="-8.1975277">
+    <tag k="comment" v="Turn restriction in Nenagh - from Friar Street onto Pearse Street you may only turn left."/>
+    <tag k="created_by" v="JOSM/1.5 (4399 en)"/>
+  </changeset>
+  <changeset id="9424007" user="kenguest" uid="11324" created_at="2011-09-29T00:08:57Z" closed_at="2011-09-29T00:08:57Z" open="false" min_lat="52.8638729" min_lon="-8.1983611" max_lat="52.8662986" max_lon="-8.1976316">
+    <tag k="comment" v="correct location of O'Kennedy vets in Nenagh somewhat"/>
+    <tag k="created_by" v="JOSM/1.5 (4399 en)"/>
+  </changeset>
+  <changeset id="9423511" user="kenguest" uid="11324" created_at="2011-09-28T21:53:02Z" closed_at="2011-09-28T21:53:02Z" open="false" min_lat="52.8638729" min_lon="-8.1983611" max_lat="52.8638729" max_lon="-8.1983611">
+    <tag k="comment" v="Add O\'Kennedy vets in Nenagh"/>
+    <tag k="created_by" v="Services_Openstreetmap/0.1"/>
+  </changeset>
+  <changeset id="9402774" user="kenguest" uid="11324" created_at="2011-09-26T15:08:53Z" closed_at="2011-09-26T15:08:56Z" open="false" min_lat="53.967877" min_lon="-8.3037105" max_lat="53.9725337" max_lon="-8.2963775">
+    <tag k="comment" v="Other part of the one-way system in Boyle."/>
+    <tag k="created_by" v="JOSM/1.5 (4399 en)"/>
+  </changeset>
+  <changeset id="9401136" user="kenguest" uid="11324" created_at="2011-09-26T11:31:41Z" closed_at="2011-09-26T11:31:42Z" open="false" min_lat="53.9724597" min_lon="-8.3040637" max_lat="53.9739975" max_lon="-8.2981699">
+    <tag k="comment" v="Portion of the one way system in Boyle"/>
+    <tag k="created_by" v="JOSM/1.5 (4399 en)"/>
+  </changeset>
+  <changeset id="9401087" user="kenguest" uid="11324" created_at="2011-09-26T11:26:37Z" closed_at="2011-09-26T11:26:40Z" open="false" min_lat="53.9710303" min_lon="-8.3057737" max_lat="53.9882823" max_lon="-8.2810851">
+    <tag k="comment" v="Roundabout at the foot of Military Road, Boyle."/>
+    <tag k="created_by" v="JOSM/1.5 (4399 en)"/>
+  </changeset>
+  <changeset id="9396995" user="kenguest" uid="11324" created_at="2011-09-25T20:56:01Z" closed_at="2011-09-25T20:56:04Z" open="false" min_lat="53.9392502" min_lon="-8.3018886" max_lat="53.9762231" max_lon="-8.0952357">
+    <tag k="comment" v="POIs in Carrick on Shannon and Boyle."/>
+    <tag k="created_by" v="JOSM/1.5 (4399 en)"/>
+  </changeset>
+  <changeset id="9396676" user="kenguest" uid="11324" created_at="2011-09-25T20:21:25Z" closed_at="2011-09-25T20:21:29Z" open="false" min_lat="53.9899073" min_lon="-8.0657845" max_lat="53.991335" max_lon="-8.0626731">
+    <tag k="comment" v="POIs in Leitrim Village."/>
+    <tag k="created_by" v="JOSM/1.5 (4399 en)"/>
+  </changeset>
+  <changeset id="9336348" user="kenguest" uid="11324" created_at="2011-09-18T19:08:49Z" closed_at="2011-09-18T19:08:52Z" open="false" min_lat="52.8696596" min_lon="-8.1960358" max_lat="52.8702423" max_lon="-8.1958783">
+    <tag k="comment" v="added Northville (terrace), on Ormond Road, Nenagh"/>
+    <tag k="created_by" v="JOSM/1.5 (4399 en)"/>
+  </changeset>
+  <changeset id="9332563" user="kenguest" uid="11324" created_at="2011-09-18T12:56:00Z" closed_at="2011-09-18T12:56:01Z" open="false" min_lat="52.8638729" min_lon="-8.1983611" max_lat="52.8638729" max_lon="-8.1983611">
+    <tag k="comment" v="Delete unrequired node."/>
+    <tag k="created_by" v="Services_Openstreetmap/0.1"/>
+  </changeset>
+  <changeset id="9332543" user="kenguest" uid="11324" created_at="2011-09-18T12:53:22Z" closed_at="2011-09-18T12:53:23Z" open="false" min_lat="52.863851" min_lon="-8.1983952" max_lat="52.8639539" max_lon="-8.1981913">
+    <tag k="comment" v="Wrap building around the two POIs for Jin's in Nenagh"/>
+    <tag k="created_by" v="JOSM/1.5 (4399 en)"/>
+  </changeset>
+  <changeset id="9332478" user="kenguest" uid="11324" created_at="2011-09-18T12:45:30Z" closed_at="2011-09-18T12:45:30Z" open="false" min_lat="52.8641822" min_lon="-8.1990279" max_lat="52.8641822" max_lon="-8.1990279">
+    <tag k="comment" v="Delete unrequired node."/>
+    <tag k="created_by" v="Services_Openstreetmap/0.1"/>
+  </changeset>
+  <changeset id="9332419" user="kenguest" uid="11324" created_at="2011-09-18T12:39:21Z" closed_at="2011-09-18T12:39:22Z" open="false" min_lat="52.8641822" min_lon="-8.1990319" max_lat="52.864209" max_lon="-8.1990279">
+    <tag k="comment" v="Contact details for The Jeans Factory, Nenagh."/>
+    <tag k="created_by" v="JOSM/1.5 (4399 en)"/>
+  </changeset>
+  <changeset id="9332173" user="kenguest" uid="11324" created_at="2011-09-18T12:06:15Z" closed_at="2011-09-18T12:06:16Z" open="false">
+    <tag k="comment" v="Small tidy up."/>
+    <tag k="created_by" v="JOSM/1.5 (4399 en)"/>
+  </changeset>
+  <changeset id="9332075" user="kenguest" uid="11324" created_at="2011-09-18T11:57:33Z" closed_at="2011-09-18T11:57:33Z" open="false" min_lat="52.8640189" min_lon="-8.2046434" max_lat="52.8640189" max_lon="-8.2046434">
+    <tag k="comment" v="Delete unrequired node."/>
+    <tag k="created_by" v="Services_Openstreetmap/0.1"/>
+  </changeset>
+  <changeset id="9331452" user="kenguest" uid="11324" created_at="2011-09-18T10:52:36Z" closed_at="2011-09-18T10:52:41Z" open="false" min_lat="52.8637929" min_lon="-8.2046552" max_lat="52.8641206" max_lon="-8.2045572">
+    <tag k="comment" v="POIs (addr) along Pound Road, Nenagh."/>
+    <tag k="created_by" v="JOSM/1.5 (4399 en)"/>
+  </changeset>
+</osm>
