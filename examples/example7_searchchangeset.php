@@ -23,7 +23,11 @@ $id = 18197393;
 $osm = new Services_Openstreetmap();
 try {
     $changesets = $osm->searchChangesets(
-        array(new Services_Openstreetmap_Criterion('user', 11324))
+        array(
+            new Services_Openstreetmap_Criterion('user', 11324),
+            new Services_Openstreetmap_Criterion('bbox', -8.0590275, 52.9347449, -7.9966939, 52.9611999),
+            new Services_Openstreetmap_Criterion('closed'),
+        )
     );
 }
 catch (Services_Openstreetmap_Exception $e) {

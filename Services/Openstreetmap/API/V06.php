@@ -177,13 +177,13 @@ class Services_Openstreetmap_API_V06
     public function searchChangesets(array $criteria)
     {
         $types = array();
-        foreach($criteria as $criterion)
-        {
+        foreach ($criteria as $criterion) {
             $types[] = $criterion->type();
         }
 
-        if (array_search('user', $types) !== false &&
-            array_search('display_name', $types) !== false) {
+        if (array_search('user', $types) !== false
+            && array_search('display_name', $types) !== false
+        ) {
             throw new Services_Openstreetmap_Exception('Can\'t supply both user and display_name criteria');
         }
 
