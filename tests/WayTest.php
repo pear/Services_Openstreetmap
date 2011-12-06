@@ -232,7 +232,9 @@ class WayTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
         );
-        $osm = new Services_Openstreetmap();
+
+        $osm = new Services_Openstreetmap($config);
+
         $relations = $osm->getWay(5850969)->getRelations();
         $this->assertInstanceOf('Services_Openstreetmap_Relations', $relations);
         $this->assertEquals(2, sizeof($relations));

@@ -397,7 +397,13 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/node_248081837.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/way_23010474.xml', 'rb'));
 
-        $osm = new Services_Openstreetmap();
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://api06.dev.openstreetmap.org/',
+        );
+
+        $osm = new Services_Openstreetmap($config);
+
         $ways = $osm->getNode(248081837)->getWays();
         $this->assertInstanceOf('Services_Openstreetmap_Ways', $ways);
         $this->assertEquals(sizeof($ways), 1);
