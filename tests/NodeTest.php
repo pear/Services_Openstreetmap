@@ -164,7 +164,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
      * Test invalid latitude value in constructor
      *
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Latitude can't be greater than 90
+     * @expectedExceptionMessage Latitude can't be greater than 180
      */
     public function testCreateNodeInvalidLatitude()
     {
@@ -176,7 +176,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
                 'server'   => 'http://api06.dev.openstreetmap.org/',
                 );
         $osm = new Services_Openstreetmap($config);
-        $lat = 152.8638729;
+        $lat = 252.8638729;
         $lon = -8.1983611;
         $node = $osm->createNode($lat, $lon);
     }
@@ -185,7 +185,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
      * Test invalid latitude value in constructor
      *
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Latitude can't be less than -90
+     * @expectedExceptionMessage Latitude can't be less than -180
      */
     public function testCreateNodeInvalidLessThanMinus90()
     {
@@ -197,7 +197,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
                 'server'   => 'http://api06.dev.openstreetmap.org/',
                 );
         $osm = new Services_Openstreetmap($config);
-        $lat = -90.000010123;
+        $lat = -180.000010123;
         $lon = -8.1983611;
         $node = $osm->createNode($lat, $lon);
     }
