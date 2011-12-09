@@ -134,6 +134,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
+        $node = $osm->getNode($id);
     }
 
     public function testCreateNode()
