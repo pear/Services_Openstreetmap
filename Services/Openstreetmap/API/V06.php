@@ -184,7 +184,7 @@ class Services_Openstreetmap_API_V06
         if (array_search('user', $types) !== false
             && array_search('display_name', $types) !== false
         ) {
-            throw new Services_Openstreetmap_Exception('Can\'t supply both user and display_name criteria');
+            throw new InvalidArgumentException('Can\'t supply both user and display_name criteria');
         }
 
         return $this->getTransport()->searchObjects('changeset', $criteria);
