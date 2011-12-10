@@ -260,15 +260,29 @@ class Services_Openstreetmap
         foreach ($criteria as $key => $value) {
             foreach ($xml->xpath('//way') as $node) {
                 foreach ($node->tag as $tag) {
-                    if (($tag['k'] == $key) && ($tag['v'] == $value)) {
-                        $results[] = $node;
+                    if ($tag['k'] == $key) {
+                        if  ($tag['v'] == $value) {
+                            $results[] = $node;
+                        }
+                    } elseif (strpos($tag['v'], ';')) {
+                        $va = explode(';', $tag['v']);
+                        if (in_array($value, $va)) {
+                            $results[] = $node;
+                        }
                     }
                 }
             }
             foreach ($xml->xpath('//node') as $node) {
                 foreach ($node->tag as $tag) {
-                    if (($tag['k'] == $key) && ($tag['v'] == $value)) {
-                        $results[] = $node;
+                    if ($tag['k'] == $key) {
+                        if ($tag['v'] == $value) {
+                            $results[] = $node;
+                        } elseif (strpos($tag['v'], ';')) {
+                            $va = explode(';', $tag['v']);
+                            if (in_array($value, $va)) {
+                                $results[] = $node;
+                            }
+                        }
                     }
                 }
             }
