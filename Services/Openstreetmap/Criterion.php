@@ -24,10 +24,8 @@
  */
 class Services_Openstreetmap_Criterion
 {
-    protected $type = null;
-    protected $user = null;
-    protected $display_name = null;
-    protected $bbox = null;
+    protected $type  = null;
+    protected $value = null;
 
     /**
      * __construct
@@ -42,7 +40,7 @@ class Services_Openstreetmap_Criterion
         switch($type) {
         case 'user':
             if (is_numeric($args[1])) {
-                $this->user = $args[1];
+                $this->value = $args[1];
             } else {
                 throw new InvalidArgumentException('User UID must be numeric');
             }
@@ -61,13 +59,38 @@ class Services_Openstreetmap_Criterion
             } catch(InvalidArgumentException $ex) {
                 throw new InvalidArgumentException($ex->getMessage());
             }
-            $this->bbox = "{$minLon},{$minLat},{$maxLon},{$maxLat}";
+            $this->value = "{$minLon},{$minLat},{$maxLon},{$maxLat}";
             break;
         case 'display_name':
-            $this->display_name = $args[1];
+            $this->value = $args[1];
             break;
         case 'closed':
         case 'open':
+            break;
+        case 'time':
+            $before = null;
+            $after = null;
+            if (isset($args[1])) {
+                $after = $args[1];
+                $t = strtotime($after);
+                if ($t == -1 or $t === false) {
+                    throw new InvalidArgumentException('Invalid time value');
+                }
+                $after = gmstrftime("%Y-%m-%dT%H:%M:%SZ", $t);
+            }
+            if (isset($args[2])) {
+                $before = $args[2];
+                $t = strtotime($before);
+                if ($t == -1 or $t === false) {
+                    throw new InvalidArgumentException('Invalid time value');
+                }
+                $before = gmstrftime("%Y-%m-%dT%H:%M:%SZ", $t);
+            }
+            if ($before !== null) {
+                $this->value = "$after,$before";
+            } else {
+                $this->value = $after;
+            }
             break;
         default:
             $this->type = null;
@@ -83,16 +106,16 @@ class Services_Openstreetmap_Criterion
     public function query()
     {
         switch($this->type) {
+        case 'bbox':
+            return "bbox={$this->value}";
         case 'closed':
             return 'closed';
-        case 'display_name':
-            return http_build_query(array($this->type => $this->display_name));
         case 'open':
             return 'open';
-        case 'bbox':
-            return "bbox={$this->bbox}";
+        case 'display_name':
+        case 'time':
         case 'user':
-            return http_build_query(array($this->type => $this->user));
+            return http_build_query(array($this->type => $this->value));
         }
     }
 

@@ -1,0 +1,25 @@
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <changeset id="9983188" user="kenguest" uid="11324" created_at="2011-11-28T22:43:08Z" closed_at="2011-11-28T22:43:10Z" open="false" min_lat="52.942785" min_lon="-8.0397228" max_lat="52.9446488" max_lon="-8.0367939">
+    <tag k="comment" v="small tweak - closer to the 'gps truth': for lack of a better phrase."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9982692" user="kenguest" uid="11324" created_at="2011-11-28T21:43:53Z" closed_at="2011-11-28T21:44:08Z" open="false" min_lat="52.9427579" min_lon="-8.0421556" max_lat="52.9468883" max_lon="-8.035949">
+    <tag k="comment" v="Quick survey of the ecovillage in Cloughjordan."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9982605" user="kenguest" uid="11324" created_at="2011-11-28T21:34:28Z" closed_at="2011-11-28T21:34:29Z" open="false" min_lat="52.9434191" min_lon="-8.0450045" max_lat="52.9437207" max_lon="-8.0438095">
+    <tag k="comment" v="Some additional POIs in Cloughjordan."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9982540" user="kenguest" uid="11324" created_at="2011-11-28T21:28:31Z" closed_at="2011-11-28T21:28:49Z" open="false" min_lat="52.9517771" min_lon="-8.0618071" max_lat="52.9633804" max_lon="-8.0337757">
+    <tag k="comment" v="In Knocknacree Woods today..."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+  <changeset id="9961884" user="kenguest" uid="11324" created_at="2011-11-26T22:34:35Z" closed_at="2011-11-26T22:34:36Z" open="false" min_lat="52.8707594" min_lon="-8.2273474" max_lat="52.8746557" max_lon="-8.221909">
+    <tag k="comment" v="dog bins on the way to Dromineer Road roundabout from the Dark Road."/>
+    <tag k="created_by" v="JOSM/1.5 (4487 en)"/>
+  </changeset>
+</osm>
