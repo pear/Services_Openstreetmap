@@ -261,6 +261,99 @@ class OSMTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testSearchDelimited()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/area.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://api06.dev.openstreetmap.org/'
+        );
+        $osm = new Services_Openstreetmap($config);
+        $results = $osm->search(array("amenity" => "pharmacy"));
+        $this->AssertTrue(empty($results));
+        $osm->get(
+            52.84824191354071, -8.247245026639696,
+            52.89957825532213, -8.174161478654796
+        );
+        $results = $osm->search(array("amenity" => "restaurant"));
+        $this->assertEquals(
+            $results,
+            array (
+                0 =>
+                array (
+                    'addr_city' => 'Nenagh',
+                    'addr_country' => 'IE',
+                    'addr_housenumber' => '19',
+                    'addr_street' => 'Pearse Street',
+                    'amenity' => 'restaurant',
+                    'building' => 'yes',
+                    'building_levels' => '3',
+                ),
+                1 =>
+                array (
+                    'addr_city' => 'Nenagh',
+                    'addr_country' => 'IE',
+                    'addr_housenumber' => '26',
+                    'addr_street' => 'Kenyon Street',
+                    'amenity' => 'restaurant',
+                    'name' => 'The Peppermill',
+                ),
+                2 =>
+                array (
+                    'amenity' => 'restaurant',
+                    'cuisine' => 'italian',
+                    'name' => 'Pepe\'s Restaurant',
+                ),
+                3 =>
+                array (
+                    'addr_city' => 'Nenagh',
+                    'addr_country' => 'IE',
+                    'addr_housenumber' => '19',
+                    'addr_street' => 'Kenyon Street',
+                    'amenity' => 'restaurant',
+                    'name' => 'Simply Food',
+                ),
+                4 =>
+                array (
+                    'amenity' => 'restaurant',
+                    'cuisine' => 'chinese',
+                    'name' => 'Jin\'s',
+                ),
+                5 =>
+                array (
+                    'addr_city' => 'Nenagh',
+                    'addr_country' => 'IE',
+                    'addr_housenumber' => '23',
+                    'addr_street' => 'Sarsfield Street',
+                    'amenity' => 'pub;restaurant',
+                    'name' => 'Andy\'s',
+                    'phone' => '+353 67 32494',
+                    'tourism' => 'guest_house',
+                    'website' => 'http://www.andysnenagh.com',
+                ),
+                6 =>
+                array (
+                    'amenity' => 'restaurant',
+                    'cuisine' => 'chinese',
+                    'name' => 'Golden Star',
+                    'opening_hours' => 'Mo-Su 17:00-24:00',
+                ),
+                7 =>
+                array (
+                    'amenity' => 'restaurant',
+                    'cuisine' => 'indian',
+                    'email' => 'turbanrest@gmail.com',
+                    'name' => 'Turban',
+                    'opening_hours' => 'Mo-Su 16:30-23:00; Fr,Sa 16:30-23:30',
+                    'phone' => '+353 67 42794',
+                ),
+            )
+        );
+    }
+
     public function testGetCoordsOfPlace()
     {
         $mock = new HTTP_Request2_Adapter_Mock();

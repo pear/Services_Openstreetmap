@@ -244,12 +244,12 @@ class Services_Openstreetmap
      *  }
      * </code>
      *
-     * @param mixed $criteria what to search for
+     * @param array $criteria what to search for
      *
      * @access public
      * @return array
      */
-    function search($criteria)
+    public function search(array $criteria)
     {
         $results = array();
 
@@ -259,32 +259,16 @@ class Services_Openstreetmap
         }
         foreach ($criteria as $key => $value) {
             foreach ($xml->xpath('//way') as $node) {
-                foreach ($node->tag as $tag) {
-                    if ($tag['k'] == $key) {
-                        if  ($tag['v'] == $value) {
-                            $results[] = $node;
-                        }
-                    } elseif (strpos($tag['v'], ';')) {
-                        $va = explode(';', $tag['v']);
-                        if (in_array($value, $va)) {
-                            $results[] = $node;
-                        }
-                    }
-                }
+                $results = array_merge(
+                    $results,
+                    $this->_searchNode($node, $key, $value)
+                );
             }
             foreach ($xml->xpath('//node') as $node) {
-                foreach ($node->tag as $tag) {
-                    if ($tag['k'] == $key) {
-                        if ($tag['v'] == $value) {
-                            $results[] = $node;
-                        } elseif (strpos($tag['v'], ';')) {
-                            $va = explode(';', $tag['v']);
-                            if (in_array($value, $va)) {
-                                $results[] = $node;
-                            }
-                        }
-                    }
-                }
+                $results = array_merge(
+                    $results,
+                    $this->_searchNode($node, $key, $value)
+                );
             }
         }
         $ares = array();
@@ -297,6 +281,34 @@ class Services_Openstreetmap
             unset($ar); //ensure $ar is wiped clean for each iteration
         }
         return $ares;
+    }
+
+    /**
+     * Search node for a specific key/value pair, allowing for value to be
+     * included in a semicolon delimited list.
+     *
+     * @param SimpleXMLElement $node  Node to search
+     * @param string           $key   Key to search for (Eg 'amenity')
+     * @param string           $value Value to search for (Eg 'pharmacy')
+     *
+     * @return array
+     */
+    private function _searchNode(SimpleXMLElement $node, $key, $value)
+    {
+        $results = array();
+        foreach ($node->tag as $tag) {
+            if ($tag['k'] == $key) {
+                if ($tag['v'] == $value) {
+                    $results[] = $node;
+                } elseif (strpos($tag['v'], ';')) {
+                    $array = explode(';', $tag['v']);
+                    if (in_array($value, $array)) {
+                        $results[] = $node;
+                    }
+                }
+            }
+        }
+        return $results;
     }
 
     /**
