@@ -28,16 +28,15 @@ echo "List of Pharmacies\n";
 echo "==================\n\n";
 
 foreach ($results as $result) {
-    $name = null;
-    $addr_street = null;
-    $addr_city = null;
-    $addr_country = null;
-    $addr_housename = null;
-    $addr_housenumber = null;
-    $opening_hours = null;
-    $phone = null;
+    $name = $result->getTag('name');
+    $addr_street = $result->getTag('addr:street');
+    $addr_city = $result->getTag('addr:city');
+    $addr_country = $result->getTag('addr:country');
+    $addr_housename = $result->getTag('addr:housename');
+    $addr_housenumber = $result->getTag('addr:housenumber');
+    $opening_hours = $result->getTag('opening_hours');
+    $phone = $result->getTag('phone');
 
-    extract($result);
     $line1 = ($addr_housenumber) ? $addr_housenumber : $addr_housename;
     if ($line1 != null) {
         $line1 .= ', ';

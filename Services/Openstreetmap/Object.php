@@ -309,25 +309,18 @@ class Services_Openstreetmap_Object
 
     /**
      * Return value of specified tag as set against this object.
+     * If tag isn't set, return null.
      *
      * @param string $key Key value, For example, 'amenity', 'highway' etc
      *
      * @return string
-     * @throws Services_Openstreetmap_Exception
      */
     public function getTag($key)
     {
         if (isset($this->tags[$key])) {
             return $this->tags[$key];
         } else {
-            throw new Services_Openstreetmap_Exception(
-                sprintf(
-                    'Undefined tag \'%s\' in %s %d',
-                    $key,
-                    $this->getType(),
-                    $this->getId()
-                )
-            );
+            return null;
         }
     }
 

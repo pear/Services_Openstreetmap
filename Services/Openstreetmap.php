@@ -215,7 +215,9 @@ class Services_Openstreetmap
 
 
     /**
-     * search based on given criteria
+     * search based on given criteria.
+     *
+     * returns an array of objects such as Services_Openstreetmap_Node etc.
      *
      * <code>
      *  $osm = new Services_Openstreetmap();
@@ -226,16 +228,15 @@ class Services_Openstreetmap
      *  echo "==================\n\n";
      *
      *  foreach ($results as $result) {
-     *      $name = null;
-     *      $addr_street = null;
-     *      $addr_city = null;
-     *      $addr_country = null;
-     *      $addr_housename = null;
-     *      $addr_housenumber = null;
-     *      $opening_hours = null;
-     *      $phone = null;
+     *      $name = $result->getTag('name');
+     *      $addr_street = $result->getTag('addr:street');
+     *      $addr_city = $result->getTag('addr:city');
+     *      $addr_country = $result->getTag('addr:country');
+     *      $addr_housename = $result->getTag('addr:housename');
+     *      $addr_housenumber = $result->getTag('addr:housenumber');
+     *      $opening_hours = $result->getTag('opening_hours');
+     *      $phone = $result->getTag('phone');
      *
-     *      extract($result);
      *      $line1 = ($addr_housenumber) ? $addr_housenumber : $addr_housename;
      *      if ($line1 != null) {
      *          $line1 .= ', ';
@@ -261,26 +262,17 @@ class Services_Openstreetmap
             foreach ($xml->xpath('//way') as $node) {
                 $results = array_merge(
                     $results,
-                    $this->_searchNode($node, $key, $value)
+                    $this->_searchNode($node, $key, $value, 'way')
                 );
             }
             foreach ($xml->xpath('//node') as $node) {
                 $results = array_merge(
                     $results,
-                    $this->_searchNode($node, $key, $value)
+                    $this->_searchNode($node, $key, $value, 'node')
                 );
             }
         }
-        $ares = array();
-        foreach ($results as $resultnode) {
-            $ar = array();
-            foreach ($resultnode->tag as $tag) {
-                $ar[str_replace(':', '_', $tag['k'])] = (string) $tag['v'];
-            }
-            $ares[] = $ar;
-            unset($ar); //ensure $ar is wiped clean for each iteration
-        }
-        return $ares;
+        return $results;
     }
 
     /**
@@ -293,17 +285,26 @@ class Services_Openstreetmap
      *
      * @return array
      */
-    private function _searchNode(SimpleXMLElement $node, $key, $value)
+    private function _searchNode(SimpleXMLElement $node, $key, $value, $type)
     {
+        $class =  'Services_Openstreetmap_' . ucfirst(strtolower($type));
         $results = array();
         foreach ($node->tag as $tag) {
             if ($tag['k'] == $key) {
                 if ($tag['v'] == $value) {
-                    $results[] = $node;
+                    $obj = new $class();
+                    $obj->setTransport($this->getTransport());
+                    $obj->setConfig($this->getConfig());
+                    $obj->setXml(simplexml_load_string($node->saveXML()));
+                    $results[] = $obj;
                 } elseif (strpos($tag['v'], ';')) {
                     $array = explode(';', $tag['v']);
                     if (in_array($value, $array)) {
-                        $results[] = $node;
+                        $obj = new $class();
+                        $obj->setTransport($this->getTransport());
+                        $obj->setConfig($this->getConfig());
+                        $obj->setXml(simplexml_load_string($node->saveXML()));
+                        $results[] = $obj;
                     }
                 }
             }
