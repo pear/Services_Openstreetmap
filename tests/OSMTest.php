@@ -162,28 +162,34 @@ class OSMTest extends PHPUnit_Framework_TestCase
             52.89957825532213, -8.174161478654796
         );
         $results = $osm->search(array("amenity" => "pharmacy"));
+
+        $tags = array();
+        foreach($results as $result) {
+            $tags[] = $result->getTags();
+        }
+
         $this->assertEquals(
-            $results,
+            $tags,
             array (
                 0 => array (
-                    'addr_city' => 'Nenagh',
-                    'addr_country' => 'IE',
-                    'addr_housename' => '20-21',
-                    'addr_street' => 'Pearse Street',
+                    'addr:city' => 'Nenagh',
+                    'addr:country' => 'IE',
+                    'addr:housename' => '20-21',
+                    'addr:street' => 'Pearse Street',
                     'amenity' => 'pharmacy',
                     'building' => 'yes',
-                    'building_levels' => '3',
-                    'building_use' => 'retail',
+                    'building:levels' => '3',
+                    'building:use' => 'retail',
                     'dispensing' => 'yes',
                     'fax' => '+353 67 34540',
                     'name' => 'Ryans Pharmacy and Beauty Salon',
                     'phone' => '+353 67 31464',
                 ),
                 1 => array (
-                    'addr_city' => 'Nenagh',
-                    'addr_country' => 'IE',
-                    'addr_housename' => '7',
-                    'addr_street' => 'Pearse Street',
+                    'addr:city' => 'Nenagh',
+                    'addr:country' => 'IE',
+                    'addr:housename' => '7',
+                    'addr:street' => 'Pearse Street',
                     'amenity' => 'pharmacy',
                     'building' => 'yes',
                     'dispensing' => 'yes',
@@ -193,24 +199,24 @@ class OSMTest extends PHPUnit_Framework_TestCase
                     'shop' => 'chemist',
                 ),
                 2 => array (
-                    'addr_city' => 'Nenagh',
-                    'addr_country' => 'IE',
-                    'addr_housename' => '20-21',
-                    'addr_street' => 'Pearse Street',
+                    'addr:city' => 'Nenagh',
+                    'addr:country' => 'IE',
+                    'addr:housename' => '20-21',
+                    'addr:street' => 'Pearse Street',
                     'amenity' => 'pharmacy',
                     'building' => 'yes',
-                    'building_levels' => '3',
-                    'building_use' => 'retail',
+                    'building:levels' => '3',
+                    'building:use' => 'retail',
                     'dispensing' => 'yes',
                     'fax' => '+353 67 34540',
                     'name' => 'Ryans Pharmacy and Beauty Salon',
                     'phone' => '+353 67 31464',
                 ),
                 3 => array (
-                    'addr_city' => 'Nenagh',
-                    'addr_country' => 'IE',
-                    'addr_housenumber' => 'Unit 1A',
-                    'addr_street' => 'O\'Connors Shopping Centre',
+                    'addr:city' => 'Nenagh',
+                    'addr:country' => 'IE',
+                    'addr:housenumber' => 'Unit 1A',
+                    'addr:street' => 'O\'Connors Shopping Centre',
                     'amenity' => 'pharmacy',
                     'name' => 'Ann Kelly\'s',
                     'opening_hours' =>
@@ -218,38 +224,38 @@ class OSMTest extends PHPUnit_Framework_TestCase
                     'phone' => '+353 67 34244',
                 ),
                 4 => array (
-                    'addr_city' => 'Nenagh',
-                    'addr_country' => 'IE',
-                    'addr_housename' => '7',
-                    'addr_street' => 'Mitchell Street',
+                    'addr:city' => 'Nenagh',
+                    'addr:country' => 'IE',
+                    'addr:housename' => '7',
+                    'addr:street' => 'Mitchell Street',
                     'amenity' => 'pharmacy',
                     'dispensing' => 'yes',
                     'name' => 'Guierins',
                     'phone' => '+353 67 31447',
                     ),
                 5 => array (
-                    'addr_city' => 'Nenagh',
-                    'addr_country' => 'IE',
-                    'addr_housenumber' => '69',
-                    'addr_street' => 'Kenyon Street',
+                    'addr:city' => 'Nenagh',
+                    'addr:country' => 'IE',
+                    'addr:housenumber' => '69',
+                    'addr:street' => 'Kenyon Street',
                     'amenity' => 'pharmacy',
                     'dispensing' => 'yes',
                     'name' => 'Finnerty\'s',
                     'phone' => '+353 67 34155',
                 ),
                 6 => array (
-                    'addr_city' => 'Nenagh',
-                    'addr_country' => 'IE',
-                    'addr_housenumber' => '67',
-                    'addr_street' => 'Kenyon Street',
+                    'addr:city' => 'Nenagh',
+                    'addr:country' => 'IE',
+                    'addr:housenumber' => '67',
+                    'addr:street' => 'Kenyon Street',
                     'amenity' => 'pharmacy',
                     'name' => 'Cuddys',
                     'phone' => '+353 67 31262',
                 ),
                 7 => array (
-                    'addr_city' => 'Nenagh',
-                    'addr_country' => 'IE',
-                    'addr_street' => 'Clare Street',
+                    'addr:city' => 'Nenagh',
+                    'addr:country' => 'IE',
+                    'addr:street' => 'Clare Street',
                     'amenity' => 'pharmacy',
                     'dispensing' => 'yes',
                     'fax' => '+3536742775',
@@ -279,25 +285,31 @@ class OSMTest extends PHPUnit_Framework_TestCase
             52.89957825532213, -8.174161478654796
         );
         $results = $osm->search(array("amenity" => "restaurant"));
+
+        $tags = array();
+        foreach($results as $result) {
+            $tags[] = $result->getTags();
+        }
+
         $this->assertEquals(
-            $results,
+            $tags,
             array (
                 0 =>
                 array (
-                    'addr_city' => 'Nenagh',
-                    'addr_country' => 'IE',
-                    'addr_housenumber' => '19',
-                    'addr_street' => 'Pearse Street',
+                    'addr:city' => 'Nenagh',
+                    'addr:country' => 'IE',
+                    'addr:housenumber' => '19',
+                    'addr:street' => 'Pearse Street',
                     'amenity' => 'restaurant',
                     'building' => 'yes',
-                    'building_levels' => '3',
+                    'building:levels' => '3',
                 ),
                 1 =>
                 array (
-                    'addr_city' => 'Nenagh',
-                    'addr_country' => 'IE',
-                    'addr_housenumber' => '26',
-                    'addr_street' => 'Kenyon Street',
+                    'addr:city' => 'Nenagh',
+                    'addr:country' => 'IE',
+                    'addr:housenumber' => '26',
+                    'addr:street' => 'Kenyon Street',
                     'amenity' => 'restaurant',
                     'name' => 'The Peppermill',
                 ),
@@ -309,10 +321,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
                 ),
                 3 =>
                 array (
-                    'addr_city' => 'Nenagh',
-                    'addr_country' => 'IE',
-                    'addr_housenumber' => '19',
-                    'addr_street' => 'Kenyon Street',
+                    'addr:city' => 'Nenagh',
+                    'addr:country' => 'IE',
+                    'addr:housenumber' => '19',
+                    'addr:street' => 'Kenyon Street',
                     'amenity' => 'restaurant',
                     'name' => 'Simply Food',
                 ),
@@ -324,10 +336,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
                 ),
                 5 =>
                 array (
-                    'addr_city' => 'Nenagh',
-                    'addr_country' => 'IE',
-                    'addr_housenumber' => '23',
-                    'addr_street' => 'Sarsfield Street',
+                    'addr:city' => 'Nenagh',
+                    'addr:country' => 'IE',
+                    'addr:housenumber' => '23',
+                    'addr:street' => 'Sarsfield Street',
                     'amenity' => 'pub;restaurant',
                     'name' => 'Andy\'s',
                     'phone' => '+353 67 32494',
