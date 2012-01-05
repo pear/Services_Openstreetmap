@@ -282,6 +282,7 @@ class Services_Openstreetmap
      * @param SimpleXMLElement $node  Node to search
      * @param string           $key   Key to search for (Eg 'amenity')
      * @param string           $value Value to search for (Eg 'pharmacy')
+     * @param string           $type  Type of object to return.
      *
      * @return array
      */
