@@ -1,0 +1,114 @@
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <relation id="405053" visible="true" timestamp="2011-09-05T15:17:40Z" version="30" changeset="9218667" user="Nick Burrett" uid="166593">
+    <member type="way" ref="113230888" role=""/>
+    <member type="way" ref="113230894" role=""/>
+    <member type="way" ref="113230928" role=""/>
+    <member type="way" ref="113230859" role=""/>
+    <member type="way" ref="113230871" role=""/>
+    <member type="way" ref="113230836" role=""/>
+    <member type="way" ref="113230936" role=""/>
+    <member type="way" ref="113230900" role=""/>
+    <member type="way" ref="5852693" role=""/>
+    <member type="way" ref="39672449" role="forward"/>
+    <member type="way" ref="39672444" role="forward"/>
+    <member type="way" ref="26626521" role="forward"/>
+    <member type="way" ref="37849548" role="forward"/>
+    <member type="way" ref="5855803" role=""/>
+    <member type="way" ref="25097272" role=""/>
+    <member type="way" ref="51425301" role=""/>
+    <member type="way" ref="6056157" role=""/>
+    <member type="way" ref="27061396" role=""/>
+    <member type="way" ref="55888238" role=""/>
+    <member type="way" ref="6056506" role=""/>
+    <member type="way" ref="129000047" role=""/>
+    <member type="way" ref="6056510" role="backward"/>
+    <member type="way" ref="6056512" role="backward"/>
+    <member type="way" ref="49423395" role="backward"/>
+    <member type="way" ref="50897969" role="backward"/>
+    <member type="way" ref="25097378" role="backward"/>
+    <member type="way" ref="25097375" role="forward"/>
+    <member type="way" ref="51483781" role="forward"/>
+    <member type="way" ref="6056516" role="forward"/>
+    <member type="way" ref="46606574" role="forward"/>
+    <member type="way" ref="47372016" role="forward"/>
+    <member type="way" ref="51483782" role="forward"/>
+    <member type="way" ref="25097307" role="backward"/>
+    <member type="way" ref="54241156" role="backward"/>
+    <member type="way" ref="4476011" role="backward"/>
+    <member type="way" ref="46775039" role="backward"/>
+    <member type="way" ref="51443646" role=""/>
+    <member type="way" ref="5726684" role=""/>
+    <member type="way" ref="115711248" role=""/>
+    <member type="way" ref="115711249" role=""/>
+    <member type="way" ref="49910955" role=""/>
+    <member type="way" ref="46775038" role=""/>
+    <member type="way" ref="49910956" role=""/>
+    <member type="way" ref="128495423" role=""/>
+    <member type="way" ref="128495424" role=""/>
+    <member type="way" ref="5854023" role=""/>
+    <member type="way" ref="85394173" role=""/>
+    <member type="way" ref="85394200" role=""/>
+    <member type="way" ref="5725581" role=""/>
+    <member type="way" ref="5745062" role=""/>
+    <member type="way" ref="5745065" role=""/>
+    <member type="way" ref="5825846" role=""/>
+    <member type="way" ref="5850969" role=""/>
+    <member type="way" ref="5829264" role=""/>
+    <member type="way" ref="81148179" role=""/>
+    <member type="way" ref="5829271" role=""/>
+    <member type="way" ref="5825837" role=""/>
+    <member type="way" ref="5825835" role=""/>
+    <member type="way" ref="6081457" role=""/>
+    <member type="way" ref="5825836" role=""/>
+    <member type="way" ref="5410695" role=""/>
+    <member type="way" ref="6069567" role=""/>
+    <member type="way" ref="6069571" role=""/>
+    <member type="way" ref="6069568" role=""/>
+    <member type="way" ref="5829262" role=""/>
+    <member type="way" ref="5829261" role=""/>
+    <member type="way" ref="71423537" role=""/>
+    <member type="way" ref="4806152" role=""/>
+    <member type="way" ref="5746531" role=""/>
+    <member type="way" ref="4628992" role=""/>
+    <member type="way" ref="4628991" role=""/>
+    <member type="way" ref="37772966" role=""/>
+    <member type="way" ref="38004505" role=""/>
+    <member type="way" ref="4628990" role=""/>
+    <member type="way" ref="35335639" role=""/>
+    <member type="way" ref="35335638" role=""/>
+    <member type="way" ref="38004539" role=""/>
+    <member type="way" ref="8232241" role=""/>
+    <member type="way" ref="107161127" role=""/>
+    <member type="way" ref="51281514" role=""/>
+    <member type="way" ref="51281513" role=""/>
+    <member type="way" ref="49912608" role="forward"/>
+    <member type="way" ref="49912368" role="forward"/>
+    <member type="way" ref="11564675" role=""/>
+    <member type="way" ref="11564671" role="forward"/>
+    <member type="way" ref="11564689" role=""/>
+    <member type="way" ref="11564680" role=""/>
+    <member type="way" ref="11564703" role=""/>
+    <member type="way" ref="11564700" role=""/>
+    <member type="way" ref="49747263" role=""/>
+    <member type="way" ref="49912055" role=""/>
+    <member type="way" ref="11564697" role=""/>
+    <member type="way" ref="11564695" role=""/>
+    <member type="way" ref="41151996" role=""/>
+    <member type="way" ref="41139743" role=""/>
+    <member type="way" ref="41139742" role=""/>
+    <member type="way" ref="41754058" role=""/>
+    <member type="way" ref="6069565" role=""/>
+    <member type="node" ref="597697114" role="stop"/>
+    <member type="node" ref="593844424" role="stop"/>
+    <member type="node" ref="598511751" role="stop"/>
+    <tag k="complete" v="no"/>
+    <tag k="name" v="Dublin Bus route 75"/>
+    <tag k="operator" v="Dublin Bus"/>
+    <tag k="ref" v="75"/>
+    <tag k="route" v="bus"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

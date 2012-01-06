@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <node id="597697114" lat="53.2948964" lon="-6.1349465" version="1" changeset="3420913" user="Nick Burrett" uid="166593" visible="true" timestamp="2009-12-21T15:08:29Z">
+    <tag k="highway" v="bus_stop"/>
+    <tag k="operator" v="Dublin Bus"/>
+  </node>
+</osm>

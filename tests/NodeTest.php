@@ -407,7 +407,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api06.dev.openstreetmap.org/',
+            'server'  => 'http://api06.dev.openstreetmap.org/',
         );
 
         $osm = new Services_Openstreetmap($config);
@@ -421,6 +421,34 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'name' => 'Kingston Park',
             'name:en' => 'Kingston Park',
             'name:ga' => 'Páirc Kingston',
+        ));
+    }
+
+    public function testGetRelations()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/node_597697114.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/relation_405053.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server'  => 'http://api06.dev.openstreetmap.org/',
+        );
+
+        $osm = new Services_Openstreetmap($config);
+
+        $relations = $osm->getNode(597697114)->getRelations();
+        $this->assertInstanceOf('Services_Openstreetmap_Relations', $relations);
+        $this->assertEquals(sizeof($relations), 1);
+        $this->assertInstanceOf('Services_Openstreetmap_Relation', $relations[0]);
+        $this->assertEquals($relations[0]->getTags(), array (
+            'complete'=> 'no',
+            'name'=> 'Dublin Bus route 75',
+            'operator'=> 'Dublin Bus',
+            'ref'=> '75',
+            'route'=> 'bus',
+            'type'=> 'route',
         ));
     }
 }
