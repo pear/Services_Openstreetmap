@@ -146,7 +146,7 @@ class Services_Openstreetmap_Object
             $nodelist->item(0)->setAttribute("action", $this->action);
             $nodelist->item(0)->setAttribute("id", $this->getId());
 
-            if ($this->changeset_id !== null) {
+            if (!is_null($this->changeset_id)) {
                 $nodelist->item(0)->setAttribute("changeset", $this->changeset_id);
             }
             $tags = $xpath->query("//{$type}/tag");
@@ -187,7 +187,7 @@ class Services_Openstreetmap_Object
             $n = $xpath->query("//{$type}");
             $version = $this->getVersion();
             $version++;
-            if ($this->changeset_id !== null) {
+            if (!is_null($this->changeset_id)) {
                 $n->item(0)->setAttribute("changeset", $this->changeset_id);
             }
             $n->item(0)->setAttribute('action', 'delete');
@@ -221,7 +221,7 @@ class Services_Openstreetmap_Object
         }
 
         $attribs = $this->getAttributes();
-        if ($attribs !== null) {
+        if (!is_null($attribs)) {
             return (integer) $attribs->id;
         }
     }
@@ -251,7 +251,7 @@ class Services_Openstreetmap_Object
     public function getUid()
     {
         $attribs = $this->getAttributes();
-        if ($attribs !== null) {
+        if (!is_null($attribs)) {
             return (integer) $attribs->uid;
         }
     }
@@ -264,7 +264,7 @@ class Services_Openstreetmap_Object
     public function getUser()
     {
         $attribs = $this->getAttributes();
-        if ($attribs !== null) {
+        if (!is_null($attribs)) {
             return (string) $attribs->user;
         }
     }
@@ -277,7 +277,7 @@ class Services_Openstreetmap_Object
     public function getVersion()
     {
         $attribs = $this->getAttributes();
-        if ($attribs !== null) {
+        if (!is_null($attribs)) {
             return (integer) $attribs->version;
         }
     }
@@ -290,7 +290,7 @@ class Services_Openstreetmap_Object
     public function getAttributes()
     {
 
-        if ($this->obj[0] === null) {
+        if (is_null($this->obj[0])) {
             return null;
         }
         return $this->obj[0]->attributes();
@@ -341,6 +341,7 @@ class Services_Openstreetmap_Object
      */
     public function history()
     {
+        $transport = null;
         $type = $this->getType();
         $id = $this->getId();
         $config = $this->getConfig();
@@ -349,7 +350,8 @@ class Services_Openstreetmap_Object
             . $config->getValue('api_version')
             . "/$type/$id/history";
         $class = 'Services_Openstreetmap_' . ucfirst($type) . 's';
-        $response = $this->getTransport()->getResponse($url);
+        $transport = $this->getTransport();
+        $response = $transport->getResponse($url);
         $obj = new $class();
         $sxe = @simplexml_load_string($response->getBody());
         if ($sxe === false) {
@@ -399,7 +401,7 @@ class Services_Openstreetmap_Object
      */
     public function setTag($key, $value)
     {
-        if ($this->action == null) {
+        if (is_null($this->action)) {
             if ($this->getId() < 0) {
                 $this->action = 'create';
             } else {

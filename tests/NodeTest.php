@@ -398,6 +398,36 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $nodes = $osm->getNodes(array(621953926,621953928,621953939));
     }
 
+    public function testGetNodesHistory()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/nodes_621953926_621953928_621953939.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/node_621953926.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/node_621953928.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/node_621953939_history.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://api06.dev.openstreetmap.org/',
+        );
+        $osm = new Services_Openstreetmap($config);
+        $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
+        $versions = array(
+            621953926 => array(1),
+            621953928 => array(1),
+            621953939 => array(1, 2)
+        );
+        foreach ($nodes as $node) {
+            $history = $node->history();
+            $id = $node->getId();
+            foreach ($history as $item) {
+                $version = $item->getVersion();
+                $this->assertEquals(true, in_array($version, $versions[$id]));
+            }
+        }
+    }
+
     public function testGetWayBackRef()
     {
         $mock = new HTTP_Request2_Adapter_Mock();

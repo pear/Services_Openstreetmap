@@ -79,7 +79,7 @@ class Services_Openstreetmap
             $config = $this->config;
         }
         $this->getConfig()->setTransport($this->getTransport());
-        if ($config !== null) {
+        if (!is_null($config)) {
             $this->getConfig()->setValue($config);
         }
         $version = $this->getConfig()->getValue('api_version');
@@ -438,7 +438,7 @@ class Services_Openstreetmap
      */
     public function getConfig()
     {
-        if ($this->config === null) {
+        if (is_null($this->config)) {
             $config = new Services_Openstreetmap_Config();
             $this->config = $config;
         }
@@ -454,7 +454,7 @@ class Services_Openstreetmap
      */
     public function getTransport()
     {
-        if ($this->transport == null) {
+        if (is_null($this->transport)) {
             $transport = new Services_Openstreetmap_Transport();
             $transport->setConfig($this->getConfig());
             $this->transport = $transport;

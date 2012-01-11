@@ -46,7 +46,6 @@ class Services_Openstreetmap_Transport
     const GONE = 410;
     /**#@-*/
 
-
     /**
      * The HTTP_Request2 instance.
      *
@@ -111,7 +110,7 @@ class Services_Openstreetmap_Transport
             'User-Agent',
             $this->getConfig()->getValue('User-Agent')
         );
-        if ($user !== null && $password !== null) {
+        if (!is_null($user) && !is_null($password)) {
             $request->setAuth($user, $password);
         }
         if ($post_data != array()) {
@@ -125,7 +124,7 @@ class Services_Openstreetmap_Transport
                 $request->setHeader($header[0], $header[1], $header[2]);
             }
         }
-        if ($body !== null) {
+        if (!is_null($body)) {
             $request->setBody($body);
         }
         $code = 0;
@@ -170,7 +169,7 @@ class Services_Openstreetmap_Transport
      */
     function getRequest()
     {
-        if ($this->request === null) {
+        if (is_null($this->request)) {
             $this->request = new HTTP_Request2();
         }
         return $this->request;
@@ -219,7 +218,7 @@ class Services_Openstreetmap_Transport
             . $config['api_version']
             . '/' . $type . '/'
             . $id;
-        if ($version !== null) {
+        if (!is_null($version)) {
             $url .= "/$version";
         }
         try {
@@ -274,8 +273,13 @@ class Services_Openstreetmap_Transport
                 throw $ex;
             }
         }
+
         $class = 'Services_Openstreetmap_' . ucfirst(strtolower($type)) . 's';
         $obj = new $class();
+        if (!is_null($config)) {
+            $obj->setConfig($config);
+        }
+        $obj->setTransport($this);
         $sxe = @simplexml_load_string($response->getBody());
         if ($sxe === false) {
             $obj->setVal(trim($response->getBody()));

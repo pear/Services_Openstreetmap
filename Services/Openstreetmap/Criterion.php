@@ -86,7 +86,7 @@ class Services_Openstreetmap_Criterion
                 }
                 $before = gmstrftime("%Y-%m-%dT%H:%M:%SZ", $t);
             }
-            if ($before !== null) {
+            if (!is_null($before)) {
                 $this->value = "$after,$before";
             } else {
                 $this->value = $after;

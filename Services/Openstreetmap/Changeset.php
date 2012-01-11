@@ -64,10 +64,10 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
             . "/changeset/create";
         $user = $config->getValue('user');
         $password = $config->getValue('password');
-        if ($user == null) {
+        if (is_null($user)) {
             throw new Services_Openstreetmap_Exception('User must be set');
         }
-        if ($password == null) {
+        if (is_null($password)) {
             throw new Services_Openstreetmap_Exception('Password must be set');
         }
         $response = $this->getTransport()->getResponse(
@@ -228,7 +228,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
     public function isOpen()
     {
         $attribs = $this->getAttributes();
-        if ($attribs !== null) {
+        if (!is_null($attribs)) {
             return $attribs->open == 'true';
         } else {
             return $this->open;

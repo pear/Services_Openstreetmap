@@ -30,6 +30,10 @@ class Services_Openstreetmap_Objects implements Iterator, ArrayAccess, Countable
 
     protected $position = 0;
 
+    protected $transport = null;
+
+    protected $config = null;
+
     /**
      * getXml
      *
@@ -100,6 +104,11 @@ class Services_Openstreetmap_Objects implements Iterator, ArrayAccess, Countable
     {
         $class = 'Services_Openstreetmap_' . ucfirst(strtolower($this->getType()));
         $way = new $class();
+        $config = $this->getConfig();
+        if (!is_null($config)) {
+            $way->setConfig($config);
+        }
+        $way->setTransport($this->getTransport());
         $way->setXml(simplexml_load_string($this->objects[$this->position]));
         return $way;
     }
@@ -158,6 +167,11 @@ class Services_Openstreetmap_Objects implements Iterator, ArrayAccess, Countable
     {
         $class = 'Services_Openstreetmap_' . ucfirst(strtolower($this->getType()));
         $way = new $class();
+        $config = $this->getConfig();
+        if (!is_null($config)) {
+            $way->setConfig($config);
+        }
+        $way->setTransport($this->getTransport());
         if (isset($this->objects[$offset])) {
             $way->setXml(simplexml_load_string($this->objects[$offset]));
             return $way;
@@ -185,6 +199,52 @@ class Services_Openstreetmap_Objects implements Iterator, ArrayAccess, Countable
      */
     public function offsetUnset($offset)
     {
+    }
+
+    /**
+     * Set Config object
+     *
+     * @param Services_Openstreetmap_Config $config Config object
+     *
+     * @return Services_Openstreetmap_Changeset
+     */
+    public function setConfig(Services_Openstreetmap_Config $config)
+    {
+        $this->config = $config;
+        return $this;
+    }
+
+    /**
+     * Get current Config object
+     *
+     * @return Services_Openstreetmap_Config
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * Set the Transport instance.
+     *
+     * @param Services_Openstreetmap_Transport $transport Transport instance.
+     *
+     * @return Services_Openstreetmap_Config
+     */
+    public function setTransport($transport)
+    {
+        $this->transport = $transport;
+        return $this;
+    }
+
+    /**
+     * Retrieve the current Transport instance.
+     *
+     * @return Services_Openstreetmap_Transport.
+     */
+    public function getTransport()
+    {
+        return $this->transport;
     }
 }
 

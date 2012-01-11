@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <node id="621953939" lat="52.3747828" lon="-7.9257069" changeset="3736898" user="brianboru" uid="9065" visible="true" timestamp="2010-01-28T16:22:40Z" version="1">
+    <tag k="name" v="Morrissey's"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="source" v="survey"/>
+  </node>
+  <node id="621953939" lat="52.3747828" lon="-7.9257069" changeset="4933315" user="kenguest" uid="11324" visible="true" timestamp="2010-06-07T22:47:39Z" version="2">
+    <tag k="name" v="Morrissey's"/>
+    <tag k="addr:housenumber" v="5"/>
+    <tag k="addr:city" v="Cahir"/>
+    <tag k="addr:street" v="Castle Street"/>
+    <tag k="amenity" v="pub"/>
+    <tag k="addr:country" v="IE"/>
+    <tag k="source" v="survey"/>
+  </node>
+</osm>

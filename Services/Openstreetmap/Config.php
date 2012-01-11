@@ -123,7 +123,7 @@ class Services_Openstreetmap_Config
      */
     public function getValue($name = null)
     {
-        if ($name === null) {
+        if (is_null($name)) {
             return $this->config;
         } elseif (!array_key_exists($name, $this->config)) {
             throw new Services_Openstreetmap_Exception(
