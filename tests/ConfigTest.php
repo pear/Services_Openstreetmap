@@ -51,6 +51,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
             'user' => null,
             'verbose' => false,
             'User-Agent' => 'Services_Openstreetmap',
+            'server' => 'http://api06.dev.openstreetmap.org/'
         );
 
         $osm = new Services_Openstreetmap($config);
@@ -61,7 +62,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
                 'api_version' => '0.6',
                 'User-Agent' => 'Services_Openstreetmap',
                 'adapter' => $mock,
-                'server' => 'http://api.openstreetmap.org/',
+                'server' => 'http://api06.dev.openstreetmap.org/',
                 'verbose' => false,
                 'user' => null,
                 'password' => null,

@@ -236,6 +236,7 @@ class Services_Openstreetmap_Config
                 'Problem checking server capabilities'
             );
         }
+        $this->config['server'] = $server;
 
         return $this;
     }
