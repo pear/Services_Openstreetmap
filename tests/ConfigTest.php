@@ -84,7 +84,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testConfig2()
+    public function testUnknownConfig()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
@@ -167,6 +167,16 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($config, 'http://example.com');
     }
 
+    public function testSetServerExplicitMethod()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $osm = new Services_Openstreetmap(array('adapter' => $mock));
+            $osm->getConfig()->setServer('http://example.com');
+        $config = $osm->getConfig()->getValue('server');
+        $this->assertEquals($config, 'http://example.com');
+    }
+
     public function testSetPasswordFile()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -175,6 +185,18 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $osm  = new Services_Openstreetmap(array('adapter' => $mock));
         $cobj = $osm->getConfig();
         $cobj->setValue('passwordfile', __DIR__ . '/files/pwd_1line');
+        $config = $cobj->getValue('passwordfile');
+        $this->assertEquals($config, __DIR__ . '/files/pwd_1line');
+    }
+
+    public function testSetPasswordFileExplicitMethod()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+
+        $osm  = new Services_Openstreetmap(array('adapter' => $mock));
+        $cobj = $osm->getConfig();
+        $cobj->setPasswordfile( __DIR__ . '/files/pwd_1line');
         $config = $cobj->getValue('passwordfile');
         $this->assertEquals($config, __DIR__ . '/files/pwd_1line');
     }
@@ -194,6 +216,21 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $osm->getConfig()->setValue('passwordfile', __DIR__ . '/files/credentels');
     }
 
+    /**
+     * @expectedException Services_Openstreetmap_Exception
+     * @expectedExceptionMessage Could not read password file
+     *
+     * @return void
+     */
+    public function testSetNonExistingPasswordFileExplicitMethod()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+
+        $osm = new Services_Openstreetmap(array('adapter' => $mock));
+        $osm->getConfig()->setPasswordfile(__DIR__ . '/files/credentels');
+    }
+
     public function testEmptyPasswordFile()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -207,6 +244,19 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertNull($osm->getConfig()->getValue('password'));
     }
 
+    public function testEmptyPasswordFileExplicitMethod()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+
+        $osm = new Services_Openstreetmap(array('adapter' => $mock));
+        $osm->getConfig()->setPasswordfile(__DIR__ . '/files/pwd_empty');
+        $config = $osm->getConfig()->getValue('passwordfile');
+        $this->assertEquals($config, __DIR__ . '/files/pwd_empty');
+        $this->assertNull($osm->getConfig()->getValue('user'));
+        $this->assertNull($osm->getConfig()->getValue('password'));
+    }
+
     public function test1LinePasswordFile()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -214,6 +264,18 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
         $osm = new Services_Openstreetmap(array('adapter' => $mock));
         $osm->getConfig()->setValue('passwordfile', __DIR__ . '/files/pwd_1line');
+        $config = $osm->getConfig();
+        $this->assertEquals($config->getValue('user'), 'fred@example.com');
+        $this->assertEquals($config->getValue('password'), 'Wilma4evah');
+    }
+
+    public function test1LinePasswordFileExplicitMethod()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+
+        $osm = new Services_Openstreetmap(array('adapter' => $mock));
+        $osm->getConfig()->setPasswordfile(__DIR__ . '/files/pwd_1line');
         $config = $osm->getConfig();
         $this->assertEquals($config->getValue('user'), 'fred@example.com');
         $this->assertEquals($config->getValue('password'), 'Wilma4evah');
@@ -233,6 +295,24 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $config = $osm->getConfig();
         $this->assertEquals($config->getValue('password'), null);
         $config->setValue('passwordfile', __DIR__ . '/files/pwd_multi');
+        $config = $osm->getConfig();
+        $this->assertEquals($config->getValue('password'), 'Wilma4evah');
+    }
+
+    public function testMultiLinedPasswordFileExplicitMethod()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+
+        $osm = new Services_Openstreetmap(
+            array(
+                'adapter' => $mock,
+                'user' => 'fred@example.com'
+            )
+        );
+        $config = $osm->getConfig();
+        $this->assertEquals($config->getValue('password'), null);
+        $config->setPasswordfile(__DIR__ . '/files/pwd_multi');
         $config = $osm->getConfig();
         $this->assertEquals($config->getValue('password'), 'Wilma4evah');
     }
