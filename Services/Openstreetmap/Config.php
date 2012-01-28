@@ -160,9 +160,9 @@ class Services_Openstreetmap_Config
      * @throws Services_Openstreetmap_Exception If the parameter is unknown
      *
      * @access public
-     * @return void
+     * @return Services_Openstreetmap_Config
      */
-    function setValue($config, $value = null)
+    public function setValue($config, $value = null)
     {
         if (is_array($config)) {
             if (isset($config['adapter'])) {
@@ -218,7 +218,7 @@ class Services_Openstreetmap_Config
      * @access public
      * @return Services_Openstreetmap
      */
-    function setServer($server)
+    public function setServer($server)
     {
         try {
             $c = $this->getTransport()->getResponse($server . '/api/capabilities');
@@ -265,7 +265,7 @@ class Services_Openstreetmap_Config
      * @access public
      * @return Services_Openstreetmap
      */
-    function setPasswordfile($file)
+    public function setPasswordfile($file)
     {
         if (is_null($file)) {
             return $this;
@@ -347,7 +347,7 @@ class Services_Openstreetmap_Config
      * @see minVersion
      * @see timeout
      *
-     * @return void
+     * @return boolean
      *
      * @internal
      * @throws   Services_Openstreetmap_Exception If the API Version is not
@@ -513,7 +513,7 @@ class Services_Openstreetmap_Config
      * @param string           $attribute name of attribute
      * @param mixed            $default   default value
      *
-     * @return void
+     * @return string
      */
     public function getXMLValue(
         SimpleXMLElement $xml,

@@ -71,9 +71,9 @@ class Services_Openstreetmap
      * @param array $config Defaults to empty array if none provided
      *
      * @access protected
-     * @return void
+     * @return Services_Openstreetmap
      */
-    function __construct($config = array())
+    public function __construct($config = array())
     {
         if ($config == array()) {
             $config = $this->config;
@@ -107,7 +107,7 @@ class Services_Openstreetmap
      * @access public
      * @return array
      */
-    function bboxToMinMax($minLat, $minLon, $maxLat, $maxLon)
+    public function bboxToMinMax($minLat, $minLon, $maxLat, $maxLon)
     {
         return array($minLon, $minLat, $maxLon, $maxLat);
     }
@@ -129,7 +129,7 @@ class Services_Openstreetmap
      * @return void
      */
 
-    function get($minLon, $minLat, $maxLon, $maxLat)
+    public function get($minLon, $minLat, $maxLon, $maxLat)
     {
         $config = $this->getConfig();
         $url = $config->getValue('server')
@@ -152,7 +152,7 @@ class Services_Openstreetmap
      * @access public
      * @return array
      */
-    function getCoordsOfPlace($place)
+    public function getCoordsOfPlace($place)
     {
         $url = 'http://nominatim.openstreetmap.org/search?q='
              . urlencode($place) . '&limit=1&format=xml';
@@ -197,7 +197,7 @@ class Services_Openstreetmap
      * @access public
      * @return void
      */
-    function loadXML($file)
+    public function loadXML($file)
     {
         $this->xml = file_get_contents($file);
     }
@@ -208,7 +208,7 @@ class Services_Openstreetmap
      * @access public
      * @return string
      */
-    function getXML()
+    public function getXML()
     {
         return $this->xml;
     }

@@ -35,7 +35,7 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
      * @access public
      * @return boolean
      */
-    function isClosed()
+    public function isClosed()
     {
         // Not closed if there's just one node.
         // Otherwise a way is considered closed if the first node has
@@ -80,7 +80,7 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
      * @access public
      * @return Services_Openstreetmap_Way
      */
-    function addNode(Services_Openstreetmap_Node $node)
+    public function addNode(Services_Openstreetmap_Node $node)
     {
         $id = $node->getId();
         $pos = array_search($id, $this->nodes);
@@ -102,7 +102,7 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
      * @access public
      * @return Services_Openstreetmap_Way
      */
-    function removeNode($node)
+    public function removeNode($node)
     {
         if (empty($this->nodes)) {
             $this->nodes = $this->getNodes();

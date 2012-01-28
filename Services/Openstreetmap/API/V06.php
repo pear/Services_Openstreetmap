@@ -104,7 +104,7 @@ class Services_Openstreetmap_API_V06
      * @access public
      * @return string
      */
-    function getRelation($relationID, $version = null)
+    public function getRelation($relationID, $version = null)
     {
         return $this->getTransport()->getObject('relation', $relationID, $version);
     }
@@ -139,7 +139,7 @@ class Services_Openstreetmap_API_V06
      * @access public
      * @return string
      */
-    function getChangeset($id, $version = null)
+    public function getChangeset($id, $version = null)
     {
         return $this->getTransport()->getObject('changeset', $id, $version);
     }
@@ -336,7 +336,7 @@ class Services_Openstreetmap_API_V06
      * @access public
      * @return string
      */
-    function getNode($nodeID, $version = null)
+    public function getNode($nodeID, $version = null)
     {
         $node = $this->getTransport()->getObject('node', $nodeID, $version);
         if ($node !== false) {

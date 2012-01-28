@@ -34,7 +34,7 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
      * @access public
      * @return void
      */
-    function getMembers()
+    public function getMembers()
     {
         return $this->members;
     }
@@ -43,9 +43,9 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
      * type
      *
      * @access public
-     * @return void
+     * @return string
      */
-    function getType()
+    public function getType()
     {
         return $this->type;
     }
@@ -57,7 +57,7 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
      * @access public
      * @return void
      */
-    function addMember()
+    public function addMember()
     {
     }
 
@@ -68,7 +68,7 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
      * @access public
      * @return void
      */
-    function removeMember()
+    public function removeMember()
     {
     }
 
