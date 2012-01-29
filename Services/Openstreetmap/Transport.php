@@ -41,9 +41,34 @@ class Services_Openstreetmap_Transport
      */
     const NOT_FOUND = 404;
     /**
+     * Method not allowed.
+     */
+    const METHOD_NOT_ALLOWED = 405;
+    /**
+     * Conflict.
+     */
+    const CONFLICT = 409;
+    /**
      * Resource no longer available.
      */
     const GONE = 410;
+    /**
+     * Precondition failed.
+     */
+    const PRECONDITION_FAILED = 412;
+    /**
+     * Internal server error.
+     */
+    const INTERNAL_SERVER_ERROR = 500;
+    /**
+     * Service unavailable.
+     */
+    const SERVICE_UNAVAILABLE = 503;
+    /**
+     * Bandwidth limited exceeded.
+     * @link http://wiki.openstreetmap.org/wiki/API_v0.6
+     */
+    const BANDWIDTH_LIMIT_EXCEEDED = 509;
     /**#@-*/
 
     /**
@@ -93,13 +118,6 @@ class Services_Openstreetmap_Transport
         if ($this->getConfig()->getValue('verbose')) {
             echo $url, "\n";
         }
-        /*
-        $request = new HTTP_Request2(
-            $url,
-            $method,
-            array('adapter' => $this->getConfig('adapter'))
-        );
-        */
         $request = $this->getRequest();
         $request->setUrl($url);
         $request->setMethod($method);
