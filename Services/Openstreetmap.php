@@ -150,7 +150,8 @@ class Services_Openstreetmap
      * @param string $place name
      *
      * @access public
-     * @return array
+     * @return array Associated array of lat/lon values.
+     * @throws Services_Openstreetmap_Exception If the place can not be found.
      */
     public function getCoordsOfPlace($place)
     {
@@ -159,6 +160,11 @@ class Services_Openstreetmap
         $response = $this->getTransport()->getResponse($url);
         $xml = simplexml_load_string($response->getBody());
         $obj = $xml->xpath('//place');
+        if (empty($obj)) {
+            throw new Services_Openstreetmap_Exception(
+                'Could not get coords for ' . $place
+            );
+        }
         $attrs = $xml->named[0];
         $attrs = $obj[0]->attributes();
         $lat = (string) $attrs['lat'];

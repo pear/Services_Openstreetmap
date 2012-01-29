@@ -378,6 +378,29 @@ class OSMTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * An exception should be thrown if the place of interest can not be
+     * found.
+     *
+     * @expectedException Services_Openstreetmap_Exception
+     * @expectedExceptionMessage Could not get coords for Neeenaaa, Ireland
+     *
+     * @return void
+     */
+    public function testGetCoordsOfNonExistentPlace()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(
+            fopen(
+                __DIR__ . '/responses/nominatim_search_neeenaaa.xml',
+                'rb'
+                )
+        );
+
+        $osm = new Services_Openstreetmap(array('adapter' => $mock));
+        $osm->getCoordsOfPlace('Neeenaaa, Ireland');
+    }
+
     public function testGetHistory()
     {
         $id = 52245107;
