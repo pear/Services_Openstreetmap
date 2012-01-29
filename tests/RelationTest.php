@@ -67,8 +67,11 @@ class RelationTest extends PHPUnit_Framework_TestCase
         $members = $relation->getMembers();
 
         $this->assertEquals(18, sizeof($members));
-        $this->assertEquals('house', $members[0]['role']);
-        $this->assertEquals('way', $members[0]['type']);
+        foreach( $members as $member ) {
+            $this->assertEquals('house', $member['role']);
+            $this->assertEquals('way', $member['type']);
+            $this->assertTrue(is_numeric($member['ref']));
+        }
     }
 
 
