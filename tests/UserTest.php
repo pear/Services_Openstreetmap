@@ -11,7 +11,6 @@
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @version    Release: @package_version@
  * @link       UserTest.php
- * @todo       update docblocks.
  */
 
 $version = '@package_version@';
@@ -37,6 +36,9 @@ require_once 'PHPUnit/Framework/TestCase.php';
  */
 class UserTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * Test that user data is parsed correctly.
+     */
     public function testUser()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -66,6 +68,9 @@ class UserTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * If there is no image set for a user, then getImage should return null.
+     */
     public function testUserNoImage()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -84,6 +89,9 @@ class UserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($user->getImage(), null);
     }
 
+    /**
+     * Test the getLat and getLon methods of the User object.
+     */
     public function testUserHomeSet()
     {
         $mock = new HTTP_Request2_Adapter_Mock();

@@ -11,7 +11,6 @@
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @version    Release: @package_version@
  * @link       ConfigTest.php
- * @todo       update docblocks.
  */
 
 $version = '@package_version@';
@@ -38,6 +37,9 @@ require_once 'PHPUnit/Framework/TestCase.php';
  */
 class ConfigTest extends PHPUnit_Framework_TestCase
 {
+    /*
+     * General test of the Config class
+     */
     public function testConfig()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -77,7 +79,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test unknown config detection
+     * Test unknown config detection.
      *
      * @expectedException Services_Openstreetmap_Exception
      * @expectedExceptionMessage Unknown config parameter 'api'
@@ -96,7 +98,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test unknown config detection
+     * Test unknown config detection.
      *
      * @expectedException Services_Openstreetmap_Exception
      * @expectedExceptionMessage Unknown config parameter 'api'
@@ -148,6 +150,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * Set server value via the setValue method - with scenario of
+     * something wrong with the API server.
+     *
+     * @return void
+     */
     public function testSetServer()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -167,6 +175,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($config, 'http://example.com');
     }
 
+    /**
+     * Set server value via the explicit setServer method.
+     *
+     * @return void
+     */
     public function testSetServerExplicitMethod()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -177,6 +190,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($config, 'http://example.com');
     }
 
+    /**
+     * Set passwordfile value using the setValue method.
+     *
+     * @return void
+     */
     public function testSetPasswordFile()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -189,6 +207,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($config, __DIR__ . '/files/pwd_1line');
     }
 
+    /**
+     * Set passwordfile value using the setPasswordfile method.
+     *
+     * @return void
+     */
     public function testSetPasswordFileExplicitMethod()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -202,6 +225,9 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Exception should be thrown if the password file being set doesn't exist.
+     * Do this via the setValue method.
+     *
      * @expectedException Services_Openstreetmap_Exception
      * @expectedExceptionMessage Could not read password file
      *
@@ -217,6 +243,9 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Exception should be thrown if the password file being set doesn't exist
+     * Do this via the explicit setPasswordfile method.
+     *
      * @expectedException Services_Openstreetmap_Exception
      * @expectedExceptionMessage Could not read password file
      *
@@ -231,6 +260,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $osm->getConfig()->setPasswordfile(__DIR__ . '/files/credentels');
     }
 
+    /**
+     * Empty password file - set with setValue
+     *
+     * @return void
+     */
     public function testEmptyPasswordFile()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -244,6 +278,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertNull($osm->getConfig()->getValue('password'));
     }
 
+    /**
+     * Empty password file - set with setPasswordfile
+     *
+     * @return void
+     */
     public function testEmptyPasswordFileExplicitMethod()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -257,6 +296,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertNull($osm->getConfig()->getValue('password'));
     }
 
+    /**
+     * One line password file - set with setValue
+     *
+     * @return void
+     */
     public function test1LinePasswordFile()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -269,6 +313,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($config->getValue('password'), 'Wilma4evah');
     }
 
+    /**
+     * One line password file - set with setPasswordfile
+     *
+     * @return void
+     */
     public function test1LinePasswordFileExplicitMethod()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -281,6 +330,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($config->getValue('password'), 'Wilma4evah');
     }
 
+    /**
+     * One line password file - set with setValue
+     *
+     * @return void
+     */
     public function testMultiLinedPasswordFile()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -299,6 +353,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($config->getValue('password'), 'Wilma4evah');
     }
 
+    /**
+     * One line password file - set with setPasswordfile
+     *
+     * @return void
+     */
     public function testMultiLinedPasswordFileExplicitMethod()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
