@@ -42,7 +42,9 @@ class Services_Openstreetmap_Criterion
             if (is_numeric($args[1])) {
                 $this->value = $args[1];
             } else {
-                throw new InvalidArgumentException('User UID must be numeric');
+                throw new Services_Openstreetmap_InvalidArgumentException(
+                    'User UID must be numeric'
+                );
             }
             break;
         case 'bbox':
@@ -56,8 +58,10 @@ class Services_Openstreetmap_Criterion
                 $node->setLat($minLat);
                 $node->setLon($maxLon);
                 $node->setLat($maxLat);
-            } catch(InvalidArgumentException $ex) {
-                throw new InvalidArgumentException($ex->getMessage());
+            } catch(Services_Openstreetmap_InvalidArgumentException $ex) {
+                throw new Services_Openstreetmap_InvalidArgumentException(
+                    $ex->getMessage()
+                );
             }
             $this->value = "{$minLon},{$minLat},{$maxLon},{$maxLat}";
             break;
@@ -74,7 +78,9 @@ class Services_Openstreetmap_Criterion
                 $after = $args[1];
                 $t = strtotime($after);
                 if ($t == -1 or $t === false) {
-                    throw new InvalidArgumentException('Invalid time value');
+                    throw new Services_Openstreetmap_InvalidArgumentException(
+                        'Invalid time value'
+                    );
                 }
                 $after = gmstrftime("%Y-%m-%dT%H:%M:%SZ", $t);
             }
@@ -82,7 +88,9 @@ class Services_Openstreetmap_Criterion
                 $before = $args[2];
                 $t = strtotime($before);
                 if ($t == -1 or $t === false) {
-                    throw new InvalidArgumentException('Invalid time value');
+                    throw new Services_Openstreetmap_InvalidArgumentException(
+                        'Invalid time value'
+                    );
                 }
                 $before = gmstrftime("%Y-%m-%dT%H:%M:%SZ", $t);
             }
@@ -94,7 +102,9 @@ class Services_Openstreetmap_Criterion
             break;
         default:
             $this->type = null;
-            throw new InvalidArgumentException('Unknown constraint type');
+            throw new Services_Openstreetmap_InvalidArgumentException(
+                'Unknown constraint type'
+            );
         }
     }
 

@@ -70,7 +70,6 @@ class Services_Openstreetmap
      *
      * @param array $config Defaults to empty array if none provided
      *
-     * @access protected
      * @return Services_Openstreetmap
      */
     public function __construct($config = array())
@@ -104,7 +103,6 @@ class Services_Openstreetmap
      * @param mixed $maxLat max Latitude
      * @param mixed $maxLon max Longitude
      *
-     * @access public
      * @return array
      */
     public function bboxToMinMax($minLat, $minLon, $maxLat, $maxLon)
@@ -149,7 +147,6 @@ class Services_Openstreetmap
      *
      * @param string $place name
      *
-     * @access public
      * @return array Associated array of lat/lon values.
      * @throws Services_Openstreetmap_Exception If the place can not be found.
      */
@@ -200,10 +197,9 @@ class Services_Openstreetmap
      *
      * @param string $file filename
      *
-     * @access public
      * @return void
      */
-    public function loadXML($file)
+    public function loadXml($file)
     {
         $this->xml = file_get_contents($file);
     }
@@ -211,10 +207,9 @@ class Services_Openstreetmap
     /**
      * return XML.
      *
-     * @access public
      * @return string
      */
-    public function getXML()
+    public function getXml()
     {
         return $this->xml;
     }
@@ -253,7 +248,6 @@ class Services_Openstreetmap
      *
      * @param array $criteria what to search for
      *
-     * @access public
      * @return array
      */
     public function search(array $criteria)

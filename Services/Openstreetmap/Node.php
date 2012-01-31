@@ -56,18 +56,24 @@ class Services_Openstreetmap_Node extends Services_Openstreetmap_Object
      * @param float $value Latitude (-180 < y < 180)
      *
      * @return Services_Openstreetmap_Node
-     * @throws InvalidArgumentException
+     * @throws Services_Openstreetmap_InvalidArgumentException
      */
     public function setLat($value)
     {
         if (!is_numeric($value)) {
-            throw new InvalidArgumentException("Latitude must be numeric");
+            throw new Services_Openstreetmap_InvalidArgumentException(
+                'Latitude must be numeric'
+            );
         }
         if ($value < -180) {
-            throw new InvalidArgumentException("Latitude can't be less than -180");
+            throw new Services_Openstreetmap_InvalidArgumentException(
+                'Latitude can\'t be less than -180'
+            );
         }
         if ($value > 180) {
-            throw new InvalidArgumentException("Latitude can't be greater than 180");
+            throw new Services_Openstreetmap_InvalidArgumentException(
+                'Latitude can\'t be greater than 180'
+            );
         }
         return $this;
     }
@@ -82,18 +88,24 @@ class Services_Openstreetmap_Node extends Services_Openstreetmap_Object
      * @param float $value Longitude (-90 < x < 90)
      *
      * @return Services_Openstreetmap_Node
-     * @throws InvalidArgumentException
+     * @throws Services_Openstreetmap_InvalidArgumentException
      */
     public function setLon($value)
     {
         if (!is_numeric($value)) {
-            throw new InvalidArgumentException("Longitude must be numeric");
+            throw new Services_Openstreetmap_InvalidArgumentException(
+                'Longitude must be numeric'
+            );
         }
         if ($value < -90) {
-            throw new InvalidArgumentException("Longitude can't be less than -90");
+            throw new Services_Openstreetmap_InvalidArgumentException(
+                'Longitude can\'t be less than -90'
+            );
         }
         if ($value > 90) {
-            throw new InvalidArgumentException("Longitude can't be greater than 90");
+            throw new Services_Openstreetmap_InvalidArgumentException(
+                'Longitude can\'t be greater than 90'
+            );
         }
         return $this;
     }

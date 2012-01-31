@@ -117,16 +117,21 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
     /**
      * commit
      *
+     * Generate osmChange document and post it to the server, when successful
+     * close the changeset.
+     *
      * @return void
+     * @link   http://wiki.openstreetmap.org/wiki/OsmChange
      */
     public function commit()
     {
         if (!$this->open) {
             throw new Services_Openstreetmap_Exception(
-                "Attempt to commit a closed changeset"
+                'Attempt to commit a closed changeset'
             );
         }
 
+        // Generate URL that the osmChange document will be posted to
         $cId = $this->getId();
         $config = $this->getConfig()->asArray();
         $url = $config['server']
@@ -134,6 +139,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
             . $config['api_version'] .
             "/changeset/{$cId}/upload";
 
+        // Generate the osmChange document
         $blocks = null;
         foreach ($this->members as $member) {
             $blocks .= $member->getOsmChangeXML() . "\n";
@@ -142,6 +148,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
         $doc = "<osmChange version='0.6' generator='Services_Openstreetmap'>\n"
              . $blocks . '</osmChange>';
 
+        // Post the osmChange document to the server
         try {
             $response = $this->getTransport()->getResponse(
                 $url,
@@ -162,7 +169,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
         }
         if (Services_Openstreetmap_Transport::OK != $code) {
             throw new Services_Openstreetmap_Exception(
-                "Error posting changeset",
+                'Error posting changeset',
                 $code
             );
 

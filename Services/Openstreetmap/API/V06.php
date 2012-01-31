@@ -101,7 +101,6 @@ class Services_Openstreetmap_API_V06
      * @param mixed $relationID ID of relation
      * @param mixed $version    [optional] version of relation
      *
-     * @access public
      * @return string
      */
     public function getRelation($relationID, $version = null)
@@ -136,7 +135,6 @@ class Services_Openstreetmap_API_V06
      * @param string $id      numeric ID of changeset
      * @param string $version optional
      *
-     * @access public
      * @return string
      */
     public function getChangeset($id, $version = null)
@@ -184,7 +182,9 @@ class Services_Openstreetmap_API_V06
         if (array_search('user', $types) !== false
             && array_search('display_name', $types) !== false
         ) {
-            throw new InvalidArgumentException('Can\'t supply both user and display_name criteria');
+            throw new Services_Openstreetmap_InvalidArgumentException(
+                'Can\'t supply both user and display_name criteria'
+            );
         }
 
         return $this->getTransport()->searchObjects('changeset', $criteria);
@@ -292,7 +292,6 @@ class Services_Openstreetmap_API_V06
      * @param mixed $wayID   wayID
      * @param mixed $version [optional] version of way
      *
-     * @access public
      * @return string
      */
     public function getWay($wayID, $version = null)
@@ -333,7 +332,6 @@ class Services_Openstreetmap_API_V06
      * @param string $nodeID  nodeID
      * @param mixed  $version [optional] version of node
      *
-     * @access public
      * @return string
      */
     public function getNode($nodeID, $version = null)

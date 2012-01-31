@@ -159,7 +159,6 @@ class Services_Openstreetmap_Config
      *
      * @throws Services_Openstreetmap_Exception If the parameter is unknown
      *
-     * @access public
      * @return Services_Openstreetmap_Config
      */
     public function setValue($config, $value = null)
@@ -215,7 +214,6 @@ class Services_Openstreetmap_Config
      *
      * @param string $server base server details, e.g. http://api.openstreetmap.org
      *
-     * @access public
      * @return Services_Openstreetmap
      */
     public function setServer($server)
@@ -262,7 +260,6 @@ class Services_Openstreetmap_Config
      *
      * @param string $file file containing credentials
      *
-     * @access public
      * @return Services_Openstreetmap
      */
     public function setPasswordfile($file)
@@ -360,8 +357,8 @@ class Services_Openstreetmap_Config
             return false;
         }
 
-        $this->minVersion = (float) $this->getXMLValue($xml, 'version', 'minimum');
-        $this->maxVersion = (float) $this->getXMLValue($xml, 'version', 'maximum');
+        $this->minVersion = (float) $this->getXmlValue($xml, 'version', 'minimum');
+        $this->maxVersion = (float) $this->getXmlValue($xml, 'version', 'maximum');
         if (($this->minVersion > $this->api_version
             || $this->api_version > $this->maxVersion)
         ) {
@@ -369,30 +366,30 @@ class Services_Openstreetmap_Config
                 'Specified API Version ' . $this->api_version .' not supported.'
             );
         }
-        $this->timeout = (int) $this->getXMLValue($xml, 'timeout', 'seconds');
+        $this->timeout = (int) $this->getXmlValue($xml, 'timeout', 'seconds');
         //changesets
-        $this->changeset_maximum_elements = (int) $this->getXMLValue(
+        $this->changeset_maximum_elements = (int) $this->getXmlValue(
             $xml,
             'changesets',
             'maximum_elements'
         );
 
         // Maximum number of nodes per way.
-        $this->waynodes_maximum = (int) $this->getXMLValue(
+        $this->waynodes_maximum = (int) $this->getXmlValue(
             $xml,
             'waynodes',
             'maximum'
         );
 
         // Number of tracepoints per way.
-        $this->tracepoints_per_page = (int) $this->getXMLValue(
+        $this->tracepoints_per_page = (int) $this->getXmlValue(
             $xml,
             'tracepoints',
             'per_page'
         );
 
         // Max size of area that can be downloaded in one request.
-        $this->area_maximum = (float) $this->getXMLValue(
+        $this->area_maximum = (float) $this->getXmlValue(
             $xml,
             'area',
             'maximum'
@@ -506,7 +503,7 @@ class Services_Openstreetmap_Config
     }
 
     /**
-     * getXMLValue
+     * getXmlValue
      *
      * @param SimpleXMLElement $xml       Object
      * @param string           $tag       name of tag
@@ -515,7 +512,7 @@ class Services_Openstreetmap_Config
      *
      * @return string
      */
-    public function getXMLValue(
+    public function getXmlValue(
         SimpleXMLElement $xml,
         $tag,
         $attribute,

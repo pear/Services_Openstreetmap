@@ -31,7 +31,6 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
     /**
      * Return all members of the relation.
      *
-     * @access public
      * @return void
      */
     public function getMembers()
@@ -42,7 +41,6 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
     /**
      * type
      *
-     * @access public
      * @return string
      */
     public function getType()
@@ -54,7 +52,6 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
      * addMember
      *
      * @todo   add member to relation
-     * @access public
      * @return void
      */
     public function addMember()
@@ -65,7 +62,6 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
      * remove a member from the relation.
      *
      * @todo   remove member from relation
-     * @access public
      * @return void
      */
     public function removeMember()

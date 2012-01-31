@@ -47,15 +47,15 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Services_Openstreetmap', $osm);
     }
 
-    public function testLoadXML()
+    public function testLoadXml()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $osm = new Services_Openstreetmap(array('adapter' => $mock));
-        $this->assertEquals($osm->getXML(), null);
-        $osm->loadXML(__DIR__ . '/files/osm.osm');
-        $this->assertNotEquals($osm->getXML(), null);
+        $this->assertEquals($osm->getXml(), null);
+        $osm->loadXml(__DIR__ . '/files/osm.osm');
+        $this->assertNotEquals($osm->getXml(), null);
 
     }
 

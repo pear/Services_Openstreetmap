@@ -26,7 +26,6 @@ class Services_Openstreetmap_Transport
 {
     /**#@+
      * @link http://tools.ietf.org/html/rfc2616
-     * @access public
      */
     /**
      * Ok
@@ -97,7 +96,6 @@ class Services_Openstreetmap_Transport
      * @param array  $post_data (optional)
      * @param array  $headers   (optional)
      *
-     * @access public
      * @return HTTP_Request2_Response
      * @throws  Services_Openstreetmap_Exception If something unexpected has
      *                                           happened while conversing with
@@ -182,7 +180,6 @@ class Services_Openstreetmap_Transport
     /**
      * Get HTTP_Request2 instance.
      *
-     * @access public
      * @return HTTP_Request2
      */
     function getRequest()
