@@ -207,18 +207,18 @@ class Services_Openstreetmap_API_V06
     {
         $node = new Services_Openstreetmap_Node();
         $config = $this->getConfig();
-        $api_version = $config->getValue('api_version');
-        $user_agent  = $config->getValue('User-Agent');
+        $apiVersion = $config->getValue('api_version');
+        $userAgent  = $config->getValue('User-Agent');
         $xml = "<?xml version='1.0' encoding='UTF-8'?>
-<osm version='{$api_version}' generator='{$user_agent}'>
+<osm version='{$apiVersion}' generator='{$userAgent}'>
 <node lat='{$latitude}' lon='{$longitude}' version='1'/></osm>";
         $node->setLat($latitude);
         $node->setLon($longitude);
         $node->setXml(simplexml_load_string($xml));
         $node->setId($this->newId--);
-        $node->setTag('created_by', $user_agent);
+        $node->setTag('created_by', $userAgent);
         if (!empty($tags)) {
-            foreach ($tags as $key=>$value) {
+            foreach ($tags as $key => $value) {
                 $node->setTag($key, $value);
             }
         }
@@ -346,6 +346,9 @@ class Services_Openstreetmap_API_V06
 
     /**
      * Return an array of specified nodes.
+     *
+     * If none can be retrieved, for example if they all have been deleted,
+     * then the boolean false value is returned.
      *
      * <code>
      * $osm = new Services_Openstreetmap();

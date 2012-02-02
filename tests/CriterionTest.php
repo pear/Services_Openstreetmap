@@ -37,6 +37,11 @@ require_once 'PHPUnit/Framework/TestCase.php';
  */
 class CriterionTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * Search by user id.
+     *
+     * @return void
+     */
     public function testSearchByUser()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -44,8 +49,8 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/changesets_11324.xml', 'rb'));
 
         $config = array(
-            'adapter'  => $mock,
-            'server'   => 'http://api06.dev.openstreetmap.org/',
+            'adapter' => $mock,
+            'server'  => 'http://api06.dev.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $changesets = $osm->searchChangesets(
@@ -53,7 +58,7 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         );
         $this->assertInstanceOf('Services_Openstreetmap_Changesets', $changesets);
         $diff = false;
-        foreach($changesets as $changeset) {
+        foreach ($changesets as $changeset) {
             if ($changeset->getUid() != 11324) {
                 $diff = true;
             }
@@ -62,10 +67,13 @@ class CriterionTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Search by an unrecognised constraint type ('uid').
+     * Searching by an unrecognised constraint type ('uid') should throw an
+     * exception.
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException        Services_Openstreetmap_InvalidArgumentException
      * @expectedExceptionMessage Unknown constraint type
+     *
+     * @return void
      */
     public function testSearchInvalid()
     {
@@ -82,6 +90,11 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * Search by a user's display_name.
+     *
+     * @return void
+     */
     public function testSearchByDisplayName()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -103,8 +116,10 @@ class CriterionTest extends PHPUnit_Framework_TestCase
      * Check that an exception is thrown if attempting to search by both
      * user id and display_name
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException        Services_Openstreetmap_InvalidArgumentException
      * @expectedExceptionMessage Can't supply both user and display_name criteria
+     *
+     * @return void
      */
     public function testSearchByDisplayNameAndUser()
     {
@@ -117,13 +132,21 @@ class CriterionTest extends PHPUnit_Framework_TestCase
             'server'   => 'http://api06.dev.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
-        $display_name = new Services_Openstreetmap_Criterion('display_name', 'kenguest');
-        $this->assertEquals($display_name->type(), 'display_name');
+        $displayName = new Services_Openstreetmap_Criterion(
+            'display_name',
+            'kenguest'
+        );
+        $this->assertEquals($displayName->type(), 'display_name');
         $user = new Services_Openstreetmap_Criterion('user', 11324);
-        $changesets = $osm->searchChangesets(array($display_name, $user));
+        $changesets = $osm->searchChangesets(array($displayName, $user));
         $this->assertInstanceOf('Services_Openstreetmap_Changesets', $changesets);
     }
 
+    /**
+     * Search for changesets focused on a specific area/bounding box.
+     *
+     * @return void
+     */
     public function testSearchByBbox()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -131,18 +154,30 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/changesets_11324.xml', 'rb'));
 
         $config = array(
-            'adapter'  => $mock,
-            'server'   => 'http://api06.dev.openstreetmap.org/',
+            'adapter' => $mock,
+            'server'  => 'http://api06.dev.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
         $changesets = $osm->searchChangesets(
             array(
-                new Services_Openstreetmap_Criterion('bbox', -8.0590275, 52.9347449, -7.9966939, 52.9611999),
+                new Services_Openstreetmap_Criterion(
+                    'bbox',
+                    -8.0590275,
+                    52.9347449,
+                    -7.9966939,
+                    52.9611999
+                )
             )
         );
         $this->assertInstanceOf('Services_Openstreetmap_Changesets', $changesets);
     }
 
+    /**
+     * test searching on multiple criteria: changesets by specific user id,
+     * focused on a certain area (bbox) which have been closed.
+     *
+     * @return void
+     */
     public function testSearchByMultipleCriteria()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -159,24 +194,43 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($user->type(), 'user');
         $this->assertEquals($user->query(), 'user=11324');
 
-        $bbox = new Services_Openstreetmap_Criterion('bbox', -8.0590275, 52.9347449, -7.9966939, 52.9611999);
+        $bbox = new Services_Openstreetmap_Criterion(
+            'bbox',
+            -8.0590275,
+            52.9347449,
+            -7.9966939,
+            52.9611999
+        );
         $this->assertEquals($bbox->type(), 'bbox');
-        $this->assertEquals($bbox->query(), 'bbox=-8.0590275,52.9347449,-7.9966939,52.9611999');
+        $this->assertEquals(
+            $bbox->query(),
+            'bbox=-8.0590275,52.9347449,-7.9966939,52.9611999'
+        );
 
         $closed = new Services_Openstreetmap_Criterion('closed');
         $this->assertEquals($closed->type(), 'closed');
         $this->assertEquals($closed->query(), 'closed');
 
-        $changesets = $osm->searchChangesets( array($user, $bbox, $closed));
+        $changesets = $osm->searchChangesets(array($user, $bbox, $closed));
         $this->assertInstanceOf('Services_Openstreetmap_Changesets', $changesets);
     }
 
+    /**
+     * Test searching changesets for those by a specific person via
+     * display_name and created within a certain timespan.
+     *
+     * @return void
+     */
     public function testTimeAfterOnly()
     {
-
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/changeset_search_timespan.xml', 'rb'));
+        $mock->addResponse(
+            fopen(
+                __DIR__ . '/responses/changeset_search_timespan.xml',
+                'rb'
+            )
+        );
 
         $config = array(
             'adapter'  => $mock,
@@ -186,12 +240,24 @@ class CriterionTest extends PHPUnit_Framework_TestCase
 
         $time = '17 November 2011';
         $time2 = '29 November 2011';
-        $display_name = new Services_Openstreetmap_Criterion('display_name', 'kenguest');
+
+        $displayName = new Services_Openstreetmap_Criterion(
+            'display_name',
+            'kenguest'
+        );
+        $this->assertEquals($displayName->query(), 'display_name=kenguest');
+        $this->assertEquals($displayName->type(), 'display_name');
+
         $c = new Services_Openstreetmap_Criterion('time', $time, $time2);
-        $this->assertEquals($c->query(), "time=2011-11-17T00%3A00%3A00Z%2C2011-11-29T00%3A00%3A00Z");
-        $changesets = $osm->searchChangesets(array($display_name, $c));
+        $this->assertEquals(
+            $c->query(),
+            'time=2011-11-17T00%3A00%3A00Z%2C2011-11-29T00%3A00%3A00Z'
+        );
+        $this->assertEquals($c->type(), 'time');
+
+        $changesets = $osm->searchChangesets(array($displayName, $c));
         $this->assertInstanceOf('Services_Openstreetmap_Changesets', $changesets);
-   }
+    }
 }
 // vim:set et ts=4 sw=4:
 ?>

@@ -26,7 +26,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
 {
     protected $type = 'changeset';
     protected $members = array();
-    protected $members_ids = array();
+    protected $membersIds = array();
     protected $open = false;
     protected $id = null;
 
@@ -51,17 +51,17 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
         $this->members = array();
         $this->open = true;
         $config = $this->getConfig();
-        $user_agent = $config->getValue('User-Agent');
+        $userAgent = $config->getValue('User-Agent');
         $doc = "<?xml version='1.0' encoding=\"UTF-8\"?>\n" .
-        '<osm version="0.6" generator="' . $user_agent . '">'
+        '<osm version="0.6" generator="' . $userAgent . '">'
             . "<changeset id='0' open='false'>"
             . '<tag k="comment" v="' . $message . '"/>'
-            . '<tag k="created_by" v="' . $user_agent . '/0.1"/>'
+            . '<tag k="created_by" v="' . $userAgent . '/0.1"/>'
             . '</changeset></osm>';
         $url = $config->getValue('server')
             . 'api/'
             . $config->getValue('api_version')
-            . "/changeset/create";
+            . '/changeset/create';
         $user = $config->getValue('user');
         $password = $config->getValue('password');
         if (is_null($user)) {
@@ -99,17 +99,17 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
     {
         if ($this->open === false) {
             throw new Services_Openstreetmap_Exception(
-                "Object added to closed changeset"
+                'Object added to closed changeset'
             );
         }
         $object->setChangesetId($this->getId());
-        $object_id = $object->getType() . $object->getId();
-        if (!in_array($object_id, $this->members_ids)) {
+        $objectId = $object->getType() . $object->getId();
+        if (!in_array($objectId, $this->membersIds)) {
             $this->members[] = $object;
-            $this->members_ids[] = $object_id;
+            $this->membersIds[] = $objectId;
         } else {
             throw new Services_Openstreetmap_Exception(
-                "Object added to changeset already"
+                'Object added to changeset already'
             );
         }
     }

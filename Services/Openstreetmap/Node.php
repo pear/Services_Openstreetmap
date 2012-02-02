@@ -125,14 +125,14 @@ class Services_Openstreetmap_Node extends Services_Openstreetmap_Object
             'addr_country' => null
         );
         $tags = $this->getTags();
-        $details_set = false;
+        $detailsSet = false;
         foreach ($tags as $key => $value) {
             if (strpos($key, 'addr') === 0) {
                 $ret[str_replace(':', '_', $key)] = $value;
-                $details_set = true;
+                $detailsSet = true;
             }
         }
-        if (!$details_set) {
+        if (!$detailsSet) {
             $ret = null;
         }
         return $ret;

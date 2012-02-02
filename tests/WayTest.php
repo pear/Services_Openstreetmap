@@ -37,6 +37,11 @@ require_once 'HTTP/Request2/Adapter/Mock.php';
 class WayTest extends PHPUnit_Framework_TestCase
 {
 
+    /**
+     * Test retrieving a way and some tags and attributes of it too.
+     *
+     * @return void
+     */
     public function testGetWay()
     {
         $id = 25978036;
@@ -56,10 +61,17 @@ class WayTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($getTags['highway'], 'service');
         $this->assertEquals($way->getUid(), 1379);
         $this->assertEquals($way->getVersion(), 1);
-        $this->assertEquals($way->getUser(), "AndrewMcCarthy");
-        $this->assertEquals($way->getNodes(), array("283393706","283393707"));
+        $this->assertEquals($way->getUser(), 'AndrewMcCarthy');
+        $this->assertEquals($way->getNodes(), array('283393706','283393707'));
     }
 
+    /**
+     * Test the isClosed method against a closed way.
+     *
+     * Check the 'building' tag, and id attribute too.
+     *
+     * @return void
+     */
     public function testGetClosedWay()
     {
         $id = 18197393;
@@ -74,12 +86,17 @@ class WayTest extends PHPUnit_Framework_TestCase
         );
         $osm = new Services_Openstreetmap($config);
         $way = $osm->getWay($id);
-        $getTags = $way->getTags();
+        $tags = $way->getTags();
         $this->assertEquals($id, (int) $way->getAttributes()->id);
-        $this->assertEquals($getTags['building'], 'yes');
+        $this->assertEquals($tags['building'], 'yes');
         $this->assertTrue($way->isClosed());
     }
 
+    /**
+     * Test the isClosed method against an open way.
+     *
+     * @return void
+     */
     public function testOpenWay()
     {
         $id = 23010474;
@@ -99,6 +116,11 @@ class WayTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($way->isClosed());
     }
 
+    /**
+     * A way with just one node can't be deemed closed.
+     *
+     * @return void
+     */
     public function testWayWithOneNode()
     {
         $id = 23010475;
@@ -118,6 +140,11 @@ class WayTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($way->isClosed());
     }
 
+    /**
+     * Test adding nodes to a way.
+     *
+     * @return void
+     */
     public function testAddNodeToWay()
     {
         $id = 23010474;
@@ -145,8 +172,14 @@ class WayTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $node must be either an instance of Services_Openstreetmap_Node or a numeric id
+     * Check that an exception is thrown when an incorrect identifier is used
+     * to specify a node to remove from a way.
+     *
+     * @expectedException        InvalidArgumentException
+     * @expectedExceptionMessage $node must be either an instance of
+     *                           Services_Openstreetmap_Node or a numeric id
+     *
+     * @return void
      */
     public function testIncorrectTypeToRemoveNode()
     {
@@ -162,9 +195,14 @@ class WayTest extends PHPUnit_Framework_TestCase
         );
         $osm = new Services_Openstreetmap($config);
         $way = $osm->getWay($id);
-        $way->removeNode("way5432456");
+        $way->removeNode('way5432456');
     }
 
+    /**
+     * Remove a node from a way.
+     *
+     * @return void
+     */
     public function testRemoveNode()
     {
         $id = 23010474;
@@ -186,6 +224,11 @@ class WayTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($na, $nb - 1);
     }
 
+    /**
+     * Retrieve multiple (2) ways.
+     *
+     * @return void
+     */
     public function testGetWays()
     {
         $wayId = 30357328;
@@ -193,7 +236,9 @@ class WayTest extends PHPUnit_Framework_TestCase
 
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/way_30357328_30357329.xml', 'rb'));
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/way_30357328_30357329.xml', 'rb')
+        );
         $config = array(
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
@@ -205,6 +250,11 @@ class WayTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * Test retrieving address tags from a way.
+     *
+     * @return void
+     */
     public function testWayWithAddressSet()
     {
         $id = 75490756;
@@ -229,15 +279,22 @@ class WayTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($address, $way->getAddress());
     }
 
+    /**
+     * Test retrieving relations which refer to a specific way.
+     *
+     * @return void
+     */
     public function testWayBackRelations()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/way_5850969.xml', 'rb'));
-        $mock->addResponse(fopen(
-            __DIR__ . '/responses/way_5850969_relations.xml',
-            'rb'
-        ));
+        $mock->addResponse(
+            fopen(
+                __DIR__ . '/responses/way_5850969_relations.xml',
+                'rb'
+            )
+        );
 
         $config = array(
             'adapter' => $mock,

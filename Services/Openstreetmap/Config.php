@@ -51,28 +51,28 @@ class Services_Openstreetmap_Config
      * @var integer
      * @internal
      */
-    protected $changeset_maximum_elements = null;
+    protected $changesetMaximumElements = null;
 
     /**
      * Maximum number of nodes per way.
      * @var integer
      * @internal
      */
-    protected $waynodes_maximum = null;
+    protected $waynodesMaximum = null;
 
     /**
      * Number of tracepoints per way.
      * @var integer
      * @internal
      */
-    protected $tracepoints_per_page = null;
+    protected $tracepointsPerPage = null;
 
     /**
      * Max size of area that can be downloaded in one request.
      * @var float
      * @internal
      */
-    protected $area_maximum = null;
+    protected $areaMaximum = null;
 
 
     /**
@@ -368,28 +368,28 @@ class Services_Openstreetmap_Config
         }
         $this->timeout = (int) $this->getXmlValue($xml, 'timeout', 'seconds');
         //changesets
-        $this->changeset_maximum_elements = (int) $this->getXmlValue(
+        $this->changesetMaximumElements = (int) $this->getXmlValue(
             $xml,
             'changesets',
             'maximum_elements'
         );
 
         // Maximum number of nodes per way.
-        $this->waynodes_maximum = (int) $this->getXmlValue(
+        $this->waynodesMaximum = (int) $this->getXmlValue(
             $xml,
             'waynodes',
             'maximum'
         );
 
         // Number of tracepoints per way.
-        $this->tracepoints_per_page = (int) $this->getXmlValue(
+        $this->tracepointsPerPage = (int) $this->getXmlValue(
             $xml,
             'tracepoints',
             'per_page'
         );
 
         // Max size of area that can be downloaded in one request.
-        $this->area_maximum = (float) $this->getXmlValue(
+        $this->areaMaximum = (float) $this->getXmlValue(
             $xml,
             'area',
             'maximum'
@@ -409,7 +409,7 @@ class Services_Openstreetmap_Config
      */
     public function getMaxArea()
     {
-        return $this->area_maximum;
+        return $this->areaMaximum;
     }
 
     /**
@@ -467,7 +467,7 @@ class Services_Openstreetmap_Config
      */
     public function getTracepointsPerPage()
     {
-        return $this->tracepoints_per_page;
+        return $this->tracepointsPerPage;
     }
 
     /**
@@ -484,7 +484,7 @@ class Services_Openstreetmap_Config
      */
     public function getMaxNodes()
     {
-        return $this->waynodes_maximum;
+        return $this->waynodesMaximum;
     }
 
     /**
@@ -499,7 +499,7 @@ class Services_Openstreetmap_Config
      */
     public function getMaxElements()
     {
-        return $this->changeset_maximum_elements;
+        return $this->changesetMaximumElements;
     }
 
     /**

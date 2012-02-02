@@ -37,6 +37,11 @@ require_once 'PHPUnit/Framework/TestCase.php';
  */
 class ChangesetTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * Retrieve a changeset and check its attributes are as expected.
+     *
+     * @return void
+     */
     public function testGetChangeset()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -45,7 +50,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
 
         $cId = 2217466;
 
-        $config = array('adapter' => $mock, 'server' => 'http://api06.dev.openstreetmap.org');
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://api06.dev.openstreetmap.org'
+        );
         $osm = new Services_Openstreetmap($config);
         $changeset = $osm->getChangeSet($cId);
         $this->assertEquals($cId, (int) $changeset->getId());
@@ -59,8 +67,13 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * An exception should be thrown when starting a changeset without having a
+     * password set.
+     *
      * @expectedException Services_Openstreetmap_Exception
      * @expectedExceptionMessage Password must be set
+     *
+     * @return void
      */
     public function testPasswordNotSet()
     {
@@ -78,12 +91,17 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         } catch (Services_Openstreetmap_Exception $e) {
         }
         $this->assertEquals(false, $changeset->isOpen());
-        $changeset->begin("Undo accidental highway change from residential to service");
+        $changeset->begin('Start a changeset');
     }
 
     /**
-     * @expectedException Services_Openstreetmap_Exception
+     * An exception should be thrown when starting a changeset without having a
+     * [valid] username set.
+     *
+     * @expectedException        Services_Openstreetmap_Exception
      * @expectedExceptionMessage User must be set
+     *
+     * @return void
      */
     public function testUserNotSet()
     {
@@ -101,20 +119,32 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         } catch (Services_Openstreetmap_Exception $e) {
         }
         $this->assertEquals(false, $changeset->isOpen());
-        $changeset->begin("Undo accidental highway change from residential to service");
-
+        $changeset->begin('Undo accidental highway change');
     }
 
-    public function testChange() {
+    /**
+     * A successful run through making changes to some ways and committing
+     * them.
+     *
+     * @return void
+     */
+    public function testChange()
+    {
         $wayId = 30357328;
         $way2Id = 30357329;
 
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/way_30357328_30357329.xml', 'rb'));
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/way_30357328_30357329.xml', 'rb')
+        );
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/diff_30357328_30357329.xml', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/changeset_closed', 'rb'));
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/diff_30357328_30357329.xml', 'rb')
+        );
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/changeset_closed', 'rb')
+        );
 
         $config = array(
             'adapter'  => $mock,
@@ -128,14 +158,16 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         }
         $this->assertEquals(false, $changeset->isOpen());
         $ways = $osm->getWays($wayId, $way2Id);
-        foreach($ways as $way) {
+        foreach ($ways as $way) {
             $tags = $way->getTags();
             if ($tags['highway'] == 'residential') {
                 return;
             }
         }
         $this->assertEquals(2, count($ways));
-        $changeset->begin("Undo accidental highway change from residential to service");
+        $changeset->begin(
+            'Undo accidental highway change from residential to service'
+        );
         foreach ($ways as $way) {
             $way->setTag('highway', 'residential');
             $way->setTag('lit', 'yes');
@@ -154,15 +186,20 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testObjectAddedToChangesetAfterCommit() {
+    public function testObjectAddedToChangesetAfterCommit()
+    {
         $wayId = 30357328;
         $way2Id = 30357329;
 
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/way_30357328_30357329.xml', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/diff_30357328_30357329.xml', 'rb'));
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/way_30357328_30357329.xml', 'rb')
+        );
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/diff_30357328_30357329.xml', 'rb')
+        );
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_closed', 'rb'));
 
         $config = array(
@@ -177,7 +214,9 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         }
         $this->assertEquals(false, $changeset->isOpen());
         $ways = $osm->getWays($wayId, $way2Id);
-        $changeset->begin("Undo accidental highway change from residential to service");
+        $changeset->begin(
+            'Undo accidental highway change from residential to service'
+        );
         foreach ($ways as $way) {
             $way->setTag('highway', 'residential');
             $way->setTag('lit', 'yes');
@@ -187,10 +226,8 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $changeset->commit();
         $lat = 52.8638729;
         $lon = -8.1983611;
-        $node = $osm->createNode($lat, $lon, array(
-                    'building' => 'yes',
-                    'amenity' => 'vet')
-                );
+        $tags = array('building' => 'yes', 'amenity' => 'vet');
+        $node = $osm->createNode($lat, $lon, $tags);
         $changeset->add($node);
     }
 
@@ -202,7 +239,8 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testSameObjectAddedToChangeset() {
+    public function testSameObjectAddedToChangeset()
+    {
         $wayId = 30357328;
 
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -210,7 +248,9 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/way_30357328.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/way_30357328.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/diff_30357328_30357329.xml', 'rb'));
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/diff_30357328_30357329.xml', 'rb')
+        );
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_closed', 'rb'));
 
         $config = array(
@@ -232,7 +272,9 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $way2->setTag('lit', 'yes');
         $this->assertNotEquals('' . $way2, '');
         $this->assertEquals(false, $changeset->isOpen());
-        $changeset->begin("Undo accidental highway change from residential to service");
+        $changeset->begin(
+            'Undo accidental highway change from residential to service'
+        );
         $changeset->add($way);
         $changeset->add($way2);
     }
@@ -242,15 +284,20 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      *
      * @expectedException Services_Openstreetmap_Exception
      * @expectedExceptionMessage Attempt to commit a closed changeset
+     *
+     * @return void
      */
-    public function testDeleteNode() {
+    public function testDeleteNode()
+    {
         $nodeID = 1436433375;
 
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/node_1436433375.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/diff_1436433375_deleted.xml', 'rb'));
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/diff_1436433375_deleted.xml', 'rb')
+        );
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_closed', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/410', 'rb'));
 
@@ -278,17 +325,25 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Services_Openstreetmap_Exception
+     * If a 404 error occurs while closing a changeset [during a commit] then
+     * an exception should be thrown. Test for this.
+     *
+     * @expectedException        Services_Openstreetmap_Exception
      * @expectedExceptionMessage Error closing changeset
+     *
+     * @return void
      */
-    public function testDeleteNodeClosingError404() {
+    public function testDeleteNodeClosingError404()
+    {
         $nodeID = 1436433375;
 
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/node_1436433375.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/diff_1436433375_deleted.xml', 'rb'));
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/diff_1436433375_deleted.xml', 'rb')
+        );
         $mock->addResponse(fopen(__DIR__ . '/responses/404', 'rb'));
 
         $config = array(
@@ -312,17 +367,33 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * If an error occurs while closing a changeset [during a commit] then
+     * an exception should be thrown. Test for this.
+     *
      * @expectedException Services_Openstreetmap_Exception
      * @xpectedExceptionMessage Error closing changeset
+     *
+     * @return void
      */
-    public function testDeleteNodeClosingError400() {
+    public function testDeleteNodeClosingError400()
+    {
         $nodeID = 1436433375;
 
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/node_1436433375.xml', 'rb'));
+        $mock->addResponse(
+            fopen(
+                __DIR__ . '/responses/node_1436433375.xml',
+                'rb'
+            )
+        );
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/diff_1436433375_deleted.xml', 'rb'));
+        $mock->addResponse(
+            fopen(
+                __DIR__ . '/responses/diff_1436433375_deleted.xml',
+                'rb'
+            )
+        );
         $mock->addResponse(fopen(__DIR__ . '/responses/400', 'rb'));
 
         $config = array(
@@ -346,10 +417,16 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Services_Openstreetmap_Exception
+     * If an error occurs while posting changeset information to the server an
+     * exception should be thrown.
+     *
+     * @expectedException        Services_Openstreetmap_Exception
      * @expectedExceptionMessage Error posting changeset
+     *
+     * @return void
      */
-    public function testDeleteNodeDiffError400() {
+    public function testDeleteNodeDiffError400()
+    {
         $nodeID = 1436433375;
 
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -378,6 +455,13 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $changeset->commit();
     }
 
+    /**
+     * Open a new changeset, create a node and save it by associating it with
+     * that changeset and then committing.
+     * The id of the node should change from -1 to a positive integer/double.
+     *
+     * @return void
+     */
     public function testSaveNode()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -393,30 +477,34 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $osm = new Services_Openstreetmap($config);
         $lat = 52.8638729;
         $lon = -8.1983611;
-        $node = $osm->createNode($lat, $lon, array(
-                    'building' => 'yes',
-                    'amenity' => 'vet')
-                );
+        $node = $osm->createNode(
+            $lat,
+            $lon,
+            array(
+                'building' => 'yes',
+                'amenity' => 'vet'
+        )
+        );
         $this->assertEquals(
-                $node->getTags(),
-                array(
-                    'created_by' => 'Services_Openstreetmap',
-                    'building' => 'yes',
-                    'amenity' => 'vet',
-                    )
-                );
+            $node->getTags(),
+            array(
+                'created_by' => 'Services_Openstreetmap',
+                'building' => 'yes',
+                'amenity' => 'vet',
+            )
+        );
         $this->assertEquals($lat, $node->getlat());
         $this->assertEquals($lon, $node->getlon());
         $node->setTag('amenity', 'veterinary')->setTag('name', 'O\'Kennedy');
         $this->assertEquals(
-                $node->getTags(),
-                array(
-                    'created_by' => 'Services_Openstreetmap',
-                    'building' => 'yes',
-                    'amenity' => 'veterinary',
-                    'name' => 'O\'Kennedy'
-                    )
-                );
+            $node->getTags(),
+            array(
+                'created_by' => 'Services_Openstreetmap',
+                'building' => 'yes',
+                'amenity' => 'veterinary',
+                'name' => 'O\'Kennedy'
+            )
+        );
         $this->assertEquals(-1, $node->getId());
 
         $changeset = $osm->createChangeset();

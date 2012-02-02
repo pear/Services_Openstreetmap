@@ -26,8 +26,8 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
 {
     protected $type = 'way';
     protected $nodes = array();
-    protected $nodes_new = array();
-    protected $dirty_nodes = false;
+    protected $nodesNew = array();
+    protected $dirtyNodes = false;
 
     /**
      * Return true if the way can be considered 'closed'.
@@ -86,8 +86,8 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
             $this->action  = 'modify';
             $this->nodes[] = $id;
             $this->dirty   = true;
-            $this->dirty_nodes = true;
-            $this->nodes_new[] = $id;
+            $this->dirtyNodes = true;
+            $this->nodesNew[] = $id;
         }
         return $this;
     }
@@ -121,7 +121,7 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
             unset($this->nodes[$pos]);
             $this->dirty  = true;
             $this->action = 'modify';
-            $this->dirty_nodes = true;
+            $this->dirtyNodes = true;
         }
         return $this;
     }
@@ -137,7 +137,7 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
      */
     public function osmChangeXml($xml)
     {
-        if ($this->dirty_nodes) {
+        if ($this->dirtyNodes) {
             $domd = new DomDocument();
             $domd->loadXml($xml);
             $xpath = new DomXPath($domd);
@@ -153,7 +153,7 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
             }
 
             // Add new nodes.
-            foreach ($this->nodes_new as $new) {
+            foreach ($this->nodesNew as $new) {
                 $el = $domd->createElement('nd');
                 $el->setAttribute('ref', $new);
                 $nodelist->item(0)->appendChild($el);
@@ -192,14 +192,14 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
             'addr_country' => null
         );
         $tags = $this->getTags();
-        $details_set = false;
+        $detailsSet = false;
         foreach ($tags as $key => $value) {
             if (strpos($key, 'addr') === 0) {
                 $ret[str_replace(':', '_', $key)] = $value;
-                $details_set = true;
+                $detailsSet = true;
             }
         }
-        if (!$details_set) {
+        if (!$detailsSet) {
             $ret = null;
         }
         return $ret;

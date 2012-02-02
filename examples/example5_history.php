@@ -30,8 +30,8 @@ catch (Services_Openstreetmap_Exception $e) {
 }
 
 $all_versions = $w->history();
-foreach($all_versions as $way) {
-    var_dump ($way->getVersion());
+foreach ($all_versions as $way) {
+    var_dump($way->getVersion());
 }
 
 

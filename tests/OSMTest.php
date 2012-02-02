@@ -38,6 +38,11 @@ require_once 'PHPUnit/Framework/TestCase.php';
  */
 class OSMTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * Check that a Services_Openstreetmap object can be created ok.
+     *
+     * @return void
+     */
     public function testCreateObject()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -47,6 +52,11 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Services_Openstreetmap', $osm);
     }
 
+    /**
+     * Test that an OpenStreetMap XML datafile can be loaded via the loadXml method.
+     *
+     * @return void
+     */
     public function testLoadXml()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -59,6 +69,11 @@ class OSMTest extends PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * Test parsing of capability data.
+     *
+     * @return void
+     */
     public function testCapabilities()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -72,6 +87,11 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($osm->getTimeout(), 300);
     }
 
+    /**
+     * Test parsing of capability data.
+     *
+     * @return void
+     */
     public function testCapabilities2()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -91,6 +111,9 @@ class OSMTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * If the minimum version supported by the server is greater than what this
+     * package supports then an exception should be thrown.
+     *
      * @expectedException Services_Openstreetmap_Exception
      * @expectedExceptionMessage Specified API Version 0.6 not supported.
      *
@@ -109,7 +132,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Services_Openstreetmap_Exception
+     * If the maximum version supported by the server is lower than a version
+     * supported by this package, then an exception should be thrown.
+     *
+     * @expectedException        Services_Openstreetmap_Exception
      * @expectedExceptionMessage Specified API Version 0.6 not supported.
      *
      * @return void
@@ -127,7 +153,9 @@ class OSMTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Services_Openstreetmap_Exception
+     * If invalid/no capabilities are retrieving an exception should be thrown.
+     *
+     * @expectedException        Services_Openstreetmap_Exception
      * @expectedExceptionMessage Problem checking server capabilities
      *
      * @return void
@@ -135,7 +163,9 @@ class OSMTest extends PHPUnit_Framework_TestCase
     public function testCapabilitiesInvalid()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities_invalid.xml', 'rb'));
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/capabilities_invalid.xml', 'rb')
+        );
 
         $config = array(
             'adapter' => $mock,
@@ -144,6 +174,11 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $osm = new Services_Openstreetmap($config);
     }
 
+    /**
+     * Test retrieving data covering an area.
+     *
+     * @return void
+     */
     public function testGetArea()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -155,16 +190,16 @@ class OSMTest extends PHPUnit_Framework_TestCase
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
-        $results = $osm->search(array("amenity" => "pharmacy"));
+        $results = $osm->search(array('amenity' => 'pharmacy'));
         $this->AssertTrue(empty($results));
         $osm->get(
             52.84824191354071, -8.247245026639696,
             52.89957825532213, -8.174161478654796
         );
-        $results = $osm->search(array("amenity" => "pharmacy"));
+        $results = $osm->search(array('amenity' => 'pharmacy'));
 
         $tags = array();
-        foreach($results as $result) {
+        foreach ($results as $result) {
             $tags[] = $result->getTags();
         }
 
@@ -267,6 +302,12 @@ class OSMTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * Test searching for a value where it is part of a semicolon delimited
+     * string.
+     *
+     * @return void
+     */
     public function testSearchDelimited()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -278,16 +319,16 @@ class OSMTest extends PHPUnit_Framework_TestCase
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
-        $results = $osm->search(array("amenity" => "pharmacy"));
+        $results = $osm->search(array('amenity' => 'pharmacy'));
         $this->AssertTrue(empty($results));
         $osm->get(
             52.84824191354071, -8.247245026639696,
             52.89957825532213, -8.174161478654796
         );
-        $results = $osm->search(array("amenity" => "restaurant"));
+        $results = $osm->search(array('amenity' => 'restaurant'));
 
         $tags = array();
-        foreach($results as $result) {
+        foreach ($results as $result) {
             $tags[] = $result->getTags();
         }
 
@@ -366,15 +407,22 @@ class OSMTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * test the  getCoordsOfPlace method.
+     *
+     * @return void
+     */
     public function testGetCoordsOfPlace()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen(__DIR__ . '/responses/nominatim_search_limerick.xml', 'rb'));
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/nominatim_search_limerick.xml', 'rb')
+        );
 
         $osm = new Services_Openstreetmap(array('adapter' => $mock));
         $this->AssertEquals(
-            $osm->getCoordsOfPlace("Limerick, Ireland"),
-            array("lat"=> "52.6612577", "lon"=> "-8.6302084")
+            $osm->getCoordsOfPlace('Limerick, Ireland'),
+            array('lat'=> '52.6612577', 'lon'=> '-8.6302084')
         );
     }
 
@@ -394,13 +442,18 @@ class OSMTest extends PHPUnit_Framework_TestCase
             fopen(
                 __DIR__ . '/responses/nominatim_search_neeenaaa.xml',
                 'rb'
-                )
+            )
         );
 
         $osm = new Services_Openstreetmap(array('adapter' => $mock));
         $osm->getCoordsOfPlace('Neeenaaa, Ireland');
     }
 
+    /**
+     * test retrieving the history of an object.
+     *
+     * @return void
+     */
     public function testGetHistory()
     {
         $id = 52245107;
@@ -421,12 +474,13 @@ class OSMTest extends PHPUnit_Framework_TestCase
             $this->assertEquals($version, $history[$key]);
             $this->assertEquals($id, $version->getId());
         }
-        #$history = $osm->getHistory('node', $id);
-        #$xml = simplexml_load_string($history);
-        #$n = $xml->xpath('//osm');
-        #$this->assertEquals($id, (int) ($n[0]->node->attributes()->id));
     }
 
+    /**
+     * test the bboxToMinMax method
+     *
+     * @return void
+     */
     public function testBboxToMinMax()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -436,17 +490,22 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $osm = new Services_Openstreetmap($config);
         $this->assertEquals(
             $osm->bboxToMinMax(
-                "0.0327873", "52.260074599999996",
-                "0.0767326", "52.282047299999995"
+                '0.0327873', '52.260074599999996',
+                '0.0767326', '52.282047299999995'
             ),
             array(
-                "52.260074599999996", "0.0327873",
-                "52.282047299999995", "0.0767326",
+                '52.260074599999996', '0.0327873',
+                '52.282047299999995', '0.0767326',
             )
         );
     }
 
 
+    /**
+     * Test default value of attributes when creating an object.
+     *
+     * @return void
+     */
     public function testAttribsNotSet()
     {
         $node = new Services_Openstreetmap_Node();

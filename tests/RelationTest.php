@@ -37,6 +37,11 @@ require_once 'PHPUnit/Framework/TestCase.php';
  */
 class RelationTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * Test retrieving just one relation.
+     *
+     * @return void
+     */
     public function testGetRelation()
     {
         $id = 1152802;
@@ -50,24 +55,24 @@ class RelationTest extends PHPUnit_Framework_TestCase
 
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api06.dev.openstreetmap.org/'
+            'server'  => 'http://api06.dev.openstreetmap.org/'
         );
         $osm = new Services_Openstreetmap($config);
         $relation = $osm->getRelation($id);
         $this->assertEquals($id, $relation->getId());
-        $changeset_id = (int) $relation->getAttributes()->changeset;
+        $changesetId = (int) $relation->getAttributes()->changeset;
         $getTags = $relation->getTags();
         $this->assertEquals($getTags['name'], 'Mitchell Street');
         $this->assertEquals($getTags['type'], 'associatedStreet');
 
-        $changeset = $osm->getChangeset($changeset_id);
-        $this->assertEquals($changeset_id, $changeset->getId());
+        $changeset = $osm->getChangeset($changesetId);
+        $this->assertEquals($changesetId, $changeset->getId());
         $getTags = $changeset->getTags();
         $this->assertEquals($getTags['comment'], 'IE. Nenagh. Mitchell Street POIs');
         $members = $relation->getMembers();
 
         $this->assertEquals(18, sizeof($members));
-        foreach( $members as $member ) {
+        foreach ($members as $member) {
             $this->assertEquals('house', $member['role']);
             $this->assertEquals('way', $member['type']);
             $this->assertTrue(is_numeric($member['ref']));
@@ -75,6 +80,11 @@ class RelationTest extends PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * Test getRelations with ids specified in one array.
+     *
+     * @return void
+     */
     public function testGetRelationsViaArray()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -96,7 +106,7 @@ class RelationTest extends PHPUnit_Framework_TestCase
         $relations = $osm->getRelations(array(917266,20645,2740));
 
         $this->assertEquals(3, sizeof($relations));
-        $relations_info = array(
+        $relationsInfo = array(
             array(
                 'id' => 2740,
                 'name' => 'The Wicklow Way',
@@ -133,24 +143,29 @@ class RelationTest extends PHPUnit_Framework_TestCase
         foreach ($relations as $key=>$relation) {
             $tags = $relation->getTags();
             $members = $relation->getMembers();
-            $this->assertEquals($relation->getId(), $relations_info[$key]['id']);
-            $this->assertEquals($tags['name'], $relations_info[$key]['name']);
-            $this->assertEquals($tags['type'], $relations_info[$key]['type']);
+            $this->assertEquals($relation->getId(), $relationsInfo[$key]['id']);
+            $this->assertEquals($tags['name'], $relationsInfo[$key]['name']);
+            $this->assertEquals($tags['type'], $relationsInfo[$key]['type']);
             $this->assertEquals(
                 sizeof($members),
-                $relations_info[$key]['members']['count']
+                $relationsInfo[$key]['members']['count']
             );
             $this->assertEquals(
                 $members[0]['type'],
-                $relations_info[$key]['members']['type']
+                $relationsInfo[$key]['members']['type']
             );
             $this->assertEquals(
                 $members[0]['role'],
-                $relations_info[$key]['members']['role']
+                $relationsInfo[$key]['members']['role']
             );
         }
     }
 
+    /**
+     * Test getRelations called with more than one argument/parameter.
+     *
+     * @return void
+     */
     public function testGetRelationsManyArgs()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -172,7 +187,7 @@ class RelationTest extends PHPUnit_Framework_TestCase
         $relations = $osm->getRelations(917266, 20645, 2740);
 
         $this->assertEquals(3, sizeof($relations));
-        $relations_info = array(
+        $relationsInfo = array(
             array(
                 'id' => 2740,
                 'name' => 'The Wicklow Way',
@@ -209,23 +224,23 @@ class RelationTest extends PHPUnit_Framework_TestCase
         foreach ($relations as $key=>$relation) {
             $tags = $relation->getTags();
             $members = $relation->getMembers();
-            $this->assertEquals($tags['name'], $relations_info[$key]['name']);
-            $this->assertEquals($tags['type'], $relations_info[$key]['type']);
+            $this->assertEquals($tags['name'], $relationsInfo[$key]['name']);
+            $this->assertEquals($tags['type'], $relationsInfo[$key]['type']);
             $this->assertEquals(
                 $relation->getId(),
-                $relations_info[$key]['id']
+                $relationsInfo[$key]['id']
             );
             $this->assertEquals(
                 sizeof($members),
-                $relations_info[$key]['members']['count']
+                $relationsInfo[$key]['members']['count']
             );
             $this->assertEquals(
                 $members[0]['type'],
-                $relations_info[$key]['members']['type']
+                $relationsInfo[$key]['members']['type']
             );
             $this->assertEquals(
                 $members[0]['role'],
-                $relations_info[$key]['members']['role']
+                $relationsInfo[$key]['members']['role']
             );
         }
     }

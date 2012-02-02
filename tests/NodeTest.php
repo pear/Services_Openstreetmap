@@ -37,6 +37,11 @@ require_once 'PHPUnit/Framework/TestCase.php';
  */
 class NodeTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * Test the getNodee method.
+     *
+     * @return void
+     */
     public function testGetNode()
     {
         $id = 52245107;
@@ -59,6 +64,11 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("-8.195833", $node->getLon());
     }
 
+    /**
+     * Test retrieving a specific version of an identified node.
+     *
+     * @return void
+     */
     public function testGetSpecifiedVersionOfNode()
     {
         $id = 52245107;
@@ -81,6 +91,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("-8.195833", $node->getLon());
     }
 
+    /**
+     * When a 404 response is issued by the server, the getNode method
+     * should return the boolean false value.
+     *
+     * @return void
+     */
     public function testGetNode404()
     {
         $id = 52245107;
@@ -98,6 +114,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($node);
     }
 
+    /**
+     * When a 'GONE' response is issued by the server, the getNode method
+     * should return the boolean false value.
+     *
+     * @return void
+     */
     public function testGetNode410()
     {
         $id = 52245107;
@@ -118,8 +140,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test how a 500 status code is handled.
      *
-     * @expectedException Services_Openstreetmap_Exception
+     * @expectedException        Services_Openstreetmap_Exception
      * @expectedExceptionMessage Unexpected HTTP status: 500 Internal Server Error
+     *
+     * @return void
      */
     public function testGetNode500()
     {
@@ -137,6 +161,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $node = $osm->getNode($id);
     }
 
+    /**
+     * Test creating a node with the createNode method, including default and
+     * explicitly set values.
+     *
+     * @return void
+     */
     public function testCreateNode()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -149,21 +179,25 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $osm = new Services_Openstreetmap($config);
         $lat = 52.8638729;
         $lon = -8.1983611;
-        $node = $osm->createNode($lat, $lon, array(
-                    'building' => 'yes',
-                    'amenity' => 'vet')
-                );
+        $node = $osm->createNode(
+            $lat,
+            $lon,
+            array(
+                'building' => 'yes',
+                'amenity' => 'vet'
+            )
+        );
         $this->assertEquals('', ($node->getUser()));
         $this->assertEquals(1, $node->getVersion());
         $this->assertEquals(-1, $node->getId());
         $this->assertEquals(
-                $node->getTags(),
-                array(
-                    'created_by' => 'Services_Openstreetmap',
-                    'building' => 'yes',
-                    'amenity' => 'vet',
-                    )
-                );
+            $node->getTags(),
+            array(
+                'created_by' => 'Services_Openstreetmap',
+                'building' => 'yes',
+                'amenity' => 'vet',
+            )
+        );
         $this->assertEquals($lat, $node->getlat());
         $this->assertEquals($lon, $node->getlon());
         $this->assertEquals(-1, $node->getId());
@@ -172,8 +206,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test invalid latitude value in constructor
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException        InvalidArgumentException
      * @expectedExceptionMessage Latitude can't be greater than 180
+     *
+     * @return void
      */
     public function testCreateNodeInvalidLatitude()
     {
@@ -193,8 +229,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test invalid latitude value in constructor
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException        InvalidArgumentException
      * @expectedExceptionMessage Latitude can't be less than -180
+     *
+     * @return void
      */
     public function testCreateNodeInvalidLessThanMinus90()
     {
@@ -214,8 +252,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test invalid latitude value in constructor
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException        InvalidArgumentException
      * @expectedExceptionMessage Latitude must be numeric
+     *
+     * @return void
      */
     public function testCreateNodeNonnumericLatInConstructor()
     {
@@ -236,8 +276,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test invalid longitude value in constructor
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException        InvalidArgumentException
      * @expectedExceptionMessage Longitude can't be greater than 90
+     *
+     * @return void
      */
     public function testCreateNodeInvalidLongitude()
     {
@@ -257,8 +299,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test invalid longitude value in constructor
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException        InvalidArgumentException
      * @expectedExceptionMessage Longitude can't be less than -90
+     *
+     * @return void
      */
     public function testCreateNodeInvalidLongitudeLessThanMinus90()
     {
@@ -278,8 +322,9 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test invalid longitude value in constructor
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException        InvalidArgumentException
      * @expectedExceptionMessage Longitude must be numeric
+     * @return void
      */
     public function testCreateNodeNonnumericLonInConstructor()
     {
@@ -287,8 +332,8 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $config = array(
-                'adapter'  => $mock,
-                'server'   => 'http://api06.dev.openstreetmap.org/',
+                'adapter' => $mock,
+                'server'  => 'http://api06.dev.openstreetmap.org/',
                 );
         $osm = new Services_Openstreetmap($config);
         $lat = 52.8638729;
@@ -296,28 +341,39 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $node = $osm->createNode($lat, $lon);
     }
 
+    /**
+     * test retrieving a number of nodes simultaneously with the getNodes
+     * method.
+     *
+     * @return void
+     */
     public function testGetNodes()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/nodes_621953926_621953928_621953939.xml', 'rb'));
+        $mock->addResponse(
+            fopen(
+                __DIR__ . '/responses/nodes_621953926_621953928_621953939.xml',
+                'rb'
+            )
+        );
 
         $config = array(
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
-        $nodes = $osm->getNodes(array(621953926,621953928,621953939));
+        $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
         $this->assertEquals(3, sizeof($nodes));
 
-        $nodes_info = array(
+        $nodesInfo = array(
             array('id' => 621953926, 'source' => 'survey', 'address' => null),
             array('id' => 621953928, 'source' => 'survey', 'address' => null),
             array(
                 'id' => 621953939,
                 'source' => 'survey',
                 'address' => array (
-                    'addr_housename' => NULL,
+                    'addr_housename' => null,
                     'addr_housenumber' => '5',
                     'addr_street' => 'Castle Street',
                     'addr_city' => 'Cahir',
@@ -325,14 +381,20 @@ class NodeTest extends PHPUnit_Framework_TestCase
                 )
             )
         );
-        foreach($nodes as $key=>$node) {
+        foreach ($nodes as $key => $node) {
             $tags = $node->getTags();
-            $this->assertEquals($node->getId(), $nodes_info[$key]['id']);
-            $this->assertEquals($tags['source'], $nodes_info[$key]['source']);
-            $this->assertEquals($node->getAddress(), $nodes_info[$key]['address']);
+            $this->assertEquals($node->getId(), $nodesInfo[$key]['id']);
+            $this->assertEquals($tags['source'], $nodesInfo[$key]['source']);
+            $this->assertEquals($node->getAddress(), $nodesInfo[$key]['address']);
         }
     }
 
+    /**
+     * When an 'UNAUTHORISED' response is issued by the server, the getNodes method
+     * should return the boolean false value.
+     *
+     * @return void
+     */
     public function testGetNodes401()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -344,10 +406,16 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
-        $nodes = $osm->getNodes(array(621953926,621953928,621953939));
+        $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
         $this->assertFalse($nodes);
     }
 
+    /**
+     * When a 404 response is issued by the server, the getNodes method
+     * should return the boolean false value.
+     *
+     * @return void
+     */
     public function testGetNodes404()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -359,10 +427,16 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
-        $nodes = $osm->getNodes(array(621953926,621953928,621953939));
+        $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
         $this->assertFalse($nodes);
     }
 
+    /**
+     * When a 'GONE' response is issued by the server, the getNodes method
+     * should return the boolean false value.
+     *
+     * @return void
+     */
     public function testGetNodes410()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -374,15 +448,16 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
-        $nodes = $osm->getNodes(array(621953926,621953928,621953939));
+        $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
         $this->assertFalse($nodes);
     }
 
     /**
      * Test how a 500 status code is handled.
      *
-     * @expectedException Services_Openstreetmap_Exception
+     * @expectedException        Services_Openstreetmap_Exception
      * @expectedExceptionMessage Unexpected HTTP status: 500 Internal Server Error
+     * @return void
      */
     public function testGetNodes500()
     {
@@ -395,17 +470,29 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
         $osm = new Services_Openstreetmap($config);
-        $nodes = $osm->getNodes(array(621953926,621953928,621953939));
+        $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
     }
 
+    /**
+     * Test retrieving all versions, current and past, of a specified node.
+     *
+     * @return void
+     */
     public function testGetNodesHistory()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/nodes_621953926_621953928_621953939.xml', 'rb'));
+        $mock->addResponse(
+            fopen(
+                __DIR__ . '/responses/nodes_621953926_621953928_621953939.xml',
+                'rb'
+            )
+        );
         $mock->addResponse(fopen(__DIR__ . '/responses/node_621953926.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/node_621953928.xml', 'rb'));
-        $mock->addResponse(fopen(__DIR__ . '/responses/node_621953939_history.xml', 'rb'));
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/node_621953939_history.xml', 'rb')
+        );
 
         $config = array(
             'adapter' => $mock,
@@ -428,6 +515,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * Test retrieving way back references - i.e. retrieving all ways that a
+     * specific node is connected to.
+     *
+     * @return void
+     */
     public function testGetWayBackRef()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -445,15 +538,23 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $ways = $osm->getNode(248081837)->getWays();
         $this->assertInstanceOf('Services_Openstreetmap_Ways', $ways);
         $this->assertEquals(sizeof($ways), 1);
-        $this->assertEquals($ways[0]->getTags(), array (
-            'highway' => 'residential',
-            'maxspeed' => '50',
-            'name' => 'Kingston Park',
-            'name:en' => 'Kingston Park',
-            'name:ga' => 'Páirc Kingston',
-        ));
+        $this->assertEquals(
+            $ways[0]->getTags(),
+            array (
+                'highway' => 'residential',
+                'maxspeed' => '50',
+                'name' => 'Kingston Park',
+                'name:en' => 'Kingston Park',
+                'name:ga' => 'Páirc Kingston',
+            )
+        );
     }
 
+    /**
+     * Test retrieving relations that refer to a specific node.
+     *
+     * @return void
+     */
     public function testGetRelations()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -472,14 +573,17 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Services_Openstreetmap_Relations', $relations);
         $this->assertEquals(sizeof($relations), 1);
         $this->assertInstanceOf('Services_Openstreetmap_Relation', $relations[0]);
-        $this->assertEquals($relations[0]->getTags(), array (
-            'complete'=> 'no',
-            'name'=> 'Dublin Bus route 75',
-            'operator'=> 'Dublin Bus',
-            'ref'=> '75',
-            'route'=> 'bus',
-            'type'=> 'route',
-        ));
+        $this->assertEquals(
+            $relations[0]->getTags(),
+            array (
+                'complete'=> 'no',
+                'name'=> 'Dublin Bus route 75',
+                'operator'=> 'Dublin Bus',
+                'ref'=> '75',
+                'route'=> 'bus',
+                'type'=> 'route',
+            )
+        );
     }
 }
 

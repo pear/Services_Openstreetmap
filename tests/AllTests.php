@@ -18,7 +18,7 @@ if (strstr($version, 'package_version')) {
 }
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
-	define('PHPUnit_MAIN_METHOD', 'AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'AllTests::main');
 }
 
 require_once 'PHPUnit/TextUI/TestRunner.php';
@@ -43,27 +43,39 @@ require_once 'WayTest.php';
  */
 class AllTests
 {
-	public static function main()
-	{
-		PHPUnit_TextUI_TestRunner::run(self::suite());
-	}
+    /**
+     * Launches the TextUI test runner
+     *
+     * @return void
+     * @uses PHPUnit_TextUI_TestRunner
+     */
+    public static function main()
+    {
+        PHPUnit_TextUI_TestRunner::run(self::suite());
+    }
 
-	public static function suite()
-	{
-		$suite = new PHPUnit_Framework_TestSuite('Services_Openstreetmap Tests');
-		$suite->addTestSuite('ChangesetTest');
-		$suite->addTestSuite('ConfigTest');
-		$suite->addTestSuite('OSMTest');
-		$suite->addTestSuite('NodeTest');
-		$suite->addTestSuite('RelationTest');
-		$suite->addTestSuite('UserTest');
-		$suite->addTestSuite('WayTest');
+    /**
+     * Adds all class test suites into the master suite
+     *
+     * @return PHPUnit_Framework_TestSuite a master test suite
+     *                                     containing all class test suites
+     * @uses PHPUnit_Framework_TestSuite
+     */
+    public static function suite()
+    {
+        $suite = new PHPUnit_Framework_TestSuite('Services_Openstreetmap Tests');
+        $suite->addTestSuite('ChangesetTest');
+        $suite->addTestSuite('ConfigTest');
+        $suite->addTestSuite('OSMTest');
+        $suite->addTestSuite('NodeTest');
+        $suite->addTestSuite('RelationTest');
+        $suite->addTestSuite('UserTest');
+        $suite->addTestSuite('WayTest');
 
-		return $suite;
-	}
+        return $suite;
+    }
 }
 
 if (PHPUnit_MAIN_METHOD == 'AllTests::main') {
-	AllTests::main();
+    AllTests::main();
 }
-// vim:set noet ts=4 sw=4:

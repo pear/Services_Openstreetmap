@@ -21,12 +21,12 @@ if (strstr($version, 'package_version')) {
 require_once 'Services/Openstreetmap.php';
 
 $osm = new Services_Openstreetmap(array('verbose' => true));
-var_dump ($osm->getConfig());
+var_dump($osm->getConfig());
 
 try {
     $osm->getConfig()->setServer('http://api.openstreetmap.org/');
 } catch (Exception $ex) {
-    var_dump ($ex->getMessage());
+    var_dump($ex->getMessage());
     // Fall back to default server...so carry on.
 }
 
@@ -36,6 +36,6 @@ $osm->get(
 );
 // $osm->get(52.9208049, -8.1156559, 52.9695733, -8.0005314);
 
-file_put_contents("osm.osm", $osm->getXML());
+file_put_contents("osm.osm", $osm->getXml());
 // vim:set et ts=4 sw=4:
 ?>

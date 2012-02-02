@@ -37,8 +37,10 @@ require_once 'PHPUnit/Framework/TestCase.php';
  */
 class ConfigTest extends PHPUnit_Framework_TestCase
 {
-    /*
+    /**
      * General test of the Config class
+     *
+     * @return void
      */
     public function testConfig()
     {
@@ -117,7 +119,9 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Services_Openstreetmap_Exception
+     * Setting an unrecognised config setting should raise an exception.
+     *
+     * @expectedException        Services_Openstreetmap_Exception
      * @expectedExceptionMessage Unknown config parameter 'UserAgent'
      *
      * @return void
@@ -132,7 +136,9 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Services_Openstreetmap_Exception
+     * Try the same, this time with the config settings in an array.
+     *
+     * @expectedException        Services_Openstreetmap_Exception
      * @expectedExceptionMessage Unknown config parameter 'UserAgent'
      *
      * @return void
@@ -219,7 +225,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
         $osm  = new Services_Openstreetmap(array('adapter' => $mock));
         $cobj = $osm->getConfig();
-        $cobj->setPasswordfile( __DIR__ . '/files/pwd_1line');
+        $cobj->setPasswordfile(__DIR__ . '/files/pwd_1line');
         $config = $cobj->getValue('passwordfile');
         $this->assertEquals($config, __DIR__ . '/files/pwd_1line');
     }

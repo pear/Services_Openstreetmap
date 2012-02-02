@@ -38,6 +38,8 @@ class UserTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test that user data is parsed correctly.
+     *
+     * @return void
      */
     public function testUser()
     {
@@ -56,7 +58,10 @@ class UserTest extends PHPUnit_Framework_TestCase
         $user = $osm->getUser();
         $this->assertEquals($user->getDisplayName(), 'fredflintstone');
         $this->assertEquals($user->getId(), 124);
-        $this->assertEquals($user->getImage(), 'http://www.openstreetmap.org/user/image/124/me.jpg');
+        $this->assertEquals(
+            $user->getImage(),
+            'http://www.openstreetmap.org/user/image/124/me.jpg'
+        );
         $this->assertEquals($user->getAccountCreated(), "2003-09-02T15:27:52Z");
         $this->assertEquals($user->getDescription(), "Yabba dabba do!");
         $this->assertEquals($user->getLon(), null);
@@ -70,6 +75,8 @@ class UserTest extends PHPUnit_Framework_TestCase
 
     /**
      * If there is no image set for a user, then getImage should return null.
+     *
+     * @return void
      */
     public function testUserNoImage()
     {
@@ -91,6 +98,8 @@ class UserTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test the getLat and getLon methods of the User object.
+     *
+     * @return void
      */
     public function testUserHomeSet()
     {

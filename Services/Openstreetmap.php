@@ -230,19 +230,19 @@ class Services_Openstreetmap
      *
      *  foreach ($results as $result) {
      *      $name = $result->getTag('name');
-     *      $addr_street = $result->getTag('addr:street');
-     *      $addr_city = $result->getTag('addr:city');
-     *      $addr_country = $result->getTag('addr:country');
-     *      $addr_housename = $result->getTag('addr:housename');
-     *      $addr_housenumber = $result->getTag('addr:housenumber');
-     *      $opening_hours = $result->getTag('opening_hours');
+     *      $addrStreet = $result->getTag('addr:street');
+     *      $addrCity = $result->getTag('addr:city');
+     *      $addrCountry = $result->getTag('addr:country');
+     *      $addrHouseName = $result->getTag('addr:housename');
+     *      $addrHouseNumber = $result->getTag('addr:housenumber');
+     *      $openingHours = $result->getTag('opening_hours');
      *      $phone = $result->getTag('phone');
      *
-     *      $line1 = ($addr_housenumber) ? $addr_housenumber : $addr_housename;
+     *      $line1 = ($addrHouseNumber) ? $addrHouseNumber : $addrHouseName;
      *      if ($line1 != null) {
      *          $line1 .= ', ';
      *      }
-     *      echo  "$name\n{$line1}{$addr_street}\n$phone\n$opening_hours\n\n";
+     *      echo  "$name\n{$line1}{$addrStreet}\n$phone\n$openingHours\n\n";
      *  }
      * </code>
      *

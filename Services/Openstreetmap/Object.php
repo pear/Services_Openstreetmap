@@ -52,7 +52,7 @@ class Services_Openstreetmap_Object
 
     protected $action = null;
 
-    protected $changeset_id = null;
+    protected $changesetId = null;
 
     /**
      * getXml
@@ -124,7 +124,7 @@ class Services_Openstreetmap_Object
      */
     public function setChangesetId($id)
     {
-        $this->changeset_id = $id;
+        $this->changesetId = $id;
         return $this;
     }
 
@@ -148,8 +148,8 @@ class Services_Openstreetmap_Object
             $nodelist->item(0)->setAttribute('action', $this->action);
             $nodelist->item(0)->setAttribute('id', $this->getId());
 
-            if (!is_null($this->changeset_id)) {
-                $nodelist->item(0)->setAttribute('changeset', $this->changeset_id);
+            if (!is_null($this->changesetId)) {
+                $nodelist->item(0)->setAttribute('changeset', $this->changesetId);
             }
             $tags = $xpath->query("//{$type}/tag");
 
@@ -189,8 +189,8 @@ class Services_Openstreetmap_Object
             $n = $xpath->query("//{$type}");
             $version = $this->getVersion();
             $version++;
-            if (!is_null($this->changeset_id)) {
-                $n->item(0)->setAttribute('changeset', $this->changeset_id);
+            if (!is_null($this->changesetId)) {
+                $n->item(0)->setAttribute('changeset', $this->changesetId);
             }
             $n->item(0)->setAttribute('action', 'delete');
             $xml = $domd->saveXml($n->item(0));

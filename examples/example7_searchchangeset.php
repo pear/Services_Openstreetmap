@@ -19,13 +19,19 @@ if (strstr($version, 'package_version')) {
 }
 
 require_once 'Services/Openstreetmap.php';
-$id = 18197393;
+
 $osm = new Services_Openstreetmap();
 try {
     $changesets = $osm->searchChangesets(
         array(
             new Services_Openstreetmap_Criterion('user', 11324),
-            new Services_Openstreetmap_Criterion('bbox', -8.0590275, 52.9347449, -7.9966939, 52.9611999),
+            new Services_Openstreetmap_Criterion(
+                'bbox',
+                -8.0590275,
+                52.9347449,
+                -7.9966939,
+                52.9611999
+            ),
             new Services_Openstreetmap_Criterion('closed'),
         )
     );
@@ -33,7 +39,7 @@ try {
 catch (Services_Openstreetmap_Exception $e) {
     die($e->getMessage());
 }
-foreach($changesets as $changeset) {
+foreach ($changesets as $changeset) {
     echo $changeset->getCreatedAt(), "\t";
     try {
         echo $changeset->getTag('comment'), "\n";
