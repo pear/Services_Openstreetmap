@@ -83,7 +83,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     /**
      * Test unknown config detection.
      *
-     * @expectedException Services_Openstreetmap_Exception
+     * @expectedException Services_Openstreetmap_InvalidArgumentException
      * @expectedExceptionMessage Unknown config parameter 'api'
      *
      * @return void
@@ -102,7 +102,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     /**
      * Test unknown config detection.
      *
-     * @expectedException Services_Openstreetmap_Exception
+     * @expectedException Services_Openstreetmap_InvalidArgumentException
      * @expectedExceptionMessage Unknown config parameter 'api'
      *
      * @return void
@@ -121,7 +121,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     /**
      * Setting an unrecognised config setting should raise an exception.
      *
-     * @expectedException        Services_Openstreetmap_Exception
+     * @expectedException        Services_Openstreetmap_InvalidArgumentException
      * @expectedExceptionMessage Unknown config parameter 'UserAgent'
      *
      * @return void
@@ -138,7 +138,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     /**
      * Try the same, this time with the config settings in an array.
      *
-     * @expectedException        Services_Openstreetmap_Exception
+     * @expectedException        Services_Openstreetmap_InvalidArgumentException
      * @expectedExceptionMessage Unknown config parameter 'UserAgent'
      *
      * @return void

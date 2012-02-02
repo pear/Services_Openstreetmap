@@ -13,7 +13,7 @@
  */
 
 /**
- * Exception thrown by Services_Openstreetmap
+ * Services_Openstreetmap_RuntimeException
  *
  * @category  Services
  * @package   Services_Openstreetmap
@@ -23,9 +23,9 @@
  * @version   Release: 0.0.1
  * @link      http://pear.php.net/package/Services_Openstreetmap
  */
-class Services_Openstreetmap_Exception extends Exception
+class Services_Openstreetmap_RuntimeException extends
+RuntimeException
 {
 }
-
 // vim:set et ts=4 sw=4:
 ?>

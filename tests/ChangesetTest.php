@@ -70,7 +70,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * An exception should be thrown when starting a changeset without having a
      * password set.
      *
-     * @expectedException Services_Openstreetmap_Exception
+     * @expectedException        Services_Openstreetmap_RuntimeException
      * @expectedExceptionMessage Password must be set
      *
      * @return void
@@ -98,7 +98,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * An exception should be thrown when starting a changeset without having a
      * [valid] username set.
      *
-     * @expectedException        Services_Openstreetmap_Exception
+     * @expectedException        Services_Openstreetmap_RuntimeException
      * @expectedExceptionMessage User must be set
      *
      * @return void
@@ -181,7 +181,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * Test that an object can not be added to a closed changeset.
      * A changeset is closed after it has been committed.
      *
-     * @expectedException Services_Openstreetmap_Exception
+     * @expectedException Services_Openstreetmap_RuntimeException
      * @expectedExceptionMessage Object added to closed changeset
      *
      * @return void
@@ -234,7 +234,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
     /**
      * Test that the same object can not be added to the same changeset.
      *
-     * @expectedException Services_Openstreetmap_Exception
+     * @expectedException Services_Openstreetmap_RuntimeException
      * @expectedExceptionMessage Object added to changeset already
      *
      * @return void

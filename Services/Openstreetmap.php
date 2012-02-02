@@ -472,6 +472,8 @@ class Services_Openstreetmap
      * @param array  $arguments Arguments to be used when calling method.
      *
      * @return void
+     * @throws Services_Openstreetmap_Exception If the method is not supported
+     *                                          by the API instance.
      */
     public function __call($name, $arguments)
     {

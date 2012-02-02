@@ -119,14 +119,15 @@ class Services_Openstreetmap_Config
      *
      * @return mixed  value of $name parameter, array of all configuration
      *                parameters if $name is not given
-     * @throws Services_Openstreetmap_Exception If the parameter is unknown
+     * @throws Services_Openstreetmap_InvalidArgumentException If the parameter
+     *                                                         is unknown
      */
     public function getValue($name = null)
     {
         if (is_null($name)) {
             return $this->config;
         } elseif (!array_key_exists($name, $this->config)) {
-            throw new Services_Openstreetmap_Exception(
+            throw new Services_Openstreetmap_InvalidArgumentException(
                 "Unknown config parameter '$name'"
             );
         }
@@ -157,7 +158,8 @@ class Services_Openstreetmap_Config
      * @param mixed $config array containing config settings
      * @param mixed $value  config value if $config is not an array
      *
-     * @throws Services_Openstreetmap_Exception If the parameter is unknown
+     * @throws Services_Openstreetmap_InvalidArgumentException If the parameter
+     *                                                         is unknown
      *
      * @return Services_Openstreetmap_Config
      */
@@ -169,7 +171,7 @@ class Services_Openstreetmap_Config
             }
             foreach ($config as $key=>$value) {
                 if (!array_key_exists($key, $this->config)) {
-                    throw new Services_Openstreetmap_Exception(
+                    throw new Services_Openstreetmap_InvalidArgumentException(
                         "Unknown config parameter '$key'"
                     );
                 }
@@ -195,7 +197,7 @@ class Services_Openstreetmap_Config
             }
         } else {
             if (!array_key_exists($config, $this->config)) {
-                throw new Services_Openstreetmap_Exception(
+                throw new Services_Openstreetmap_InvalidArgumentException(
                     "Unknown config parameter '$config'"
                 );
             }

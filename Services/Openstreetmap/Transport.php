@@ -265,11 +265,6 @@ class Services_Openstreetmap_Transport
      */
     public function getObjects($type, array $ids)
     {
-        /*
-        if (!in_array($type, $this->elements)) {
-            throw new Services_Openstreetmap_Exception('Invalid Element Type');
-        }
-        */
         $config = $this->getConfig();
         $url = $config->getValue('server')
             . 'api/'

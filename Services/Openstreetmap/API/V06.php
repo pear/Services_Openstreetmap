@@ -171,6 +171,7 @@ class Services_Openstreetmap_API_V06
      * @param array $criteria Array of Services_Openstreetmap_Criterion objects.
      *
      * @return Services_Openstreetmap_Changesets
+     * @throws Services_Openstreetmap_RuntimeException
      */
     public function searchChangesets(array $criteria)
     {
@@ -182,7 +183,7 @@ class Services_Openstreetmap_API_V06
         if (array_search('user', $types) !== false
             && array_search('display_name', $types) !== false
         ) {
-            throw new Services_Openstreetmap_InvalidArgumentException(
+            throw new Services_Openstreetmap_RuntimeException(
                 'Can\'t supply both user and display_name criteria'
             );
         }
@@ -233,6 +234,7 @@ class Services_Openstreetmap_API_V06
      * @see setConfig
      *
      * @return Services_Openstreetmap_User
+     * @throw Services_Openstreetmap_Exception
      */
     public function getUser()
     {

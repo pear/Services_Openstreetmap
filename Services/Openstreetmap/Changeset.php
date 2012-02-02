@@ -45,6 +45,8 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
      * @param string $message The changeset log message.
      *
      * @return void
+     * @throws Services_Openstreetmap_RuntimeException If either user or
+     *                                                 password are not set.
      */
     public function begin($message)
     {
@@ -65,10 +67,10 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
         $user = $config->getValue('user');
         $password = $config->getValue('password');
         if (is_null($user)) {
-            throw new Services_Openstreetmap_Exception('User must be set');
+            throw new Services_Openstreetmap_RuntimeException('User must be set');
         }
         if (is_null($password)) {
-            throw new Services_Openstreetmap_Exception('Password must be set');
+            throw new Services_Openstreetmap_RuntimeException('Password must be set');
         }
         $response = $this->getTransport()->getResponse(
             $url,
@@ -94,11 +96,15 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
      * @param Services_Openstreetmap_Object $object OSM object
      *
      * @return void
+     * @throws Services_Openstreetmap_RuntimeException If an object has already
+     *                                                 been added to the changeset
+     *                                                 or has been added to a
+     *                                                 closed changeset.
      */
     public function add(Services_Openstreetmap_Object $object)
     {
         if ($this->open === false) {
-            throw new Services_Openstreetmap_Exception(
+            throw new Services_Openstreetmap_RuntimeException(
                 'Object added to closed changeset'
             );
         }
@@ -108,7 +114,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
             $this->members[] = $object;
             $this->membersIds[] = $objectId;
         } else {
-            throw new Services_Openstreetmap_Exception(
+            throw new Services_Openstreetmap_RuntimeException(
                 'Object added to changeset already'
             );
         }

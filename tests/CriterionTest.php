@@ -116,7 +116,7 @@ class CriterionTest extends PHPUnit_Framework_TestCase
      * Check that an exception is thrown if attempting to search by both
      * user id and display_name
      *
-     * @expectedException        Services_Openstreetmap_InvalidArgumentException
+     * @expectedException        Services_Openstreetmap_RuntimeException
      * @expectedExceptionMessage Can't supply both user and display_name criteria
      *
      * @return void

@@ -64,6 +64,7 @@ class Services_Openstreetmap_Criterion
      * Services_Openstreetmap_Criterion('time', '17/11/2011', '29/11/2011')
      *
      * @return Services_Openstreetmap_Criterion
+     * @throws Services_Openstreetmap_InvalidArgumentException
      */
     public function __construct()
     {
