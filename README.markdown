@@ -1,4 +1,4 @@
-# Services_Openstreetmap
+# Services_OpenStreetMap
 OpenStreetMap is a global project with an aim of collaboratively collecting map
 data. This package aims to make communicating with the OSM API intuitive.
 
@@ -6,21 +6,21 @@ data. This package aims to make communicating with the OSM API intuitive.
 
 ### Initialisation
 
-Simply require and initialize the Services_Openstreetmap class:
+Simply require and initialize the Services_OpenStreetMap class:
 
-    require_once 'Services/Openstreetmap.php';
-    $osm = new Services_Openstreetmap();
+    require_once 'Services/OpenStreetMap.php';
+    $osm = new Services_OpenStreetMap();
 
 ### Downloading Data, saving to an OSM file
 
     $osm->get(-8.3564758, 52.821022799999994, -7.7330017, 53.0428644);
-    file_put_contents("area_covered.osm", $osm->getXML());
+    file_put_contents("area_covered.osm", $osm->getXml());
 
 
 ### Search for a specific POI, in a saved OSM file
-    $osm = new Services_Openstreetmap();
+    $osm = new Services_OpenStreetMap();
 
-    $osm->loadXML("./osm.osm");
+    $osm->loadXml("./osm.osm");
     $results = $osm->search(array("amenity" => "pharmacy"));
     echo "List of Pharmacies\n";
     echo "==================\n\n";
@@ -44,9 +44,9 @@ Simply require and initialize the Services_Openstreetmap class:
     }
 
 ### Get a specific Node
-    require_once 'Services/Openstreetmap.php';
+    require_once 'Services/OpenStreetMap.php';
 
-    $osm = new Services_Openstreetmap();
+    $osm = new Services_OpenStreetMap();
 
     var_dump($osm->getNode(52245107));
 
@@ -54,12 +54,12 @@ Simply require and initialize the Services_Openstreetmap class:
 
 
 ### Updating a way, or several.
-    require_once 'Services/Openstreetmap.php';
+    require_once 'Services/OpenStreetMap.php';
 
     // A password file, is a colon delimited file.
     // Eg. fred@example.com:yabbadabbado
     $config = array('passwordfile' => './credentials');
-    $osm = new Services_Openstreetmap($config);
+    $osm = new Services_OpenStreetMap($config);
 
     $changeset = $osm->createChangeset();
     $changeset->begin("These ways are lit");
@@ -72,12 +72,12 @@ Simply require and initialize the Services_Openstreetmap class:
     $changeset->commit();
 
 ### Creating a node.
-    require_once 'Services/Openstreetmap.php';
+    require_once 'Services/OpenStreetMap.php';
 
     // A password file, is a colon delimited file.
     // Eg. fred@example.com:yabbadabbado
     $config = array('passwordfile' => './credentials');
-    $osm = new Services_Openstreetmap($config);
+    $osm = new Services_OpenStreetMap($config);
 
     $changeset = $osm->createChangeset();
     $changeset->begin("Added Acme Vets.");
@@ -98,7 +98,7 @@ Simply require and initialize the Services_Openstreetmap class:
         'password' => 'w1lma4evah'
     );
 
-    $osm = new Services_Openstreetmap($config);
+    $osm = new Services_OpenStreetMap($config);
     $user = $osm->getUser();
 
     echo 'My OSM Mugshot is at ', $user->getImage(), "\n";
