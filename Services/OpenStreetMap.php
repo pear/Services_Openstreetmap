@@ -1,41 +1,41 @@
 <?php
 /**
- * Provide a method of interfacing with Openstreetmap servers.
+ * Provide a method of interfacing with OpenStreetMap servers.
  *
  * PHP Version 5
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
- * @link     http://pear.php.net/package/Services_Openstreetmap
+ * @link     http://pear.php.net/package/Services_OpenStreetMap
  * @link     http://wiki.openstreetmap.org/wiki/Api06
  */
 
 require_once 'HTTP/Request2.php';
-
-spl_autoload_register(array('Services_Openstreetmap', 'autoload'));
+spl_autoload_register(array('Services_OpenStreetMap', 'autoload'));
+#spl_autoload_register(array('Services_OpenStreetMap', 'autoload'));
 
 /**
- * Services_Openstreetmap - interface with Openstreetmap
+ * Services_OpenStreetMap - interface with OpenStreetMap
  *
  * @category  Services
- * @package   Services_Openstreetmap
+ * @package   Services_OpenStreetMap
  * @author    Ken Guest <kguest@php.net>
  * @copyright 2010 Ken Guest
  * @license   BSD http://www.opensource.org/licenses/bsd-license.php
  * @version   Release: 0.0.1
- * @link      http://pear.php.net/package/Services_Openstreetmap
+ * @link      http://pear.php.net/package/Services_OpenStreetMap
  */
-class Services_Openstreetmap
+class Services_OpenStreetMap
 {
     /**
      * Default config settings
      *
-     * @var Services_Openstreetmap_Config
-     * @see Services_Openstreetmap::getConfig
-     * @see Services_Openstreetmap::setConfig
+     * @var Services_OpenStreetMap_Config
+     * @see Services_OpenStreetMap::getConfig
+     * @see Services_OpenStreetMap::setConfig
      */
     protected $config = null;
 
@@ -70,7 +70,7 @@ class Services_Openstreetmap
      *
      * @param array $config Defaults to empty array if none provided
      *
-     * @return Services_Openstreetmap
+     * @return Services_OpenStreetMap
      */
     public function __construct($config = array())
     {
@@ -82,7 +82,7 @@ class Services_Openstreetmap
             $this->getConfig()->setValue($config);
         }
         $version = $this->getConfig()->getValue('api_version');
-        $api = "Services_Openstreetmap_API_V" . str_replace('.', '', $version);
+        $api = "Services_OpenStreetMap_API_V" . str_replace('.', '', $version);
         $this->api = new $api;
         $this->api->setTransport($this->getTransport());
         $this->api->setConfig($this->getConfig());
@@ -93,7 +93,7 @@ class Services_Openstreetmap
      * method.
      *
      * <code>
-     * $osm = new Services_Openstreetmap();
+     * $osm = new Services_OpenStreetMap();
      * $osm->get($osm->bboxToMinMax($minLat, $minLon, $maxLat, $maxLon));
      * file_put_contents("area_covered.osm", $osm->getXML());
      * </code>
@@ -114,7 +114,7 @@ class Services_Openstreetmap
      * Get XML describing area prescribed by the given co-ordinates.
      *
      * <code>
-     * $osm = new Services_Openstreetmap();
+     * $osm = new Services_OpenStreetMap();
      * $osm->get(-8.3564758, 52.821022799999994, -7.7330017, 53.0428644);
      * file_put_contents("area_covered.osm", $osm->getXML());
      * </code>
@@ -148,7 +148,7 @@ class Services_Openstreetmap
      * @param string $place name
      *
      * @return array Associated array of lat/lon values.
-     * @throws Services_Openstreetmap_Exception If the place can not be found.
+     * @throws Services_OpenStreetMap_Exception If the place can not be found.
      */
     public function getCoordsOfPlace($place)
     {
@@ -158,7 +158,7 @@ class Services_Openstreetmap
         $xml = simplexml_load_string($response->getBody());
         $obj = $xml->xpath('//place');
         if (empty($obj)) {
-            throw new Services_Openstreetmap_Exception(
+            throw new Services_OpenStreetMap_Exception(
                 'Could not get coords for ' . $place
             );
         }
@@ -218,10 +218,10 @@ class Services_Openstreetmap
     /**
      * search based on given criteria.
      *
-     * returns an array of objects such as Services_Openstreetmap_Node etc.
+     * returns an array of objects such as Services_OpenStreetMap_Node etc.
      *
      * <code>
-     *  $osm = new Services_Openstreetmap();
+     *  $osm = new Services_OpenStreetMap();
      *
      *  $osm->loadXML("./osm.osm");
      *  $results = $osm->search(array("amenity" => "pharmacy"));
@@ -288,7 +288,7 @@ class Services_Openstreetmap
      */
     private function _searchNode(SimpleXMLElement $node, $key, $value, $type)
     {
-        $class =  'Services_Openstreetmap_' . ucfirst(strtolower($type));
+        $class =  'Services_OpenStreetMap_' . ucfirst(strtolower($type));
         $results = array();
         foreach ($node->tag as $tag) {
             if ($tag['k'] == $key) {
@@ -329,7 +329,7 @@ class Services_Openstreetmap
      *
      * <code>
      * $config = array('user' => 'fred@example.net', 'password' => 'wilma4eva');
-     * $osm = new Services_Openstreetmap($config);
+     * $osm = new Services_OpenStreetMap($config);
      * $min = $osm->getMinVersion();
      * </code>
      *
@@ -345,7 +345,7 @@ class Services_Openstreetmap
      *
      * <code>
      * $config = array('user' => 'fred@example.net', 'password' => 'wilma4eva');
-     * $osm = new Services_Openstreetmap($config);
+     * $osm = new Services_OpenStreetMap($config);
      * $max = $osm->getMaxVersion();
      * </code>
      *
@@ -360,7 +360,7 @@ class Services_Openstreetmap
      * Max size of area that can be downloaded in one request.
      *
      * <code>
-     * $osm = new Services_Openstreetmap();
+     * $osm = new Services_OpenStreetMap();
      * $area_allowed = $osm->getMaxArea();
      * </code>
      *
@@ -375,7 +375,7 @@ class Services_Openstreetmap
      * Maximum number of tracepoints per page.
      *
      * <code>
-     * $osm = new Services_Openstreetmap();
+     * $osm = new Services_OpenStreetMap();
      * $tracepoints = $osm->getTracepointsPerPage();
      * </code>
      *
@@ -392,7 +392,7 @@ class Services_Openstreetmap
      * Anymore than that and the way must be split.
      *
      * <code>
-     * $osm = new Services_Openstreetmap();
+     * $osm = new Services_OpenStreetMap();
      * $max = $osm->getMaxNodes();
      * </code>
      *
@@ -407,7 +407,7 @@ class Services_Openstreetmap
      * Number of elements allowed per changeset
      *
      * <code>
-     * $osm = new Services_Openstreetmap();
+     * $osm = new Services_OpenStreetMap();
      * $max = $osm->getMaxElements();
      * </code>
      *
@@ -421,11 +421,11 @@ class Services_Openstreetmap
     /**
      * Set Config object
      *
-     * @param Services_Openstreetmap_Config $config Config settings.
+     * @param Services_OpenStreetMap_Config $config Config settings.
      *
-     * @return Services_Openstreetmap_API_V06
+     * @return Services_OpenStreetMap_API_V06
      */
-    public function setConfig(Services_Openstreetmap_Config $config)
+    public function setConfig(Services_OpenStreetMap_Config $config)
     {
         $this->config = $config;
         return $this;
@@ -434,12 +434,12 @@ class Services_Openstreetmap
     /**
      * Get current Config object
      *
-     * @return Services_Openstreetmap_Config
+     * @return Services_OpenStreetMap_Config
      */
     public function getConfig()
     {
         if (is_null($this->config)) {
-            $config = new Services_Openstreetmap_Config();
+            $config = new Services_OpenStreetMap_Config();
             $this->config = $config;
         }
         return $this->config;
@@ -450,12 +450,12 @@ class Services_Openstreetmap
      *
      * If one is not defined, create it.
      *
-     * @return Services_Openstreetmap_Transport
+     * @return Services_OpenStreetMap_Transport
      */
     public function getTransport()
     {
         if (is_null($this->transport)) {
-            $transport = new Services_Openstreetmap_Transport();
+            $transport = new Services_OpenStreetMap_Transport();
             $transport->setConfig($this->getConfig());
             $this->transport = $transport;
 
@@ -472,7 +472,7 @@ class Services_Openstreetmap
      * @param array  $arguments Arguments to be used when calling method.
      *
      * @return void
-     * @throws Services_Openstreetmap_Exception If the method is not supported
+     * @throws Services_OpenStreetMap_Exception If the method is not supported
      *                                          by the API instance.
      */
     public function __call($name, $arguments)
@@ -480,7 +480,7 @@ class Services_Openstreetmap
         if (method_exists($this->api, $name)) {
             return call_user_func_array(array($this->api, $name), $arguments);
         } else {
-            throw new Services_Openstreetmap_Exception(
+            throw new Services_OpenStreetMap_Exception(
                 sprintf(
                     'Method %s does not exist.',
                     $name

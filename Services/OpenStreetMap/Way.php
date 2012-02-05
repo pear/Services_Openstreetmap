@@ -6,7 +6,7 @@
  * PHP Version 5
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
@@ -14,15 +14,15 @@
  */
 
 /**
- * Services_Openstreetmap_Way
+ * Services_OpenStreetMap_Way
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     Way.php
  */
-class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
+class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
 {
     protected $type = 'way';
     protected $nodes = array();
@@ -74,11 +74,11 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
     /**
      * Add a node to the way.
      *
-     * @param node $node An Services_Openstreetmap_Node object.
+     * @param node $node An Services_OpenStreetMap_Node object.
      *
-     * @return Services_Openstreetmap_Way
+     * @return Services_OpenStreetMap_Way
      */
-    public function addNode(Services_Openstreetmap_Node $node)
+    public function addNode(Services_OpenStreetMap_Node $node)
     {
         $id = $node->getId();
         $pos = array_search($id, $this->nodes);
@@ -97,8 +97,8 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
      *
      * @param node $node Either a Node object or an id/ref of such an object.
      *
-     * @return Services_Openstreetmap_Way
-     * @throws Services_Openstreetmap_InvalidArgumentException
+     * @return Services_OpenStreetMap_Way
+     * @throws Services_OpenStreetMap_InvalidArgumentException
      */
     public function removeNode($node)
     {
@@ -108,12 +108,12 @@ class Services_Openstreetmap_Way extends Services_Openstreetmap_Object
         $id = null;
         if (is_numeric($node)) {
             $id = $node;
-        } elseif ($node instanceof Services_Openstreetmap_Node) {
+        } elseif ($node instanceof Services_OpenStreetMap_Node) {
             $id = $node->id;
         } else {
-            throw new Services_Openstreetmap_InvalidArgumentException(
+            throw new Services_OpenStreetMap_InvalidArgumentException(
                 '$node must be either ' .
-                'an instance of Services_Openstreetmap_Node or a numeric id'
+                'an instance of Services_OpenStreetMap_Node or a numeric id'
             );
         }
         $pos = array_search($id, $this->nodes);

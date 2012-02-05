@@ -18,13 +18,13 @@ if (strstr($version, 'package_version')) {
     set_include_path(dirname(dirname(__FILE__)) . ':' . get_include_path());
 }
 
-require_once 'Services/Openstreetmap.php';
+require_once 'Services/OpenStreetMap.php';
 $id = 18197393;
-$osm = new Services_Openstreetmap();
+$osm = new Services_OpenStreetMap();
 try {
     $w = $osm->getWay($id);
 }
-catch (Services_Openstreetmap_Exception $e) {
+catch (Services_OpenStreetMap_Exception $e) {
     var_dump($e);
 }
 $h = $w->isClosed();

@@ -6,7 +6,7 @@
  * PHP Version 5
  *
  * @category   Services
- * @package    Services_Openstreetmap
+ * @package    Services_OpenStreetMap
  * @subpackage UnitTesting
  * @author     Ken Guest <kguest@php.net>
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
@@ -19,7 +19,7 @@ if (strstr($version, 'package_version')) {
     set_include_path(dirname(dirname(__FILE__)) . ':' . get_include_path());
 }
 
-require_once 'Services/Openstreetmap.php';
+require_once 'Services/OpenStreetMap.php';
 
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
@@ -29,7 +29,7 @@ require_once 'PHPUnit/Framework/TestCase.php';
  * Unit tests for retrieving and manipulating nodes.
  *
  * @category   Services
- * @package    Services_Openstreetmap
+ * @package    Services_OpenStreetMap
  * @subpackage UnitTesting
  * @author     Ken Guest <kguest@php.net>
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
@@ -54,7 +54,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $node = $osm->getNode($id);
         $getTags = $node->getTags();
 
@@ -81,7 +81,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $node = $osm->getNode($id, 2);
         $getTags = $node->getTags();
 
@@ -109,7 +109,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $node = $osm->getNode($id);
         $this->assertFalse($node);
     }
@@ -132,7 +132,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $node = $osm->getNode($id);
         $this->assertFalse($node);
     }
@@ -140,7 +140,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test how a 500 status code is handled.
      *
-     * @expectedException        Services_Openstreetmap_Exception
+     * @expectedException        Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Unexpected HTTP status: 500 Internal Server Error
      *
      * @return void
@@ -157,7 +157,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $node = $osm->getNode($id);
     }
 
@@ -176,7 +176,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
                 'adapter'  => $mock,
                 'server'   => 'http://api06.dev.openstreetmap.org/',
                 );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
         $lon = -8.1983611;
         $node = $osm->createNode(
@@ -193,7 +193,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             $node->getTags(),
             array(
-                'created_by' => 'Services_Openstreetmap',
+                'created_by' => 'Services_OpenStreetMap',
                 'building' => 'yes',
                 'amenity' => 'vet',
             )
@@ -220,7 +220,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
                 'adapter'  => $mock,
                 'server'   => 'http://api06.dev.openstreetmap.org/',
                 );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $lat = 252.8638729;
         $lon = -8.1983611;
         $node = $osm->createNode($lat, $lon);
@@ -243,7 +243,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
                 'adapter'  => $mock,
                 'server'   => 'http://api06.dev.openstreetmap.org/',
                 );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $lat = -180.000010123;
         $lon = -8.1983611;
         $node = $osm->createNode($lat, $lon);
@@ -266,7 +266,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
                 'adapter'  => $mock,
                 'server'   => 'http://api06.dev.openstreetmap.org/',
                 );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $lat = 'ArticCircle';
         $lon = -8.1983611;
         $node = $osm->createNode($lat, $lon);
@@ -290,7 +290,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
                 'adapter'  => $mock,
                 'server'   => 'http://api06.dev.openstreetmap.org/',
                 );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
         $lon = 90.1983611;
         $node = $osm->createNode($lat, $lon);
@@ -313,7 +313,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
                 'adapter'  => $mock,
                 'server'   => 'http://api06.dev.openstreetmap.org/',
                 );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
         $lon = -90.1983611;
         $node = $osm->createNode($lat, $lon);
@@ -335,7 +335,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
                 'adapter' => $mock,
                 'server'  => 'http://api06.dev.openstreetmap.org/',
                 );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
         $lon = 'TheBlessing';
         $node = $osm->createNode($lat, $lon);
@@ -362,7 +362,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
         $this->assertEquals(3, sizeof($nodes));
 
@@ -405,7 +405,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
         $this->assertFalse($nodes);
     }
@@ -426,7 +426,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
         $this->assertFalse($nodes);
     }
@@ -447,7 +447,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
         $this->assertFalse($nodes);
     }
@@ -455,7 +455,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test how a 500 status code is handled.
      *
-     * @expectedException        Services_Openstreetmap_Exception
+     * @expectedException        Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Unexpected HTTP status: 500 Internal Server Error
      * @return void
      */
@@ -469,7 +469,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
     }
 
@@ -498,7 +498,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
         $versions = array(
             621953926 => array(1),
@@ -533,10 +533,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'server'  => 'http://api06.dev.openstreetmap.org/',
         );
 
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
 
         $ways = $osm->getNode(248081837)->getWays();
-        $this->assertInstanceOf('Services_Openstreetmap_Ways', $ways);
+        $this->assertInstanceOf('Services_OpenStreetMap_Ways', $ways);
         $this->assertEquals(sizeof($ways), 1);
         $this->assertEquals(
             $ways[0]->getTags(),
@@ -567,12 +567,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
             'server'  => 'http://api06.dev.openstreetmap.org/',
         );
 
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
 
         $relations = $osm->getNode(597697114)->getRelations();
-        $this->assertInstanceOf('Services_Openstreetmap_Relations', $relations);
+        $this->assertInstanceOf('Services_OpenStreetMap_Relations', $relations);
         $this->assertEquals(sizeof($relations), 1);
-        $this->assertInstanceOf('Services_Openstreetmap_Relation', $relations[0]);
+        $this->assertInstanceOf('Services_OpenStreetMap_Relation', $relations[0]);
         $this->assertEquals(
             $relations[0]->getTags(),
             array (

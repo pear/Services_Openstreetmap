@@ -6,7 +6,7 @@
  * PHP Version 5
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
@@ -14,15 +14,15 @@
  */
 
 /**
- * Services_Openstreetmap_Object
+ * Services_OpenStreetMap_Object
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     Object.php
  */
-class Services_Openstreetmap_Object
+class Services_OpenStreetMap_Object
 {
     protected $xml = null;
 
@@ -120,7 +120,7 @@ class Services_Openstreetmap_Object
      *
      * @param integer $id Changeset Id (numeric)
      *
-     * @return Services_Openstreetmap_Object
+     * @return Services_OpenStreetMap_Object
      */
     public function setChangesetId($id)
     {
@@ -238,7 +238,7 @@ class Services_Openstreetmap_Object
      *
      * @param integer $value new id of the object
      *
-     * @return Services_Openstreetmap_Object
+     * @return Services_OpenStreetMap_Object
      */
     public function setId($value)
     {
@@ -340,7 +340,7 @@ class Services_Openstreetmap_Object
     /**
      * Get each distinct version of an object.
      *
-     * @return Services_Openstreetmap_Objects
+     * @return Services_OpenStreetMap_Objects
      */
     public function history()
     {
@@ -352,7 +352,7 @@ class Services_Openstreetmap_Object
             . 'api/'
             . $config->getValue('api_version')
             . "/$type/$id/history";
-        $class = 'Services_Openstreetmap_' . ucfirst($type) . 's';
+        $class = 'Services_OpenStreetMap_' . ucfirst($type) . 's';
         $transport = $this->getTransport();
         $response = $transport->getResponse($url);
         $obj = new $class();
@@ -368,7 +368,7 @@ class Services_Openstreetmap_Object
     /**
      * Get all relations referring to the object in question.
      *
-     * @return Services_Openstreetmap_Relations
+     * @return Services_OpenStreetMap_Relations
      */
     public function getRelations()
     {
@@ -380,7 +380,7 @@ class Services_Openstreetmap_Object
             . $config->getValue('api_version')
             . "/$type/$id/relations";
         $response = $this->getTransport()->getResponse($url);
-        $obj = new Services_Openstreetmap_Relations();
+        $obj = new Services_OpenStreetMap_Relations();
         $sxe = @simplexml_load_string($response->getBody());
         if ($sxe === false) {
             $obj->setVal(trim($response->getBody()));
@@ -434,11 +434,11 @@ class Services_Openstreetmap_Object
     /**
      * Set Config object
      *
-     * @param Services_Openstreetmap_Config $config Config object
+     * @param Services_OpenStreetMap_Config $config Config object
      *
-     * @return Services_Openstreetmap_Changeset
+     * @return Services_OpenStreetMap_Changeset
      */
-    public function setConfig(Services_Openstreetmap_Config $config)
+    public function setConfig(Services_OpenStreetMap_Config $config)
     {
         $this->config = $config;
         return $this;
@@ -447,7 +447,7 @@ class Services_Openstreetmap_Object
     /**
      * Get current Config object
      *
-     * @return Services_Openstreetmap_Config
+     * @return Services_OpenStreetMap_Config
      */
     public function getConfig()
     {
@@ -457,9 +457,9 @@ class Services_Openstreetmap_Object
     /**
      * Set the Transport instance.
      *
-     * @param Services_Openstreetmap_Transport $transport Transport instance.
+     * @param Services_OpenStreetMap_Transport $transport Transport instance.
      *
-     * @return Services_Openstreetmap_Config
+     * @return Services_OpenStreetMap_Config
      */
     public function setTransport($transport)
     {
@@ -470,7 +470,7 @@ class Services_Openstreetmap_Object
     /**
      * Retrieve the current Transport instance.
      *
-     * @return Services_Openstreetmap_Transport.
+     * @return Services_OpenStreetMap_Transport.
      */
     public function getTransport()
     {

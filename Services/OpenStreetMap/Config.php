@@ -6,7 +6,7 @@
  * PHP Version 5
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
@@ -14,15 +14,15 @@
  */
 
 /**
- * Services_Openstreetmap_Config
+ * Services_OpenStreetMap_Config
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     Config.php
  */
-class Services_Openstreetmap_Config
+class Services_OpenStreetMap_Config
 {
 
     /**
@@ -79,8 +79,8 @@ class Services_Openstreetmap_Config
      * Default config settings
      *
      * @var array
-     * @see Services_Openstreetmap::getConfig
-     * @see Services_Openstreetmap::setConfig
+     * @see Services_OpenStreetMap::getConfig
+     * @see Services_OpenStreetMap::setConfig
      */
     protected $config = array(
         'adapter'      => 'HTTP_Request2_Adapter_Socket',
@@ -88,7 +88,7 @@ class Services_Openstreetmap_Config
         'password'     => null,
         'passwordfile' => null,
         'server'       => 'http://api.openstreetmap.org/',
-        'User-Agent'   => 'Services_Openstreetmap',
+        'User-Agent'   => 'Services_OpenStreetMap',
         'user'         => null,
         'verbose'      => false,
     );
@@ -119,7 +119,7 @@ class Services_Openstreetmap_Config
      *
      * @return mixed  value of $name parameter, array of all configuration
      *                parameters if $name is not given
-     * @throws Services_Openstreetmap_InvalidArgumentException If the parameter
+     * @throws Services_OpenStreetMap_InvalidArgumentException If the parameter
      *                                                         is unknown
      */
     public function getValue($name = null)
@@ -127,7 +127,7 @@ class Services_Openstreetmap_Config
         if (is_null($name)) {
             return $this->config;
         } elseif (!array_key_exists($name, $this->config)) {
-            throw new Services_Openstreetmap_InvalidArgumentException(
+            throw new Services_OpenStreetMap_InvalidArgumentException(
                 "Unknown config parameter '$name'"
             );
         }
@@ -158,10 +158,10 @@ class Services_Openstreetmap_Config
      * @param mixed $config array containing config settings
      * @param mixed $value  config value if $config is not an array
      *
-     * @throws Services_Openstreetmap_InvalidArgumentException If the parameter
+     * @throws Services_OpenStreetMap_InvalidArgumentException If the parameter
      *                                                         is unknown
      *
-     * @return Services_Openstreetmap_Config
+     * @return Services_OpenStreetMap_Config
      */
     public function setValue($config, $value = null)
     {
@@ -171,7 +171,7 @@ class Services_Openstreetmap_Config
             }
             foreach ($config as $key=>$value) {
                 if (!array_key_exists($key, $this->config)) {
-                    throw new Services_Openstreetmap_InvalidArgumentException(
+                    throw new Services_OpenStreetMap_InvalidArgumentException(
                         "Unknown config parameter '$key'"
                     );
                 }
@@ -184,7 +184,7 @@ class Services_Openstreetmap_Config
                     break;
                 case 'api_version':
                     $this->config[$key] = $value;
-                    $api = "Services_Openstreetmap_API_V" . str_replace(
+                    $api = "Services_OpenStreetMap_API_V" . str_replace(
                         '.',
                         '',
                         $value
@@ -197,7 +197,7 @@ class Services_Openstreetmap_Config
             }
         } else {
             if (!array_key_exists($config, $this->config)) {
-                throw new Services_Openstreetmap_InvalidArgumentException(
+                throw new Services_OpenStreetMap_InvalidArgumentException(
                     "Unknown config parameter '$config'"
                 );
             }
@@ -216,14 +216,14 @@ class Services_Openstreetmap_Config
      *
      * @param string $server base server details, e.g. http://api.openstreetmap.org
      *
-     * @return Services_Openstreetmap
+     * @return Services_OpenStreetMap
      */
     public function setServer($server)
     {
         try {
             $c = $this->getTransport()->getResponse($server . '/api/capabilities');
         } catch (Exception $ex) {
-            throw new Services_Openstreetmap_Exception(
+            throw new Services_OpenStreetMap_Exception(
                 'Could not get a valid response from server',
                 $ex->getCode(),
                 $ex
@@ -232,7 +232,7 @@ class Services_Openstreetmap_Config
         $this->server = $server;
         $capabilities = $c->getBody();
         if (!$this->_checkCapabilities($capabilities)) {
-            throw new Services_Openstreetmap_Exception(
+            throw new Services_OpenStreetMap_Exception(
                 'Problem checking server capabilities'
             );
         }
@@ -262,7 +262,7 @@ class Services_Openstreetmap_Config
      *
      * @param string $file file containing credentials
      *
-     * @return Services_Openstreetmap
+     * @return Services_OpenStreetMap
      */
     public function setPasswordfile($file)
     {
@@ -271,7 +271,7 @@ class Services_Openstreetmap_Config
         }
         $lines = @file($file);
         if ($lines === false) {
-            throw new Services_Openstreetmap_Exception(
+            throw new Services_OpenStreetMap_Exception(
                 'Could not read password file'
             );
         }
@@ -306,11 +306,11 @@ class Services_Openstreetmap_Config
     /**
      * Set the Transport instance.
      *
-     * @param Services_Openstreetmap_Transport $transport Transport instance.
+     * @param Services_OpenStreetMap_Transport $transport Transport instance.
      *
-     * @return Services_Openstreetmap_Config
+     * @return Services_OpenStreetMap_Config
      */
-    public function setTransport(Services_Openstreetmap_Transport $transport)
+    public function setTransport(Services_OpenStreetMap_Transport $transport)
     {
         $this->transport = $transport;
         return $this;
@@ -319,7 +319,7 @@ class Services_Openstreetmap_Config
     /**
      * Retrieve the current Transport instance.
      *
-     * @return Services_Openstreetmap_Transport.
+     * @return Services_OpenStreetMap_Transport.
      */
     public function getTransport()
     {
@@ -349,7 +349,7 @@ class Services_Openstreetmap_Config
      * @return boolean
      *
      * @internal
-     * @throws   Services_Openstreetmap_Exception If the API Version is not
+     * @throws   Services_OpenStreetMap_Exception If the API Version is not
      *                                            supported.
      */
     private function _checkCapabilities($capabilities)
@@ -364,7 +364,7 @@ class Services_Openstreetmap_Config
         if (($this->minVersion > $this->api_version
             || $this->api_version > $this->maxVersion)
         ) {
-            throw new Services_Openstreetmap_Exception(
+            throw new Services_OpenStreetMap_Exception(
                 'Specified API Version ' . $this->api_version .' not supported.'
             );
         }
@@ -403,7 +403,7 @@ class Services_Openstreetmap_Config
      * Max size of area that can be downloaded in one request.
      *
      * <code>
-     * $osm = new Services_Openstreetmap();
+     * $osm = new Services_OpenStreetMap();
      * $area_allowed = $osm->getMaxArea();
      * </code>
      *
@@ -419,7 +419,7 @@ class Services_Openstreetmap_Config
      *
      * <code>
      * $config = array('user' => 'fred@example.net', 'password' => 'wilma4eva');
-     * $osm = new Services_Openstreetmap($config);
+     * $osm = new Services_OpenStreetMap($config);
      * $min = $osm->getMinVersion();
      * </code>
      *
@@ -435,7 +435,7 @@ class Services_Openstreetmap_Config
      *
      * <code>
      * $config = array('user' => 'fred@example.net', 'password' => 'wilma4eva');
-     * $osm = new Services_Openstreetmap($config);
+     * $osm = new Services_OpenStreetMap($config);
      * $max = $osm->getMaxVersion();
      * </code>
      *
@@ -461,7 +461,7 @@ class Services_Openstreetmap_Config
      * Maximum number of tracepoints per page.
      *
      * <code>
-     * $osm = new Services_Openstreetmap();
+     * $osm = new Services_OpenStreetMap();
      * $tracepoints = $osm->getTracepointsPerPage();
      * </code>
      *
@@ -478,7 +478,7 @@ class Services_Openstreetmap_Config
      * Anymore than that and the way must be split.
      *
      * <code>
-     * $osm = new Services_Openstreetmap();
+     * $osm = new Services_OpenStreetMap();
      * $max = $osm->getMaxNodes();
      * </code>
      *
@@ -493,7 +493,7 @@ class Services_Openstreetmap_Config
      * Number of elements allowed per changeset
      *
      * <code>
-     * $osm = new Services_Openstreetmap();
+     * $osm = new Services_OpenStreetMap();
      * $max = $osm->getMaxElements();
      * </code>
      *

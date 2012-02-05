@@ -6,7 +6,7 @@
  * PHP Version 5
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
@@ -14,15 +14,15 @@
  */
 
 /**
- * Services_Openstreetmap_API_V06
+ * Services_OpenStreetMap_API_V06
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     API_V06.php
  */
-class Services_Openstreetmap_API_V06
+class Services_OpenStreetMap_API_V06
 {
     /**
      * Elements supported by the API (v0.6).
@@ -46,11 +46,11 @@ class Services_Openstreetmap_API_V06
     /**
      * Set Config object
      *
-     * @param Services_Openstreetmap_Config $config Config object.
+     * @param Services_OpenStreetMap_Config $config Config object.
      *
-     * @return Services_Openstreetmap_API_V06
+     * @return Services_OpenStreetMap_API_V06
      */
-    public function setConfig(Services_Openstreetmap_Config $config)
+    public function setConfig(Services_OpenStreetMap_Config $config)
     {
         $this->config = $config;
         return $this;
@@ -59,7 +59,7 @@ class Services_Openstreetmap_API_V06
     /**
      * Get current Config object
      *
-     * @return Services_Openstreetmap_Config
+     * @return Services_OpenStreetMap_Config
      */
     public function getConfig()
     {
@@ -69,9 +69,9 @@ class Services_Openstreetmap_API_V06
     /**
      * Set the Transport instance.
      *
-     * @param Services_Openstreetmap_Transport $transport Transport instance.
+     * @param Services_OpenStreetMap_Transport $transport Transport instance.
      *
-     * @return Services_Openstreetmap_Config
+     * @return Services_OpenStreetMap_Config
      */
     public function setTransport($transport)
     {
@@ -82,7 +82,7 @@ class Services_Openstreetmap_API_V06
     /**
      * Retrieve the current Transport instance.
      *
-     * @return Services_Openstreetmap_Transport.
+     * @return Services_OpenStreetMap_Transport.
      */
     public function getTransport()
     {
@@ -121,7 +121,7 @@ class Services_Openstreetmap_API_V06
     {
         return $this->getTransport()->getObjects(
             'relation',
-            Services_Openstreetmap::getIDs(func_get_args())
+            Services_OpenStreetMap::getIDs(func_get_args())
         );
     }
 
@@ -148,18 +148,18 @@ class Services_Openstreetmap_API_V06
      *
      * <code>
      * $config = array('user' => 'fred@example.net', 'password' => 'wilma4eva');
-     * $osm = new Services_Openstreetmap($config);
+     * $osm = new Services_OpenStreetMap($config);
      * $changeset = $osm->createChangeset();
      * </code>
      *
      * @param boolean $atomic atomic changeset?
      *
-     * @return Services_Openstreetmap_Changeset
+     * @return Services_OpenStreetMap_Changeset
      * @see setConfig
      */
     public function createChangeset($atomic = true)
     {
-        $changeset = new Services_Openstreetmap_Changeset($atomic);
+        $changeset = new Services_OpenStreetMap_Changeset($atomic);
         $changeset->setTransport($this->getTransport());
         $changeset->setConfig($this->getConfig());
         return $changeset;
@@ -168,10 +168,10 @@ class Services_Openstreetmap_API_V06
     /**
      * searchChangesets
      *
-     * @param array $criteria Array of Services_Openstreetmap_Criterion objects.
+     * @param array $criteria Array of Services_OpenStreetMap_Criterion objects.
      *
-     * @return Services_Openstreetmap_Changesets
-     * @throws Services_Openstreetmap_RuntimeException
+     * @return Services_OpenStreetMap_Changesets
+     * @throws Services_OpenStreetMap_RuntimeException
      */
     public function searchChangesets(array $criteria)
     {
@@ -183,7 +183,7 @@ class Services_Openstreetmap_API_V06
         if (array_search('user', $types) !== false
             && array_search('display_name', $types) !== false
         ) {
-            throw new Services_Openstreetmap_RuntimeException(
+            throw new Services_OpenStreetMap_RuntimeException(
                 'Can\'t supply both user and display_name criteria'
             );
         }
@@ -192,7 +192,7 @@ class Services_Openstreetmap_API_V06
     }
 
     /**
-     * Create and return a Services_Openstreetmap_Node
+     * Create and return a Services_OpenStreetMap_Node
      *
      * <code>
      * $node = $osm->createNode($lat, $lon, array('building' => 'yes'));
@@ -202,11 +202,11 @@ class Services_Openstreetmap_API_V06
      * @param float $longitude Longitude of node
      * @param array $tags      Array of key->value tag pairs.
      *
-     * @return Services_Openstreetmap_Node
+     * @return Services_OpenStreetMap_Node
      */
     public function createNode($latitude, $longitude, array $tags = array())
     {
-        $node = new Services_Openstreetmap_Node();
+        $node = new Services_OpenStreetMap_Node();
         $config = $this->getConfig();
         $apiVersion = $config->getValue('api_version');
         $userAgent  = $config->getValue('User-Agent');
@@ -227,14 +227,14 @@ class Services_Openstreetmap_API_V06
     }
 
     /**
-     * Get a Services_Openstreetmap_User object for the [current] user.
+     * Get a Services_OpenStreetMap_User object for the [current] user.
      *
      * May return false if the user could not be found for any reason.
      *
      * @see setConfig
      *
-     * @return Services_Openstreetmap_User
-     * @throw Services_Openstreetmap_Exception
+     * @return Services_OpenStreetMap_User
+     * @throw Services_OpenStreetMap_Exception
      */
     public function getUser()
     {
@@ -252,11 +252,11 @@ class Services_Openstreetmap_API_V06
                 $user,
                 $password
             );
-        } catch (Services_Openstreetmap_Exception $ex) {
+        } catch (Services_OpenStreetMap_Exception $ex) {
             switch ($ex->getCode()) {
-            case Services_Openstreetmap_Transport::NOT_FOUND:
-            case Services_Openstreetmap_Transport::UNAUTHORISED:
-            case Services_Openstreetmap_Transport::GONE:
+            case Services_OpenStreetMap_Transport::NOT_FOUND:
+            case Services_OpenStreetMap_Transport::UNAUTHORISED:
+            case Services_OpenStreetMap_Transport::GONE:
                 return false;
             default:
                 throw $ex;
@@ -272,17 +272,17 @@ class Services_Openstreetmap_API_V06
                 $user,
                 $password
             );
-        } catch (Services_Openstreetmap_Exception $ex) {
+        } catch (Services_OpenStreetMap_Exception $ex) {
             switch ($ex->getCode()) {
-            case Services_Openstreetmap_Transport::NOT_FOUND:
-            case Services_Openstreetmap_Transport::UNAUTHORISED:
-            case Services_Openstreetmap_Transport::GONE:
+            case Services_OpenStreetMap_Transport::NOT_FOUND:
+            case Services_OpenStreetMap_Transport::UNAUTHORISED:
+            case Services_OpenStreetMap_Transport::GONE:
                 return false;
             default:
                 throw $ex;
             }
         }
-        $obj = new Services_Openstreetmap_User();
+        $obj = new Services_OpenStreetMap_User();
         $obj->setXml(simplexml_load_string($response->getBody()));
         $obj->setPreferencesXml($prefs->getBody());
         return $obj;
@@ -319,7 +319,7 @@ class Services_Openstreetmap_API_V06
     {
         return $this->getTransport()->getObjects(
             'way',
-            Services_Openstreetmap::getIDs(func_get_args())
+            Services_OpenStreetMap::getIDs(func_get_args())
         );
     }
 
@@ -327,7 +327,7 @@ class Services_Openstreetmap_API_V06
      * Get details of specified node
      *
      * <code>
-     * $osm = new Services_Openstreetmap();
+     * $osm = new Services_OpenStreetMap();
      * var_dump($osm->getNode(52245107));
      * </code>
      *
@@ -353,22 +353,22 @@ class Services_Openstreetmap_API_V06
      * then the boolean false value is returned.
      *
      * <code>
-     * $osm = new Services_Openstreetmap();
+     * $osm = new Services_OpenStreetMap();
      * var_dump($osm->getNodes(52245107, 52245108));
      * </code>
      * Or
      * <code>
-     * $osm = new Services_Openstreetmap();
+     * $osm = new Services_OpenStreetMap();
      * var_dump($osm->getNodes(array(52245107, 52245108)));
      * </code>
      *
-     * @return Services_Openstreetmap_Nodes
+     * @return Services_OpenStreetMap_Nodes
      */
     public function getNodes()
     {
         return $this->getTransport()->getObjects(
             'node',
-            Services_Openstreetmap::getIDs(func_get_args())
+            Services_OpenStreetMap::getIDs(func_get_args())
         );
     }
 }

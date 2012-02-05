@@ -6,7 +6,7 @@
  * PHP Version 5
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
@@ -14,15 +14,15 @@
  */
 
 /**
- * Services_Openstreetmap_Relation
+ * Services_OpenStreetMap_Relation
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     Relation.php
  */
-class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
+class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
 {
     protected $type = 'relation';
 
@@ -73,7 +73,7 @@ class Services_Openstreetmap_Relation extends Services_Openstreetmap_Object
      *
      * @param SimpleXMLElement $xml OSM XML
      *
-     * @return Services_Openstreetmap_Relation
+     * @return Services_OpenStreetMap_Relation
      */
     public function setXml(SimpleXMLElement $xml)
     {

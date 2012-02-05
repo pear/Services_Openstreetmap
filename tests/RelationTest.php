@@ -5,7 +5,7 @@
  * PHP Version 5
  *
  * @category   Services
- * @package    Services_Openstreetmap
+ * @package    Services_OpenStreetMap
  * @subpackage UnitTesting
  * @author     Ken Guest <kguest@php.net>
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
@@ -18,7 +18,7 @@ if (strstr($version, 'package_version')) {
     set_include_path(dirname(dirname(__FILE__)) . ':' . get_include_path());
 }
 
-require_once 'Services/Openstreetmap.php';
+require_once 'Services/OpenStreetMap.php';
 
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
@@ -29,7 +29,7 @@ require_once 'PHPUnit/Framework/TestCase.php';
  * Test retrieving relations.
  *
  * @category   Services
- * @package    Services_Openstreetmap
+ * @package    Services_OpenStreetMap
  * @subpackage UnitTesting
  * @author     Ken Guest <kguest@php.net>
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
@@ -57,7 +57,7 @@ class RelationTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server'  => 'http://api06.dev.openstreetmap.org/'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $relation = $osm->getRelation($id);
         $this->assertEquals($id, $relation->getId());
         $changesetId = (int) $relation->getAttributes()->changeset;
@@ -102,7 +102,7 @@ class RelationTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $relations = $osm->getRelations(array(917266,20645,2740));
 
         $this->assertEquals(3, sizeof($relations));
@@ -183,7 +183,7 @@ class RelationTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $relations = $osm->getRelations(917266, 20645, 2740);
 
         $this->assertEquals(3, sizeof($relations));

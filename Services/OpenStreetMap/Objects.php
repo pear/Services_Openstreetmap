@@ -6,22 +6,22 @@
  * PHP Version 5
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     Ways.php
  */
 
 /**
- * Services_Openstreetmap_Objects
+ * Services_OpenStreetMap_Objects
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     Objects.php
  */
-class Services_Openstreetmap_Objects implements Iterator, ArrayAccess, Countable
+class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
 {
 
     protected $xml = null;
@@ -98,11 +98,11 @@ class Services_Openstreetmap_Objects implements Iterator, ArrayAccess, Countable
     /**
      * Return the current object
      *
-     * @return Services_Openstreetmap_Object
+     * @return Services_OpenStreetMap_Object
      */
     public function current()
     {
-        $class = 'Services_Openstreetmap_' . ucfirst(strtolower($this->getType()));
+        $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($this->getType()));
         $way = new $class();
         $config = $this->getConfig();
         if (!is_null($config)) {
@@ -161,11 +161,11 @@ class Services_Openstreetmap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @param int $offset N/A.
      *
-     * @return Services_Openstreetmap_Object
+     * @return Services_OpenStreetMap_Object
      */
     public function offsetGet($offset)
     {
-        $class = 'Services_Openstreetmap_' . ucfirst(strtolower($this->getType()));
+        $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($this->getType()));
         $way = new $class();
         $config = $this->getConfig();
         if (!is_null($config)) {
@@ -182,7 +182,7 @@ class Services_Openstreetmap_Objects implements Iterator, ArrayAccess, Countable
      * Does nothing as collection is read-only: required for ArrayAccess.
      *
      * @param int                           $offset N/A
-     * @param Services_Openstreetmap_Object $value  N/A
+     * @param Services_OpenStreetMap_Object $value  N/A
      *
      * @return void
      */
@@ -204,11 +204,11 @@ class Services_Openstreetmap_Objects implements Iterator, ArrayAccess, Countable
     /**
      * Set Config object
      *
-     * @param Services_Openstreetmap_Config $config Config object
+     * @param Services_OpenStreetMap_Config $config Config object
      *
-     * @return Services_Openstreetmap_Changeset
+     * @return Services_OpenStreetMap_Changeset
      */
-    public function setConfig(Services_Openstreetmap_Config $config)
+    public function setConfig(Services_OpenStreetMap_Config $config)
     {
         $this->config = $config;
         return $this;
@@ -217,7 +217,7 @@ class Services_Openstreetmap_Objects implements Iterator, ArrayAccess, Countable
     /**
      * Get current Config object
      *
-     * @return Services_Openstreetmap_Config
+     * @return Services_OpenStreetMap_Config
      */
     public function getConfig()
     {
@@ -227,9 +227,9 @@ class Services_Openstreetmap_Objects implements Iterator, ArrayAccess, Countable
     /**
      * Set the Transport instance.
      *
-     * @param Services_Openstreetmap_Transport $transport Transport instance.
+     * @param Services_OpenStreetMap_Transport $transport Transport instance.
      *
-     * @return Services_Openstreetmap_Config
+     * @return Services_OpenStreetMap_Config
      */
     public function setTransport($transport)
     {
@@ -240,7 +240,7 @@ class Services_Openstreetmap_Objects implements Iterator, ArrayAccess, Countable
     /**
      * Retrieve the current Transport instance.
      *
-     * @return Services_Openstreetmap_Transport.
+     * @return Services_OpenStreetMap_Transport.
      */
     public function getTransport()
     {

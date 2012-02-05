@@ -1,11 +1,11 @@
 <?php
 /**
- * Main test suite for Services_Openstreetmap
+ * Main test suite for Services_OpenStreetMap
  *
  * PHP Version 5
  *
  * @category   Services
- * @package    Services_Openstreetmap
+ * @package    Services_OpenStreetMap
  * @subpackage UnitTesting
  * @author     Ken Guest <kguest@php.net>
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
@@ -32,10 +32,10 @@ require_once 'UserTest.php';
 require_once 'WayTest.php';
 
 /**
- * Main test suite for Services_Openstreetmap.
+ * Main test suite for Services_OpenStreetMap.
  *
  * @category   Services
- * @package    Services_Openstreetmap
+ * @package    Services_OpenStreetMap
  * @subpackage UnitTesting
  * @author     Ken Guest <kguest@php.net>
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
@@ -63,7 +63,7 @@ class AllTests
      */
     public static function suite()
     {
-        $suite = new PHPUnit_Framework_TestSuite('Services_Openstreetmap Tests');
+        $suite = new PHPUnit_Framework_TestSuite('Services_OpenStreetMap Tests');
         $suite->addTestSuite('ChangesetTest');
         $suite->addTestSuite('ConfigTest');
         $suite->addTestSuite('OSMTest');

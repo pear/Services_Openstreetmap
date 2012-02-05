@@ -6,7 +6,7 @@
  * PHP Version 5
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
@@ -14,15 +14,15 @@
  */
 
 /**
- * Services_Openstreetmap_Changeset
+ * Services_OpenStreetMap_Changeset
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     Changeset.php
  */
-class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
+class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
 {
     protected $type = 'changeset';
     protected $members = array();
@@ -33,7 +33,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
     /**
      * __construct
      *
-     * @return Services_Openstreetmap_Changeset
+     * @return Services_OpenStreetMap_Changeset
      */
     public function __construct()
     {
@@ -45,7 +45,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
      * @param string $message The changeset log message.
      *
      * @return void
-     * @throws Services_Openstreetmap_RuntimeException If either user or
+     * @throws Services_OpenStreetMap_RuntimeException If either user or
      *                                                 password are not set.
      */
     public function begin($message)
@@ -67,10 +67,10 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
         $user = $config->getValue('user');
         $password = $config->getValue('password');
         if (is_null($user)) {
-            throw new Services_Openstreetmap_RuntimeException('User must be set');
+            throw new Services_OpenStreetMap_RuntimeException('User must be set');
         }
         if (is_null($password)) {
-            throw new Services_Openstreetmap_RuntimeException('Password must be set');
+            throw new Services_OpenStreetMap_RuntimeException('Password must be set');
         }
         $response = $this->getTransport()->getResponse(
             $url,
@@ -82,7 +82,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
             array(array('Content-type', 'text/xml', true))
         );
         $code = $response->getStatus();
-        if (Services_Openstreetmap_Transport::OK == $code) {
+        if (Services_OpenStreetMap_Transport::OK == $code) {
             $trimmed = trim($response->getBody());
             if (is_numeric($trimmed)) {
                 $this->id = $trimmed;
@@ -93,18 +93,18 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
     /**
      * add object to the changeset so changes can be transmitted to the server
      *
-     * @param Services_Openstreetmap_Object $object OSM object
+     * @param Services_OpenStreetMap_Object $object OSM object
      *
      * @return void
-     * @throws Services_Openstreetmap_RuntimeException If an object has already
+     * @throws Services_OpenStreetMap_RuntimeException If an object has already
      *                                                 been added to the changeset
      *                                                 or has been added to a
      *                                                 closed changeset.
      */
-    public function add(Services_Openstreetmap_Object $object)
+    public function add(Services_OpenStreetMap_Object $object)
     {
         if ($this->open === false) {
-            throw new Services_Openstreetmap_RuntimeException(
+            throw new Services_OpenStreetMap_RuntimeException(
                 'Object added to closed changeset'
             );
         }
@@ -114,7 +114,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
             $this->members[] = $object;
             $this->membersIds[] = $objectId;
         } else {
-            throw new Services_Openstreetmap_RuntimeException(
+            throw new Services_OpenStreetMap_RuntimeException(
                 'Object added to changeset already'
             );
         }
@@ -132,7 +132,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
     public function commit()
     {
         if (!$this->open) {
-            throw new Services_Openstreetmap_Exception(
+            throw new Services_OpenStreetMap_Exception(
                 'Attempt to commit a closed changeset'
             );
         }
@@ -151,7 +151,7 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
             $blocks .= $member->getOsmChangeXML() . "\n";
         }
 
-        $doc = "<osmChange version='0.6' generator='Services_Openstreetmap'>\n"
+        $doc = "<osmChange version='0.6' generator='Services_OpenStreetMap'>\n"
              . $blocks . '</osmChange>';
 
         // Post the osmChange document to the server
@@ -173,8 +173,8 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
         if (isset($response) && is_object($response)) {
             $code = $response->getStatus();
         }
-        if (Services_Openstreetmap_Transport::OK != $code) {
-            throw new Services_Openstreetmap_Exception(
+        if (Services_OpenStreetMap_Transport::OK != $code) {
+            throw new Services_OpenStreetMap_Exception(
                 'Error posting changeset',
                 $code
             );
@@ -204,8 +204,8 @@ class Services_Openstreetmap_Changeset extends Services_Openstreetmap_Object
         if (isset($response) && is_object($response)) {
             $code = $response->getStatus();
         }
-        if (Services_Openstreetmap_Transport::OK != $code) {
-            throw new Services_Openstreetmap_Exception(
+        if (Services_OpenStreetMap_Transport::OK != $code) {
+            throw new Services_OpenStreetMap_Exception(
                 'Error closing changeset',
                 $code
             );

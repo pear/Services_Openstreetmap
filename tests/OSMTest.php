@@ -6,7 +6,7 @@
  * PHP Version 5
  *
  * @category   Services
- * @package    Services_Openstreetmap
+ * @package    Services_OpenStreetMap
  * @subpackage UnitTesting
  * @author     Ken Guest <kguest@php.net>
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
@@ -19,7 +19,7 @@ if (strstr($version, 'package_version')) {
     set_include_path(dirname(dirname(__FILE__)) . ':' . get_include_path());
 }
 
-require_once 'Services/Openstreetmap.php';
+require_once 'Services/OpenStreetMap.php';
 
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
@@ -27,10 +27,10 @@ require_once 'PHPUnit/Framework/TestCase.php';
 
 
 /**
- * Test Services_Openstreetmap functionality specific only to that class.
+ * Test Services_OpenStreetMap functionality specific only to that class.
  *
  * @category   Services
- * @package    Services_Openstreetmap
+ * @package    Services_OpenStreetMap
  * @subpackage UnitTesting
  * @author     Ken Guest <kguest@php.net>
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
@@ -39,7 +39,7 @@ require_once 'PHPUnit/Framework/TestCase.php';
 class OSMTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * Check that a Services_Openstreetmap object can be created ok.
+     * Check that a Services_OpenStreetMap object can be created ok.
      *
      * @return void
      */
@@ -48,8 +48,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $osm = new Services_Openstreetmap(array('adapter' => $mock));
-        $this->assertInstanceOf('Services_Openstreetmap', $osm);
+        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $this->assertInstanceOf('Services_OpenStreetMap', $osm);
     }
 
     /**
@@ -62,7 +62,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $osm = new Services_Openstreetmap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
         $this->assertEquals($osm->getXml(), null);
         $osm->loadXml(__DIR__ . '/files/osm.osm');
         $this->assertNotEquals($osm->getXml(), null);
@@ -83,7 +83,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $this->assertEquals($osm->getTimeout(), 300);
     }
 
@@ -101,7 +101,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $this->assertEquals($osm->getMinVersion(), 0.5);
         $this->assertEquals($osm->getMaxVersion(), 0.6);
         $this->assertEquals($osm->getMaxArea(), 0.25);
@@ -114,7 +114,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
      * If the minimum version supported by the server is greater than what this
      * package supports then an exception should be thrown.
      *
-     * @expectedException Services_Openstreetmap_Exception
+     * @expectedException Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Specified API Version 0.6 not supported.
      *
      * @return void
@@ -128,14 +128,14 @@ class OSMTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
     }
 
     /**
      * If the maximum version supported by the server is lower than a version
      * supported by this package, then an exception should be thrown.
      *
-     * @expectedException        Services_Openstreetmap_Exception
+     * @expectedException        Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Specified API Version 0.6 not supported.
      *
      * @return void
@@ -149,13 +149,13 @@ class OSMTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
     }
 
     /**
      * If invalid/no capabilities are retrieving an exception should be thrown.
      *
-     * @expectedException        Services_Openstreetmap_Exception
+     * @expectedException        Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Problem checking server capabilities
      *
      * @return void
@@ -171,7 +171,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
     }
 
     /**
@@ -189,7 +189,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $results = $osm->search(array('amenity' => 'pharmacy'));
         $this->AssertTrue(empty($results));
         $osm->get(
@@ -318,7 +318,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $results = $osm->search(array('amenity' => 'pharmacy'));
         $this->AssertTrue(empty($results));
         $osm->get(
@@ -419,7 +419,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/nominatim_search_limerick.xml', 'rb')
         );
 
-        $osm = new Services_Openstreetmap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
         $this->AssertEquals(
             $osm->getCoordsOfPlace('Limerick, Ireland'),
             array('lat'=> '52.6612577', 'lon'=> '-8.6302084')
@@ -430,7 +430,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
      * An exception should be thrown if the place of interest can not be
      * found.
      *
-     * @expectedException Services_Openstreetmap_Exception
+     * @expectedException Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Could not get coords for Neeenaaa, Ireland
      *
      * @return void
@@ -445,7 +445,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $osm = new Services_Openstreetmap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
         $osm->getCoordsOfPlace('Neeenaaa, Ireland');
     }
 
@@ -467,7 +467,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $node = $osm->getNode($id);
         $history = $node->history();
         foreach ($history as $key=>$version) {
@@ -487,7 +487,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $config = array('adapter' => $mock);
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $this->assertEquals(
             $osm->bboxToMinMax(
                 '0.0327873', '52.260074599999996',
@@ -508,7 +508,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
      */
     public function testAttribsNotSet()
     {
-        $node = new Services_Openstreetmap_Node();
+        $node = new Services_OpenStreetMap_Node();
         $this->assertEquals($node->getVersion(), null);
         $this->assertEquals($node->getUser(), null);
         $this->assertEquals($node->getUid(), null);

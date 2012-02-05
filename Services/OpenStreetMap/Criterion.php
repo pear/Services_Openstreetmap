@@ -6,7 +6,7 @@
  * PHP Version 5
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
@@ -14,15 +14,15 @@
  */
 
 /**
- * Services_Openstreetmap_Criterion
+ * Services_OpenStreetMap_Criterion
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     Criterion.php
  */
-class Services_Openstreetmap_Criterion
+class Services_OpenStreetMap_Criterion
 {
     /**
      * Criterion type.
@@ -43,28 +43,28 @@ class Services_Openstreetmap_Criterion
      *
      * Search changesets by
      * A user id:
-     * Services_Openstreetmap_Criterion('user', 12345)
+     * Services_OpenStreetMap_Criterion('user', 12345)
      *
      * A display/user name:
-     * Services_Openstreetmap_Criterion('display_name', 'fredflintstone')
+     * Services_OpenStreetMap_Criterion('display_name', 'fredflintstone')
      *
      * A bounding box:
-     * Services_Openstreetmap_Criterion('bbox', -8.0590275, 52.9347449, -7.9966939, 52.9611999)
+     * Services_OpenStreetMap_Criterion('bbox', -8.0590275, 52.9347449, -7.9966939, 52.9611999)
      *
      * For open changesets only:
-     * Services_Openstreetmap_Criterion('open')
+     * Services_OpenStreetMap_Criterion('open')
      *
      * For closed changesets only:
-     * Services_Openstreetmap_Criterion('closed')
+     * Services_OpenStreetMap_Criterion('closed')
      *
      * For changesets created after a specific time:
-     * Services_Openstreetmap_Criterion('time', '17/11/2011')
+     * Services_OpenStreetMap_Criterion('time', '17/11/2011')
      *
      * For changesets created during a specific timespan:
-     * Services_Openstreetmap_Criterion('time', '17/11/2011', '29/11/2011')
+     * Services_OpenStreetMap_Criterion('time', '17/11/2011', '29/11/2011')
      *
-     * @return Services_Openstreetmap_Criterion
-     * @throws Services_Openstreetmap_InvalidArgumentException
+     * @return Services_OpenStreetMap_Criterion
+     * @throws Services_OpenStreetMap_InvalidArgumentException
      */
     public function __construct()
     {
@@ -76,7 +76,7 @@ class Services_Openstreetmap_Criterion
             if (is_numeric($args[1])) {
                 $this->value = $args[1];
             } else {
-                throw new Services_Openstreetmap_InvalidArgumentException(
+                throw new Services_OpenStreetMap_InvalidArgumentException(
                     'User UID must be numeric'
                 );
             }
@@ -86,14 +86,14 @@ class Services_Openstreetmap_Criterion
             $minLat = $args[2];
             $maxLon = $args[3];
             $maxLat = $args[4];
-            $node = new Services_Openstreetmap_Node();
+            $node = new Services_OpenStreetMap_Node();
             try {
                 $node->setLon($minLon);
                 $node->setLat($minLat);
                 $node->setLon($maxLon);
                 $node->setLat($maxLat);
-            } catch(Services_Openstreetmap_InvalidArgumentException $ex) {
-                throw new Services_Openstreetmap_InvalidArgumentException(
+            } catch(Services_OpenStreetMap_InvalidArgumentException $ex) {
+                throw new Services_OpenStreetMap_InvalidArgumentException(
                     $ex->getMessage()
                 );
             }
@@ -112,7 +112,7 @@ class Services_Openstreetmap_Criterion
                 $after = $args[1];
                 $time = strtotime($after);
                 if ($time == -1 or $time === false) {
-                    throw new Services_Openstreetmap_InvalidArgumentException(
+                    throw new Services_OpenStreetMap_InvalidArgumentException(
                         'Invalid time value'
                     );
                 }
@@ -122,7 +122,7 @@ class Services_Openstreetmap_Criterion
                 $before = $args[2];
                 $time = strtotime($before);
                 if ($time == -1 or $time === false) {
-                    throw new Services_Openstreetmap_InvalidArgumentException(
+                    throw new Services_OpenStreetMap_InvalidArgumentException(
                         'Invalid time value'
                     );
                 }
@@ -136,7 +136,7 @@ class Services_Openstreetmap_Criterion
             break;
         default:
             $this->type = null;
-            throw new Services_Openstreetmap_InvalidArgumentException(
+            throw new Services_OpenStreetMap_InvalidArgumentException(
                 'Unknown constraint type'
             );
         }

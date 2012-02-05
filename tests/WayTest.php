@@ -5,7 +5,7 @@
  * PHP Version 5
  *
  * @category   Services
- * @package    Services_Openstreetmap
+ * @package    Services_OpenStreetMap
  * @subpackage UnitTesting
  * @author     Ken Guest <kguest@php.net>
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
@@ -19,16 +19,16 @@ if (strstr($version, 'package_version')) {
     set_include_path(dirname(dirname(__FILE__)) . ':' . get_include_path());
 }
 
-require_once 'Services/Openstreetmap.php';
+require_once 'Services/OpenStreetMap.php';
 
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
 
 /**
- * Unit test class for manipulation of Services_Openstreetmap_Way.
+ * Unit test class for manipulation of Services_OpenStreetMap_Way.
  *
  * @category   Services
- * @package    Services_Openstreetmap
+ * @package    Services_OpenStreetMap
  * @subpackage UnitTesting
  * @author     Ken Guest <kguest@php.net>
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
@@ -54,7 +54,7 @@ class WayTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
         $getTags = $way->getTags();
         $this->assertEquals($id, (int) $way->getAttributes()->id);
@@ -84,7 +84,7 @@ class WayTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
         $tags = $way->getTags();
         $this->assertEquals($id, (int) $way->getAttributes()->id);
@@ -109,7 +109,7 @@ class WayTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
         $getTags = $way->getTags();
         $this->assertEquals($id, (int) $way->getAttributes()->id);
@@ -133,7 +133,7 @@ class WayTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
         $getTags = $way->getTags();
         $this->assertEquals($id, (int) $way->getAttributes()->id);
@@ -157,7 +157,7 @@ class WayTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
 
         $lat = 52.8638729;
@@ -177,7 +177,7 @@ class WayTest extends PHPUnit_Framework_TestCase
      *
      * @expectedException        InvalidArgumentException
      * @expectedExceptionMessage $node must be either an instance of
-     *                           Services_Openstreetmap_Node or a numeric id
+     *                           Services_OpenStreetMap_Node or a numeric id
      *
      * @return void
      */
@@ -193,7 +193,7 @@ class WayTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
         $way->removeNode('way5432456');
     }
@@ -215,7 +215,7 @@ class WayTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
         $nb = count($way->getNodes());
         $way->removeNode(248081798);
@@ -243,7 +243,7 @@ class WayTest extends PHPUnit_Framework_TestCase
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $ways = $osm->getWays($wayId, $way2Id);
         foreach ($ways as $key=>$way) {
             $this->assertEquals($way, $ways[$key]);
@@ -267,7 +267,7 @@ class WayTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
         $address = array(
             'addr_housename' => null,
@@ -301,10 +301,10 @@ class WayTest extends PHPUnit_Framework_TestCase
             'server' => 'http://api06.dev.openstreetmap.org'
         );
 
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
 
         $relations = $osm->getWay(5850969)->getRelations();
-        $this->assertInstanceOf('Services_Openstreetmap_Relations', $relations);
+        $this->assertInstanceOf('Services_OpenStreetMap_Relations', $relations);
         $this->assertEquals(2, sizeof($relations));
         $this->assertEquals($relations[0]->getTag('name'), 'Dublin Bus route 14');
         $this->assertEquals($relations[1]->getTag('name'), 'Dublin Bus route 75');

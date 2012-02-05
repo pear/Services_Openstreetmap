@@ -6,7 +6,7 @@
  * PHP Version 5
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
@@ -14,15 +14,15 @@
 */
 
 /**
- * Services_Openstreetmap_User
+ * Services_OpenStreetMap_User
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     User.php
  */
-class Services_Openstreetmap_User
+class Services_OpenStreetMap_User
 {
 
     protected $preferences = array();
@@ -32,7 +32,7 @@ class Services_Openstreetmap_User
      *
      * @param SimpleXMLElement $xml XML describing a user.
      *
-     * @return Services_Openstreetmap_User
+     * @return Services_OpenStreetMap_User
      */
     public function setXml(SimpleXMLElement $xml)
     {

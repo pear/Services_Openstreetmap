@@ -24,14 +24,14 @@ $packagexml->setOptions(
 );
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
-$packagexml->setPackage('Services_Openstreetmap');
+$packagexml->setPackage('Services_OpenStreetMap');
 $packagexml->setChannel('pear.php.net');
 $packagexml->setReleaseVersion('0.0.1');
 $packagexml->setAPIVersion('0.0.1');
 $packagexml->setReleaseStability('alpha');
 $packagexml->setAPIStability('alpha');
-$packagexml->setSummary('Openstreetmap Services');
-$packagexml->setDescription('Provide an interface to the Openstreetmap services.');
+$packagexml->setSummary('OpenStreetMap Services');
+$packagexml->setDescription('Provide an interface to the OpenStreetMap services.');
 $packagexml->setNotes('Initial release');
 $packagexml->setPhpDep('5.3.0');
 $packagexml->setPearinstallerDep('1.7.0');

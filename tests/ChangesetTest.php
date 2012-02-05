@@ -5,7 +5,7 @@
  * PHP Version 5
  *
  * @category   Services
- * @package    Services_Openstreetmap
+ * @package    Services_OpenStreetMap
  * @subpackage UnitTesting
  * @author     Ken Guest <kguest@php.net>
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
@@ -18,7 +18,7 @@ if (strstr($version, 'package_version')) {
     set_include_path(dirname(dirname(__FILE__)) . ':' . get_include_path());
 }
 
-require_once 'Services/Openstreetmap.php';
+require_once 'Services/OpenStreetMap.php';
 
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
@@ -29,7 +29,7 @@ require_once 'PHPUnit/Framework/TestCase.php';
  * Unit test class for Changeset related functionality.
  *
  * @category   Services
- * @package    Services_Openstreetmap
+ * @package    Services_OpenStreetMap
  * @subpackage UnitTesting
  * @author     Ken Guest <kguest@php.net>
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
@@ -54,7 +54,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $changeset = $osm->getChangeSet($cId);
         $this->assertEquals($cId, (int) $changeset->getId());
         $this->assertEquals("2009-08-20T22:31:06Z", $changeset->getCreatedAt());
@@ -70,7 +70,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * An exception should be thrown when starting a changeset without having a
      * password set.
      *
-     * @expectedException        Services_Openstreetmap_RuntimeException
+     * @expectedException        Services_OpenStreetMap_RuntimeException
      * @expectedExceptionMessage Password must be set
      *
      * @return void
@@ -85,10 +85,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'user' => 'fred@example.com'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
-        } catch (Services_Openstreetmap_Exception $e) {
+        } catch (Services_OpenStreetMap_Exception $e) {
         }
         $this->assertEquals(false, $changeset->isOpen());
         $changeset->begin('Start a changeset');
@@ -98,7 +98,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * An exception should be thrown when starting a changeset without having a
      * [valid] username set.
      *
-     * @expectedException        Services_Openstreetmap_RuntimeException
+     * @expectedException        Services_OpenStreetMap_RuntimeException
      * @expectedExceptionMessage User must be set
      *
      * @return void
@@ -113,10 +113,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'password' => 'wilma4evah'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
-        } catch (Services_Openstreetmap_Exception $e) {
+        } catch (Services_OpenStreetMap_Exception $e) {
         }
         $this->assertEquals(false, $changeset->isOpen());
         $changeset->begin('Undo accidental highway change');
@@ -151,10 +151,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'passwordfile' => __DIR__ . '/credentials'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
-        } catch (Services_Openstreetmap_Exception $e) {
+        } catch (Services_OpenStreetMap_Exception $e) {
         }
         $this->assertEquals(false, $changeset->isOpen());
         $ways = $osm->getWays($wayId, $way2Id);
@@ -181,7 +181,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * Test that an object can not be added to a closed changeset.
      * A changeset is closed after it has been committed.
      *
-     * @expectedException Services_Openstreetmap_RuntimeException
+     * @expectedException Services_OpenStreetMap_RuntimeException
      * @expectedExceptionMessage Object added to closed changeset
      *
      * @return void
@@ -207,10 +207,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'passwordfile' => __DIR__ . '/credentials'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
-        } catch (Services_Openstreetmap_Exception $e) {
+        } catch (Services_OpenStreetMap_Exception $e) {
         }
         $this->assertEquals(false, $changeset->isOpen());
         $ways = $osm->getWays($wayId, $way2Id);
@@ -234,7 +234,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
     /**
      * Test that the same object can not be added to the same changeset.
      *
-     * @expectedException Services_Openstreetmap_RuntimeException
+     * @expectedException Services_OpenStreetMap_RuntimeException
      * @expectedExceptionMessage Object added to changeset already
      *
      * @return void
@@ -258,10 +258,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'passwordfile' => __DIR__ . '/credentials'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
-        } catch (Services_Openstreetmap_Exception $e) {
+        } catch (Services_OpenStreetMap_Exception $e) {
         }
         $way = $osm->getWay($wayId);
         $way->setTag('highway', 'residential');
@@ -282,7 +282,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
     /**
      * Test deleting a node - including an 'accidental' second commit...
      *
-     * @expectedException Services_Openstreetmap_Exception
+     * @expectedException Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Attempt to commit a closed changeset
      *
      * @return void
@@ -306,10 +306,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'passwordfile' => __DIR__ . '/credentials'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
-        } catch (Services_Openstreetmap_Exception $e) {
+        } catch (Services_OpenStreetMap_Exception $e) {
             echo  $e->getMessage();
             return;
         }
@@ -328,7 +328,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * If a 404 error occurs while closing a changeset [during a commit] then
      * an exception should be thrown. Test for this.
      *
-     * @expectedException        Services_Openstreetmap_Exception
+     * @expectedException        Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Error closing changeset
      *
      * @return void
@@ -351,10 +351,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'passwordfile' => __DIR__ . '/credentials'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
-        } catch (Services_Openstreetmap_Exception $e) {
+        } catch (Services_OpenStreetMap_Exception $e) {
             echo  $e->getMessage();
             return;
         }
@@ -370,7 +370,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * If an error occurs while closing a changeset [during a commit] then
      * an exception should be thrown. Test for this.
      *
-     * @expectedException Services_Openstreetmap_Exception
+     * @expectedException Services_OpenStreetMap_Exception
      * @xpectedExceptionMessage Error closing changeset
      *
      * @return void
@@ -401,10 +401,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'passwordfile' => __DIR__ . '/credentials'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
-        } catch (Services_Openstreetmap_Exception $e) {
+        } catch (Services_OpenStreetMap_Exception $e) {
             echo  $e->getMessage();
             return;
         }
@@ -420,7 +420,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * If an error occurs while posting changeset information to the server an
      * exception should be thrown.
      *
-     * @expectedException        Services_Openstreetmap_Exception
+     * @expectedException        Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Error posting changeset
      *
      * @return void
@@ -440,10 +440,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'passwordfile' => __DIR__ . '/credentials'
         );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
-        } catch (Services_Openstreetmap_Exception $e) {
+        } catch (Services_OpenStreetMap_Exception $e) {
             echo  $e->getMessage();
             return;
         }
@@ -474,7 +474,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
                 'server'   => 'http://api06.dev.openstreetmap.org/',
                 'passwordfile' => __DIR__ . '/credentials',
                 );
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
         $lon = -8.1983611;
         $node = $osm->createNode(
@@ -488,7 +488,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             $node->getTags(),
             array(
-                'created_by' => 'Services_Openstreetmap',
+                'created_by' => 'Services_OpenStreetMap',
                 'building' => 'yes',
                 'amenity' => 'vet',
             )
@@ -499,7 +499,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             $node->getTags(),
             array(
-                'created_by' => 'Services_Openstreetmap',
+                'created_by' => 'Services_OpenStreetMap',
                 'building' => 'yes',
                 'amenity' => 'veterinary',
                 'name' => 'O\'Kennedy'

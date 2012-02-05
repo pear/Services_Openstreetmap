@@ -6,23 +6,23 @@
  * PHP Version 5
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
- * @link     http://pear.php.net/package/Services_Openstreetmap
+ * @link     http://pear.php.net/package/Services_OpenStreetMap
  */
 
 /**
- * Services_Openstreetmap_Transport
+ * Services_OpenStreetMap_Transport
  *
  * @category Services
- * @package  Services_Openstreetmap
+ * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     Transport.php
  */
-class Services_Openstreetmap_Transport
+class Services_OpenStreetMap_Transport
 {
     /**#@+
      * @link http://tools.ietf.org/html/rfc2616
@@ -78,8 +78,8 @@ class Services_Openstreetmap_Transport
      *
      * @var HTTP_Request2 $request
      * @internal
-     * @see Services_Openstreetmap::getRequest
-     * @see Services_Openstreetmap::setRequest
+     * @see Services_OpenStreetMap::getRequest
+     * @see Services_OpenStreetMap::setRequest
      */
     protected $request = null;
 
@@ -97,7 +97,7 @@ class Services_Openstreetmap_Transport
      * @param array  $headers   (optional)
      *
      * @return HTTP_Request2_Response
-     * @throws  Services_Openstreetmap_Exception If something unexpected has
+     * @throws  Services_OpenStreetMap_Exception If something unexpected has
      *                                           happened while conversing with
      *                                           the server.
      */
@@ -153,7 +153,7 @@ class Services_Openstreetmap_Transport
                 var_dump($response->getBody());
             }
 
-            if (Services_Openstreetmap_Transport::OK == $code) {
+            if (Services_OpenStreetMap_Transport::OK == $code) {
                 return $response;
             } else {
                 $eMsg = 'Unexpected HTTP status: '
@@ -166,14 +166,14 @@ class Services_Openstreetmap_Transport
 
             }
         } catch (HTTP_Request2_Exception $e) {
-            throw new Services_Openstreetmap_Exception(
+            throw new Services_OpenStreetMap_Exception(
                 $e->getMessage(),
                 $code,
                 $e
             );
         }
         if ($eMsg != null) {
-            throw new Services_Openstreetmap_Exception($eMsg, $code);
+            throw new Services_OpenStreetMap_Exception($eMsg, $code);
         }
     }
 
@@ -191,14 +191,14 @@ class Services_Openstreetmap_Transport
     }
 
     /**
-     * Set the HTTP_Request2 instance and return the Services_Openstreetmap
+     * Set the HTTP_Request2 instance and return the Services_OpenStreetMap
      * instance.
      *
      * Use this to inject a specific HTTP_Request2 instance.
      *
      * @param HTTP_Request2 $request The HTTP_Request2 instance to set.
      *
-     * @return Services_Openstreetmap
+     * @return Services_OpenStreetMap
      */
     public function setRequest(HTTP_Request2 $request)
     {
@@ -216,13 +216,13 @@ class Services_Openstreetmap_Transport
      * @param mixed  $version version of object
      *
      * @return object
-     * @throws Services_Openstreetmap_Exception
+     * @throws Services_OpenStreetMap_Exception
      */
     public function getObject($type, $id, $version = null)
     {
         /*
         if (!in_array($type, $this->elements)) {
-            throw new Services_Openstreetmap_Exception(
+            throw new Services_OpenStreetMap_Exception(
                 sprintf("Invalid Element Type '%s'", $type)
             );
         }*/
@@ -238,17 +238,17 @@ class Services_Openstreetmap_Transport
         }
         try {
             $response = $this->getResponse($url);
-        } catch (Services_Openstreetmap_Exception $ex) {
+        } catch (Services_OpenStreetMap_Exception $ex) {
             $code = $ex->getCode();
-            if (Services_Openstreetmap_Transport::NOT_FOUND == $code) {
+            if (Services_OpenStreetMap_Transport::NOT_FOUND == $code) {
                 return false;
-            } elseif (Services_Openstreetmap_Transport::GONE == $code) {
+            } elseif (Services_OpenStreetMap_Transport::GONE == $code) {
                 return false;
             } else {
                 throw $ex;
             }
         }
-        $class =  'Services_Openstreetmap_' . ucfirst(strtolower($type));
+        $class =  'Services_OpenStreetMap_' . ucfirst(strtolower($type));
         $obj = new $class();
         $obj->setXml(simplexml_load_string($response->getBody()));
         return $obj;
@@ -273,18 +273,18 @@ class Services_Openstreetmap_Transport
             . implode(',', $ids);
         try {
             $response = $this->getResponse($url);
-        } catch (Services_Openstreetmap_Exception $ex) {
+        } catch (Services_OpenStreetMap_Exception $ex) {
             switch ($ex->getCode()) {
-            case Services_Openstreetmap_Transport::NOT_FOUND:
-            case Services_Openstreetmap_Transport::UNAUTHORISED:
-            case Services_Openstreetmap_Transport::GONE:
+            case Services_OpenStreetMap_Transport::NOT_FOUND:
+            case Services_OpenStreetMap_Transport::UNAUTHORISED:
+            case Services_OpenStreetMap_Transport::GONE:
                 return false;
             default:
                 throw $ex;
             }
         }
 
-        $class = 'Services_Openstreetmap_' . ucfirst(strtolower($type)) . 's';
+        $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($type)) . 's';
         $obj = new $class();
         if (!is_null($config)) {
             $obj->setConfig($config);
@@ -302,11 +302,11 @@ class Services_Openstreetmap_Transport
     /**
      * Set Config object
      *
-     * @param Services_Openstreetmap_Config $config Config settings.
+     * @param Services_OpenStreetMap_Config $config Config settings.
      *
-     * @return Services_Openstreetmap_API_V06
+     * @return Services_OpenStreetMap_API_V06
      */
-    public function setConfig(Services_Openstreetmap_Config $config)
+    public function setConfig(Services_OpenStreetMap_Config $config)
     {
         $this->config = $config;
     }
@@ -314,7 +314,7 @@ class Services_Openstreetmap_Transport
     /**
      * Get current Config object
      *
-     * @return Services_Openstreetmap_Config
+     * @return Services_OpenStreetMap_Config
      */
     public function getConfig()
     {
@@ -327,7 +327,7 @@ class Services_Openstreetmap_Transport
      * @param string $type     object type (e.g. changeset)
      * @param array  $criteria array of criterion objects.
      *
-     * @return Services_Openstreetmap_Objects
+     * @return Services_OpenStreetMap_Objects
      */
     public function searchObjects($type, array $criteria)
     {
@@ -342,17 +342,17 @@ class Services_Openstreetmap_Transport
             . '/' . $type . 's?' . implode('&', $query);
         try {
             $response = $this->getResponse($url);
-        } catch (Services_Openstreetmap_Exception $ex) {
+        } catch (Services_OpenStreetMap_Exception $ex) {
             switch ($ex->getCode()) {
-            case Services_Openstreetmap_Transport::NOT_FOUND:
-            case Services_Openstreetmap_Transport::UNAUTHORISED:
-            case Services_Openstreetmap_Transport::GONE:
+            case Services_OpenStreetMap_Transport::NOT_FOUND:
+            case Services_OpenStreetMap_Transport::UNAUTHORISED:
+            case Services_OpenStreetMap_Transport::GONE:
                 return false;
             default:
                 throw $ex;
             }
         }
-        $class = 'Services_Openstreetmap_' . ucfirst(strtolower($type)) . 's';
+        $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($type)) . 's';
         $obj = new $class();
         $sxe = @simplexml_load_string($response->getBody());
         if ($sxe === false) {

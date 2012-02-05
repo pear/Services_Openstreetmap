@@ -1,11 +1,11 @@
 <?php
 /**
- * Unit testing class for retrieving Openstreetmap user data.
+ * Unit testing class for retrieving OpenStreetMap user data.
  *
  * PHP Version 5
  *
  * @category   Services
- * @package    Services_Openstreetmap
+ * @package    Services_OpenStreetMap
  * @subpackage UnitTesting
  * @author     Ken Guest <kguest@php.net>
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
@@ -18,7 +18,7 @@ if (strstr($version, 'package_version')) {
     set_include_path(dirname(dirname(__FILE__)) . ':' . get_include_path());
 }
 
-require_once 'Services/Openstreetmap.php';
+require_once 'Services/OpenStreetMap.php';
 
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
@@ -28,7 +28,7 @@ require_once 'PHPUnit/Framework/TestCase.php';
  * Unit test class for user related functionality.
  *
  * @category   Services
- * @package    Services_Openstreetmap
+ * @package    Services_OpenStreetMap
  * @subpackage UnitTesting
  * @author     Ken Guest <kguest@php.net>
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
@@ -54,7 +54,7 @@ class UserTest extends PHPUnit_Framework_TestCase
             'password' => 'w1lma4evah'
         );
 
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $user = $osm->getUser();
         $this->assertEquals($user->getDisplayName(), 'fredflintstone');
         $this->assertEquals($user->getId(), 124);
@@ -91,7 +91,7 @@ class UserTest extends PHPUnit_Framework_TestCase
             'password' => 'w1lma4evah'
         );
 
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $user = $osm->getUser();
         $this->assertEquals($user->getImage(), null);
     }
@@ -114,7 +114,7 @@ class UserTest extends PHPUnit_Framework_TestCase
             'password' => 'w1lma4evah'
         );
 
-        $osm = new Services_Openstreetmap($config);
+        $osm = new Services_OpenStreetMap($config);
         $user = $osm->getUser();
         $this->assertEquals($user->getLat(), 1.234567);
         $this->assertEquals($user->getLon(), -1.234567);
