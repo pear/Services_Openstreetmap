@@ -15,7 +15,6 @@
 
 require_once 'HTTP/Request2.php';
 spl_autoload_register(array('Services_OpenStreetMap', 'autoload'));
-#spl_autoload_register(array('Services_OpenStreetMap', 'autoload'));
 
 /**
  * Services_OpenStreetMap - interface with OpenStreetMap

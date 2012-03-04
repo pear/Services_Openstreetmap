@@ -185,9 +185,11 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      * @param Services_OpenStreetMap_Object $value  N/A
      *
      * @return void
+     * @throws LogicException
      */
     public function offsetSet($offset, $value)
     {
+        throw new LogicException('Changing properties not implemented');
     }
 
     /**
@@ -196,9 +198,11 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      * @param int $offset N/A.
      *
      * @return void
+     * @throws LogicException
      */
     public function offsetUnset($offset)
     {
+        throw new LogicException('Changing properties not implemented');
     }
 
     /**
