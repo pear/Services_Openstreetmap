@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once 'PEAR/PackageFileManager2.php';
 // recommended - makes PEAR_Errors act like exceptions (kind of)
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
@@ -26,13 +27,13 @@ $packagexml->setPackageType('php');
 $packagexml->addRelease();
 $packagexml->setPackage('Services_OpenStreetMap');
 $packagexml->setChannel('pear.php.net');
-$packagexml->setReleaseVersion('0.0.1');
-$packagexml->setAPIVersion('0.0.1');
+$packagexml->setReleaseVersion('0.0.2');
+$packagexml->setAPIVersion('0.0.2');
 $packagexml->setReleaseStability('alpha');
 $packagexml->setAPIStability('alpha');
 $packagexml->setSummary('OpenStreetMap Services');
 $packagexml->setDescription('Provide an interface to the OpenStreetMap services.');
-$packagexml->setNotes('Initial release');
+$packagexml->setNotes('Initial release of Services_OpenStreetMap - post PEPR process.');
 $packagexml->setPhpDep('5.3.0');
 $packagexml->setPearinstallerDep('1.7.0');
 $packagexml->addPackageDepWithChannel(
