@@ -234,7 +234,7 @@ class Services_OpenStreetMap_API_V06
      * @see setConfig
      *
      * @return Services_OpenStreetMap_User
-     * @throw Services_OpenStreetMap_Exception
+     * @throws Services_OpenStreetMap_Exception
      */
     public function getUser()
     {
