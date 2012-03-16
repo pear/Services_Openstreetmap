@@ -13,11 +13,11 @@
   <email>kguest@php.net</email>
   <active>yes</active>
  </lead>
- <date>2012-02-05</date>
- <time>13:34:52</time>
+ <date>2012-03-16</date>
+ <time>10:55:15</time>
  <version>
-  <release>0.0.1</release>
-  <api>0.0.1</api>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -25,127 +25,10 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
  <notes>
-Initial release
+Initial release of Services_OpenStreetMap - post PEPR process.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="docs">
-    <dir name="media">
-     <file name="background.png" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="empty.png" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="style.css" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-    </dir> <!-- /docs/media -->
-    <dir name="Services_Openstreetmap">
-     <file name="Services_Openstreetmap.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_API_V06.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_Changeset.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_Changesets.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_Config.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_Criterion.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_Exception.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_Node.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_Nodes.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_Object.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_Objects.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_Relation.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_Relations.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_Transport.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_User.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_Way.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="Services_Openstreetmap_Ways.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---API---V06.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---Changeset.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---Changesets.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---Config.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---Criterion.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---Exception.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---Node.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---Nodes.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---Object.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---Objects.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---Relation.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---Relations.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---Transport.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---User.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---Way.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap---Ways.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="_Openstreetmap.php.html" role="doc">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-    </dir> <!-- /docs/Services_Openstreetmap -->
-   </dir> <!-- /docs -->
    <dir name="examples">
     <file name="cahir.osm" role="doc">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
@@ -266,383 +149,6 @@ Initial release
     </file>
    </dir> <!-- /Services -->
    <dir name="tests">
-    <dir name="coverage">
-     <dir name="Services">
-      <dir name="Openstreetmap">
-       <dir name="UnitTesting">
-        <file name="AllTests.html" role="test">
-         <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-        </file>
-        <file name="ChangesetTest.html" role="test">
-         <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-        </file>
-        <file name="ConfigTest.html" role="test">
-         <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-        </file>
-        <file name="CriterionTest.html" role="test">
-         <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-        </file>
-        <file name="NodeTest.html" role="test">
-         <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-        </file>
-        <file name="OSMTest.html" role="test">
-         <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-        </file>
-        <file name="RelationTest.html" role="test">
-         <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-        </file>
-        <file name="subpackage-frame.html" role="test">
-         <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-        </file>
-        <file name="subpackage-summary.html" role="test">
-         <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-        </file>
-        <file name="UserTest.html" role="test">
-         <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-        </file>
-        <file name="WayTest.html" role="test">
-         <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-        </file>
-       </dir> <!-- /tests/coverage/Services/Openstreetmap/UnitTesting -->
-       <file name="package-frame.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="package-summary.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_API_V06.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_Changeset.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_Changesets.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_Config.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_Criterion.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_Exception.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_InvalidArgumentException.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_Node.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_Nodes.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_Object.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_Objects.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_Relation.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_Relations.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_Transport.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_User.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_Way.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-       <file name="Services_Openstreetmap_Ways.html" role="test">
-        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-       </file>
-      </dir> <!-- /tests/coverage/Services/Openstreetmap -->
-     </dir> <!-- /tests/coverage/Services -->
-     <file name="close12_1.gif" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="container-min.js" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="container.css" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="directory.png" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="file.png" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="glass.png" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="highcharts.js" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_API.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap_API.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_API.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap_API.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_API_V06.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap_API_V06.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_Changeset.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_Changesets.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap_Config.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_Config.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_Criterion.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_Exception.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap_InvalidArgumentException.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_InvalidArgumentException.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_Node.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap_Node.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_Nodes.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap_Nodes.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap_Object.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_Object.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_Objects.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap_Objects.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap_Relation.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_Relation.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap_Relations.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_Relations.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_RuntimeException.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap_Transport.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_Transport.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_User.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_Way.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap_Way.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_OpenStreetMap_Ways.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_Services_Openstreetmap_Ways.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_tests.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_tests.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="home_kguest_dev_code_Services_Openstreetmap_tests_AllTests.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="index.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="index.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="jquery.min.js" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="style.css" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_HTTP.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_HTTP.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_HTTP_Request2.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_HTTP_Request2.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_HTTP_Request2.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_HTTP_Request2_Adapter.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_HTTP_Request2_Adapter.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_HTTP_Request2_Adapter.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_HTTP_Request2_Adapter_Mock.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_HTTP_Request2_Exception.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_HTTP_Request2_Response.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_Net.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_Net.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_Net_URL2.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_PEAR.dashboard.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_PEAR.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="usr_local_lib_php_PEAR_Exception.php.html" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-     <file name="yahoo-dom-event.js" role="test">
-      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-     </file>
-    </dir> <!-- /tests/coverage -->
     <dir name="files">
      <file name="osm.osm" role="test">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
@@ -858,6 +364,12 @@ Initial release
    <file name="README.markdown" role="data">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
    </file>
+   <file name="Services_OpenStreetMap-0.0.1.tgz" role="data">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file name="Services_OpenStreetMap-0.0.2.tgz" role="data">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -890,6 +402,36 @@ Initial release
    <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
    <notes>
 Initial release
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2012-03-16</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
+   <notes>
+Initial release of Services_OpenStreetMap - post PEPR process.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2012-03-16</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
+   <notes>
+Initial release of Services_OpenStreetMap - post PEPR process.
    </notes>
   </release>
  </changelog>
