@@ -67,24 +67,28 @@ class Services_OpenStreetMap
     /**
      * constructor; which optionally sets config details.
      *
-     * @param array $config Defaults to empty array if none provided
+     * @param array $configuration Defaults to empty array if none provided
      *
      * @return Services_OpenStreetMap
      */
-    public function __construct($config = array())
+    public function __construct($configuration = array())
     {
-        if ($config == array()) {
-            $config = $this->config;
-        }
-        $this->getConfig()->setTransport($this->getTransport());
-        if (!is_null($config)) {
-            $this->getConfig()->setValue($config);
-        }
-        $version = $this->getConfig()->getValue('api_version');
+        $config = new Services_OpenStreetMap_Config();
+        $this->setConfig($config);
+
+        $transport = new Services_OpenStreetMap_Transport();
+        $transport->setConfig($config);
+
+        $this->setTransport($transport);
+        $config->setTransport($transport);
+        $config->setValue($configuration);
+
+        $version = $config->getValue('api_version');
+
         $api = "Services_OpenStreetMap_API_V" . str_replace('.', '', $version);
         $this->api = new $api;
-        $this->api->setTransport($this->getTransport());
-        $this->api->setConfig($this->getConfig());
+        $this->api->setTransport($transport);
+        $this->api->setConfig($config);
     }
 
     /**
@@ -437,10 +441,6 @@ class Services_OpenStreetMap
      */
     public function getConfig()
     {
-        if (is_null($this->config)) {
-            $config = new Services_OpenStreetMap_Config();
-            $this->config = $config;
-        }
         return $this->config;
     }
 
@@ -453,13 +453,13 @@ class Services_OpenStreetMap
      */
     public function getTransport()
     {
-        if (is_null($this->transport)) {
-            $transport = new Services_OpenStreetMap_Transport();
-            $transport->setConfig($this->getConfig());
-            $this->transport = $transport;
-
-        }
         return $this->transport;
+    }
+
+    public function setTransport($transport)
+    {
+        $this->transport = $transport;
+        return $this;
     }
 
     /**
