@@ -85,6 +85,11 @@ class Services_OpenStreetMap_Transport
 
     protected $config = null;
 
+    public function __construct() {
+        $this->setConfig(new Services_OpenStreetMap_Config());
+        $this->setRequest(new HTTP_Request2());
+    }
+
     /**
      * Send request to OSM server and return the response.
      *
@@ -184,9 +189,6 @@ class Services_OpenStreetMap_Transport
      */
     function getRequest()
     {
-        if (is_null($this->request)) {
-            $this->request = new HTTP_Request2();
-        }
         return $this->request;
     }
 
