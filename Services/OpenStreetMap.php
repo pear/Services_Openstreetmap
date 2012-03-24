@@ -136,9 +136,10 @@ class Services_OpenStreetMap
         $url = $config->getValue('server')
             . 'api/'
             . $config->getValue('api_version')
-             . "/map?bbox=$minLat,$minLon,$maxLat,$maxLon";
+            . "/map?bbox=$minLat,$minLon,$maxLat,$maxLon";
         $response = $this->getTransport()->getResponse($url);
         $this->xml = $response->getBody();
+        return $this->xml;
     }
 
     /**
@@ -155,21 +156,33 @@ class Services_OpenStreetMap
      */
     public function getCoordsOfPlace($place)
     {
-        $url = 'http://nominatim.openstreetmap.org/search?q='
-             . urlencode($place) . '&limit=1&format=xml';
-        $response = $this->getTransport()->getResponse($url);
-        $xml = simplexml_load_string($response->getBody());
-        $obj = $xml->xpath('//place');
-        if (empty($obj)) {
+        $places = $this->getPlace($place);
+        if (empty($places)) {
             throw new Services_OpenStreetMap_Exception(
                 'Could not get coords for ' . $place
             );
         }
-        $attrs = $xml->named[0];
-        $attrs = $obj[0]->attributes();
+        $attrs = $places[0]->attributes();
         $lat = (string) $attrs['lat'];
         $lon = (string) $attrs['lon'];
         return compact('lat', 'lon');
+    }
+
+    /**
+     * Return a structured result set for $place
+     *
+     * @param string $place Location to search for details of
+     *
+     * @return void
+     */
+    public function getPlace($place)
+    {
+        $url = 'http://nominatim.openstreetmap.org/search?q='
+             . urlencode($place) . '&limit=1&format=xml';
+        $response = $this->getTransport()->getResponse($url);
+        $xml = simplexml_load_string($response->getBody());
+        $places = $xml->xpath('//place');
+        return $places;
     }
 
     /**
@@ -447,8 +460,6 @@ class Services_OpenStreetMap
     /**
      * Get current Transport object.
      *
-     * If one is not defined, create it.
-     *
      * @return Services_OpenStreetMap_Transport
      */
     public function getTransport()
@@ -456,6 +467,13 @@ class Services_OpenStreetMap
         return $this->transport;
     }
 
+    /**
+     * set Transport object.
+     *
+     * @param Services_OpenStreetMap_Transport $transport transport object
+     *
+     * @return Services_OpenStreetMap
+     */
     public function setTransport($transport)
     {
         $this->transport = $transport;

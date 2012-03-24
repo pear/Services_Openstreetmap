@@ -13,6 +13,10 @@
  * @link     http://pear.php.net/package/Services_OpenStreetMap
  */
 
+
+require_once 'Log.php';
+require_once 'Log/null.php';
+
 /**
  * Services_OpenStreetMap_Transport
  *
@@ -83,11 +87,26 @@ class Services_OpenStreetMap_Transport
      */
     protected $request = null;
 
+    /**
+     * @var Services_OpenStreetMap_Config $config
+     */
     protected $config = null;
 
-    public function __construct() {
+    /**
+     * @var log $log
+     */
+    protected $log = null;
+
+    /**
+     * __construct
+     *
+     * @return Services_OpenStreetMap_Transport
+     */
+    public function __construct()
+    {
         $this->setConfig(new Services_OpenStreetMap_Config());
         $this->setRequest(new HTTP_Request2());
+        $this->setLog(new Log_null(null));
     }
 
     /**
@@ -106,7 +125,7 @@ class Services_OpenStreetMap_Transport
      *                                           happened while conversing with
      *                                           the server.
      */
-    function getResponse(
+    public function getResponse(
         $url,
         $method = HTTP_Request2::METHOD_GET,
         $user = null,
@@ -119,7 +138,7 @@ class Services_OpenStreetMap_Transport
         $eMsg = null;
 
         if ($this->getConfig()->getValue('verbose')) {
-            echo $url, "\n";
+            $this->log->debug($url);
         }
         $request = $this->getRequest();
         $request->setUrl($url);
@@ -154,8 +173,8 @@ class Services_OpenStreetMap_Transport
             $code = $response->getStatus();
 
             if ($this->getConfig()->getValue('verbose')) {
-                var_dump($response->getHeader());
-                var_dump($response->getBody());
+                $this->log->debug($response->getHeader());
+                $this->log->debug($response->getBody());
             }
 
             if (Services_OpenStreetMap_Transport::OK == $code) {
@@ -171,6 +190,7 @@ class Services_OpenStreetMap_Transport
 
             }
         } catch (HTTP_Request2_Exception $e) {
+            $this->log->warning($response->getHeader());
             throw new Services_OpenStreetMap_Exception(
                 $e->getMessage(),
                 $code,
@@ -187,7 +207,7 @@ class Services_OpenStreetMap_Transport
      *
      * @return HTTP_Request2
      */
-    function getRequest()
+    public function getRequest()
     {
         return $this->request;
     }
@@ -276,6 +296,9 @@ class Services_OpenStreetMap_Transport
         try {
             $response = $this->getResponse($url);
         } catch (Services_OpenStreetMap_Exception $ex) {
+            if (isset($response)) {
+                $this->log->warning($response->getHeader());
+            }
             switch ($ex->getCode()) {
             case Services_OpenStreetMap_Transport::NOT_FOUND:
             case Services_OpenStreetMap_Transport::UNAUTHORISED:
@@ -345,6 +368,7 @@ class Services_OpenStreetMap_Transport
         try {
             $response = $this->getResponse($url);
         } catch (Services_OpenStreetMap_Exception $ex) {
+            $this->log->warning($response->getHeader());
             switch ($ex->getCode()) {
             case Services_OpenStreetMap_Transport::NOT_FOUND:
             case Services_OpenStreetMap_Transport::UNAUTHORISED:
@@ -363,6 +387,19 @@ class Services_OpenStreetMap_Transport
             $obj->setXml($sxe);
         }
         return $obj;
+    }
+
+    /**
+     * set Log object
+     *
+     * @param Log $log Log object
+     *
+     * @return Services_OpenStreetMap_Transport
+     */
+    public function setLog($log)
+    {
+        $this->log = $log;
+        return $this;
     }
 }
 // vim:set et ts=4 sw=4:

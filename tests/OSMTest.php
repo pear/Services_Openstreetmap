@@ -66,7 +66,6 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($osm->getXml(), null);
         $osm->loadXml(__DIR__ . '/files/osm.osm');
         $this->assertNotEquals($osm->getXml(), null);
-
     }
 
     /**
@@ -300,6 +299,27 @@ class OSMTest extends PHPUnit_Framework_TestCase
                 ),
             )
         );
+    }
+
+    public function testGetReturnValue()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/area.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://api06.dev.openstreetmap.org/'
+        );
+        $osm = new Services_OpenStreetMap($config);
+        $results = $osm->search(array('amenity' => 'pharmacy'));
+        $this->AssertTrue(empty($results));
+        $xml = $osm->get(
+            52.84824191354071, -8.247245026639696,
+            52.89957825532213, -8.174161478654796
+        );
+        $xml1 = $osm->getXml();
+        $this->assertEquals($xml, $xml1);
     }
 
     /**
