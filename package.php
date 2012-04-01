@@ -42,6 +42,18 @@ $packagexml->addPackageDepWithChannel(
     'pear.php.net',
     '2.0.0'
 );
+$packagexml->addPackageDepWithChannel(
+    'required',
+    'Log',
+    'pear.php.net',
+    '1.12.7'
+);
+$packagexml->addPackageDepWithChannel(
+    'required',
+    'Cache',
+    'pear.php.net',
+    '1.5.6'
+);
 $packagexml->addMaintainer('lead', 'kguest', 'Ken Guest', 'kguest@php.net');
 $packagexml->setLicense(
     'BSD License',
