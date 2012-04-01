@@ -2,12 +2,15 @@
 <!-- build xml -->
 
 <project name="services_openstreetmap" default="main">
+    <available file="docs" property="docs_exist" value="Y"/>
+    <available file="tests/coverage" property="coverage_exist" value="Y"/>
     <fileset dir="tests" id="tests" includes="**/*.php"/>
     <fileset dir="Services" id="Services" includes="**/*.php"/>
 
     <target name="main" depends="test,phpcs,docs"/>
 
     <target name="docs" description="Generate Documentation" depends="clean_docs">
+        <mkdir dir="docs" />
         <phpdoc title="Services_Openstreetmap" output="HTML:Smarty:PHP" destdir="docs" sourcecode="yes">
             <fileset refid="Services"/>
         </phpdoc>
@@ -27,6 +30,8 @@
     </target>
 
     <target name="test" description="run unit tests" depends="lint,clean_phpunit">
+        <echo msg='Run unit tests'/>
+        <mkdir dir="tests/coverage" />
         <coverage-setup database="./coverage.db">
             <fileset dir="tests" includes="**/*.php"/>
             <fileset dir="Services" includes="**/*.php"/>
@@ -44,7 +49,7 @@
 
     <target name="clean" depends="clean_phpunit,clean_docs"/>
 
-    <target name="clean_phpunit">
+    <target name="clean_phpunit" if="coverage_exist">
         <delete verbose='yes'>
             <fileset dir="tests/coverage">
                 <include name="**.*" />
@@ -52,12 +57,14 @@
         </delete>
     </target>
 
-    <target name="clean_docs">
+    <target name="clean_docs" if="docs_exist">
         <delete verbose='yes'>
             <fileset dir="docs">
                 <include name="**.*" />
             </fileset>
         </delete>
+        <delete verbose='no' dir='docs/media'/>
+        <delete verbose='no' dir='docs/Services_OpenStreetMap'/>
     </target>
 
 </project>
