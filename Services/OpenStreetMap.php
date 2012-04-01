@@ -76,7 +76,7 @@ class Services_OpenStreetMap
         $config = new Services_OpenStreetMap_Config();
         $this->setConfig($config);
 
-        $transport = new Services_OpenStreetMap_Transport();
+        $transport = new Services_OpenStreetMap_Transport_HTTP();
         $transport->setConfig($config);
 
         $this->setTransport($transport);

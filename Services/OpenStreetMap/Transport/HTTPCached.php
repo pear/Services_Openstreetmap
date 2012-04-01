@@ -1,6 +1,6 @@
 <?php
 /**
- * Transport.php
+ * HTTPCached.php
  * 08-Nov-2011
  *
  * PHP Version 5
@@ -12,65 +12,48 @@
  * @version  Release: @package_version@
  * @link     http://pear.php.net/package/Services_OpenStreetMap
  */
+require_once 'Cache.php';
+require_once 'Services/OpenStreetMap/Transport/HTTP.php';
 
 /**
- * Services_OpenStreetMap_Transport
+ * Services_OpenStreetMap_Transport_HTTPCached
  *
  * @category Services
  * @package  Services_OpenStreetMap
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @link     Transport.php
+ * @link     HTTPCached.php
  */
-interface Services_OpenStreetMap_Transport
+class Services_OpenStreetMap_Transport_HTTPCached
+    extends Services_OpenStreetMap_Transport_HTTP
 {
 
-    /**#@+
-     * @link http://tools.ietf.org/html/rfc2616
-     * @access public
-     */
-    /**
-     * Ok
-     */
-    const OK = 200;
-    /**
-     * Unauthorised, e.g. login credentials wrong.
-     */
-    const UNAUTHORISED = 401;
-    /**
-     * Resource not found.
-     */
-    const NOT_FOUND = 404;
-    /**
-     * Resource no longer available.
-     */
-    const GONE = 410;
-    /**#@-*/
-
+    protected $cache;
 
     /**
-     * getObject
+     * __construct
      *
-     * Returns false if the object is not found
-     *
-     * @param string $type    object type
-     * @param mixed  $id      id of object to retrieve
-     * @param mixed  $version version of object
-     *
-     * @return object
-     * @throws Services_OpenStreetMap_Exception
+     * @return Services_OpenStreetMap_Transport_HTTPCached
      */
-    public function getObject($type, $id, $version = null);
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->setCache(new Cache('file'));
+    }
 
     /**
-     * getObjects
+     * setCache
      *
-     * @param string $type object type
-     * @param array  $ids  ids of objects to retrieve
+     * @param Cache $cache Cache object
      *
-     * @return void
+     * @return Services_OpenStreetMap_Transport_HTTPCached
      */
-    public function getObjects($type, array $ids);
+    public function setCache($cache)
+    {
+        $this->cache = $cache;
+        return $this;
+    }
 
     /**
      * Send request to OSM server and return the response.
@@ -98,17 +81,39 @@ interface Services_OpenStreetMap_Transport
         $body = null,
         array $post_data = null,
         array $headers = null
-    );
+    ) {
+        $arguments = array(
+            $url,
+            $method,
+            $user,
+            $password,
+            $body,
+            implode(":", (array) $post_data),
+            implode(":", (array) $headers)
+        );
+        $id = md5(implode(":", $arguments));
 
-    /**
-     * searchObjects
-     *
-     * @param string $type     object type (e.g. changeset)
-     * @param array  $criteria array of criterion objects.
-     *
-     * @return Services_OpenStreetMap_Objects
-     */
-    public function searchObjects($type, array $criteria);
+        $data = $this->cache->get($id);
+        if ($data) {
+            $response = new HTTP_Request2_Response();
+            $response->setStatus(200);
+            $response->setBody($data);
 
+            return $response;
+        }
 
+        $response = parent::getResponse(
+            $url,
+            $method,
+            $user,
+            $password,
+            $body,
+            $post_data,
+            $headers
+        );
+
+        $this->cache->save($id, $response->getBody());
+
+        return $response;
+    }
 }
