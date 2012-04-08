@@ -177,12 +177,10 @@ class Services_OpenStreetMap
      */
     public function getPlace($place)
     {
-        $url = 'http://nominatim.openstreetmap.org/search?q='
-             . urlencode($place) . '&limit=1&format=xml';
-        $response = $this->getTransport()->getResponse($url);
-        $xml = simplexml_load_string($response->getBody());
-        $places = $xml->xpath('//place');
-        return $places;
+        $nominatim = new Services_OpenStreetMap_Nominatim(
+            $this->getTransport()
+        );
+        return $nominatim->search($place, 1);
     }
 
     /**
