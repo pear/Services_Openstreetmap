@@ -92,7 +92,6 @@ class Services_OpenStreetMap_Nominatim
         $format = $this->format;
         $query = $this->buildQuery($place);
         $url = $this->server . 'search?' . $query;
-        var_dump ( $url );
 
         $response = $this->getTransport()->getResponse($url);
         if ($format == 'xml') {
