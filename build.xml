@@ -55,6 +55,7 @@
                 <include name="**.*" />
             </fileset>
         </delete>
+        <delete verbose='no' dir='tests/coverage'/>
     </target>
 
     <target name="clean_docs" if="docs_exist">
