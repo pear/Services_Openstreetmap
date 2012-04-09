@@ -118,6 +118,23 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $osm->getConfig()->getValue('api');
     }
 
+    public function testGetValueEmptyParameter()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+
+        $config = array('adapter' => $mock);
+        $osm = new Services_OpenStreetMap($config);
+
+        $configValues = $osm->getConfig()->getValue();
+        $this->assertEquals($configValues['server'], 'http://api.openstreetmap.org/');
+        $this->assertEquals($configValues['api_version'], '0.6');
+        $this->assertEquals($configValues['User-Agent'], 'Services_OpenStreetMap');
+        $this->assertNull($configValues['user']);
+        $this->assertNull($configValues['password']);
+        $this->assertNull($configValues['passwordfile']);
+    }
+
     /**
      * Setting an unrecognised config setting should raise an exception.
      *
