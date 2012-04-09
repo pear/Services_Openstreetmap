@@ -25,6 +25,7 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 
 require_once 'ChangesetTest.php';
 require_once 'ConfigTest.php';
+require_once 'NominatimTest.php';
 require_once 'NodeTest.php';
 require_once 'OSMTest.php';
 require_once 'RelationTest.php';
@@ -68,6 +69,7 @@ class AllTests
         $suite->addTestSuite('ConfigTest');
         $suite->addTestSuite('OSMTest');
         $suite->addTestSuite('NodeTest');
+        $suite->addTestSuite('NominatimTest');
         $suite->addTestSuite('RelationTest');
         $suite->addTestSuite('UserTest');
         $suite->addTestSuite('WayTest');

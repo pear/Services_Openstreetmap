@@ -39,7 +39,7 @@ class Services_OpenStreetMap_Nominatim
     /**
      * __construct
      *
-     * @param Services_OpenStreetMap_Transport $transport
+     * @param Services_OpenStreetMap_Transport $transport Transport instance.
      *
      * @return Services_OpenStreetMap_Nominatim
      */
@@ -48,7 +48,14 @@ class Services_OpenStreetMap_Nominatim
         $this->setTransport($transport);
     }
 
-    private function buildQuery($place)
+    /**
+     * Build query portion for request.
+     *
+     * @param string $place Name of location/place to search for
+     *
+     * @return string
+     */
+    private function _buildQuery($place)
     {
         $format = $this->format;
         $limit = $this->limit;
@@ -90,7 +97,7 @@ class Services_OpenStreetMap_Nominatim
         }
 
         $format = $this->format;
-        $query = $this->buildQuery($place);
+        $query = $this->_buildQuery($place);
         $url = $this->server . 'search?' . $query;
 
         $response = $this->getTransport()->getResponse($url);
@@ -101,13 +108,15 @@ class Services_OpenStreetMap_Nominatim
         } elseif ( $format == 'json' ) {
             $places = json_decode($response->getBody());
             return $places;
+        } elseif ($format == 'html') {
+            return $response->getBody();
         }
     }
 
     /**
      * setFormat
      *
-     * @param string $format Set format for data to be received in (json, xml)
+     * @param string $format Set format for data to be received in (html, json, xml)
      *
      * @return Services_OpenStreetMap_Nominatim
      * @throws Services_OpenStreetMap_RuntimeException If the specified format
@@ -116,6 +125,7 @@ class Services_OpenStreetMap_Nominatim
     public function setFormat($format)
     {
         switch($format) {
+        case 'html':
         case 'json':
         case 'xml':
             $this->format = $format;
@@ -126,6 +136,16 @@ class Services_OpenStreetMap_Nominatim
             );
         }
         return $this;
+    }
+
+    /**
+     * get which format is set for this instance (xml, json, html)
+     *
+     * @return string
+     */
+    public function getFormat()
+    {
+        return $this->format;
     }
 
     /**
@@ -145,6 +165,16 @@ class Services_OpenStreetMap_Nominatim
             );
         }
         return $this;
+    }
+
+    /**
+     * get Limit
+     *
+     * @return integer
+     */
+    public function getLimit()
+    {
+        return $this->limit;
     }
 
     /**
@@ -170,18 +200,51 @@ class Services_OpenStreetMap_Nominatim
         return $this->transport;
     }
 
+    /**
+     * Set which server to connect to.
+     *
+     * Possible values are 'nominatim', 'mapquest' and any other valid
+     * endpoint specified as an URL.
+     *
+     * @param string $server Server URL or shorthand (nominatim / mapquest)
+     *
+     * @return Services_OpenStreetMap_Nominatim
+     */
     public function setServer($server)
     {
         switch($server) {
         case 'nominatim':
             $this->server = 'http://nominatim.openstreetmap.org/';
+            return $this;
             break;
         case 'mapquest':
             $this->server = 'http://open.mapquestapi.com/nominatim/v1/';
+            return $this;
             break;
         default:
-            $this->server = $server;
+            $parsed = parse_url($server);
+            if (isset($parsed['scheme'])
+                && isset($parsed['host'])
+                && isset($parsed['path'])
+            ) {
+                $this->server = $server;
+            } else {
+                throw new Services_OpenStreetMap_RuntimeException(
+                    'Server endpoint invalid'
+                );
+            }
+            return $this;
         }
+    }
+
+    /**
+     * Retrieve server endpoint.
+     *
+     * @return string
+     */
+    public function getServer()
+    {
+        return $this->server;
     }
 }
 
