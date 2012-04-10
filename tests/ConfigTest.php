@@ -398,6 +398,34 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $config = $osm->getConfig();
         $this->assertEquals($config->getValue('password'), 'Wilma4evah');
     }
+
+    public function testGenerator()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+
+        $config = array(
+            'api_version' => '0.6',
+            'adapter' => $mock,
+            'password' => null,
+            'passwordfile' => null,
+            'user' => null,
+            'verbose' => false,
+            'User-Agent' => 'Services_OpenStreetMap',
+            'server' => 'http://api06.dev.openstreetmap.org/'
+        );
+        $osm = new Services_OpenStreetMap($config);
+        $generator = $osm->getConfig()->getGenerator();
+        $this->assertEquals($generator, 'OpenStreetMap server');
+
+        $mock2 = new HTTP_Request2_Adapter_Mock();
+        $mock2->addResponse(fopen(__DIR__ . '/responses/capabilities_jxapi.xml', 'rb'));
+
+        $config['adapter'] = $mock2;
+        $osm = new Services_OpenStreetMap($config);
+        $generator = $osm->getConfig()->getGenerator();
+        $this->assertEquals($generator, 'Java XAPI Server');
+    }
 }
 // vim:set et ts=4 sw=4:
 ?>

@@ -1,0 +1,14 @@
+HTTP/1.1 200 OK
+
+<osm version="0.6" generator="Java XAPI Server" xmlns:xapi="http://jxapi.openstreetmap.org/" xapi:planetDate="Mon, 10 Apr 2012 13:58:17 GMT">
+  <!-- Note that since this server only supports XAPI, only the area maximum is real. -->
+  <api>
+    <version minimum="0.6" maximum="0.6"/>
+    <area maximum="0.12"/>
+    <tracepoints per_page="5000"/>
+    <waynodes maximum="2000"/>
+    <changesets maximum_elements="50000"/>
+    <timeout seconds="300"/>
+  </api>
+</osm>
+
