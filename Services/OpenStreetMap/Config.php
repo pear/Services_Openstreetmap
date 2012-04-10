@@ -74,6 +74,12 @@ class Services_OpenStreetMap_Config
      */
     protected $areaMaximum = null;
 
+    /**
+     * State of server - can updates be accepted? (experimental)
+     * @var boolean
+     * @internal
+     */
+    protected $readOnly = null;
 
     /**
      * Default config settings
@@ -395,6 +401,12 @@ class Services_OpenStreetMap_Config
             $xml,
             'area',
             'maximum'
+        );
+        $this->readOnly = (bool) $this->getXmlValue(
+            $xml,
+            'status',
+            'readonly',
+            false
         );
         return true;
     }
