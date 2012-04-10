@@ -70,7 +70,9 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             throw new Services_OpenStreetMap_RuntimeException('User must be set');
         }
         if (is_null($password)) {
-            throw new Services_OpenStreetMap_RuntimeException('Password must be set');
+            throw new Services_OpenStreetMap_RuntimeException(
+                'Password must be set'
+            );
         }
         $response = $this->getTransport()->getResponse(
             $url,

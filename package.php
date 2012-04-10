@@ -33,7 +33,9 @@ $packagexml->setReleaseStability('alpha');
 $packagexml->setAPIStability('alpha');
 $packagexml->setSummary('OpenStreetMap Services');
 $packagexml->setDescription('Provide an interface to the OpenStreetMap services.');
-$packagexml->setNotes('Initial release of Services_OpenStreetMap - post PEPR process.');
+$packagexml->setNotes(
+    'Initial release of Services_OpenStreetMap - post PEPR process.'
+);
 $packagexml->setPhpDep('5.3.0');
 $packagexml->setPearinstallerDep('1.7.0');
 $packagexml->addPackageDepWithChannel(
