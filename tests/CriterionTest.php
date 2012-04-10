@@ -258,6 +258,28 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         $changesets = $osm->searchChangesets(array($displayName, $c));
         $this->assertInstanceOf('Services_OpenStreetMap_Changesets', $changesets);
     }
+
+    /**
+     * user value must be numeric.
+     *
+     * @expectedException        Services_OpenStreetMap_InvalidArgumentException
+     * @expectedExceptionMessage User UID must be numeric
+     *
+     * @return void
+     */
+    public function testInvalidUserValue()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+
+        $config = array(
+            'adapter'  => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+        );
+        $osm = new Services_OpenStreetMap($config);
+
+        $user = new Services_OpenStreetMap_Criterion('user', 'mustbenumeric');
+    }
 }
 // vim:set et ts=4 sw=4:
 ?>
