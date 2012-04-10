@@ -133,6 +133,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $wayId = 30357328;
         $way2Id = 30357329;
 
+        if (!file_exists(__DIR__ . '/credentials')) {
+            $this->markTestSkipped('Credentials file does not exist.');
+        }
+
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(
@@ -188,6 +192,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      */
     public function testObjectAddedToChangesetAfterCommit()
     {
+        if (!file_exists(__DIR__ . '/credentials')) {
+            $this->markTestSkipped('Credentials file does not exist.');
+        }
+
         $wayId = 30357328;
         $way2Id = 30357329;
 
@@ -241,6 +249,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      */
     public function testSameObjectAddedToChangeset()
     {
+        if (!file_exists(__DIR__ . '/credentials')) {
+            $this->markTestSkipped('Credentials file does not exist.');
+        }
+
         $wayId = 30357328;
 
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -289,6 +301,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      */
     public function testDeleteNode()
     {
+        if (!file_exists(__DIR__ . '/credentials')) {
+            $this->markTestSkipped('Credentials file does not exist.');
+        }
+
         $nodeID = 1436433375;
 
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -335,6 +351,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      */
     public function testDeleteNodeClosingError404()
     {
+        if (!file_exists(__DIR__ . '/credentials')) {
+            $this->markTestSkipped('Credentials file does not exist.');
+        }
+
         $nodeID = 1436433375;
 
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -377,6 +397,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      */
     public function testDeleteNodeClosingError400()
     {
+        if (!file_exists(__DIR__ . '/credentials')) {
+            $this->markTestSkipped('Credentials file does not exist.');
+        }
+
         $nodeID = 1436433375;
 
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -427,6 +451,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      */
     public function testDeleteNodeDiffError400()
     {
+        if (!file_exists(__DIR__ . '/credentials')) {
+            $this->markTestSkipped('Credentials file does not exist.');
+        }
+
         $nodeID = 1436433375;
 
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -464,6 +492,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      */
     public function testSaveNode()
     {
+        if (!file_exists(__DIR__ . '/credentials')) {
+            $this->markTestSkipped('Credentials file does not exist.');
+        }
+
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
