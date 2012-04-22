@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Services openstreetmap : OpenStreetMap is a global project with an aim of collaboratively collecting map data. This package aims to make communicating with the OSM API intuitive." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Services openstreetmap</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/kenguest/Services_Openstreetmap">Fork Me on GitHub</a>
+
+          <h1 id="project_title">Services openstreetmap</h1>
+          <h2 id="project_tagline">OpenStreetMap is a global project with an aim of collaboratively collecting map data. This package aims to make communicating with the OSM API intuitive.</h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/kenguest/Services_Openstreetmap/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/kenguest/Services_Openstreetmap/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>Services_OpenStreetMap</h1>
+
+<p>OpenStreetMap is a global project with an aim of collaboratively collecting map
+data. This package aims to make communicating with the OSM API intuitive.</p>
+
+<h2>Usage</h2>
+
+<h3>Initialisation</h3>
+
+<p>Simply require and initialize the Services_OpenStreetMap class:</p>
+
+<pre><code>require_once 'Services/OpenStreetMap.php';
+$osm = new Services_OpenStreetMap();
+</code></pre>
+
+<h3>Downloading Data, saving to an OSM file</h3>
+
+<pre><code>$osm-&gt;get(-8.3564758, 52.821022799999994, -7.7330017, 53.0428644);
+file_put_contents("area_covered.osm", $osm-&gt;getXml());
+</code></pre>
+
+<h3>Search for a specific POI, in a saved OSM file</h3>
+
+<pre><code>$osm = new Services_OpenStreetMap();
+
+$osm-&gt;loadXml("./osm.osm");
+$results = $osm-&gt;search(array("amenity" =&gt; "pharmacy"));
+echo "List of Pharmacies\n";
+echo "==================\n\n";
+
+foreach ($results as $result) {
+    $name = null;
+    $addr_street = null;
+    $addr_city = null;
+    $addr_country = null;
+    $addr_housename = null;
+    $addr_housenumber = null;
+    $opening_hours = null;
+    $phone = null;
+
+    extract($result);
+    $line1 = ($addr_housenumber) ? $addr_housenumber : $addr_housename;
+    if ($line1 != null) {
+        $line1 .= ', ';
+    }
+    echo  "$name\n{$line1}{$addr_street}\n$phone\n$opening_hours\n\n";
+}
+</code></pre>
+
+<h3>Get a specific Node</h3>
+
+<pre><code>require_once 'Services/OpenStreetMap.php';
+
+$osm = new Services_OpenStreetMap();
+
+var_dump($osm-&gt;getNode(52245107));
+
+Getting specific changesets, ways etc follow the same pattern.
+</code></pre>
+
+<h3>Updating a way, or several.</h3>
+
+<pre><code>require_once 'Services/OpenStreetMap.php';
+
+// A password file, is a colon delimited file.
+// Eg. fred@example.com:yabbadabbado
+$config = array('passwordfile' =&gt; './credentials');
+$osm = new Services_OpenStreetMap($config);
+
+$changeset = $osm-&gt;createChangeset();
+$changeset-&gt;begin("These ways are lit");
+$ways = $osm-&gt;getWays($wayId, $way2Id);
+foreach ($ways as $way) {
+    $way-&gt;setTag('highway', 'residential');
+    $way-&gt;setTag('lit', 'yes');
+    $changeset-&gt;add($way);
+}
+$changeset-&gt;commit();
+</code></pre>
+
+<h3>Creating a node.</h3>
+
+<pre><code>require_once 'Services/OpenStreetMap.php';
+
+// A password file, is a colon delimited file.
+// Eg. fred@example.com:yabbadabbado
+$config = array('passwordfile' =&gt; './credentials');
+$osm = new Services_OpenStreetMap($config);
+
+$changeset = $osm-&gt;createChangeset();
+$changeset-&gt;begin("Added Acme Vets.");
+$lat = 52.8638729;
+$lon = -8.1983611;
+$node = $osm-&gt;createNode($lat, $lon, array(
+    'name' =&gt; 'Acme Vets',
+    'building' =&gt; 'yes',
+    'amenity' =&gt; 'vet')
+);
+$changeset-&gt;add($node);
+$changeset-&gt;commit();
+</code></pre>
+
+<h3>Working with user information.</h3>
+
+<pre><code>$config = array(
+    'user' =&gt; 'fred@example.com',
+    'password' =&gt; 'w1lma4evah'
+);
+
+$osm = new Services_OpenStreetMap($config);
+$user = $osm-&gt;getUser();
+
+echo 'My OSM Mugshot is at ', $user-&gt;getImage(), "\n";
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Services openstreetmap maintained by <a href="https://github.com/kenguest">kenguest</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
