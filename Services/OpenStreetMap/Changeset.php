@@ -147,15 +147,6 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             . $config['api_version'] .
             "/changeset/{$cId}/upload";
 
-        // Generate the osmChange document
-        $blocks = null;
-        foreach ($this->members as $member) {
-            $blocks .= $member->getOsmChangeXML() . "\n";
-        }
-
-        $doc = "<osmChange version='0.6' generator='Services_OpenStreetMap'>\n"
-             . $blocks . '</osmChange>';
-
         // Post the osmChange document to the server
         try {
             $response = $this->getTransport()->getResponse(
@@ -163,7 +154,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 HTTP_Request2::METHOD_POST,
                 $config['user'],
                 $config['password'],
-                $doc,
+                $this->getOsmChangeXml(),
                 null,
                 array(array('Content-type', 'text/xml', true))
             );
@@ -213,6 +204,25 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             );
         }
         $this->open = false;
+    }
+
+    /**
+     * Generate and return the OsmChange XML required to record the changes
+     * made to the object in question.
+     *
+     * @return string
+     * @link   http://wiki.openstreetmap.org/wiki/OsmChange
+     */
+    public function getOsmChangeXml()
+    {
+        // Generate the osmChange document
+        $blocks = null;
+        foreach ($this->members as $member) {
+            $blocks .= $member->getOsmChangeXml() . "\n";
+        }
+
+        return "<osmChange version='0.6' generator='Services_OpenStreetMap'>"
+             . $blocks . '</osmChange>';
     }
 
     /**
