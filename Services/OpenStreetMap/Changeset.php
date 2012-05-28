@@ -29,6 +29,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     protected $membersIds = array();
     protected $open = false;
     protected $id = null;
+    protected $osmChangeXml = null;
 
     /**
      * __construct
@@ -215,14 +216,22 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      */
     public function getOsmChangeXml()
     {
-        // Generate the osmChange document
-        $blocks = null;
-        foreach ($this->members as $member) {
-            $blocks .= $member->getOsmChangeXml() . "\n";
-        }
+        if (is_null($this->osmChangeXml)) {
 
-        return "<osmChange version='0.6' generator='Services_OpenStreetMap'>"
-             . $blocks . '</osmChange>';
+            // Generate the osmChange document
+            $blocks = null;
+            foreach ($this->members as $member) {
+                $blocks .= $member->getOsmChangeXml() . "\n";
+            }
+            $this->setOsmChangeXml("<osmChange version='0.6' generator='Services_OpenStreetMap'>" . $blocks . '</osmChange>');
+        }
+        return $this->osmChangeXml;
+    }
+
+    public function setOsmChangeXml($xml)
+    {
+        $this->osmChangeXml = $xml;
+        return $this;
     }
 
     /**
@@ -328,6 +337,10 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     public function updateObjectIds($body)
     {
         $body = trim($body);
+            // should check here that body has expected form.
+        if (stripos($body, 'diffResult') === false ) {
+            throw new Services_OpenStreetMap_Exception('Invalid diffResult XML');
+        }
         $cxml = simplexml_load_string($body);
         $obj = $cxml->xpath('//diffResult');
         foreach ($obj[0]->children() as $child) {
