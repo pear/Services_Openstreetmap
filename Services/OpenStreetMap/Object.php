@@ -400,7 +400,7 @@ class Services_OpenStreetMap_Object
      * @param mixed $key   key
      * @param mixed $value value
      *
-     * @return void
+     * @return Services_OpenStreetMap_Object
      */
     public function setTag($key, $value)
     {
@@ -413,6 +413,30 @@ class Services_OpenStreetMap_Object
         }
         $this->dirty = true;
         $this->tags[$key] = $value;
+        return $this;
+    }
+
+    /**
+     * Set a number of tags at once, using an associative array.
+     *
+     * <pre>
+     * $obj->setTag(
+     *  array(
+     *   'key' => 'value',
+     *   'key2', 'value2',
+     *  )
+     * );
+     * </pre>
+     *
+     * @param array $tags array of tags.
+     *
+     * @return Services_OpenStreetMap_Object
+     */
+    public function setTags($tags = array())
+    {
+        foreach ($tags as $key => $value) {
+            $this->setTag($key, $value);
+        }
         return $this;
     }
 
