@@ -131,6 +131,8 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *
      * @return void
      * @link   http://wiki.openstreetmap.org/wiki/OsmChange
+     * @throws Services_OpenStreetMap_RuntimeException If changeset Id is not
+     *                                                 numeric
      */
     public function commit()
     {
@@ -142,6 +144,9 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
 
         // Generate URL that the osmChange document will be posted to
         $cId = $this->getId();
+        if (!is_numeric($cId)) {
+            throw new Services_OpenStreetMap_RuntimeException('Changeset ID of unexpected type.');
+        }
         $config = $this->getConfig()->asArray();
         $url = $config['server']
             . 'api/'
