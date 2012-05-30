@@ -66,6 +66,40 @@ class WayTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test setting multiple tags to a way (or any other object)
+     */
+    public function testGetAddMultipleTagsToWay()
+    {
+        $id = 25978036;
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/way.xml', 'rb'));
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://api06.dev.openstreetmap.org/'
+        );
+        $osm = new Services_OpenStreetMap($config);
+        $way = $osm->getWay($id);
+
+        $getTags = $way->getTags();
+        $this->assertEquals($getTags['highway'], 'service');
+        $this->assertEquals($getTags, array ('highway' => 'service'));
+
+        $way->setTags(array( 'service' => 'driveway' , 'surface' => 'gravel') ) ;
+        $this->assertEquals(
+            $way->getTags(),
+            array (
+            'highway' => 'service',
+            'service' => 'driveway',
+            'surface' => 'gravel',
+            )
+        );
+
+    }
+
+    /**
      * Test the isClosed method against a closed way.
      *
      * Check the 'building' tag, and id attribute too.
