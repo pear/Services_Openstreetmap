@@ -21,10 +21,10 @@ if (strstr($version, 'package_version')) {
 require_once 'Services/OpenStreetMap.php';
 
 $osm = new Services_OpenStreetMap();
-$osm->setConfig(array('server' => 'http://api.openstreetmap.org/'));
+$osm->getConfig()->setServer('http://api.openstreetmap.org/');
 
 try {
-    $osm->get(-8.3564758, 52.821022799999994, -7.7330017, 53.0428644);
+    $osm->get(52.821022799999994,-8.3564758, 53.0428644, -7.7330017);
 
     file_put_contents("homelands.osm", $osm->getXml());
 } catch (Exception $e) {
