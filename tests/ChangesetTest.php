@@ -37,6 +37,23 @@ require_once 'PHPUnit/Framework/TestCase.php';
  */
 class ChangesetTest extends PHPUnit_Framework_TestCase
 {
+    protected $credentialsFile = '/credentials';
+
+    /**
+     * Setup - if there is a 'credentials' file, use it. Otherwise fall back to
+     * using the credentials.dist file.
+     *
+     * @return void
+     */
+    public function setup()
+    {
+        if (file_exists(__DIR__ . $this->credentialsFile)) {
+            $this->credentialsFile = __DIR__ . $this->credentialsFile;
+        } else {
+            $this->credentialsFile = __DIR__ . '/credentials.dist';
+        }
+    }
+
     /**
      * Retrieve a changeset and check its attributes are as expected.
      *
@@ -133,7 +150,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $wayId = 30357328;
         $way2Id = 30357329;
 
-        if (!file_exists(__DIR__ . '/credentials')) {
+        if (!file_exists($this->credentialsFile)) {
             $this->markTestSkipped('Credentials file does not exist.');
         }
 
@@ -153,7 +170,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $config = array(
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-            'passwordfile' => __DIR__ . '/credentials'
+            'passwordfile' => $this->credentialsFile
         );
         $osm = new Services_OpenStreetMap($config);
         try {
@@ -192,7 +209,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      */
     public function testObjectAddedToChangesetAfterCommit()
     {
-        if (!file_exists(__DIR__ . '/credentials')) {
+        if (!file_exists($this->credentialsFile)) {
             $this->markTestSkipped('Credentials file does not exist.');
         }
 
@@ -213,7 +230,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $config = array(
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-            'passwordfile' => __DIR__ . '/credentials'
+            'passwordfile' => $this->credentialsFile
         );
         $osm = new Services_OpenStreetMap($config);
         try {
@@ -249,7 +266,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      */
     public function testSameObjectAddedToChangeset()
     {
-        if (!file_exists(__DIR__ . '/credentials')) {
+        if (!file_exists($this->credentialsFile)) {
             $this->markTestSkipped('Credentials file does not exist.');
         }
 
@@ -268,7 +285,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $config = array(
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-            'passwordfile' => __DIR__ . '/credentials'
+            'passwordfile' => $this->credentialsFile
         );
         $osm = new Services_OpenStreetMap($config);
         try {
@@ -301,7 +318,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      */
     public function testDeleteNode()
     {
-        if (!file_exists(__DIR__ . '/credentials')) {
+        if (!file_exists($this->credentialsFile)) {
             $this->markTestSkipped('Credentials file does not exist.');
         }
 
@@ -320,7 +337,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $config = array(
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-            'passwordfile' => __DIR__ . '/credentials'
+            'passwordfile' => $this->credentialsFile
         );
         $osm = new Services_OpenStreetMap($config);
         try {
@@ -351,7 +368,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      */
     public function testDeleteNodeClosingError404()
     {
-        if (!file_exists(__DIR__ . '/credentials')) {
+        if (!file_exists($this->credentialsFile)) {
             $this->markTestSkipped('Credentials file does not exist.');
         }
 
@@ -369,7 +386,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $config = array(
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-            'passwordfile' => __DIR__ . '/credentials'
+            'passwordfile' => $this->credentialsFile
         );
         $osm = new Services_OpenStreetMap($config);
         try {
@@ -397,7 +414,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      */
     public function testDeleteNodeClosingError400()
     {
-        if (!file_exists(__DIR__ . '/credentials')) {
+        if (!file_exists($this->credentialsFile)) {
             $this->markTestSkipped('Credentials file does not exist.');
         }
 
@@ -423,7 +440,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $config = array(
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-            'passwordfile' => __DIR__ . '/credentials'
+            'passwordfile' => $this->credentialsFile
         );
         $osm = new Services_OpenStreetMap($config);
         try {
@@ -451,7 +468,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      */
     public function testDeleteNodeDiffError400()
     {
-        if (!file_exists(__DIR__ . '/credentials')) {
+        if (!file_exists($this->credentialsFile)) {
             $this->markTestSkipped('Credentials file does not exist.');
         }
 
@@ -466,7 +483,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $config = array(
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-            'passwordfile' => __DIR__ . '/credentials'
+            'passwordfile' => $this->credentialsFile
         );
         $osm = new Services_OpenStreetMap($config);
         try {
@@ -492,7 +509,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      */
     public function testSaveNode()
     {
-        if (!file_exists(__DIR__ . '/credentials')) {
+        if (!file_exists($this->credentialsFile)) {
             $this->markTestSkipped('Credentials file does not exist.');
         }
 
@@ -504,7 +521,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $config = array(
                 'adapter'  => $mock,
                 'server'   => 'http://api06.dev.openstreetmap.org/',
-                'passwordfile' => __DIR__ . '/credentials',
+                'passwordfile' => $this->credentialsFile
                 );
         $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
