@@ -16,9 +16,9 @@ $packagexml->setOptions(
         'tests'    => 'test'
         ),
     'ignore' => array(
+        'coverage.db',
         'package.php',
         'package.xml',
-        'Services_Capsule.tmproj',
         'package.xml.old'
     ),
     'simpleoutput' => true)
