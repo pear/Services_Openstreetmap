@@ -93,6 +93,8 @@ Simply require and initialize the Services_OpenStreetMap class:
 
 ### Working with user information.
 
+The getUser() method retrieves information for the current user.
+
     $config = array(
         'user' => 'fred@example.com',
         'password' => 'w1lma4evah'
@@ -102,3 +104,8 @@ Simply require and initialize the Services_OpenStreetMap class:
     $user = $osm->getUser();
 
     echo 'My OSM Mugshot is at ', $user->getImage(), "\n";
+
+The getUserById() method retrieves information for the specified user.
+
+    $osm = new Services_OpenStreetMap();
+    $user = $osm->getUserById(1);
