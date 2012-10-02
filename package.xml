@@ -16,8 +16,8 @@
  <date>2012-10-02</date>
  <time>19:01:56</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -683,9 +683,6 @@ Support newly expanded User API.
    <file name="README.markdown" role="data">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
    </file>
-   <file name="Services_OpenStreetMap-0.0.1.tgz" role="data">
-    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-   </file>
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -747,8 +744,8 @@ Initial release of Services_OpenStreetMap - post PEPR process.
   </release>
   <release>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
    </version>
    <stability>
     <release>alpha</release>
