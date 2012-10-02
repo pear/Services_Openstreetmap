@@ -64,9 +64,17 @@ class UserTest extends PHPUnit_Framework_TestCase
         );
         $this->assertEquals($user->getAccountCreated(), "2003-09-02T15:27:52Z");
         $this->assertEquals($user->getDescription(), "Yabba dabba do!");
-        $this->assertEquals($user->getLon(), null);
-        $this->assertEquals($user->getLat(), null);
+        $this->assertEquals($user->getLon(), -8.2284600830085);
+        $this->assertEquals($user->getLat(), 52.222687925572);
+        $this->assertEquals($user->getZoom(), 3);
+        $this->assertEquals($user->getChangesets(), 1910);
+        $this->assertEquals($user->getTraces(), 115);
+        $this->assertEquals($user->getBlocksReceived(), 1);
+        $this->assertEquals($user->getBlocksIssued(), 15);
+        $this->assertEquals($user->getActiveBlocksReceived(), 0);
+        $this->assertEquals($user->getActiveBlocksIssued(), 4);
         $this->assertEquals($user->getLanguages(), array('en-US','en'));
+        $this->assertEquals($user->getRoles(), array('moderator'));
         $this->assertEquals(
             $user->getPreferences(),
             array( "diary.default_language" => "en")
@@ -118,6 +126,32 @@ class UserTest extends PHPUnit_Framework_TestCase
         $user = $osm->getUser();
         $this->assertEquals($user->getLat(), 1.234567);
         $this->assertEquals($user->getLon(), -1.234567);
+    }
+
+    public function testUser11324()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/user11324.xml', 'rb'));
+        $config = array(
+            'adapter' => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+            'user' => 'fred@example.com',
+            'password' => 'w1lma4evah'
+        );
+
+        $osm = new Services_OpenStreetMap($config);
+        $user = $osm->getUserById(6367);
+        $this->assertEquals($user->getDisplayName(), 'kenguest');
+        $this->assertEquals($user->getId(), 11324);
+        $this->assertEquals($user->getChangesets(), 1910);
+        $this->assertEquals($user->getTraces(), 115);
+        $this->assertEquals($user->getBlocksReceived(), 0);
+        $this->assertEquals($user->getActiveBlocksReceived(), 0);
+        $this->assertNull($user->getBlocksIssued());
+        $this->assertNull($user->getActiveBlocksIssued());
+        $this->assertNull($user->getLanguages());
+        $this->assertEquals($user->getRoles(), array());
     }
 }
 // vim:set et ts=4 sw=4:

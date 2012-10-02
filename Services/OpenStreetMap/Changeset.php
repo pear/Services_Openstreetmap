@@ -145,7 +145,11 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         // Generate URL that the osmChange document will be posted to
         $cId = $this->getId();
         if (!is_numeric($cId)) {
-            throw new Services_OpenStreetMap_RuntimeException('Changeset ID of unexpected type.');
+            if ($cId !== null) {
+                $msg = 'Changeset ID of unexpected type. (';
+                $msg .= var_export($cId, true) . ')';
+                throw new Services_OpenStreetMap_RuntimeException($msg);
+            }
         }
         $config = $this->getConfig()->asArray();
         $url = $config['server']
@@ -233,6 +237,13 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         return $this->osmChangeXml;
     }
 
+    /**
+     * setOsmChangeXml
+     *
+     * @param string $xml OsmChange XML
+     *
+     * @return Services_OpenStreetMap_Changeset
+     */
     public function setOsmChangeXml($xml)
     {
         $this->osmChangeXml = $xml;

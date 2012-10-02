@@ -130,6 +130,9 @@ class Services_OpenStreetMap_User
         $langers = array();
         $cxml = simplexml_load_string($this->xml);
         $languages = $cxml->xpath('//user/languages');
+        if (empty($languages)) {
+            return null;
+        }
         foreach ($languages[0]->children() as $child) {
             if ($child->getName() == 'lang') {
                 $langers[] = (string) $child[0];
@@ -165,6 +168,130 @@ class Services_OpenStreetMap_User
             return null;
         }
         return (float) $home[0]->attributes()->lon;
+    }
+
+    /**
+     * Zoom level of 'home' setting for user.
+     *
+     * @return integer
+     */
+    public function getZoom()
+    {
+        $cxml = simplexml_load_string($this->xml);
+        $home = $cxml->xpath('//user/home');
+        if (empty($home)) {
+            return null;
+        }
+        return (integer) $home[0]->attributes()->zoom;
+    }
+
+    /**
+     * The number of changesets opened by the user.
+     *
+     * @return integer
+     */
+    public function getChangesets()
+    {
+        $cxml = simplexml_load_string($this->xml);
+        $changesets = $cxml->xpath('//user/changesets');
+        if (empty($changesets)) {
+            return null;
+        }
+        return (integer) $changesets[0]->attributes()->count;
+    }
+
+    /**
+     * The number of traces uploaded by the user.
+     *
+     * @return integer
+     */
+    public function getTraces()
+    {
+        $cxml = simplexml_load_string($this->xml);
+        $traces = $cxml->xpath('//user/traces');
+        if (empty($traces)) {
+            return null;
+        }
+        return (integer) $traces[0]->attributes()->count;
+    }
+
+    /**
+     * The [total] number of blocks received by the user.
+     *
+     * @return integer
+     */
+    public function getBlocksReceived()
+    {
+        $cxml = simplexml_load_string($this->xml);
+        $changesets = $cxml->xpath('//user/blocks/received');
+        if (empty($changesets)) {
+            return null;
+        }
+        return (integer) $changesets[0]->attributes()->count;
+    }
+
+    /**
+     * The number of active blocks received by the user.
+     *
+     * @return integer
+     */
+    public function getActiveBlocksReceived()
+    {
+        $cxml = simplexml_load_string($this->xml);
+        $changesets = $cxml->xpath('//user/blocks/received');
+        if (empty($changesets)) {
+            return null;
+        }
+        return (integer) $changesets[0]->attributes()->active;
+    }
+
+    /**
+     * The [total] number of blocks issued by the user.
+     *
+     * @return integer
+     */
+    public function getBlocksIssued()
+    {
+        $cxml = simplexml_load_string($this->xml);
+        $changesets = $cxml->xpath('//user/blocks/issued');
+        if (empty($changesets)) {
+            return null;
+        }
+        return (integer) $changesets[0]->attributes()->count;
+    }
+
+    /**
+     * The number of active blocks issued by the user.
+     *
+     * @return integer
+     */
+    public function getActiveBlocksIssued()
+    {
+        $cxml = simplexml_load_string($this->xml);
+        $changesets = $cxml->xpath('//user/blocks/issued');
+        if (empty($changesets)) {
+            return null;
+        }
+        return (integer) $changesets[0]->attributes()->active;
+    }
+
+    /**
+     * Array of names of roles associated with the user.
+     *
+     * @return array
+     */
+    public function getRoles()
+    {
+        $ret = array();
+        $cxml = simplexml_load_string($this->xml);
+        $roles = $cxml->xpath('//user/roles');
+        if (empty($roles)) {
+            return $ret;
+        }
+        foreach ($roles[0]->children() as $child) {
+            $ret[] = $child->getName();
+        }
+        return $ret;
     }
 
     /**

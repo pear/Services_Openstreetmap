@@ -239,10 +239,10 @@ class Services_OpenStreetMap_API_V06
     public function getUser()
     {
         $config = $this->getConfig()->asArray();
-        $url = $config['server']
-             . 'api/'
-             . $config['api_version']
-             . '/user/details';
+		$url = $config['server']
+			. 'api/'
+			. $config['api_version']
+			. '/user/details';
         $user = $config['user'];
         $password = $config['password'];
         try {
@@ -287,6 +287,33 @@ class Services_OpenStreetMap_API_V06
         $obj->setPreferencesXml($prefs->getBody());
         return $obj;
     }
+
+	public function getUserById($id)
+	{
+		$config = $this->getConfig()->asArray();
+		$url = $config['server']
+			. 'api/'
+			. $config['api_version']
+			. '/user/' . $id;
+        try {
+            $response = $this->getTransport()->getResponse(
+                $url,
+                HTTP_Request2::METHOD_GET
+            );
+        } catch (Services_OpenStreetMap_Exception $ex) {
+            switch ($ex->getCode()) {
+            case Services_OpenStreetMap_Transport::NOT_FOUND:
+            case Services_OpenStreetMap_Transport::UNAUTHORISED:
+            case Services_OpenStreetMap_Transport::GONE:
+                return false;
+            default:
+                throw $ex;
+            }
+        }
+        $obj = new Services_OpenStreetMap_User();
+        $obj->setXml(simplexml_load_string($response->getBody()));
+        return $obj;
+	}
 
     /**
      * Get details of specified way

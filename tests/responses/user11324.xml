@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server">
+  <user display_name="kenguest" account_created="2007-08-01T15:57:57Z" id="11324">
+    <description>I'm 'radagast' on the #osm and #osm-ie IRC channels - and kenguest on twitter and identica (and github).
+
+</description>
+    <contributor-terms agreed="true"/>
+    <img href="http://www.openstreetmap.org/attachments/users/images/000/011/324/original/02e3111587fe9079b73991ced69ab7f9.jpg"/>
+    <roles>
+    </roles>
+    <changesets count="1910"/>
+    <traces count="115"/>
+    <blocks>
+      <received active="0" count="0"/>
+    </blocks>
+  </user>
+</osm>
