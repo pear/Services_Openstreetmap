@@ -13,11 +13,11 @@
   <email>kguest@php.net</email>
   <active>yes</active>
  </lead>
- <date>2012-10-02</date>
- <time>19:01:56</time>
+ <date>2012-10-31</date>
+ <time>00:03:04</time>
  <version>
-  <release>0.2.0</release>
-  <api>0.2.0</api>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -25,7 +25,7 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
  <notes>
-Support newly expanded User API.
+Initial release of Services_OpenStreetMap - post PEPR process.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -79,6 +79,9 @@ Support newly expanded User API.
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
      <file name="Services_OpenStreetMap_Objects.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="Services_OpenStreetMap_OpeningHours.html" role="doc">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
      <file name="Services_OpenStreetMap_Relation.html" role="doc">
@@ -144,6 +147,9 @@ Support newly expanded User API.
      <file name="_OpenStreetMap---Objects.php.html" role="doc">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
+     <file name="_OpenStreetMap---OpeningHours.php.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
      <file name="_OpenStreetMap---Relation.php.html" role="doc">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
@@ -204,6 +210,9 @@ Support newly expanded User API.
     <file name="credentials.dist" role="doc">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
+    <file name="credentials_" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
     <file name="example1_cahir.php" role="doc">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
@@ -232,6 +241,9 @@ Support newly expanded User API.
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
     <file name="example9_add_tags.php" role="doc">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="example10.php" role="doc">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
     <file name="homelands.osm" role="doc">
@@ -301,6 +313,9 @@ Support newly expanded User API.
      <file name="Objects.php" role="php">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
+     <file name="OpeningHours.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
      <file name="Relation.php" role="php">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
@@ -329,6 +344,17 @@ Support newly expanded User API.
    </dir> <!-- /Services -->
    <dir name="tests">
     <dir name="coverage">
+     <dir name="default">
+      <file name="OpeningHoursTest.html" role="test">
+       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+      </file>
+      <file name="package-frame.html" role="test">
+       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+      </file>
+      <file name="package-summary.html" role="test">
+       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+      </file>
+     </dir> <!-- /tests/coverage/default -->
      <dir name="Services">
       <dir name="OpenStreetMap">
        <dir name="UnitTesting">
@@ -412,6 +438,9 @@ Support newly expanded User API.
         <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
        </file>
        <file name="Services_OpenStreetMap_Objects.html" role="test">
+        <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+       </file>
+       <file name="Services_OpenStreetMap_OpeningHours.html" role="test">
         <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
        </file>
        <file name="Services_OpenStreetMap_Relation.html" role="test">
@@ -588,6 +617,9 @@ Support newly expanded User API.
      <file name="user.xml" role="test">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
+     <file name="user11324.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
      <file name="user_home_set.xml" role="test">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
@@ -640,6 +672,9 @@ Support newly expanded User API.
     <file name="ConfigTest.php" role="test">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
+    <file name="credentials" role="test">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
     <file name="credentials.dist" role="test">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
@@ -653,6 +688,9 @@ Support newly expanded User API.
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
     <file name="NominatimTest.php" role="test">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="OpeningHoursTest.php" role="test">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
     <file name="OSMTest.php" role="test">
@@ -674,13 +712,28 @@ Support newly expanded User API.
    <file name="build.xml" role="data">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
    </file>
-   <file name="coverage.db" role="data">
-    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-   </file>
    <file name="coverage.xml" role="data">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
    </file>
+   <file name="index.html" role="doc">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file name="jquery-1.8.2.js" role="data">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file name="osm.osm" role="data">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
    <file name="README.markdown" role="data">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file name="searchNear.php" role="php">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file name="Services_OpenStreetMap-0.0.1.tgz" role="data">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file name="time_domain.js" role="data">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
    </file>
   </dir> <!-- / -->
@@ -714,47 +767,17 @@ Support newly expanded User API.
  <changelog>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-02-05</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
-   <notes>
-Initial release
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.0.2</release>
-    <api>0.0.2</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2012-03-16</date>
+   <date>2012-10-31</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
    <notes>
 Initial release of Services_OpenStreetMap - post PEPR process.
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.2.0</release>
-    <api>0.2.0</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2012-10-02</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
-   <notes>
-Support newly expanded User API.
    </notes>
   </release>
  </changelog>

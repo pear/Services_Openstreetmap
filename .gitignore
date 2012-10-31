@@ -1,4 +1,6 @@
 *~
+.idea/*
 tags
 coverage.db
 coverage.xml
+tests/coverage/*

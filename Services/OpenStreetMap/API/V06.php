@@ -239,10 +239,10 @@ class Services_OpenStreetMap_API_V06
     public function getUser()
     {
         $config = $this->getConfig()->asArray();
-		$url = $config['server']
-			. 'api/'
-			. $config['api_version']
-			. '/user/details';
+        $url = $config['server']
+            . 'api/'
+            . $config['api_version']
+            . '/user/details';
         $user = $config['user'];
         $password = $config['password'];
         try {
@@ -288,13 +288,25 @@ class Services_OpenStreetMap_API_V06
         return $obj;
     }
 
-	public function getUserById($id)
-	{
-		$config = $this->getConfig()->asArray();
-		$url = $config['server']
-			. 'api/'
-			. $config['api_version']
-			. '/user/' . $id;
+    /**
+     * Get a Services_OpenStreetMap_User object for the specified user.
+     *
+     * May return false if the user could not be found for any reason.
+     *
+     * @param integer $id User Id.
+     *
+     * @see setConfig
+     *
+     * @return Services_OpenStreetMap_User
+     * @throws Services_OpenStreetMap_Exception
+     */
+    public function getUserById($id)
+    {
+        $config = $this->getConfig()->asArray();
+        $url = $config['server']
+            . 'api/'
+            . $config['api_version']
+            . '/user/' . $id;
         try {
             $response = $this->getTransport()->getResponse(
                 $url,
@@ -313,7 +325,7 @@ class Services_OpenStreetMap_API_V06
         $obj = new Services_OpenStreetMap_User();
         $obj->setXml(simplexml_load_string($response->getBody()));
         return $obj;
-	}
+    }
 
     /**
      * Get details of specified way
