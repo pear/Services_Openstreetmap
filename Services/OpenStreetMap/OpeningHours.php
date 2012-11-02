@@ -87,20 +87,30 @@ class Services_OpenStreetMap_OpeningHours
             $ctime = $d['hours'] * 60 + $d['minutes'];
             return ($ctime >= $start && $ctime <= $end );
         }
-        // other simple test would be sunrise-sunset, but there are also
-        // offsets that would need to be taken into account.
+        // other simple test would be sunrise-sunset - with
+        // offsets that would need to be taken into account
+
+        // time specs...
         $rule_sequences = explode(';', $this->value);
+        $day = strtolower(substr(date('D', $time), 0, 2));
+        $retval = false;
         foreach ($rule_sequences as $rule_sequence) {
-            $rule_sequence = trim($rule_sequence);
+            $rule_sequence = strtolower(trim($rule_sequence));
+            // If the day is explicitly specified in the rule sequence then
+            // processing it takes precedence.
+            if (preg_match('/' . $day .'/', $rule_sequence )) {
+                $portions = explode(' ', $rule_sequence);
+                return $this->_openTimeSpec($portions, $time);
+            }
             $portions = explode(' ', $rule_sequence);
             $open = $this->_openTimeSpec($portions, $time);
             if ($open) {
-                return true;
+                $retval = true;
             } elseif ($open === false) {
-                return false;
+                $retval = false;
             }
         }
-        return false;
+        return $retval;
     }
 
     /**
@@ -123,6 +133,9 @@ class Services_OpenStreetMap_OpeningHours
             if ($rday == $day) {
                 //day is a match
                 $time_spec = trim($portions[1]);
+                if (strtolower($time_spec) == 'off') {
+                    return false;
+                }
                 if (strpos($time_spec, '-') && (strpos($time_spec, ',') === false)) {
                     // specified starting and end times for just one range - not
                     // comma delimited.
