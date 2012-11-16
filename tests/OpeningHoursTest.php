@@ -63,12 +63,23 @@ class OpeningHoursTest extends PHPUnit_Framework_TestCase
 
 	public function testOff() {
 
+        // Check precedence/priority
         $oh = new Services_OpenStreetMap_OpeningHours();
         $oh->setValue("Tu off; Mo-Sa 10:00-20:00");
         $this->assertFalse($oh->isOpen(strtotime('last tuesday 12:00')));
 
         $oh->setValue("Mo-Sa 10:00-20:00; Tu off");
         $this->assertFalse($oh->isOpen(strtotime('last tuesday 12:00')));
+	}
+
+	public function testMonthOff() {
+        $oh = new Services_OpenStreetMap_OpeningHours();
+        $oh->setValue("24/7; Aug off");
+        $this->assertTrue($oh->isOpen(strtotime('October 22 2012 07:00')));
+        $this->assertFalse($oh->isOpen(strtotime('August 22 2012 07:00')));
+        $oh->setValue("24/7; Aug 10:00-14:00");
+#        $this->assertTrue($oh->isOpen(strtotime('October 22 2012 07:00')));
+ #       $this->assertTrue($oh->isOpen(strtotime('August 22 2012 13:00')));
 
 		/*
 		   $oh->setValue("mo-fr 9:00-13:00, 14:00-17:30; sa 9:00-13:00");
@@ -77,7 +88,19 @@ class OpeningHoursTest extends PHPUnit_Framework_TestCase
 		   $oh->setValue("");
 		 */
 	}
+    public function testMultipleTimesSpecifiedForDays() {
 
+        $oh = new Services_OpenStreetMap_OpeningHours();
+        $oh->setValue("mo-fr 9:00-13:00, 14:00-17:30; sa 9:00-13:00");
+        // Monday...
+        $this->assertFalse($oh->isOpen(strtotime('October 22 2012 07:00')));
+        $this->assertFalse($oh->isOpen(strtotime('October 22 2012 13:30')));
+        $this->assertTrue($oh->isOpen(strtotime('October 22 2012 10:30')));
+        $this->assertTrue($oh->isOpen(strtotime('October 22 2012 14:30')));
+        // Saturday...
+        $this->assertFalse($oh->isOpen(strtotime('October 27 2012 14:30')));
+        $this->assertTrue($oh->isOpen(strtotime('October 27 2012 11:30')));
+    }
 }
 
 ?>
