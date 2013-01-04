@@ -57,7 +57,8 @@ class Services_OpenStreetMap_OpeningHours
      * Return true, false or null depending on whether the [opening hours]
      * value explicitly indicates an open, closed or undecided result.
      *
-     * @param double $time A numeric value representing a time. If null, the current time is used.
+     * @param double $time A numeric value representing a time. If null, the
+     *                     current time is used.
      *
      * @link http://wiki.openstreetmap.org/wiki/Key:opening_hours
      * @return null|boolean
@@ -126,6 +127,7 @@ class Services_OpenStreetMap_OpeningHours
 
         $day = strtolower(substr(date('D', $time), 0, 2));
         $days = $this->_daySpecToArray($portions[0]);
+        $pattern = '/^[0-2][0-9]:[0-5][0-9]\+$/';
         if (is_array($days)) {
             foreach ($days as $rday) {
                 if ($rday == $day) {
@@ -134,7 +136,9 @@ class Services_OpenStreetMap_OpeningHours
                     if (strtolower($time_spec) == 'off') {
                         return false;
                     }
-                    if (strpos($time_spec, '-') && (strpos($time_spec, ',') === false)) {
+                    if (strpos($time_spec, '-')
+                        && (strpos($time_spec, ',') === false)
+                    ) {
                         // specified starting and end times for just one range - not
                         // comma delimited.
                         $startend_times = explode('-', $time_spec);
@@ -156,7 +160,7 @@ class Services_OpenStreetMap_OpeningHours
                             }
                         }
                         return false;
-                    } elseif (preg_match('/^[0-2][0-9]:[0-5][0-9]\+$/', $time_spec)) {
+                    } elseif (preg_match($pattern, $time_spec)) {
                         // open-ended.
                         if ($this->_evaluateOpenEnded($time_spec) === false) {
                             return false;
@@ -166,7 +170,9 @@ class Services_OpenStreetMap_OpeningHours
             }
         } else {
             // here we go again... need to refactor/decide a better algorithm.
-            $months = array('jan', 'feb', 'mar', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec');
+            $months = array(
+                'jan', 'feb', 'mar', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
+            );
             if (in_array($portions[0], $months)) {
                 $month = strtolower(date('M', $time));
                 $time_spec = trim($portions[1]);
@@ -232,6 +238,14 @@ class Services_OpenStreetMap_OpeningHours
         }
     }
 
+    /**
+     * Return true/false depending on whether a given time_spec value is
+     * open-ended.
+     *
+     * @param string $time_spec Timespec
+     *
+     * @return bool
+     */
     private function _evaluateOpenEnded($time_spec)
     {
         $start = $this->_startTime($time_spec);
@@ -239,9 +253,19 @@ class Services_OpenStreetMap_OpeningHours
         $ctime = $d['hours'] * 60 + $d['minutes'];
         if ($ctime < $start) {
             return false;
+        } else {
+            return true;
         }
     }
 
+    /**
+     * Return number of seconds representing the start time in
+     * the provided time_spec string.
+     *
+     * @param string $time_spec Timespec
+     *
+     * @return int
+     */
     private function _startTime($time_spec)
     {
         $starthour = substr($time_spec, 0, 2);
@@ -249,6 +273,14 @@ class Services_OpenStreetMap_OpeningHours
         return $starthour * 60 + $startmin;
     }
 
+    /**
+     * Return number of seconds representing the end time in
+     * the provided time_spec string.
+     *
+     * @param string $time_spec Timespec
+     *
+     * @return int
+     */
     private function _endTime($time_spec)
     {
         $endhour = substr($time_spec, 0, 2);
