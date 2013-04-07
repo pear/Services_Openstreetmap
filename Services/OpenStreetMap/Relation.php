@@ -24,8 +24,19 @@
  */
 class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
 {
+    /**
+     * What type of object this is.
+     *
+     * @var string
+     */
     protected $type = 'relation';
 
+
+    /**
+     * Array containing members of this relation.
+     *
+     * @var array
+     */
     protected $members = array();
 
     /**

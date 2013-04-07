@@ -24,6 +24,11 @@
  */
 class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
 {
+    /**
+     * What type of object this is.
+     *
+     * @var string
+     */
     protected $type = 'node';
 
     /**

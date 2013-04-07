@@ -12,14 +12,14 @@ $packagexml->setOptions(
     'baseinstalldir' => '/',
     'dir_roles' => array(
         'examples' => 'doc',
-        'docs'     => 'doc',
         'tests'    => 'test'
         ),
     'ignore' => array(
         'coverage.db',
         'package.php',
         'package.xml',
-        'package.xml.old'
+        'package.xml.old',
+        'docs',
     ),
     'simpleoutput' => true)
 );

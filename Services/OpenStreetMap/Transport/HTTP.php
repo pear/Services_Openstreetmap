@@ -56,11 +56,15 @@ class Services_OpenStreetMap_Transport_HTTP
     protected $request = null;
 
     /**
+     * Config object, contains setting on how to interact with API Endpoint
+     *
      * @var Services_OpenStreetMap_Config $config
      */
     protected $config = null;
 
     /**
+     * Log object
+     *
      * @var Log $log
      */
     protected $log = null;

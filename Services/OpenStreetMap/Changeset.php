@@ -24,11 +24,46 @@
  */
 class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
 {
+    /**
+     * What type object this is.
+     *
+     * @var string
+     */
     protected $type = 'changeset';
+
+    /**
+     * Array containing members of what this changeset represents.
+     *
+     * @var array
+     */
     protected $members = array();
+
+    /**
+     * Array of the Ids of the members of what this changeset represents.
+     *
+     * @var array
+     */
     protected $membersIds = array();
+
+    /**
+     * Whether the changeset is open
+     *
+     * @var bool
+     */
     protected $open = false;
+
+    /**
+     * The Id of this changeset
+     *
+     * @var string
+     */
     protected $id = null;
+
+    /**
+     * The OsmChange XML for this changeset
+     *
+     * @var string
+     */
     protected $osmChangeXml = null;
 
     /**
@@ -232,7 +267,10 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             foreach ($this->members as $member) {
                 $blocks .= $member->getOsmChangeXml() . "\n";
             }
-            $this->setOsmChangeXml("<osmChange version='0.6' generator='Services_OpenStreetMap'>" . $blocks . '</osmChange>');
+            $this->setOsmChangeXml(
+                "<osmChange version='0.6' generator='Services_OpenStreetMap'>"
+                . $blocks . '</osmChange>'
+            );
         }
         return $this->osmChangeXml;
     }

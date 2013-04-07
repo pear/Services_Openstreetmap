@@ -11,7 +11,6 @@
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
  * @link     OpeningHours.php
- * @todo
  */
 
 /**
@@ -25,6 +24,11 @@
  */
 class Services_OpenStreetMap_OpeningHours
 {
+    /**
+     * The value set against the OpeningHours tag
+     *
+     * @var string
+     */
     protected $value;
 
     /**

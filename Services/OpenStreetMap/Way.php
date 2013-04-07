@@ -24,9 +24,33 @@
  */
 class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
 {
+    /**
+     * What type of object this is
+     *
+     * @inheritdoc
+     */
     protected $type = 'way';
+
+
+    /**
+     * A way is a collection of nodes.
+     *
+     * @var Services_OpenStreetMap_Node[]
+     */
     protected $nodes = array();
+
+    /**
+     * Nodes to the way
+     *
+     * @var array
+     */
     protected $nodesNew = array();
+
+    /**
+     * Indicate whether nodes have been changed/added/deleted.
+     *
+     * @var boolean
+     */
     protected $dirtyNodes = false;
 
     /**
@@ -74,7 +98,7 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
     /**
      * Add a node to the way.
      *
-     * @param node $node An Services_OpenStreetMap_Node object.
+     * @param Services_OpenStreetMap_Node $node Node to add to the way.
      *
      * @return Services_OpenStreetMap_Way
      */

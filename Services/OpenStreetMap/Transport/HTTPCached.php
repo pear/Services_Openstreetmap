@@ -28,6 +28,11 @@ class Services_OpenStreetMap_Transport_HTTPCached
     extends Services_OpenStreetMap_Transport_HTTP
 {
 
+    /**
+     * cache object
+     *
+     * @var Cache
+     */
     protected $cache;
 
     /**

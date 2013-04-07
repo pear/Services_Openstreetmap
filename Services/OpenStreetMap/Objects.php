@@ -24,14 +24,39 @@
 class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
 {
 
+    /**
+     * xml representation of the objects
+     *
+     * @var string
+     */
     protected $xml = null;
 
+    /**
+     * Array of Services_OpenStreetMap_Object instances
+     *
+     * @var array
+     */
     protected $objects = null;
 
+    /**
+     * position/pointer for navigating objects array
+     *
+     * @var int
+     */
     protected $position = 0;
 
+    /**
+     * transport
+     *
+     * @var Services_OpenStreetMap_Transport
+     */
     protected $transport = null;
 
+    /**
+     * Config object, contains setting on how to interact with API Endpoint
+     *
+     * @var Services_OpenStreetMap_Config $config
+     */
     protected $config = null;
 
     /**
@@ -47,7 +72,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
     /**
      * setXml
      *
-     * @param mixed $xml OSM XML
+     * @param SimpleXMLElement $xml OSM XML
      *
      * @return void
      */

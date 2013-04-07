@@ -23,17 +23,78 @@
  */
 class Services_OpenStreetMap_Nominatim
 {
+    // http://wiki.openstreetmap.org/wiki/Nominatim
+
+    /**
+     * The server to connect to
+     *
+     * @var string
+     */
     protected $server = 'http://nominatim.openstreetmap.org/';
+
+    /**
+     * Format to perform queries in (xml|json|html). Defaults to 'xml'
+     *
+     * @var string
+     */
     protected $format = 'xml';
+
+    /**
+     * If 1, include a breakdown of the address into elements.
+     *
+     * @var int
+     */
     protected $addresssdetails = 0;
+
+    /**
+     * Preferred language order. Standard rfc2616 string or a simple comma
+     * seperated list of language codes.
+     *
+     * @var string
+     */
     protected $accept_language = 'en';
+
+    /**
+     * Output polygon outlines for items found.
+     *
+     * @var null|boolean
+     */
     protected $polygon = null;
+
+    /**
+     * The preferred area to find search results
+     * <left>,<top>,<right>,<bottom>
+     *
+     * @var null|string
+     */
     protected $viewbox = null;
+
+    /**
+     * If true, restrict results to those within the bounding box/view box.
+     *
+     * @var null|boolean
+     */
     protected $bounded = null;
+
+    /**
+     * Remove duplicates?
+     *
+     * @var null|boolean
+     */
     protected $dedupe = null;
 
+    /**
+     * Maximum number of entries to retrieve.
+     *
+     * @var int
+     */
     protected $limit = null;
 
+    /**
+     * The transport to use
+     *
+     * @var Services_OpenStreetMap_Transport
+     */
     protected $transport = null;
 
     /**
@@ -105,7 +166,7 @@ class Services_OpenStreetMap_Nominatim
             $xml = simplexml_load_string($response->getBody());
             $places = $xml->xpath('//place');
             return $places;
-        } elseif ( $format == 'json' ) {
+        } elseif ($format == 'json' ) {
             $places = json_decode($response->getBody());
             return $places;
         } elseif ($format == 'html') {

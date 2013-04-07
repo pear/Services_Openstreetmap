@@ -45,6 +45,11 @@ class Services_OpenStreetMap
      */
     protected $xml = null;
 
+    /**
+     * transport
+     *
+     * @var Services_OpenStreetMap_Transport
+     */
     protected $transport = null;
 
     /**

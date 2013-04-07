@@ -25,6 +25,11 @@
 class Services_OpenStreetMap_User
 {
 
+    /**
+     * User preferences
+     *
+     * @var array
+     */
     protected $preferences = array();
 
     /**

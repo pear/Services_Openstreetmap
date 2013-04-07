@@ -24,6 +24,11 @@
  */
 class Services_OpenStreetMap_Object
 {
+    /**
+     * xml represention of the object
+     *
+     * @var string
+     */
     protected $xml = null;
 
     /**
@@ -33,10 +38,25 @@ class Services_OpenStreetMap_Object
      */
     protected $tags = array();
 
+    /**
+     * The Id of this object
+     *
+     * @var string
+     */
     protected $id = null;
 
+    /**
+     * transport
+     *
+     * @var Services_OpenStreetMap_Transport
+     */
     protected $transport = null;
 
+    /**
+     * Config object, contains setting on how to interact with API Endpoint
+     *
+     * @var Services_OpenStreetMap_Config $config
+     */
     protected $config = null;
 
     /**
@@ -46,12 +66,32 @@ class Services_OpenStreetMap_Object
      */
     protected $type = null;
 
+    /**
+     * The actual object that actions are performed on.
+     *
+     * @var mixed
+     */
     protected $obj = null;
 
+    /**
+     * True if properties have changed.
+     *
+     * @var bool
+     */
     protected $dirty = false;
 
+    /**
+     * The action being performed on this object
+     *
+     * @var mixed
+     */
     protected $action = null;
 
+    /**
+     * The Changeset Id for this object, if applicable.
+     *
+     * @var int
+     */
     protected $changesetId = null;
 
     /**

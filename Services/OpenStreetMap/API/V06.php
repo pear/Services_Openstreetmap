@@ -32,8 +32,18 @@ class Services_OpenStreetMap_API_V06
      */
     protected $elements = array('changeset', 'node', 'relation', 'way');
 
+    /**
+     * transport
+     *
+     * @var Services_OpenStreetMap_Transport
+     */
     protected $transport = null;
 
+    /**
+     * Config object, contains setting on how to interact with API Endpoint
+     *
+     * @var Services_OpenStreetMap_Config $config
+     */
     protected $config = null;
 
     /**
