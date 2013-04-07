@@ -13,11 +13,11 @@
   <email>kguest@php.net</email>
   <active>yes</active>
  </lead>
- <date>2012-10-31</date>
- <time>00:03:04</time>
+ <date>2013-04-07</date>
+ <time>15:05:59</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>0.3.0</release>
+  <api>0.3.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -25,11 +25,28 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
  <notes>
-Initial release of Services_OpenStreetMap - post PEPR process.
+This release supports parsing of opening_hours values.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="examples">
+    <dir name="www">
+     <file name="index.html" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="jquery-1.8.2.js" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="map.osm" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="osm.osm" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="searchNear.php" role="doc">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+    </dir> <!-- /examples/www -->
     <file name="cahir.osm" role="doc">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
@@ -66,22 +83,10 @@ Initial release of Services_OpenStreetMap - post PEPR process.
     <file name="example8.php" role="doc">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
-    <file name="example9_add_tags.php" role="doc">
-     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-    </file>
-    <file name="example10.php" role="doc">
-     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-    </file>
     <file name="homelands.osm" role="doc">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
-    <file name="osm.o.osm" role="doc">
-     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-    </file>
-    <file name="p1.osm" role="doc">
-     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-    </file>
-    <file name="pinevalley.osm" role="doc">
+    <file name="osm.osm" role="doc">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
    </dir> <!-- /examples -->
@@ -164,6 +169,9 @@ Initial release of Services_OpenStreetMap - post PEPR process.
    </dir> <!-- /Services -->
    <dir name="tests">
     <dir name="files">
+     <file name="osm.osm" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
      <file name="pwd_1line" role="test">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
@@ -356,9 +364,6 @@ Initial release of Services_OpenStreetMap - post PEPR process.
     <file name="CriterionTest.php" role="test">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
-    <file name="FIXME" role="test">
-     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-    </file>
     <file name="NodeTest.php" role="test">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
@@ -393,9 +398,6 @@ Initial release of Services_OpenStreetMap - post PEPR process.
    <file name="README.markdown" role="data">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
    </file>
-   <file name="time_domain.js" role="data">
-    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-   </file>
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -427,17 +429,62 @@ Initial release of Services_OpenStreetMap - post PEPR process.
  <changelog>
   <release>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-10-31</date>
+   <date>2012-02-05</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
+   <notes>
+Initial release
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2012-03-16</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
    <notes>
 Initial release of Services_OpenStreetMap - post PEPR process.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2012-10-02</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
+   <notes>
+Support newly expanded User API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2013-04-07</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
+   <notes>
+This release supports parsing of opening_hours values.
    </notes>
   </release>
  </changelog>
