@@ -11,9 +11,9 @@
 
     <target name="docs" description="Generate Documentation" depends="clean_docs">
         <mkdir dir="docs" />
-        <phpdoc title="Services_Openstreetmap" output="HTML:Smarty:PHP" destdir="docs" sourcecode="yes">
+        <phpdoc2 title="Services_Openstreetmap" destdir="docs">
             <fileset refid="Services"/>
-        </phpdoc>
+        </phpdoc2>
     </target>
 
     <target name="phpcs" description="coding standards">
@@ -64,8 +64,6 @@
                 <include name="**.*" />
             </fileset>
         </delete>
-        <delete verbose='no' dir='docs/media'/>
-        <delete verbose='no' dir='docs/Services_OpenStreetMap'/>
     </target>
 
 </project>
