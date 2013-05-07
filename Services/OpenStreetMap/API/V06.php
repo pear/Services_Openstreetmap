@@ -420,6 +420,60 @@ class Services_OpenStreetMap_API_V06
             Services_OpenStreetMap::getIDs(func_get_args())
         );
     }
+
+    /**
+     * Return array of granted permissions.
+     *
+     * # allow_read_prefs (read user preferences)
+     * # allow_write_prefs (modify user preferences)
+     * # allow_write_diary (create diary entries, comments and make friends)
+     * # allow_write_api (modify the map)
+     * # allow_read_gpx (read private GPS traces)
+     * # allow_write_gpx (upload GPS traces)
+     *
+     * This may be empty if authorisation failed.
+     *
+     * @return array
+     */
+    public function getPermissions()
+    {
+        $config = $this->getConfig()->asArray();
+        $user = $config['user'];
+        $password = $config['password'];
+        $url = $config['server']
+            . 'api/'
+            . $config['api_version']
+            . '/permissions';
+        try {
+            $response = $this->getTransport()->getResponse(
+                $url,
+                HTTP_Request2::METHOD_GET,
+                $user,
+                $password
+            );
+        } catch (Services_OpenStreetMap_Exception $ex) {
+            switch ($ex->getCode()) {
+            case Services_OpenStreetMap_Transport::NOT_FOUND:
+            case Services_OpenStreetMap_Transport::UNAUTHORISED:
+            case Services_OpenStreetMap_Transport::GONE:
+                return false;
+            default:
+                throw $ex;
+            }
+        }
+        $obj = simplexml_load_string($response->getBody());
+        $ret = array();
+        $permissions = (array) $obj->permissions;
+        if (isset($permissions['permission'])) {
+            $permissions = $permissions['permission'];
+            foreach ($permissions as $permission) {
+                $ret[] = $permission->attributes()->name->__toString();
+            }
+        }
+        return $ret;
+
+
+    }
 }
 
 ?>
