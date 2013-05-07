@@ -107,6 +107,31 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($osm->getTracepointsPerPage(), 5000);
         $this->assertEquals($osm->getMaxNodes(), 2000);
         $this->assertEquals($osm->getMaxElements(), 50000);
+        $this->assertEquals($osm->getDatabaseStatus(), 'online');
+        $this->assertEquals($osm->getApiStatus(), 'readonly');
+        $this->assertEquals($osm->getGpxStatus(), 'offline');
+    }
+
+    /**
+     * Test parsing of capability data.
+     *
+     * @return void
+     */
+    public function testCapabilitiesNoStatus()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/capabilitiesNoStatus.xml', 'rb')
+        );
+
+        $config = array(
+            'adapter' => $mock,
+            'server' => 'http://api06.dev.openstreetmap.org/',
+        );
+        $osm = new Services_OpenStreetMap($config);
+        $this->assertEquals($osm->getDatabaseStatus(), null);
+        $this->assertEquals($osm->getApiStatus(), null);
+        $this->assertEquals($osm->getGpxStatus(), null);
     }
 
     /**
@@ -301,6 +326,11 @@ class OSMTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * testGetReturnValue
+     *
+     * @return void
+     */
     public function testGetReturnValue()
     {
         $mock = new HTTP_Request2_Adapter_Mock();

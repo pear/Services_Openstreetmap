@@ -74,6 +74,12 @@ class Services_OpenStreetMap_Config
      */
     protected $areaMaximum = null;
 
+    protected $databaseStatus = null;
+
+    protected $apiStatus = null;
+
+    protected $gpxStatus = null;
+
     /**
      * Default config settings
      *
@@ -405,6 +411,24 @@ class Services_OpenStreetMap_Config
             'maximum'
         );
 
+        $this->databaseStatus = $this->getXmlValue(
+            $xml,
+            'status',
+            'database'
+        );
+
+        $this->apiStatus = $this->getXmlValue(
+            $xml,
+            'status',
+            'api'
+        );
+
+        $this->gpxStatus = $this->getXmlValue(
+            $xml,
+            'status',
+            'gpx'
+        );
+
         // What generated the XML.
         $this->generator = '' . $this->getXmlValue(
             $xml,
@@ -522,6 +546,36 @@ class Services_OpenStreetMap_Config
     }
 
     /**
+     * Status of the OSM database (offline/readonly/online)
+     *
+     * @return null|string
+     */
+    public function getDatabaseStatus()
+    {
+        return $this->databaseStatus;
+    }
+
+    /**
+     * Status of the main OSM API (offline/readonly/online)
+     *
+     * @return null|string
+     */
+    public function getApiStatus()
+    {
+        return $this->apiStatus;
+    }
+
+    /**
+     * Status of the OSM GPX API (offline/readonly/online)
+     *
+     * @return null|string
+     */
+    public function getGpxStatus()
+    {
+        return $this->gpxStatus;
+    }
+
+    /**
      * Name of what generated the Capabilities XML
      *
      * @return string
@@ -553,7 +607,6 @@ class Services_OpenStreetMap_Config
         }
         return $obj[0]->attributes()->$attribute;
     }
-
 }
 
 ?>

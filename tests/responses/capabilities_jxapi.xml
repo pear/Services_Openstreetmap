@@ -9,6 +9,7 @@ HTTP/1.1 200 OK
     <waynodes maximum="2000"/>
     <changesets maximum_elements="50000"/>
     <timeout seconds="300"/>
+    <status database="online" api="online" gpx="online"/>
   </api>
 </osm>
 

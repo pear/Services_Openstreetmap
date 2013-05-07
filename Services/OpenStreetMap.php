@@ -438,6 +438,36 @@ class Services_OpenStreetMap
     }
 
     /**
+     * Status of the OSM database (offline/readonly/online)
+     *
+     * @return string
+     */
+    public function getDatabaseStatus()
+    {
+        return $this->getConfig()->getDatabaseStatus();
+    }
+
+    /**
+     * Status of the main OSM API (offline/readonly/online)
+     *
+     * @return string
+     */
+    public function getApiStatus()
+    {
+        return $this->getConfig()->getApiStatus();
+    }
+
+    /**
+     * Status of the OSM GPX API (offline/readonly/online)
+     *
+     * @return string
+     */
+    public function getGpxStatus()
+    {
+        return $this->getConfig()->getGpxStatus();
+    }
+
+    /**
      * Set Config object
      *
      * @param Services_OpenStreetMap_Config $config Config settings.
