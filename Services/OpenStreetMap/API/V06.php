@@ -295,6 +295,8 @@ class Services_OpenStreetMap_API_V06
         $obj = new Services_OpenStreetMap_User();
         $obj->setXml(simplexml_load_string($response->getBody()));
         $obj->setPreferencesXml($prefs->getBody());
+        $obj->setTransport($this->getTransport());
+        $obj->setConfig($this->getConfig());
         return $obj;
     }
 

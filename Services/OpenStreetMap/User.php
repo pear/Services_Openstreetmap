@@ -33,6 +33,21 @@ class Services_OpenStreetMap_User
     protected $preferences = array();
 
     /**
+     * transport
+     *
+     * @var Services_OpenStreetMap_Transport
+     */
+    protected $transport = null;
+
+    /**
+     * Config object, contains setting on how to interact with API Endpoint
+     *
+     * @var Services_OpenStreetMap_Config $config
+     */
+    protected $config = null;
+
+
+    /**
      * setXml
      *
      * @param SimpleXMLElement $xml XML describing a user.
@@ -318,6 +333,99 @@ class Services_OpenStreetMap_User
             $this->preferences = $preferences;
         }
         return $this->preferences;
+    }
+
+    /**
+     * set user preferences, updating the values on the server automatically.
+     *
+     * To update a single preference, use an array wit just one entry.
+     *
+     * @param array $preferences Key/Value pairs in associative array
+     *
+     * @return Services_OpenStreetMap_User
+     */
+    public function setPreferences($preferences)
+    {
+        $this->preferences = $preferences;
+        $config = $this->getConfig()->asArray();
+        $url = $config['server']
+            . 'api/'
+            . $config['api_version']
+            . '/user/preferences';
+        if (count($preferences) > 1) {
+            $doc = "<osm version='0.6' generator='Services_OpenStreetMap'>"
+                . '<preferences>';
+            foreach ($preferences as $key => $value) {
+                $doc .= "<preference k='$key' v='$value' />";
+            }
+            $doc .= '</preferences></osm>';
+        } elseif (count($preferences) == 1) {
+            foreach ($preferences as $k => $v) {
+                $url .= '/' . $k;
+                $doc = $v;
+            }
+        }
+        try {
+            $response = $this->getTransport()->getResponse(
+                $url,
+                HTTP_Request2::METHOD_PUT,
+                $config['user'],
+                $config['password'],
+                $doc,
+                null,
+                array(array('Content-type', 'text/xml', true))
+            );
+            var_dump($response->getBody());
+        } catch (Exception $ex) {
+            $code = $ex->getCode();
+        }
+        return $this;
+    }
+
+    /**
+     * Set the Transport instance.
+     *
+     * @param Services_OpenStreetMap_Transport $transport Transport instance.
+     *
+     * @return Services_OpenStreetMap_User
+     */
+    public function setTransport($transport)
+    {
+        $this->transport = $transport;
+        return $this;
+    }
+
+    /**
+     * Retrieve the current Transport instance.
+     *
+     * @return Services_OpenStreetMap_Transport.
+     */
+    public function getTransport()
+    {
+        return $this->transport;
+    }
+
+    /**
+     * Get current Config object
+     *
+     * @return Services_OpenStreetMap_Config
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * Set Config object
+     *
+     * @param Services_OpenStreetMap_Config $config Config object
+     *
+     * @return Services_OpenStreetMap_User
+     */
+    public function setConfig(Services_OpenStreetMap_Config $config)
+    {
+        $this->config = $config;
+        return $this;
     }
 
 }

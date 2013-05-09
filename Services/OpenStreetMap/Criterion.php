@@ -49,7 +49,13 @@ class Services_OpenStreetMap_Criterion
      * Services_OpenStreetMap_Criterion('display_name', 'fredflintstone')
      *
      * A bounding box:
-     * Services_OpenStreetMap_Criterion('bbox', -8.0590275, 52.9347449, -7.9966939, 52.9611999)
+     * Services_OpenStreetMap_Criterion(
+     *      'bbox',
+     *      -8.0590275,
+     *      52.9347449,
+     *      -7.9966939,
+     *      52.9611999
+     * )
      *
      * For open changesets only:
      * Services_OpenStreetMap_Criterion('open')
