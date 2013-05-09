@@ -77,7 +77,7 @@ class UserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($user->getRoles(), array('moderator'));
         $this->assertEquals(
             $user->getPreferences(),
-            array( "diary.default_language" => "en")
+            array("diary.default_language" => "en")
         );
     }
 
@@ -128,6 +128,11 @@ class UserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($user->getLon(), -1.234567);
     }
 
+    /**
+     * test getting user info for user other than authorised user
+     *
+     * @return void
+     */
     public function testUser11324()
     {
         $mock = new HTTP_Request2_Adapter_Mock();

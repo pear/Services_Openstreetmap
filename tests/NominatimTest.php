@@ -81,6 +81,11 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $osm->getCoordsOfPlace('Neeenaaa, Ireland');
     }
 
+    /**
+     * test setFormat/getFormat methods w html value
+     *
+     * @return void
+     */
     public function testSetFormatHtml()
     {
         $osm = new Services_OpenStreetMap();
@@ -90,6 +95,11 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($nominatim->getFormat(), 'html');
     }
 
+    /**
+     * test setFormat/getFormat methods w json value
+     *
+     * @return void
+     */
     public function testSetFormatJson()
     {
         $osm = new Services_OpenStreetMap();
@@ -99,6 +109,11 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($nominatim->getFormat(), 'json');
     }
 
+    /**
+     * test setFormat/getFormat methods w xml value
+     *
+     * @return void
+     */
     public function testSetFormatXml()
     {
         $osm = new Services_OpenStreetMap();
@@ -126,6 +141,11 @@ class NominatimTest extends PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * test setLimit/getLimit methods
+     *
+     * @return void
+     */
     public function testSetLimit()
     {
         $osm = new Services_OpenStreetMap();
@@ -152,6 +172,11 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $nominatim->setLimit('one');
     }
 
+    /**
+     * test JSON search
+     *
+     * @return void
+     */
     public function testJsonSearch()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -167,6 +192,11 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($place[0]->osm_type, 'node');
     }
 
+    /**
+     * test HTML search
+     *
+     * @return void
+     */
     public function testHtmlSearch()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -179,6 +209,11 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $this->assertNotNull($place);
     }
 
+    /**
+     * test getServer/setServer methods
+     *
+     * @return void
+     */
     public function testSetServer()
     {
         $osm = new Services_OpenStreetMap();

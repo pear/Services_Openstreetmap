@@ -67,6 +67,8 @@ class WayTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test setting multiple tags to a way (or any other object)
+     *
+     * @return void
      */
     public function testGetAddMultipleTagsToWay()
     {
@@ -87,7 +89,7 @@ class WayTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($getTags['highway'], 'service');
         $this->assertEquals($getTags, array ('highway' => 'service'));
 
-        $way->setTags(array( 'service' => 'driveway' , 'surface' => 'gravel') ) ;
+        $way->setTags(array('service' => 'driveway' , 'surface' => 'gravel'));
         $this->assertEquals(
             $way->getTags(),
             array (

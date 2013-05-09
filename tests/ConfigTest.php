@@ -118,6 +118,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $osm->getConfig()->getValue('api');
     }
 
+    /**
+     * testGetValueEmptyParameter
+     *
+     * @return void
+     */
     public function testGetValueEmptyParameter()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -127,7 +132,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $osm = new Services_OpenStreetMap($config);
 
         $configValues = $osm->getConfig()->getValue();
-        $this->assertEquals($configValues['server'], 'http://api.openstreetmap.org/');
+        $this->assertEquals(
+            $configValues['server'],
+            'http://api.openstreetmap.org/'
+        );
         $this->assertEquals($configValues['api_version'], '0.6');
         $this->assertEquals($configValues['User-Agent'], 'Services_OpenStreetMap');
         $this->assertNull($configValues['user']);
@@ -399,6 +407,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($config->getValue('password'), 'Wilma4evah');
     }
 
+    /**
+     * testGenerator
+     *
+     * @return void
+     */
     public function testGenerator()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -419,7 +432,9 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($generator, 'OpenStreetMap server');
 
         $mock2 = new HTTP_Request2_Adapter_Mock();
-        $mock2->addResponse(fopen(__DIR__ . '/responses/capabilities_jxapi.xml', 'rb'));
+        $mock2->addResponse(
+            fopen(__DIR__ . '/responses/capabilities_jxapi.xml', 'rb')
+        );
 
         $config['adapter'] = $mock2;
         $osm = new Services_OpenStreetMap($config);
