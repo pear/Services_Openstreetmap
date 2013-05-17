@@ -1,6 +1,6 @@
 <?php
 /**
- * example6_closedway.php
+ * example7_searchchangeset.php
  * 21-Aug-2011
  *
  * PHP Version 5
@@ -10,8 +10,8 @@
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
- * @link     example6_closedway.php
-*/
+ * @link     example7_searchchangeset.php
+ */
 
 $version = '@package_version@';
 if (strstr($version, 'package_version')) {
