@@ -134,7 +134,6 @@ class Services_OpenStreetMap
      *
      * @return void
      */
-
     public function get($minLon, $minLat, $maxLon, $maxLat)
     {
         $config = $this->getConfig();

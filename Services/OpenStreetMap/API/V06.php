@@ -424,6 +424,40 @@ class Services_OpenStreetMap_API_V06
     }
 
     /**
+     * Retrieve bug data by bounding box.
+     *
+     * @param string  $minLon Min Longitude (leftmost point)
+     * @param string  $minLat Min Latitude (bottom point)
+     * @param string  $maxLon Max Longitude (rightmost point)
+     * @param string  $maxLat Max Latitude (top point)
+     * @param integer $limit  Number of entries to return at max, defaults to 100
+     * @param integer $closed Number of days a bug needs to be closed to not be
+     * included in the returned dataset. 0 means only open bugs are returned,
+     * -1 means all are. Defaults to 7.
+     *
+     * @return void
+     */
+    public function getNotesByBbox(
+        $minLon, $minLat, $maxLon, $maxLat, $limit = 100, $closed = 7
+    ) {
+        $config = $this->getConfig();
+        $url = $config->getValue('server')
+            . 'api/'
+            . $config->getValue('api_version')
+            . "/notes.xml?bbox=$minLat,$minLon,$maxLat,$maxLon"
+            . "&limit=$limit&closed=$closed";
+        $response = $this->getTransport()->getResponse($url);
+        $collection = new Services_OpenStreetMap_Notes();
+        $sxe = @simplexml_load_string($response->getBody());
+        if (!is_null($config)) {
+            $collection->setConfig($config);
+        }
+        $collection->setTransport($this);
+        $collection->setXml($sxe);
+        return $collection;
+    }
+
+    /**
      * Return array of granted permissions.
      *
      * # allow_read_prefs (read user preferences)
@@ -473,8 +507,6 @@ class Services_OpenStreetMap_API_V06
             }
         }
         return $ret;
-
-
     }
 }
 
