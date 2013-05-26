@@ -74,10 +74,25 @@ class Services_OpenStreetMap_Config
      */
     protected $areaMaximum = null;
 
+    /**
+     * Status of Database server: online, readonly or offline.
+     * @var string
+     * @internal
+     */
     protected $databaseStatus = null;
 
+    /**
+     * Status of API server: online, readonly or offline.
+     * @var string
+     * @internal
+     */
     protected $apiStatus = null;
 
+    /**
+     * Status of GPX server: online, readonly or offline.
+     * @var string
+     * @internal
+     */
     protected $gpxStatus = null;
 
     /**
