@@ -11,7 +11,7 @@
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
  * @link     Note.php
-*/
+ */
 
 /**
  * Services_OpenStreetMap_Note
@@ -115,6 +115,13 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
         return $this;
     }
 
+    /**
+     * setXml
+     *
+     * @param SimpleXMLElement $xml OSM XML
+     *
+     * @return Services_OpenStreetMap_Note
+     */
     public function setXml(SimpleXMLElement $xml)
     {
         $this->xml = $xml->saveXml();
@@ -128,7 +135,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
             $name = (string) $child->getName();
             if ($name == 'comments') {
                 $comments = array();
-                foreach($child->children() as $gchild) {
+                foreach ($child->children() as $gchild) {
                     $comment = array();
                     foreach($gchild->children() as $ggchild) {
                         $ggname = (string) $ggchild->getName();
