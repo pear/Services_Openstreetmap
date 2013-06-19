@@ -156,6 +156,21 @@ class OpeningHoursTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($oh->isOpen(strtotime('October 27 2012 14:30')));
         $this->assertTrue($oh->isOpen(strtotime('October 27 2012 11:30')));
     }
-}
 
+    /**
+     * Test for being open on what's normally a day off
+     * E.g. "Mo-Sa 10:00-18:00; Jun 23 11:15-13:30"
+     *
+     * @return void
+     */
+    public function testOpeningOnSpecificSunday()
+    {
+        $oh = new Services_OpenStreetMap_OpeningHours();
+        $oh->setValue("Mo-Sa 10:00-18:00; Jun 23 11:15-13:30");
+        $this->assertFalse($oh->isOpen(strtotime('June 23 2013 11:00')));
+        $this->assertTrue($oh->isOpen(strtotime('June 23 2013 11:45')));
+        $this->assertFalse($oh->isOpen(strtotime('June 23 2013 13:35')));
+    }
+
+}
 ?>

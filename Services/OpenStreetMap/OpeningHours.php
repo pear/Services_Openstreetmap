@@ -175,12 +175,19 @@ class Services_OpenStreetMap_OpeningHours
         } else {
             // here we go again... need to refactor/decide a better algorithm.
             $months = array(
-                'jan', 'feb', 'mar', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
+                'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
             );
             if (in_array($portions[0], $months)) {
                 $month = strtolower(date('M', $time));
                 $time_spec = trim($portions[1]);
-                if ($portions[0] == $month && $time_spec == 'off') {
+                if ($portions[0] == $month && is_numeric($portions[1])) {
+                    $startend_times = explode('-', $portions[2]);
+                    $start = $this->_startTime($startend_times[0]);
+                    $end = $this->_endTime($startend_times[1]);
+                    $atime = getdate($time);
+                    $ctime = ($atime['hours'] * 60) + $atime['minutes'];
+                    return ($ctime >= $start && $ctime <= $end);
+                } elseif ($portions[0] == $month && $time_spec === 'off') {
                     return false;
                 }
             }
