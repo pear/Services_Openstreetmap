@@ -72,17 +72,30 @@ Simply require and initialize the Services_OpenStreetMap class:
     $changeset->commit();
 
 ### Creating a node.
+
+    /*
+     * If you are going to connect to the live API server to run a quick
+     * test that adds new data, such as POIS, with test/imaginary values
+     * please be responsible and delete them afterwards.
+     */
+
     require_once 'Services/OpenStreetMap.php';
 
-    // A password file, is a colon delimited file.
-    // Eg. fred@example.com:yabbadabbado
-    $config = array('passwordfile' => './credentials');
+    $config = array(
+        // A password file, is a colon delimited file.
+        // Eg. fred@example.com:yabbadabbado
+        'passwordfile' => './credentials',
+        // The live API server is api.openstreetmap.org
+        'server'       => 'http://api06.dev.openstreetmap.org/',
+        );
     $osm = new Services_OpenStreetMap($config);
 
     $changeset = $osm->createChangeset();
     $changeset->begin("Added Acme Vets.");
-    $lat = 52.8638729;
-    $lon = -8.1983611;
+    // The latitude and longitude values here are intentionally invalid, see
+    // note above.
+    $lat = 182.8638729;
+    $lon = -188.1983611;
     $node = $osm->createNode($lat, $lon, array(
         'name' => 'Acme Vets',
         'building' => 'yes',
