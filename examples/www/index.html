@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <meta name="format-detection" content="telephone=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>HTML5 geolocation with Services_OpenStreetMap</title>
+    <style type="text/css">
+      html, body, #basicMap {
+          width: 360;
+          height: 320;
+          margin: 10;
+      }
+#map { height: 180px; }
+    </style>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css" />
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" />
+<![endif]-->
+    <script src="jquery-1.8.2.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.js"></script>
+    <script>
+      var coords;
+      var map;
+      var mapMarkers = new Array();
+      function init() {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            coords = position.coords;
+            console.log(coords);
+            map = L.map('map').setView([position.coords.latitude, position.coords.longitude ], 14);
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors', maxZoom: 18 }).addTo(map);
+        });
+      }
+      function loadPoi() {
+        var q = '';
+        $("select option:selected").each(function() {
+            q += $(this).val() + ' ';
+        });
+        $.ajax({'url' :'searchNear.php',
+                'data' : {'q': q, 'lat':coords.latitude,
+                'lon':coords.longitude}}).done(function(msg) {
+                        $('#results').html('<pre> ' + msg + '</pre>');
+                    } );
+      }
+    </script>
+  </head>
+
+  <body onload="init();">
+  <form>
+  <select name="poi" onchange="loadPoi();">
+  <option selected>Please select...</option>
+  <option value="amenity|pub">Pub</option>
+  <option value="amenity|pharmacy">Pharmacy</option>
+  <option value="shop|supermarket">Supermarket</option>
+  <option value="shop|bicycle">Bike Shop</option>
+  <option value="shop|convenience">Convenience Shop</option>
+  </select>
+  </form>
+ <div id="map"></div>
+  <div id='results'></div>
+  </body>
+</html>
+
+
