@@ -392,9 +392,6 @@ This release supports parsing of opening_hours values.
    <file name="build.xml" role="data">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
    </file>
-   <file name="coverage.xml" role="data">
-    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-   </file>
    <file name="README.markdown" role="data">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
    </file>
