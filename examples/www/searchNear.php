@@ -104,30 +104,17 @@ foreach ($results as $result) {
 
 usort($results, sortByDistance());
 foreach ($results as $result) {
-    if ($result->getType() == 'node') {
-        $bLat = $result->getLat();
-        $bLon = $result->getLon();
-    } elseif ($result->getType() == 'way' && $result->isClosed()) {
-        $nodes = $result->getNodes();
-        array_pop($nodes);
-        $bLat = 0;
-        $bLon = 0;
-        foreach ($nodes as $node) {
-            $n = $osm->getNode($node);
-            $bLat += $n->getLat();
-            $bLon += $n->getLon();
-        }
-        $bLat = $bLat / sizeof($nodes);
-        $bLon = $bLon / sizeof($nodes);
-    }
-    $name = $result->getTag('name');
-    $addrStreet = $result->getTag('addr:street');
-    $addrCity = $result->getTag('addr:city');
-    $addrCountry = $result->getTag('addr:country');
-    $addrHouseName = $result->getTag('addr:housename');
-    $addrHouseNumber = $result->getTag('addr:housenumber');
-    $openingHours = $result->getTag('opening_hours');
-    $phone = $result->getTag('phone');
+    $tags = $result->getTags();
+    $name = $tags['name'];
+    $addrStreet = $tags['addr:street'];
+    $addrCity = $tags['addr:city'];
+    $addrCountry = $tags['addr:country'];
+    $addrHouseName = $tags['addr:housename'];
+    $addrHouseNumber = $tags['addr:housenumber'];
+    $openingHours = $tags['opening_hours'];
+    $phone = $tags['phone'];
+    $bLat = $result->lat;
+    $bLon = $result->lon;
     $oh->setValue($openingHours);
     $open = $oh->isOpen();
 
@@ -164,24 +151,8 @@ foreach ($results as $result) {
 }
 
 $result = $results[0];
-if ($result->getType() == 'node') {
-    $bLat = $result->getLat();
-    $bLon = $result->getLon();
-} elseif ($result->getType() == 'way' && $result->isClosed()) {
-    $nodes = $result->getNodes();
-    array_pop($nodes);
-    $bLat = 0;
-    $bLon = 0;
-    foreach ($nodes as $node) {
-        $n = $osm->getNode($node);
-        $bLat += $n->getLat();
-        $bLon += $n->getLon();
-    }
-    $bLat = $bLat / sizeof($nodes);
-    $bLon = $bLon / sizeof($nodes);
-}
+$bLat = $result->lat;
+$bLon = $result->lon;
 echo "<script>";
 echo "map.panTo([",$bLat,", ",$bLon," ]);";
 echo "</script>";
-
-?>
