@@ -25,7 +25,7 @@ require_once 'HTTP/Request2/Adapter/Mock.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
- * Unit test class for user related functionality.
+ * Unit test class for permission based functionality.
  *
  * @category   Services
  * @package    Services_OpenStreetMap
@@ -34,7 +34,7 @@ require_once 'PHPUnit/Framework/TestCase.php';
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       PermissionsTest.php
  */
-class UserTest extends PHPUnit_Framework_TestCase
+class PermissionsTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test that permission data is parsed correctly.
