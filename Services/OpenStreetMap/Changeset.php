@@ -66,6 +66,9 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      */
     protected $osmChangeXml = null;
 
+
+    protected $updateMap = array();
+
     /**
      * __construct
      *
@@ -424,9 +427,15 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             if ($member->getType() == $type) {
                 if ($member->getId() == $old_id) {
                     $member->setId($new_id);
+                    $this->updateMap[$old_id] = $new_id;
                 }
             }
         }
+    }
+
+    public function getUpdateMap()
+    {
+        return $this->updateMap;
     }
 }
 // vim:set et ts=4 sw=4:
