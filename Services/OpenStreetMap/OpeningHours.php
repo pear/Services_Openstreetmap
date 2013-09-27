@@ -72,14 +72,14 @@ class Services_OpenStreetMap_OpeningHours
         if ($this->value === null) {
             return null;
         }
-        if ($this->value == '24/7') {
+        if ($this->value === '24/7') {
             return true;
         }
 
         if ($time === null) {
             $time = time();
         }
-        if ($this->value == 'sunrise-sunset') {
+        if ($this->value === 'sunrise-sunset') {
             $start = $this->_startTime(date_sunrise($time));
             $end = $this->_endTime(date_sunset($time));
             $d = getdate($time);
@@ -134,7 +134,7 @@ class Services_OpenStreetMap_OpeningHours
         $pattern = '/^[0-2][0-9]:[0-5][0-9]\+$/';
         if (is_array($days)) {
             foreach ($days as $rday) {
-                if ($rday == $day) {
+                if ($rday === $day) {
                     //day is a match
                     $time_spec = trim($portions[1]);
                     if (strtolower($time_spec) == 'off') {
@@ -187,11 +187,11 @@ class Services_OpenStreetMap_OpeningHours
                     $atime = getdate($time);
                     $ctime = ($atime['hours'] * 60) + $atime['minutes'];
                     return ($ctime >= $start && $ctime <= $end);
-                } elseif ($portions[0] == $month && $time_spec === 'off') {
+                } elseif ($portions[0] === $month && $time_spec === 'off') {
                     return false;
                 }
             }
-            if ($portions[0] == '24/7') {
+            if ($portions[0] === '24/7') {
                 return true;
             }
         }
@@ -212,9 +212,9 @@ class Services_OpenStreetMap_OpeningHours
         if ($pos = strpos($spec, '-')) {
             $start_day = substr($spec, 0, $pos);
             $end_day = substr($spec, $pos + 1);
-            if ($start_day != 'mo') {
+            if ($start_day !== 'mo') {
                 foreach ($days as $day) {
-                    if ($day != $start_day) {
+                    if ($day !== $start_day) {
                         $off = array_shift($days);
                     } else {
                         break;
@@ -222,9 +222,9 @@ class Services_OpenStreetMap_OpeningHours
                 }
             }
             $rdays = array_reverse($days);
-            if ($end_day != 'su') {
+            if ($end_day !== 'su') {
                 foreach ($rdays as $day) {
-                    if ($day != $end_day) {
+                    if ($day !== $end_day) {
                         $off = array_shift($rdays);
                     } else {
                         break;
