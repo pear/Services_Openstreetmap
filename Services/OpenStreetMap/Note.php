@@ -137,7 +137,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
                 $comments = array();
                 foreach ($child->children() as $gchild) {
                     $comment = array();
-                    foreach($gchild->children() as $ggchild) {
+                    foreach ($gchild->children() as $ggchild) {
                         $ggname = (string) $ggchild->getName();
                         $ggvalue = (string) $ggchild;
                         $comment[$ggname] = $ggvalue;
