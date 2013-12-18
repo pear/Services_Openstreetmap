@@ -58,7 +58,7 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
      * $node->setLat($lat)->setLon($lon);
      * </pre>
      *
-     * @param float $value Latitude (-180 < y < 180)
+     * @param float $value Latitude (-90 < y < 90)
      *
      * @return Services_OpenStreetMap_Node
      * @throws Services_OpenStreetMap_InvalidArgumentException
@@ -70,14 +70,14 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
                 'Latitude must be numeric'
             );
         }
-        if ($value < -180) {
+        if ($value < -90) {
             throw new Services_OpenStreetMap_InvalidArgumentException(
-                'Latitude can\'t be less than -180'
+                'Latitude can\'t be less than -90'
             );
         }
-        if ($value > 180) {
+        if ($value > 90) {
             throw new Services_OpenStreetMap_InvalidArgumentException(
-                'Latitude can\'t be greater than 180'
+                'Latitude can\'t be greater than 90'
             );
         }
         return $this;
@@ -90,7 +90,7 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
      * $node->setLat($lat)->setLon($lon);
      * </pre>
      *
-     * @param float $value Longitude (-90 < x < 90)
+     * @param float $value Longitude (-180 < x < 180)
      *
      * @return Services_OpenStreetMap_Node
      * @throws Services_OpenStreetMap_InvalidArgumentException
@@ -102,14 +102,14 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
                 'Longitude must be numeric'
             );
         }
-        if ($value < -90) {
+        if ($value < -180) {
             throw new Services_OpenStreetMap_InvalidArgumentException(
-                'Longitude can\'t be less than -90'
+                'Longitude can\'t be less than -180'
             );
         }
-        if ($value > 90) {
+        if ($value > 180) {
             throw new Services_OpenStreetMap_InvalidArgumentException(
-                'Longitude can\'t be greater than 90'
+                'Longitude can\'t be greater than 180'
             );
         }
         return $this;

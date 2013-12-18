@@ -207,7 +207,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
      * Test invalid latitude value in constructor
      *
      * @expectedException        InvalidArgumentException
-     * @expectedExceptionMessage Latitude can't be greater than 180
+     * @expectedExceptionMessage Latitude can't be greater than 90
      *
      * @return void
      */
@@ -230,7 +230,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
      * Test invalid latitude value in constructor
      *
      * @expectedException        InvalidArgumentException
-     * @expectedExceptionMessage Latitude can't be less than -180
+     * @expectedExceptionMessage Latitude can't be less than -90
      *
      * @return void
      */
@@ -277,7 +277,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
      * Test invalid longitude value in constructor
      *
      * @expectedException        InvalidArgumentException
-     * @expectedExceptionMessage Longitude can't be greater than 90
+     * @expectedExceptionMessage Longitude can't be greater than 180
      *
      * @return void
      */
@@ -292,7 +292,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
                 );
         $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
-        $lon = 90.1983611;
+        $lon = 180.1983611;
         $node = $osm->createNode($lat, $lon);
     }
 
@@ -300,11 +300,11 @@ class NodeTest extends PHPUnit_Framework_TestCase
      * Test invalid longitude value in constructor
      *
      * @expectedException        InvalidArgumentException
-     * @expectedExceptionMessage Longitude can't be less than -90
+     * @expectedExceptionMessage Longitude can't be less than -180
      *
      * @return void
      */
-    public function testCreateNodeInvalidLongitudeLessThanMinus90()
+    public function testCreateNodeInvalidLongitudeLessThanMinus180()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
@@ -315,7 +315,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
                 );
         $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
-        $lon = -90.1983611;
+        $lon = -180.1983611;
         $node = $osm->createNode($lat, $lon);
     }
 
