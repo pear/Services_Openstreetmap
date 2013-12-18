@@ -13,10 +13,10 @@
   <email>kguest@php.net</email>
   <active>yes</active>
  </lead>
- <date>2013-04-07</date>
- <time>15:05:59</time>
+ <date>2013-12-18</date>
+ <time>14:01:59</time>
  <version>
-  <release>0.3.0</release>
+  <release>0.3.1</release>
   <api>0.3.0</api>
  </version>
  <stability>
@@ -25,7 +25,7 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
  <notes>
-This release supports parsing of opening_hours values.
+ Bug #20150: Bounds checking for lat/lon values are reversed.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -482,6 +482,21 @@ Support newly expanded User API.
    <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
    <notes>
 This release supports parsing of opening_hours values.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.1</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2013-12-18</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
+   <notes>
+ Bug #20150: Bounds checking for lat/lon values are reversed.
    </notes>
   </release>
  </changelog>
