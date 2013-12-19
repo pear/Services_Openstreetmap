@@ -173,9 +173,9 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $config = array(
-                'adapter'  => $mock,
-                'server'   => 'http://api06.dev.openstreetmap.org/',
-                );
+            'adapter'  => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+        );
         $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
         $lon = -8.1983611;
@@ -217,9 +217,9 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $config = array(
-                'adapter'  => $mock,
-                'server'   => 'http://api06.dev.openstreetmap.org/',
-                );
+            'adapter'  => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+        );
         $osm = new Services_OpenStreetMap($config);
         $lat = 252.8638729;
         $lon = -8.1983611;
@@ -227,7 +227,8 @@ class NodeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test invalid latitude value in constructor
+     * Test invalid latitude value in constructor and that value can't be
+     * less than -90 degrees.
      *
      * @expectedException        InvalidArgumentException
      * @expectedExceptionMessage Latitude can't be less than -90
@@ -240,13 +241,55 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $config = array(
-                'adapter'  => $mock,
-                'server'   => 'http://api06.dev.openstreetmap.org/',
-                );
+            'adapter'  => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+        );
         $osm = new Services_OpenStreetMap($config);
-        $lat = -180.000010123;
+        $lat = -90.000010123;
         $lon = -8.1983611;
         $node = $osm->createNode($lat, $lon);
+    }
+
+    /**
+     * Check that -90 degrees is accepted as a latitude value
+     *
+     * @return void
+     */
+    public function testCreateNodeLatMinus90()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+
+        $config = array(
+            'adapter'  => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+        );
+        $osm = new Services_OpenStreetMap($config);
+        $lat = -90.0000;
+        $lon = -8.1983611;
+        $node = $osm->createNode($lat, $lon);
+        $this->assertEquals($node->getLat(), -90);
+    }
+
+    /**
+     * Check that 90 degrees is accepted as a latitude value.
+     *
+     * @return void
+     */
+    public function testCreateNodeLat90()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+
+        $config = array(
+            'adapter'  => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+        );
+        $osm = new Services_OpenStreetMap($config);
+        $lat = 90;
+        $lon = -8.1983611;
+        $node = $osm->createNode($lat, $lon);
+        $this->assertEquals($node->getLat(), 90);
     }
 
     /**
@@ -263,9 +306,9 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $config = array(
-                'adapter'  => $mock,
-                'server'   => 'http://api06.dev.openstreetmap.org/',
-                );
+            'adapter'  => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+        );
         $osm = new Services_OpenStreetMap($config);
         $lat = 'ArticCircle';
         $lon = -8.1983611;
@@ -274,7 +317,8 @@ class NodeTest extends PHPUnit_Framework_TestCase
 
 
     /**
-     * Test invalid longitude value in constructor
+     * Test invalid longitude value in constructor and that value greater than
+     * 180 degrees causes an exception.
      *
      * @expectedException        InvalidArgumentException
      * @expectedExceptionMessage Longitude can't be greater than 180
@@ -317,6 +361,48 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $lat = 52.8638729;
         $lon = -180.1983611;
         $node = $osm->createNode($lat, $lon);
+    }
+
+    /**
+     * Check 180 is accepted as a longitude value.
+     *
+     * @return void
+     */
+    public function testCreateNodeLon180()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+
+        $config = array(
+            'adapter'  => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+        );
+        $osm = new Services_OpenStreetMap($config);
+        $lat = 52.8638729;
+        $lon = 180;
+        $node = $osm->createNode($lat, $lon);
+        $this->assertEquals($lon, $node->getLon());
+    }
+
+    /**
+     * Check -180 is accepted as a longitude value.
+     *
+     * @return void
+     */
+    public function testCreateNodeLonMinus180()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+
+        $config = array(
+            'adapter'  => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+        );
+        $osm = new Services_OpenStreetMap($config);
+        $lat = 52.8638729;
+        $lon = -180;
+        $node = $osm->createNode($lat, $lon);
+        $this->assertEquals($lon, $node->getLon());
     }
 
     /**
