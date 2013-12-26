@@ -38,7 +38,7 @@ require_once 'PHPUnit/Framework/TestCase.php';
 class NodeTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * Test the getNodee method.
+     * Test the getNode method.
      *
      * @return void
      */
