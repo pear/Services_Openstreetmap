@@ -99,8 +99,9 @@ class Services_OpenStreetMap_Transport_HTTP
         $response = null;
         $eMsg = null;
 
+
         if ($this->getConfig()->getValue('verbose')) {
-            $this->log->debug($url);
+            $this->log->log($url);
         }
 
         $request = $this->getRequest();
@@ -136,8 +137,8 @@ class Services_OpenStreetMap_Transport_HTTP
             $response = $request->send();
             $code = $response->getStatus();
 
-            $this->log->debug($response->getHeader());
-            $this->log->debug($response->getBody());
+            $this->log->log($response->getHeader());
+            $this->log->log($response->getBody());
 
             if (self::OK == $code) {
                 return $response;

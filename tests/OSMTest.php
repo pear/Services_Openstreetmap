@@ -25,6 +25,17 @@ require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 
+require_once 'Log.php';
+require_once 'Log/null.php';
+require_once 'Log/observer.php';
+class Log_observer_simple extends Log_observer
+{
+    public $entries = array();
+    public function notify($event) {
+        $this->entries[] = $event;
+    }
+
+}
 
 /**
  * Test Services_OpenStreetMap functionality specific only to that class.
@@ -209,17 +220,45 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/area.xml', 'rb'));
 
+        $server = 'http://api06.dev.openstreetmap.org/';
         $config = array(
             'adapter' => $mock,
-            'server' => 'http://api06.dev.openstreetmap.org/'
+            'verbose' => true,
+            'server' => $server
         );
         $osm = new Services_OpenStreetMap($config);
         $results = $osm->search(array('amenity' => 'pharmacy'));
         $this->AssertTrue(empty($results));
-        $osm->get(
-            52.84824191354071, -8.247245026639696,
-            52.89957825532213, -8.174161478654796
+
+        $minlon = "-8.247245026639696";
+        $minlat = "52.84824191354071";
+        $maxlat = "52.89957825532213";
+        $maxlon = "-8.174161478654796";
+
+        $log = new Log_null('null', 'null', array(), 7);
+        $observer = new Log_observer_simple();
+        $log->attach($observer);
+        $osm->getTransport()->setLog($log);
+        $osm->get($minlon, $minlat, $maxlon, $maxlat);
+        $entry = $observer->entries[0];
+        $this->assertEquals(
+            $entry['message'],
+            "$server" . "api/0.6/map?bbox=$minlon,$minlat,$maxlon,$maxlat"
         );
+
+        $obj = simplexml_load_string($osm->getXml())->xpath('//bounds');
+        $attribs = $obj[0]->attributes();
+
+        $pxminlon = sprintf("%2.7f", (string) $attribs['minlon']);
+        $pxminlat = sprintf("%2.7f", (string) $attribs['minlat']);
+        $pxmaxlat = sprintf("%2.7f", (string) $attribs['maxlat']);
+        $pxmaxlon = sprintf("%2.7f", (string) $attribs['maxlon']);
+
+        $this->assertEquals($pxminlon, sprintf("%2.7f", $minlon));
+        $this->assertEquals($pxminlat, sprintf("%2.7f", $minlat));
+        $this->assertEquals($pxmaxlat, sprintf("%2.7f", $maxlat));
+        $this->assertEquals($pxmaxlon, sprintf("%2.7f", $maxlon));
+
         $results = $osm->search(array('amenity' => 'pharmacy'));
 
         $tags = array();

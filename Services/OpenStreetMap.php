@@ -140,7 +140,7 @@ class Services_OpenStreetMap
         $url = $config->getValue('server')
             . 'api/'
             . $config->getValue('api_version')
-            . "/map?bbox=$minLat,$minLon,$maxLat,$maxLon";
+            . "/map?bbox=$minLon,$minLat,$maxLon,$maxLat";
         $response = $this->getTransport()->getResponse($url);
         $this->xml = $response->getBody();
         return $this->xml;
