@@ -444,7 +444,7 @@ class Services_OpenStreetMap_API_V06
         $url = $config->getValue('server')
             . 'api/'
             . $config->getValue('api_version')
-            . "/notes.xml?bbox=$minLat,$minLon,$maxLat,$maxLon"
+            . "/notes.xml?bbox=$minLon,$minLat,$maxLon,$maxLat"
             . "&limit=$limit&closed=$closed";
         $response = $this->getTransport()->getResponse($url);
         $collection = new Services_OpenStreetMap_Notes();

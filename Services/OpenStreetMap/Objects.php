@@ -60,6 +60,18 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
     protected $config = null;
 
     /**
+     * __toString
+     *
+     * Return getXml output.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getXml();
+    }
+
+    /**
      * getXml
      *
      * @return string
