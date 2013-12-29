@@ -53,14 +53,14 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
     protected $transport = null;
 
     /**
-     * Config object, contains setting on how to interact with API Endpoint
+     * Config object, contains setting on how to interact with API Endpoint.
      *
      * @var Services_OpenStreetMap_Config $config
      */
     protected $config = null;
 
     /**
-     * __toString
+     * Return textual [xml] represention of this collection.
      *
      * Return getXml output.
      *
@@ -86,7 +86,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @param SimpleXMLElement $xml OSM XML
      *
-     * @return void
+     * @return Services_OpenStreetMap_Objects
      */
     public function setXml(SimpleXMLElement $xml)
     {
@@ -103,7 +103,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @param string $value Most likely an id value, returned from the server.
      *
-     * @return void
+     * @return Services_OpenStreetMap_Objects
      */
     public function setVal($value)
     {
@@ -115,7 +115,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
     /**
      * Return the number of objects
      *
-     * @return void
+     * @return int
      */
     public function count()
     {
@@ -140,14 +140,14 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
     public function current()
     {
         $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($this->getType()));
-        $way = new $class();
+        $object = new $class();
         $config = $this->getConfig();
         if (!is_null($config)) {
-            $way->setConfig($config);
+            $object->setConfig($config);
         }
-        $way->setTransport($this->getTransport());
-        $way->setXml(simplexml_load_string($this->objects[$this->position]));
-        return $way;
+        $object->setTransport($this->getTransport());
+        $object->setXml(simplexml_load_string($this->objects[$this->position]));
+        return $object;
     }
 
     /**
@@ -163,7 +163,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
     /**
      * Return the key of the current internal iterator pointer
      *
-     * @return void
+     * @return int
      */
     public function key()
     {

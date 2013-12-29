@@ -163,7 +163,7 @@ class Services_OpenStreetMap_Config
     }
 
     /**
-     * set at least one configuration variable.
+     * Set at least one configuration variable.
      *
      * <pre>
      * $osm->setConfig('user', 'fred@example.com');
@@ -245,6 +245,7 @@ class Services_OpenStreetMap_Config
      * @param string $server base server details, e.g. http://api.openstreetmap.org
      *
      * @return Services_OpenStreetMap
+     * @throws Services_OpenStreetMap_Exception If valid response isn't received.
      */
     public function setServer($server)
     {
@@ -546,7 +547,7 @@ class Services_OpenStreetMap_Config
     }
 
     /**
-     * Number of elements allowed per changeset
+     * Number of elements allowed per changeset.
      *
      * <code>
      * $osm = new Services_OpenStreetMap();
@@ -561,7 +562,7 @@ class Services_OpenStreetMap_Config
     }
 
     /**
-     * Status of the OSM database (offline/readonly/online)
+     * Status of the OSM database (offline/readonly/online).
      *
      * @return null|string
      */
@@ -571,7 +572,7 @@ class Services_OpenStreetMap_Config
     }
 
     /**
-     * Status of the main OSM API (offline/readonly/online)
+     * Status of the main OSM API (offline/readonly/online).
      *
      * @return null|string
      */
@@ -581,7 +582,7 @@ class Services_OpenStreetMap_Config
     }
 
     /**
-     * Status of the OSM GPX API (offline/readonly/online)
+     * Status of the OSM GPX API (offline/readonly/online).
      *
      * @return null|string
      */
@@ -591,7 +592,7 @@ class Services_OpenStreetMap_Config
     }
 
     /**
-     * Name of what generated the Capabilities XML
+     * Name of what generated the Capabilities XML.
      *
      * @return string
      */

@@ -126,7 +126,7 @@ class Services_OpenStreetMap_Object
      *
      * @param SimpleXMLElement $xml OSM XML
      *
-     * @return void
+     * @return Services_OpenStreetMap_Object
      */
     public function setXml(SimpleXMLElement $xml)
     {
@@ -147,7 +147,7 @@ class Services_OpenStreetMap_Object
      *
      * @param string $value Most likely an id value, returned from the server.
      *
-     * @return void
+     * @return Services_OpenStreetMap_Object
      */
     public function setVal($value)
     {
@@ -431,7 +431,7 @@ class Services_OpenStreetMap_Object
     }
 
     /**
-     * setTag
+     * set tag to [new] key/value pair.
      *
      * <pre>
      * $obj->setTag('key', 'value')->setTag(...);
@@ -487,7 +487,7 @@ class Services_OpenStreetMap_Object
      * $obj->delete();
      * </pre>
      *
-     * @return void
+     * @return Services_OpenStreetMap_Object
      */
     public function delete()
     {

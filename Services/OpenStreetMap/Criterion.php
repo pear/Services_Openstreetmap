@@ -149,7 +149,7 @@ class Services_OpenStreetMap_Criterion
     }
 
     /**
-     * Create the required query string portion
+     * Create the required query string portion.
      *
      * @return string
      */
@@ -170,7 +170,7 @@ class Services_OpenStreetMap_Criterion
     }
 
     /**
-     * Return the criterion type (closed, open, bbox, display_name, or user)
+     * Return the criterion type (closed, open, bbox, display_name, or user).
      *
      * @return string
      */

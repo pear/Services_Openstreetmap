@@ -24,7 +24,7 @@
 class Services_OpenStreetMap_Relations extends Services_OpenStreetMap_Objects
 {
     /**
-     * type
+     * Return type ['relation'].
      *
      * @return string type
      */

@@ -52,6 +52,66 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
     }
 
     /**
+     * Retrieve the status of the note ('open' etc)
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->obj[0]->status;
+    }
+
+    /**
+     * Retrieve time-stamp of when note was created.
+     *
+     * @return int
+     */
+    public function getDateCreated()
+    {
+        return strtotime($this->obj[0]->date_created);
+    }
+
+    /**
+     * URL for this note.
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->obj[0]->url;
+    }
+
+    /**
+     * URL for adding comment to note.
+     *
+     * @return string
+     */
+    public function getCommentUrl()
+    {
+        return $this->obj[0]->comment_url;
+    }
+
+    /**
+     * URL for closing note.
+     *
+     * @return string
+     */
+    public function getCloseUrl()
+    {
+        return $this->obj[0]->close_url;
+    }
+
+    /**
+     * getComments
+     *
+     * @return void
+     */
+    public function getComments()
+    {
+        return $this->obj[0]->comments;
+    }
+
+    /**
      * set the Latitude of the note
      *
      * <pre>

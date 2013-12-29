@@ -46,27 +46,32 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     protected $membersIds = array();
 
     /**
-     * Whether the changeset is open
+     * Whether the changeset is open.
      *
      * @var bool
      */
     protected $open = false;
 
     /**
-     * The Id of this changeset
+     * The Id of this changeset.
      *
      * @var string
      */
     protected $id = null;
 
     /**
-     * The OsmChange XML for this changeset
+     * The OsmChange XML for this changeset.
      *
      * @var string
      */
     protected $osmChangeXml = null;
 
 
+    /**
+     * Used to keep track of Id updates.
+     *
+     * @var array
+     */
     protected $updateMap = array();
 
     /**
@@ -79,7 +84,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     }
 
     /**
-     * begin
+     * Begin changeset transaction.
      *
      * @param string $message The changeset log message.
      *
@@ -132,7 +137,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     }
 
     /**
-     * add object to the changeset so changes can be transmitted to the server
+     * Add object to the changeset so changes can be transmitted to the server.
      *
      * @param Services_OpenStreetMap_Object $object OSM object
      *
@@ -162,7 +167,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     }
 
     /**
-     * commit
+     * Commit changeset, posting to server.
      *
      * Generate osmChange document and post it to the server, when successful
      * close the changeset.
@@ -170,7 +175,9 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      * @return void
      * @link   http://wiki.openstreetmap.org/wiki/OsmChange
      * @throws Services_OpenStreetMap_RuntimeException If changeset Id is not
-     *                                                 numeric
+     *                                                 numeric.
+     * @throws Services_OpenStreetMap_Transport        If changeset is already
+     *                                                 closed.
      */
     public function commit()
     {
@@ -279,7 +286,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     }
 
     /**
-     * setOsmChangeXml
+     * Set Change XML.
      *
      * @param string $xml OsmChange XML
      *
@@ -327,7 +334,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     }
 
     /**
-     * getMinLon
+     * Return min longitude.
      *
      * @return float
      */
@@ -337,7 +344,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     }
 
     /**
-     * getMinLat
+     * Return min latitude value.
      *
      * @return float
      */
@@ -348,7 +355,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
 
 
     /**
-     * getMaxLon
+     * Return max longitude value.
      *
      * @return float
      */
@@ -358,7 +365,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     }
 
     /**
-     * getMaxLat
+     * Return max latitude value.
      *
      * @return float
      */
@@ -369,7 +376,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
 
 
     /**
-     * getId
+     * Get changeset Id.
      *
      * @return numeric value or null if none set
      */
@@ -390,6 +397,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      * @param string $body diffResult xml
      *
      * @return void
+     * @throws Services_OpenStreetMap_Exception If diffResult xml is invalid.
      */
     public function updateObjectIds($body)
     {
@@ -410,7 +418,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     }
 
     /**
-     * Update id of some type of object
+     * Update id of some type of object.
      *
      * @param string  $type   Object type
      * @param integer $old_id Old id
@@ -433,6 +441,11 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         }
     }
 
+    /**
+     * Get update map.
+     *
+     * @return array
+     */
     public function getUpdateMap()
     {
         return $this->updateMap;
