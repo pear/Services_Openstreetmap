@@ -203,15 +203,15 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
     public function offsetGet($offset)
     {
         $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($this->getType()));
-        $way = new $class();
+        $object = new $class();
         $config = $this->getConfig();
         if (!is_null($config)) {
-            $way->setConfig($config);
+            $object->setConfig($config);
         }
-        $way->setTransport($this->getTransport());
+        $object->setTransport($this->getTransport());
         if (isset($this->objects[$offset])) {
-            $way->setXml(simplexml_load_string($this->objects[$offset]));
-            return $way;
+            $object->setXml(simplexml_load_string($this->objects[$offset]));
+            return $object;
         }
     }
 
