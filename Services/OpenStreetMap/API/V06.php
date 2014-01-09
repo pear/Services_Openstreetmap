@@ -358,6 +358,25 @@ class Services_OpenStreetMap_API_V06
     }
 
     /**
+     * getWayFull
+     *
+     * @param mixed $wayID
+     * @param mixed $version
+     * @return void
+     * @fixme: append '/full' to request URL, check returned xml/object makese sense
+     * @note: do a similary getRelationFull method also
+     */
+    public function getWayFull($wayID, $version = null)
+    {
+        $way = $this->getTransport()->getObject('way', $wayID, $version);
+        if ($way !== false) {
+            $way->setTransport($this->getTransport());
+            $way->setConfig($this->getConfig());
+        }
+        return $way;
+    }
+
+    /**
      * Return an array of specified ways.
      *
      * <pre>

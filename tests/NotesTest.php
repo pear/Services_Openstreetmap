@@ -194,6 +194,37 @@ class NotesTest extends PHPUnit_Framework_TestCase
             "bbox=$minlon,$minlat,$maxlon,$maxlat&limit=200&closed=14"
         );
     }
+
+    public function testa()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/get_notes.xml', 'rb'));
+
+        $server = 'http://api06.dev.openstreetmap.org/';
+        $config = array(
+            'adapter' => $mock,
+            'server' => $server,
+        );
+        $osm = new Services_OpenStreetMap($config);
+
+
+        $minlon = "-8.2456593";
+        $minlat = "52.8488977";
+        $maxlon = "-8.1751247";
+        $maxlat = "52.8839662";
+
+        $notes = $osm->getNotesByBbox(
+            $minlon, $minlat, $maxlon, $maxlat, 200, 14
+        );
+        $note = $notes[0];
+        $this->assertInstanceOf('Services_OpenStreetMap_Notes', $notes);
+        $this->assertInstanceOf('Services_OpenStreetMap_Note', $note);
+        $comments = $note->getComments();
+        $comment = $comments[0];
+        $this->assertInstanceOf('Services_OpenStreetMap_Comment', $comment);
+        $this->assertInstanceOf('Services_OpenStreetMap_Comments', $comments);
+    }
 }
 
 ?>

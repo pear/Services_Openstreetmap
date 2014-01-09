@@ -108,7 +108,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
      */
     public function getComments()
     {
-        return $this->obj[0]->comments;
+        return $this->comments;
     }
 
     /**
@@ -196,25 +196,19 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
             if ($name == 'comments') {
                 $comments = array();
                 foreach ($child->children() as $gchild) {
-                    $comment = array();
-                    foreach ($gchild->children() as $ggchild) {
-                        $ggname = (string) $ggchild->getName();
-                        $ggvalue = (string) $ggchild;
-                        $comment[$ggname] = $ggvalue;
-                    }
+                    $gname = (string) $gchild->getName();
+                    $comment = new Services_OpenStreetMap_Comment;
+                    $comment->setXml($gchild);
                     $comments[] = $comment;
                 }
-                $kids['comments'] = $comments;
+                $kids[] = $comments;
+            } elseif ($name == 'id') {
+                $this->setId((double) $child);
 
-            } else {
-                $kids[$name] = (string) $child;
             }
         }
+        $this->comments = new Services_OpenStreetMap_Comments($comments);
         $this->tags = $kids;
-        if (isset($kids['id'])) {
-            $this->setId($kids['id']);
-            var_dump($this->getId());
-        }
         $this->obj = $obj;
         return $this;
     }
