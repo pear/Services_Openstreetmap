@@ -275,7 +275,7 @@ class Services_OpenStreetMap_Config
      * in the file.
      *
      * A password file is a ASCII text file, with username and passwords pairs
-     * on each line, seperated [delimited] by a semicolon.
+     * on each line, separated [delimited] by a semicolon.
      * Lines starting with a hash [#] are comments.
      * If only one non-commented line is present in the file, that username and
      * password will be used for authentication.

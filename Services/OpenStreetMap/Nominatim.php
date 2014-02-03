@@ -48,7 +48,7 @@ class Services_OpenStreetMap_Nominatim
 
     /**
      * Preferred language order. Standard rfc2616 string or a simple comma
-     * seperated list of language codes.
+     * separated list of language codes.
      *
      * @var string
      */
