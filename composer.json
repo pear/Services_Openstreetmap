@@ -1,0 +1,33 @@
+{
+    "name": "kenguest/services-osm",
+    "type": "library",
+    "description": "OpenStreetMap is a global project with an aim of collaboratively collecting map data. This package aims to make communicating with the OSM API intuitive.",
+    "keywords": ["openstreetmap"],
+    "license": "BSD-3-Clause",
+    "homepage": "https://github.com/kenguest/Services_Openstreetmap",
+    "authors": [
+        {"name": "Ken Guest", "email": "ken@linux.ie", "role": "Lead"}
+    ],
+    "autoload":{
+        "classmap":["Services/"]
+    },
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.php.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "pear-pear/HTTP_Request2": "2.0.0",
+        "pear-pear/Log": "1.12.7",
+        "pear-pear/Cache": "1.5.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "support": {
+        "issues": "https://pear.php.net/bugs/search.php?cmd=display&package_name[]=Services_OpenStreetMap",
+        "source": "https://github.com/kenguest/Services_Openstreetmap"
+    }
+}
