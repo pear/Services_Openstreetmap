@@ -184,7 +184,9 @@ class Services_OpenStreetMap
         $nominatim = new Services_OpenStreetMap_Nominatim(
             $this->getTransport()
         );
-        return $nominatim->search($place, 1);
+        return $nominatim
+            ->setAcceptLanguage($this->config->getValue('accept-language'))
+            ->search($place, 1);
     }
 
     /**

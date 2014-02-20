@@ -192,6 +192,27 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($place[0]->osm_type, 'node');
     }
 
+    public function testJsonSearchNameGa()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/search.json', 'rb'));
+
+        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap();
+
+        $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
+        $nominatim->setFormat('json');
+        $nominatim->setAcceptLanguage('ga');
+        $place = $nominatim->search('Limerick, Ireland', 1);
+        $this->assertEquals($place[0]->class, 'place');
+        $this->assertEquals($place[0]->type, 'city');
+        $this->assertEquals($place[0]->osm_type, 'node');
+        $display = $place[0]->display_name;
+        $this->assertEquals(
+            "Luimneach, Contae Luimnigh, Cúige Mumhan, Éire",
+            $display
+        );
+    }
     /**
      * test HTML search
      *
@@ -251,6 +272,35 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $osm = new Services_OpenStreetMap();
         $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
         $nominatim->setServer('invalid');
+    }
+
+    public function test20205()
+    {
+
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/nominatim_search_20205_1.xml', 'rb')
+        );
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/nominatim_search_20205_2.xml', 'rb')
+        );
+        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm->getConfig()->setAcceptLanguage('en');
+        $test = $osm->getPlace('Moskau');
+        $attribs = $test[0]->attributes();
+        $display = (string) $attribs['display_name'];
+        $this->assertEquals(
+            "Moscow, Central Federal District, Russian Federation",
+            $display
+        );
+        $osm->getConfig()->setAcceptLanguage('ru,en-AU');
+        $test = $osm->getPlace('Moscow');
+        $attribs = $test[0]->attributes();
+        $display = (string) $attribs['display_name'];
+        $this->assertEquals(
+            "Москва, Центральный федеральный округ, Российская Федерация",
+            $display
+        );
     }
 }
 ?>

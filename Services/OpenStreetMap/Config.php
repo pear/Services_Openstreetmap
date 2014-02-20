@@ -103,14 +103,15 @@ class Services_OpenStreetMap_Config
      * @see Services_OpenStreetMap::setConfig
      */
     protected $config = array(
-        'adapter'      => 'HTTP_Request2_Adapter_Socket',
-        'api_version'  => '0.6',
-        'password'     => null,
-        'passwordfile' => null,
-        'server'       => 'http://api.openstreetmap.org/',
-        'User-Agent'   => 'Services_OpenStreetMap',
-        'user'         => null,
-        'verbose'      => false,
+        'accept-language' => 'en',
+        'adapter'         => 'HTTP_Request2_Adapter_Socket',
+        'api_version'     => '0.6',
+        'password'        => null,
+        'passwordfile'    => null,
+        'server'          => 'http://api.openstreetmap.org/',
+        'User-Agent'      => 'Services_OpenStreetMap',
+        'user'            => null,
+        'verbose'         => false,
     );
 
     /**
@@ -173,14 +174,15 @@ class Services_OpenStreetMap_Config
      *
      * The following parameters are available:
      * <ul>
-     *  <li> 'adapter'      - adapter to use (string)</li>
-     *  <li> 'api_version'  - Version of API to communicate via (string)</li>
-     *  <li> 'password'     - password (string, optional)</li>
-     *  <li> 'passwordfile' - passwordfile (string, optional)</li>
-     *  <li> 'server'       - server to connect to (string)</li>
-     *  <li> 'User-Agent'   - User-Agent (string)</li>
-     *  <li> 'user'         - user (string, optional)</li>
-     *  <li> 'verbose'      - verbose (boolean, optional)</li>
+     *  <li> 'accept-language' - language to use for queries with Nominatim</li>
+     *  <li> 'adapter'         - adapter to use (string)</li>
+     *  <li> 'api_version'     - Version of API to communicate via (string)</li>
+     *  <li> 'password'        - password (string, optional)</li>
+     *  <li> 'passwordfile'    - passwordfile (string, optional)</li>
+     *  <li> 'server'          - server to connect to (string)</li>
+     *  <li> 'User-Agent'      - User-Agent (string)</li>
+     *  <li> 'user'            - user (string, optional)</li>
+     *  <li> 'verbose'         - verbose (boolean, optional)</li>
      * </ul>
      *
      * @param mixed $config array containing config settings
@@ -219,6 +221,9 @@ class Services_OpenStreetMap_Config
                     );
                     $this->api = new $api;
                     break;
+                case 'accept_language':
+                    $this->setAcceptLanguage($value);
+                    break;
                 default:
                     $this->config[$key] = $value;
                 }
@@ -237,6 +242,41 @@ class Services_OpenStreetMap_Config
             }
         }
         return $this;
+    }
+
+    public function setAcceptLanguage($language)
+    {
+        $this->_validateLanguage($language);
+        $this->config['accept-language'] = $language;
+        return $this;
+    }
+
+    private function _validateLanguage($language)
+    {
+        $langs = explode(",", $language);
+        foreach ($langs as $lang) {
+            if (strpos($lang, '-') !== false) {
+                $subparts = explode("-", $lang);
+                foreach ($subparts as $subpart) {
+
+                    if (false === filter_var(
+                        $subpart,
+                        FILTER_VALIDATE_REGEXP,
+                        array('options' => array('regexp' => '/^[a-z]{1,8}$/i'))
+                    )) {
+                        throw new Exception("Language Invalid: $language");
+                    }
+                }
+            } else {
+                if (false === filter_var(
+                    $lang,
+                    FILTER_VALIDATE_REGEXP,
+                    array('options' => array('regexp' => '/^[a-z]{1,8}$/i'))
+                )) {
+                    throw new Exception("Language Invalid: $language");
+                }
+            }
+        }
     }
 
     /**

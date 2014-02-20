@@ -128,18 +128,17 @@ class Services_OpenStreetMap_Nominatim
 
         $q = $place;
 
-        $query = http_build_query(
-            compact(
-                'q',
-                'accept_language',
-                'format',
-                'limit',
-                'polygon',
-                'viewbox',
-                'bounded',
-                'dedupe'
-            )
+        $params = compact(
+            'q',
+            'format',
+            'limit',
+            'polygon',
+            'viewbox',
+            'bounded',
+            'dedupe'
         );
+        $params['accept-language'] = $accept_language;
+        $query = http_build_query($params);
         return $query;
     }
 
@@ -166,7 +165,7 @@ class Services_OpenStreetMap_Nominatim
             $xml = simplexml_load_string($response->getBody());
             $places = $xml->xpath('//place');
             return $places;
-        } elseif ($format == 'json' ) {
+        } elseif ($format == 'json' || $format == 'jsonv2') {
             $places = json_decode($response->getBody());
             return $places;
         } elseif ($format == 'html') {
@@ -175,9 +174,11 @@ class Services_OpenStreetMap_Nominatim
     }
 
     /**
-     * setFormat
+     * Set format for data to be received in.
      *
-     * @param string $format Set format for data to be received in (html, json, xml)
+     * Format may be one of: html, json, jsonv2, xml
+     *
+     * @param string $format Format for data.
      *
      * @return Services_OpenStreetMap_Nominatim
      * @throws Services_OpenStreetMap_RuntimeException If the specified format
@@ -188,6 +189,7 @@ class Services_OpenStreetMap_Nominatim
         switch($format) {
         case 'html':
         case 'json':
+        case 'jsonv2':
         case 'xml':
             $this->format = $format;
             break;
@@ -296,6 +298,23 @@ class Services_OpenStreetMap_Nominatim
             }
             return $this;
         }
+    }
+
+    /**
+     * Set referred language order for showing search results.
+     *
+     * This overrides the browser value.
+     * Either uses standard rfc2616 accept-language string or a simple comma
+     * separated list of language codes.
+     *
+     * @param string $language language code
+     *
+     * @return Services_OpenStreetMap_Nominatim
+     */
+    public function setAcceptLanguage($language)
+    {
+        $this->accept_language = $language;
+        return $this;
     }
 
     /**

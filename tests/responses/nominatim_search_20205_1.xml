@@ -1,0 +1,5 @@
+HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<searchresults timestamp='Wed, 19 Feb 14 23:46:50 +0000' attribution='Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright' querystring='Moskau' polygon='false' exclude_place_ids='9157833320' more_url='http://nominatim.openstreetmap.org/search?format=xml&amp;exclude_place_ids=9157833320&amp;accept-language=en&amp;q=Moskau'>
+<place place_id='9157833320' osm_type='relation' osm_id='102269' place_rank='8' boundingbox="55.1422004699707,56.0212249755859,36.8031005859375,37.9674301147461" lat='55.4792046' lon='37.3273304' display_name='Moscow, Central Federal District, Russian Federation' class='boundary' type='administrative' importance='0.81231629038453' icon='http://nominatim.openstreetmap.org/images/mapicons/poi_boundary_administrative.p.20.png'/></searchresults>

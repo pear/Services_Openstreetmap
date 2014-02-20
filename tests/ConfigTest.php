@@ -63,6 +63,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             $osm->getConfig()->asArray(),
             array (
+                'accept-language' => 'en',
                 'api_version' => '0.6',
                 'User-Agent' => 'Services_OpenStreetMap',
                 'adapter' => $mock,
