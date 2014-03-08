@@ -216,7 +216,7 @@ class Services_OpenStreetMap_Transport_HTTP
      * @return object
      * @throws Services_OpenStreetMap_Exception
      */
-    public function getObject($type, $id, $version = null)
+    public function getObject($type, $id, $version = null, $append = null)
     {
         /*
         if (!in_array($type, $this->elements)) {
@@ -233,6 +233,9 @@ class Services_OpenStreetMap_Transport_HTTP
             . $id;
         if ($version !== null) {
             $url .= "/$version";
+            if ($append !== null) {
+                $url .= "/$append";
+            }
         }
         try {
             $response = $this->getResponse($url);
