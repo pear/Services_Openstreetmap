@@ -363,12 +363,15 @@ class Services_OpenStreetMap_API_V06
      * @param mixed $wayID
      * @param mixed $version
      * @return void
-     * @fixme: append '/full' to request URL, check returned xml/object makese sense
      * @note: do a similary getRelationFull method also
      */
-    public function getWayFull($wayID, $version = null)
+    public function getWayFull($wayID, $version)
     {
-        $way = $this->getTransport()->getObject('way', $wayID, $version);
+        if (!is_numeric($version)) {
+            throw new Services_OpenStreetMap_RuntimeException("Invalid version");
+        }
+
+        $way = $this->getTransport()->getObject('way', $wayID, $version, 'full');
         if ($way !== false) {
             $way->setTransport($this->getTransport());
             $way->setConfig($this->getConfig());
