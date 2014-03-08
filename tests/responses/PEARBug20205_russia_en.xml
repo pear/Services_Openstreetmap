@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Date: Sat, 08 Mar 2014 13:38:01 GMT
+Server: Apache/2.2.22 (Ubuntu)
+Content-Location: search.php
+Vary: negotiate,accept
+TCN: choice
+X-Powered-By: PHP/5.3.10-1ubuntu3.10
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: OPTIONS,GET
+Access-Control-Max-Age: 8640000
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: text/xml; charset=UTF-8
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<searchresults timestamp='Sat, 08 Mar 14 13:38:01 +0000' attribution='Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright' querystring='Russia' polygon='false' exclude_place_ids='97948391' more_url='http://nominatim.openstreetmap.org/search?format=xml&amp;exclude_place_ids=97948391&amp;accept-language=en&amp;q=Russia'>
+<place place_id='97948391' osm_type='relation' osm_id='60189' place_rank='4' boundingbox="41.1867790222168,82.0576934814453,-180,180" lat='64.6863136' lon='97.7453061' display_name='Russian Federation' class='boundary' type='administrative' importance='1.0002676968769' icon='http://nominatim.openstreetmap.org/images/mapicons/poi_boundary_administrative.p.20.png'/></searchresults>

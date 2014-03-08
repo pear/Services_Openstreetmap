@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Date: Sat, 08 Mar 2014 13:34:25 GMT
+Server: Apache/2.2.22 (Ubuntu)
+Content-Location: search.php
+Vary: negotiate,accept
+TCN: choice
+X-Powered-By: PHP/5.3.10-1ubuntu3.10
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: OPTIONS,GET
+Access-Control-Max-Age: 8640000
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: text/xml; charset=UTF-8
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<searchresults timestamp='Sat, 08 Mar 14 13:34:25 +0000' attribution='Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright' querystring='Moskau' polygon='false' exclude_place_ids='9157833320' more_url='http://nominatim.openstreetmap.org/search?format=xml&amp;exclude_place_ids=9157833320&amp;accept-language=ru,en-AU&amp;q=Moskau'>
+<place place_id='9157833320' osm_type='relation' osm_id='102269' place_rank='8' boundingbox="55.1422004699707,56.0212249755859,36.8031005859375,37.9674301147461" lat='55.4792046' lon='37.3273304' display_name='Москва, Центральный федеральный округ, Российская Федерация' class='boundary' type='administrative' importance='0.81231629038453' icon='http://nominatim.openstreetmap.org/images/mapicons/poi_boundary_administrative.p.20.png'/></searchresults>
