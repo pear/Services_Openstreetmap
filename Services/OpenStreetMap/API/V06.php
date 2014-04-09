@@ -227,7 +227,6 @@ class Services_OpenStreetMap_API_V06
         $node->setLon($longitude);
         $node->setXml(simplexml_load_string($xml));
         $node->setId($this->newId--);
-        $node->setTag('created_by', $userAgent);
         if (!empty($tags)) {
             foreach ($tags as $key => $value) {
                 $node->setTag($key, $value);
@@ -360,8 +359,9 @@ class Services_OpenStreetMap_API_V06
     /**
      * getWayFull
      *
-     * @param mixed $wayID
-     * @param mixed $version
+     * @param mixed $wayID   wayID
+     * @param mixed $version Version of way
+     *
      * @return void
      * @note: do a similary getRelationFull method also
      */
