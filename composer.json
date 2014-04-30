@@ -15,6 +15,10 @@
         {
             "type": "pear",
             "url": "http://pear.php.net"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:kenguest/Services_Openstreetmap.git"
         }
     ],
     "require": {
