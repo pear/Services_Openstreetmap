@@ -28,10 +28,12 @@ require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'Log.php';
 require_once 'Log/null.php';
 require_once 'Log/observer.php';
-class Log_observer_simple extends Log_observer
+
+class Log_OSMTest_Observer extends Log_observer
 {
     public $entries = array();
-    public function notify($event) {
+    public function notify($event)
+    {
         $this->entries[] = $event;
     }
 
@@ -236,7 +238,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $maxlon = "-8.174161478654796";
 
         $log = new Log_null('null', 'null', array(), 7);
-        $observer = new Log_observer_simple();
+        $observer = new Log_OSMTest_Observer();
         $log->attach($observer);
         $osm->getTransport()->setLog($log);
         $osm->get($minlon, $minlat, $maxlon, $maxlat);

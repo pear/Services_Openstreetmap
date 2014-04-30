@@ -193,7 +193,6 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             $node->getTags(),
             array(
-                'created_by' => 'Services_OpenStreetMap',
                 'building' => 'yes',
                 'amenity' => 'vet',
             )

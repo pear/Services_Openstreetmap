@@ -25,11 +25,17 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 
 require_once 'ChangesetTest.php';
 require_once 'ConfigTest.php';
-require_once 'NominatimTest.php';
+require_once 'CriterionTest.php';
 require_once 'NodeTest.php';
+require_once 'NotesTest.php';
+require_once 'NominatimTest.php';
+require_once 'OpeningHoursTest.php';
 require_once 'OSMTest.php';
+require_once 'PearBug20205Test.php';
+require_once 'PermissionsTest.php';
 require_once 'RelationTest.php';
 require_once 'UserTest.php';
+require_once 'WayFullTest.php';
 require_once 'WayTest.php';
 
 /**
@@ -65,13 +71,20 @@ class AllTests
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Services_OpenStreetMap Tests');
+
         $suite->addTestSuite('ChangesetTest');
         $suite->addTestSuite('ConfigTest');
-        $suite->addTestSuite('OSMTest');
+        $suite->addTestSuite('CriterionTest');
         $suite->addTestSuite('NodeTest');
+        $suite->addTestSuite('NotesTest');
         $suite->addTestSuite('NominatimTest');
+        $suite->addTestSuite('OpeningHoursTest');
+        $suite->addTestSuite('OSMTest');
+        $suite->addTestSuite('PearBug20205Test');
+        $suite->addTestSuite('PermissionsTest');
         $suite->addTestSuite('RelationTest');
         $suite->addTestSuite('UserTest');
+        $suite->addTestSuite('WayFullTest');
         $suite->addTestSuite('WayTest');
 
         return $suite;
