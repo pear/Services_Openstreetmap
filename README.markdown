@@ -122,3 +122,20 @@ The getUserById() method retrieves information for the specified user.
 
     $osm = new Services_OpenStreetMap();
     $user = $osm->getUserById(1);
+
+## What can Services_OpenStreetMap_OpeningHours parse?
+
+* General syntax "Mo 08:00-24:00; Tu-Fr 00:00-24:00; Sa 00:00-22:00; Su 10:00-20:00"
+* 24/7 always evaluates to true/open.
+* a null value always equates to a null response.
+* Sunrise/sunset, eg mo-su: sunrise-sunset
+* Day Off, eg: "Tu off; Mo-Sa 10:00-20:00"
+* Month Off, For example: "24/7; Aug off"
+* Exceptions such as: "24/7; Aug 10:00-14:00" and "Mo-Sa 10:00-18:00; Jun 23 11:15-13:30"
+* Multiple times specified for days: mo-fr 9:00-13:00, 14:00-17:30; sa 9:00-13:00
+
+At the moment, sunrise-sunset is the only sunrise/sunset spec that's tested.
+e.g. 14:00-sunset isn't tested, nor is sunrise-13:37 for that matter.
+
+Also it only recognises English month names in the values but this is per spec specification cf http://wiki.openstreetmap.org/wiki/Opening_times
+It doesn't currently support parsing Public Holidays or School Holidays.
