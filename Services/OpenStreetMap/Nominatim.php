@@ -143,6 +143,49 @@ class Services_OpenStreetMap_Nominatim
     }
 
     /**
+     * reverseGeocode
+     *
+     * Perform a reverse search/geoencoding.
+     *
+     * @param string $lat            Latitude
+     * @param string $lon            Longitude
+     * @param bool   $addressdetails Include address details, defaults to true.
+     * @param int    $zoom           Zoom level, defaults to 18.
+     *
+     * @return void
+     *
+     * @see setFormat
+     * @throws Services_OpenStreetMap_RuntimeException If the set format
+     *                                                 is not supported.
+     *
+     * @see setAcceptLanguage
+     */
+    public function reverseGeocode($lat, $lon, $addressdetails = 1, $zoom = 18)
+    {
+
+        $format = $this->format;
+        if ($format == 'html') {
+            throw new Services_OpenStreetMap_RuntimeException(
+                'html format not accepted for reverseGeocode'
+            );
+        }
+        $params = compact('format', 'lat', 'lon', 'addressdetails');
+        $params['accept-language'] = $this->accept_language;
+        $query = http_build_query($params);
+        $url = $this->server . 'reverse?' . $query;
+
+        $reversegeocode = null;
+        $response = $this->getTransport()->getResponse($url);
+        if ($format == 'xml') {
+            $xml = simplexml_load_string($response->getBody());
+            $reversegeocode = $xml->xpath('//reversegeocode');
+        } elseif ($format == 'json' || $format == 'jsonv2') {
+            $reversegeocode = json_decode($response->getBody());
+        }
+        return $reversegeocode;
+    }
+
+    /**
      * search
      *
      * @param string  $place Name of place to geocode

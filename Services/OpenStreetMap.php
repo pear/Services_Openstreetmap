@@ -175,18 +175,41 @@ class Services_OpenStreetMap
     /**
      * Return a structured result set for $place
      *
-     * @param string $place Location to search for details of
+     * @param string $place  Location to search for details of
+     * @param string $format Format to retrieve. json/xml (default)
      *
      * @return void
      */
-    public function getPlace($place)
+    public function getPlace($place, $format = 'xml')
     {
         $nominatim = new Services_OpenStreetMap_Nominatim(
             $this->getTransport()
         );
         return $nominatim
             ->setAcceptLanguage($this->config->getValue('accept-language'))
+            ->setFormat($format)
             ->search($place, 1);
+    }
+
+    /**
+     * reverseGeocode
+     *
+     * Peform a reverse search/geoencoding.
+     *
+     * @param sttring $lat    Latitude
+     * @param string  $lon    Longitude
+     * @param string  $format Format to retrieve. json/xml (default)
+     *
+     * @return void
+     */
+    public function reverseGeocode($lat, $lon, $addressdetails = true, $zoom = 18, $format = 'xml')
+    {
+        $nominatim = new Services_OpenStreetMap_Nominatim(
+            $this->getTransport()
+        );
+        return $nominatim
+            ->setFormat($format)
+            ->reverseGeocode($lat, $lon, $addressdetails);
     }
 
     /**
