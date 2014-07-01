@@ -55,6 +55,14 @@ class Services_OpenStreetMap_Nominatim
     protected $accept_language = 'en';
 
     /**
+     * Email address to be sent as a part of the query string, recommended to
+     * be set if sending large numbers of requests/searches.
+     *
+     * @var string
+     */
+    protected $email_address = null;
+
+    /**
      * Output polygon outlines for items found.
      *
      * @var null|boolean
@@ -138,6 +146,9 @@ class Services_OpenStreetMap_Nominatim
             'dedupe'
         );
         $params['accept-language'] = $accept_language;
+        if ($this->email_address !== null) {
+            $params['email'] = $this->email_address;
+        }
         $query = http_build_query($params);
         return $query;
     }
@@ -171,6 +182,9 @@ class Services_OpenStreetMap_Nominatim
         }
         $params = compact('format', 'lat', 'lon', 'addressdetails');
         $params['accept-language'] = $this->accept_language;
+        if ($this->email_address !== null) {
+            $params['email'] = $this->email_address;
+        }
         $query = http_build_query($params);
         $url = $this->server . 'reverse?' . $query;
 
@@ -368,6 +382,42 @@ class Services_OpenStreetMap_Nominatim
     public function getServer()
     {
         return $this->server;
+    }
+
+    /**
+     * Set email address.
+     *
+     * @param string $email Valid email address
+     *
+     * @return Services_OpenStreetMap_Nominatim
+     * @throws Services_OpenStreetMap_RuntimeException If email address invalid
+     */
+    public function setEmailAddress($email)
+    {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            throw new Services_OpenStreetMap_RuntimeException(
+                sprintf("Email address '%s' is not valid", $email)
+            );
+        }
+        $this->email_address = $email;
+        return $this;
+    }
+
+    /**
+     * Retrieve set email address.
+     *
+     * From OSM documentation:
+     * If you are making large numbers of request please include a valid
+     * email address or alternatively include your email address as
+     * part of the User-Agent string.  This information will be kept
+     * confidential and only used to contact you in the event of a
+     * problem, see Usage Policy for more details.
+     *
+     * @return string|null
+     */
+    public function getEmailAddress()
+    {
+        return $this->email_address;
     }
 }
 

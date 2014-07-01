@@ -192,6 +192,11 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($place[0]->osm_type, 'node');
     }
 
+    /**
+     * Test searching for a placename as Gaeilge.
+     *
+     * @return void
+     */
     public function testJsonSearchNameGa()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -203,6 +208,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
         $nominatim->setFormat('json');
         $nominatim->setAcceptLanguage('ga');
+        // @todo this needs to be mocked
         $place = $nominatim->search('Limerick, Ireland', 1);
         $this->assertEquals($place[0]->class, 'place');
         $this->assertEquals($place[0]->type, 'city');
@@ -274,6 +280,11 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $nominatim->setServer('invalid');
     }
 
+    /**
+     * test PEAR Bug 20205
+     *
+     * @return void
+     */
     public function test20205()
     {
 
@@ -301,6 +312,47 @@ class NominatimTest extends PHPUnit_Framework_TestCase
             "Москва, Центральный федеральный округ, Российская Федерация",
             $display
         );
+    }
+
+    /**
+     * Check what happens when attempting to set an invalid email address.
+     *
+     * @expectedException        Services_OpenStreetMap_RuntimeException
+     * @expectedExceptionMessage Email address 'test example.com' is not valid
+     *
+     * @return void
+     */
+    public function testSetInvalidEmailAddress()
+    {
+        $osm = new Services_OpenStreetMap();
+        $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
+        $nominatim->setEmailAddress('test example.com');
+    }
+
+    /**
+     * Test reverse geocode.
+     *
+     * This is also a good example of how to use Services_OpenStreetMap_Nominatim
+     * separate from the core Services_OpenStreetMap object.
+     *
+     * @return void
+     */
+    public function testNomimatimReverseGeocode()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/nominatim_reverse_it.xml', 'rb')
+        );
+
+        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
+        $xml = $nominatim
+            ->setFormat('xml')
+            ->reverseGeocode("53.3459641", "-6.2548149");
+        $this->AssertEquals($xml[0]->result, "The Irish Times, 24-28, Tara Street, Dublin 2, Dublin, County Dublin, Leinster, D02, Ireland");
+        $this->AssertEquals($xml[0]->addressparts->road, "Tara Street");
+        $this->AssertEquals($xml[0]->addressparts->city, "Dublin");
+
     }
 }
 ?>

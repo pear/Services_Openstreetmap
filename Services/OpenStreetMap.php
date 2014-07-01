@@ -196,20 +196,27 @@ class Services_OpenStreetMap
      *
      * Peform a reverse search/geoencoding.
      *
-     * @param sttring $lat    Latitude
-     * @param string  $lon    Longitude
-     * @param string  $format Format to retrieve. json/xml (default)
+     * @param sttring $lat            Latitude
+     * @param string  $lon            Longitude
+     * @param bool    $addressdetails Whether to include address details in results
+     * @param int     $zoom           Zoom level to search at
+     * @param string  $format         Format to retrieve. json/xml (default)
      *
      * @return void
      */
-    public function reverseGeocode($lat, $lon, $addressdetails = true, $zoom = 18, $format = 'xml')
-    {
+    public function reverseGeocode(
+        $lat,
+        $lon,
+        $addressdetails = true,
+        $zoom = 18,
+        $format = 'xml'
+    ) {
         $nominatim = new Services_OpenStreetMap_Nominatim(
             $this->getTransport()
         );
         return $nominatim
             ->setFormat($format)
-            ->reverseGeocode($lat, $lon, $addressdetails);
+            ->reverseGeocode($lat, $lon, $addressdetails, $zoom);
     }
 
     /**
