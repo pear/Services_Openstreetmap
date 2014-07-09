@@ -99,6 +99,13 @@ class Services_OpenStreetMap_Nominatim
     protected $limit = null;
 
     /**
+     * CSVs of valid country codes to restrict search to.
+     *
+     * @var string
+     */
+    protected $countryCodes = null;
+
+    /**
      * The transport to use
      *
      * @var Services_OpenStreetMap_Transport
@@ -149,6 +156,9 @@ class Services_OpenStreetMap_Nominatim
         if ($this->email_address !== null) {
             $params['email'] = $this->email_address;
         }
+        if ($this->countryCodes !== null) {
+            $params['countrycodes'] = $this->countryCodes;
+        }
         $query = http_build_query($params);
         return $query;
     }
@@ -187,6 +197,7 @@ class Services_OpenStreetMap_Nominatim
         }
         $query = http_build_query($params);
         $url = $this->server . 'reverse?' . $query;
+        var_dump($url);
 
         $reversegeocode = null;
         $response = $this->getTransport()->getResponse($url);
@@ -400,6 +411,23 @@ class Services_OpenStreetMap_Nominatim
             );
         }
         $this->email_address = $email;
+        return $this;
+    }
+
+    /**
+     * Set country codes to limit search results to.
+     *
+     * @param string $codes CSV list of country codes.
+     *
+     * @return Services_OpenStreetMap_Nominatim
+     */
+    public function setCountryCodes($codes)
+    {
+        if ($codes == '') {
+            $this->countryCodes = null;
+        } else {
+            $this->countryCodes = $codes;
+        }
         return $this;
     }
 
