@@ -142,7 +142,9 @@
             <fileset dir="Services" includes="**/*.php"/>
         </coverage-setup>
         <phpunit printsummary="yes" codecoverage="yes">
-            <formatter type="plain" usefile="no"/>
+            <formatter type="clover" outfile="${builddir}/logs/clover.xml"/>
+            <formatter type="xml" outfile="${builddir}/logs/junit.xml"/>
+            <formatter type="plain"  usefile="no"/>
             <batchtest>
                 <fileset refid="tests"/>
             </batchtest>
