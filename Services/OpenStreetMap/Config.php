@@ -244,6 +244,13 @@ class Services_OpenStreetMap_Config
         return $this;
     }
 
+    /**
+     * setAcceptLanguage
+     *
+     * @param string $language Accept Language
+     *
+     * @return Services_OpenStreetMap_Config
+     */
     public function setAcceptLanguage($language)
     {
         $this->_validateLanguage($language);
@@ -251,6 +258,14 @@ class Services_OpenStreetMap_Config
         return $this;
     }
 
+    /**
+     * _validateLanguage
+     *
+     * @param string $language ISO representation of language to validate
+     *
+     * @return void
+     * @throws Exception If language invalid
+     */
     private function _validateLanguage($language)
     {
         $langs = explode(",", $language);

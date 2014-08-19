@@ -212,6 +212,7 @@ class Services_OpenStreetMap_Transport_HTTP
      * @param string $type    object type
      * @param mixed  $id      id of object to retrieve
      * @param mixed  $version version of object
+     * @param mixed  $append  portion to append to request URL
      *
      * @return object
      * @throws Services_OpenStreetMap_Exception

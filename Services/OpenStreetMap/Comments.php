@@ -33,6 +33,13 @@ class Services_OpenStreetMap_Comments extends Services_OpenStreetMap_Objects
         return 'comment';
     }
 
+    /**
+     * __construct
+     *
+     * @param array $array Objects
+     *
+     * @return Services_OpenStreetMap_Comments
+     */
     public function __construct(array $array = array())
     {
         $this->objects = $array;

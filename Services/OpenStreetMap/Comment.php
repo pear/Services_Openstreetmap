@@ -95,7 +95,6 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
         if (isset($kids['id'])) {
             $this->setId($kids['id']);
         }
-#        var_dump($this->tags);
         $this->obj = $obj;
         return $this;
     }

@@ -2,26 +2,38 @@
 <!-- build xml -->
 
 <project name="services_openstreetmap" default="main">
-    <available file="docs" property="docs_exist" value="Y"/>
+    <property name="checkstyledir" value="logs" />
+    <available file="build/docs" property="docs_exist" value="Y"/>
+    <available file="build/phpmd.xml" property="pmd_exist" value="Y"/>
+    <available file="build/${checkstyledir}/checkstyle.xml" property="phpcs_exist" value="Y"/>
     <available file="tests/coverage" property="coverage_exist" value="Y"/>
+
     <fileset dir="tests" id="tests" includes="**/*.php"/>
     <fileset dir="Services" id="Services" includes="**/*.php"/>
 
     <target name="main" depends="test,phpcs,docs"/>
 
     <target name="docs" description="Generate Documentation" depends="clean_docs">
-        <mkdir dir="docs" />
+        <mkdir dir="build/docs" />
         <phpdoc2 title="Services_Openstreetmap" destdir="docs">
             <fileset refid="Services"/>
         </phpdoc2>
     </target>
 
     <target name="phpcs" description="coding standards">
-        <phpcodesniffer standard="PEAR" haltonerror="yes"> 
+        <mkdir dir="build/${checkstyledir}" />
+        <phpcodesniffer format="checkstyle" standard="PEAR" haltonerror="yes"> 
+        <formatter type="checkstyle" outfile="build/${checkstyledir}/checkstyle.xml"/>
             <fileset refid="Services"/>
         </phpcodesniffer>
     </target>
 
+    <target name="phpmd" description="PHP Mess Detector.">
+        <phpmd rulesets="unusedcode">
+            <fileset refid="Services"/>
+            <formatter type="xml" outfile="build/logs/pmd.xml"/>
+        </phpmd>
+    </target>
     <target name="lint" description="Check syntax">
         <phplint>
             <fileset refid="Services"/>
@@ -47,7 +59,7 @@
         </coverage-report>
     </target>
 
-    <target name="clean" depends="clean_phpunit,clean_docs"/>
+    <target name="clean" depends="clean_phpunit,clean_docs,clean_pmd"/>
 
     <target name="clean_phpunit" if="coverage_exist">
         <delete verbose='yes'>
@@ -62,6 +74,14 @@
         <delete verbose='yes'>
             <fileset dir="docs">
                 <include name="**.*" />
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="clean_pmd" description="Clean Mess Detector file[s]." if="pmd_exist">
+        <delete verbose="yes">
+            <fileset dir="build">
+            <include name="phpmd.xml"/>
             </fileset>
         </delete>
     </target>

@@ -175,7 +175,8 @@ class Services_OpenStreetMap_OpeningHours
         } else {
             // here we go again... need to refactor/decide a better algorithm.
             $months = array(
-                'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
+                'jan', 'feb', 'mar', 'apr', 'may', 'jun',
+                'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
             );
             if (in_array($portions[0], $months)) {
                 $month = strtolower(date('M', $time));
