@@ -15,7 +15,7 @@
 
     <target name="docs" description="Generate Documentation" depends="clean_docs">
         <mkdir dir="build/docs" />
-        <phpdoc2 title="Services_Openstreetmap" destdir="docs">
+        <phpdoc2 title="Services_Openstreetmap" destdir="build/docs">
             <fileset refid="Services"/>
         </phpdoc2>
     </target>
@@ -72,7 +72,7 @@
 
     <target name="clean_docs" if="docs_exist">
         <delete verbose='yes'>
-            <fileset dir="docs">
+            <fileset dir="build/docs">
                 <include name="**.*" />
             </fileset>
         </delete>
