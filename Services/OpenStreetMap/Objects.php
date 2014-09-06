@@ -223,6 +223,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return void
      * @throws LogicException
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function offsetSet($offset, $value)
     {
@@ -236,6 +237,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return void
      * @throws LogicException
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function offsetUnset($offset)
     {

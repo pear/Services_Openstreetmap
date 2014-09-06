@@ -197,7 +197,6 @@ class Services_OpenStreetMap_Nominatim
         }
         $query = http_build_query($params);
         $url = $this->server . 'reverse?' . $query;
-        var_dump($url);
 
         $reversegeocode = null;
         $response = $this->getTransport()->getResponse($url);

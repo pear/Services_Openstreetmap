@@ -261,7 +261,7 @@ class Services_OpenStreetMap_OpeningHours
     private function _evaluateOpenEnded($time_spec)
     {
         $start = $this->_startTime($time_spec);
-        $d = getdate($time);
+        $d = getdate($start);
         $ctime = $d['hours'] * 60 + $d['minutes'];
         if ($ctime < $start) {
             return false;

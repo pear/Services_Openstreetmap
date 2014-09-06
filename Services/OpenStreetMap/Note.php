@@ -196,7 +196,6 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
             if ($name == 'comments') {
                 $comments = array();
                 foreach ($child->children() as $gchild) {
-                    $gname = (string) $gchild->getName();
                     $comment = new Services_OpenStreetMap_Comment;
                     $comment->setXml($gchild);
                     $comments[] = $comment;
