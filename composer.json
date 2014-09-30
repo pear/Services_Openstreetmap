@@ -12,7 +12,7 @@
     "homepage": "https://github.com/kenguest/Services_Openstreetmap",
     "keywords": ["openstreetmap"],
     "license": "BSD-3-Clause",
-    "name": "kenguest/services-osm",
+    "name": "kenguest/services-openstreetmap",
     "type": "library",
     "repositories": [
         {
