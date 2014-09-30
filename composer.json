@@ -14,16 +14,6 @@
     "license": "BSD-3-Clause",
     "name": "kenguest/services-openstreetmap",
     "type": "library",
-    "repositories": [
-        {
-            "type": "pear",
-            "url": "http://pear.php.net"
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:kenguest/Services_Openstreetmap.git"
-        }
-    ],
     "require": {
         "php": ">=5.3.0",
         "pear-pear/HTTP_Request2": "2.0.0",
