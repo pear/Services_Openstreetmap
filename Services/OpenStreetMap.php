@@ -61,7 +61,7 @@ class Services_OpenStreetMap
      */
     public static function autoload($class)
     {
-        $dir  = dirname(dirname(__FILE__));
+        $dir = dirname(dirname(__FILE__));
         $file = $dir . '/' . str_replace('_', '/', $class) . '.php';
         if (file_exists($file)) {
             return include_once $file;
@@ -264,7 +264,6 @@ class Services_OpenStreetMap
         return $this->xml;
     }
 
-
     /**
      * search based on given criteria.
      *
@@ -338,7 +337,7 @@ class Services_OpenStreetMap
      */
     private function _searchNode(SimpleXMLElement $node, $key, $value, $type)
     {
-        $class =  'Services_OpenStreetMap_' . ucfirst(strtolower($type));
+        $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($type));
         $results = array();
         foreach ($node->tag as $tag) {
             if ($tag['k'] == $key) {
@@ -570,5 +569,6 @@ class Services_OpenStreetMap
         }
     }
 }
+
 // vim:set et ts=4 sw=4:
 ?>
