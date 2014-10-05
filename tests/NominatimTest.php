@@ -200,15 +200,13 @@ class NominatimTest extends PHPUnit_Framework_TestCase
     public function testJsonSearchNameGa()
     {
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen(__DIR__ . '/responses/search.json', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/search_ga.json', 'rb'));
 
         $osm = new Services_OpenStreetMap(array('adapter' => $mock));
-        $osm = new Services_OpenStreetMap();
 
         $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
         $nominatim->setFormat('json');
         $nominatim->setAcceptLanguage('ga');
-        // @todo this needs to be mocked
         $place = $nominatim->search('Limerick, Ireland', 1);
         $this->assertEquals($place[0]->class, 'place');
         $this->assertEquals($place[0]->type, 'city');

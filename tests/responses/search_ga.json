@@ -1,0 +1,13 @@
+HTTP/1.1 200 OK
+Date: Mon, 09 Apr 2012 18:38:13 GMT
+Server: Apache/2.2.14 (Ubuntu)
+Content-Location: search.php
+Vary: negotiate
+TCN: choice
+X-Powered-By: PHP/5.3.2-1ubuntu4.14
+Access-Control-Allow-Origin: *
+Content-Length: 464
+Connection: close
+Content-Type: application/json; charset=UTF-8
+
+[{"place_id":"4353410","licence":"Data Copyright OpenStreetMap Contributors, Some Rights Reserved. CC-BY-SA 2.0.","osm_type":"node","osm_id":"428339453","boundingbox":["52.651254882813","52.67125869751","-8.6402089691162","-8.6202080154419"],"lat":"52.6612577","lon":"-8.6302084","display_name":"Luimneach, Contae Luimnigh, Cúige Mumhan, Éire","class":"place","type":"city","icon":"http://nominatim.openstreetmap.org/images/mapicons/poi_place_city.p.20.png"}]
