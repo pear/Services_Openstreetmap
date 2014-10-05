@@ -5,21 +5,23 @@
  *
  * PHP Version 5
  *
- * @category Services
- * @package  Services_OpenStreetMap
- * @author   Ken Guest <kguest@php.net>
- * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @link     Relations.php
+ * @category   Services
+ * @package    Services_OpenStreetMap
+ * @subpackage Services_OpenStreetMap_Object
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @link       Relations.php
  */
 
 /**
  * Services_OpenStreetMap_Relations
  *
- * @category Services
- * @package  Services_OpenStreetMap
- * @author   Ken Guest <kguest@php.net>
- * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @link     Relations.php
+ * @category   Services
+ * @package    Services_OpenStreetMap
+ * @subpackage Services_OpenStreetMap_Object
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @link       Relations.php
  */
 class Services_OpenStreetMap_Relations extends Services_OpenStreetMap_Objects
 {

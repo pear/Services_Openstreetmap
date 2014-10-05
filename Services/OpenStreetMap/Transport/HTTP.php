@@ -5,12 +5,13 @@
  *
  * PHP Version 5
  *
- * @category Services
- * @package  Services_OpenStreetMap
- * @author   Ken Guest <kguest@php.net>
- * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @version  Release: @package_version@
- * @link     http://pear.php.net/package/Services_OpenStreetMap
+ * @category   Services
+ * @package    Services_OpenStreetMap
+ * @subpackage Services_OpenStreetMap_Transport
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @version    Release: @package_version@
+ * @link       http://pear.php.net/package/Services_OpenStreetMap
  */
 require_once 'Services/OpenStreetMap/Transport.php';
 
@@ -21,11 +22,12 @@ require_once 'HTTP/Request2.php';
 /**
  * Services_OpenStreetMap_Transport
  *
- * @category Services
- * @package  Services_OpenStreetMap
- * @author   Ken Guest <kguest@php.net>
- * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @link     Transport.php
+ * @category   Services
+ * @package    Services_OpenStreetMap
+ * @subpackage Services_OpenStreetMap_Transport
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @link       Transport.php
  */
 class Services_OpenStreetMap_Transport_HTTP
     implements Services_OpenStreetMap_Transport

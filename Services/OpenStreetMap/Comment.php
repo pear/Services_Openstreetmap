@@ -5,22 +5,24 @@
  *
  * PHP Version 5
  *
- * @category Services
- * @package  Services_OpenStreetMap
- * @author   Ken Guest <kguest@php.net>
- * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @version  Release: @package_version@
- * @link     Comment.php
+ * @category   Services
+ * @package    Services_OpenStreetMap
+ * @subpackage Services_OpenStreetMap_Object
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @version    Release: @package_version@
+ * @link       Comment.php
  */
 
 /**
  * Services_OpenStreetMap_Comment
  *
- * @category Services
- * @package  Services_OpenStreetMap
- * @author   Ken Guest <kguest@php.net>
- * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @link     Comment.php
+ * @category   Services
+ * @package    Services_OpenStreetMap
+ * @subpackage Services_OpenStreetMap_Object
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @link       Comment.php
  */
 class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
 {
