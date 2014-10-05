@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Date: Sun, 05 Oct 2014 12:46:08 GMT
+Server: Apache
+Content-Location: reverse.php
+Vary: negotiate,Accept-Encoding,User-Agent
+TCN: choice
+X-Powered-By: PHP/5.3.3
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: OPTIONS,GET
+Content-Length: 833
+Keep-Alive: timeout=5, max=39
+Connection: Keep-Alive
+Content-Type: text/xml; charset=UTF-8
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<reversegeocode timestamp='Sun, 05 Oct 14 12:46:08 +0000' attribution='Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright' querystring='format=xml&amp;lat=53.3459641&amp;lon=-6.2548149&amp;addressdetails=1&amp;accept-language=en'>
+<result place_id="111944696" osm_type="way" osm_id="172085393" ref="The Irish Times" lat="53.3460836" lon="-6.25491418956946">The Irish Times, 24-28, Tara Street, Dublin 2, Dublin, County Dublin, Leinster, 2, Ireland</result><addressparts><house>The Irish Times</house><house_number>24-28</house_number><road>Tara Street</road><city>Dublin</city><county>County Dublin</county><state_district>Leinster</state_district><postcode>2</postcode><country>Ireland</country><country_code>ie</country_code></addressparts></reversegeocode>
