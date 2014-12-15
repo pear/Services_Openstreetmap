@@ -33,7 +33,7 @@ class Services_OpenStreetMap_User
     protected $preferences = array();
 
     /**
-     * transport
+     * Transport object.
      *
      * @var Services_OpenStreetMap_Transport
      */
@@ -48,7 +48,7 @@ class Services_OpenStreetMap_User
 
 
     /**
-     * setXml
+     * Set the XML representing this user.
      *
      * @param SimpleXMLElement $xml XML describing a user.
      *
@@ -62,7 +62,7 @@ class Services_OpenStreetMap_User
     }
 
     /**
-     * setPreferencesXml
+     * Set the XML for preferences.
      *
      * @param mixed $xml XML describing a user's preferences.
      *
@@ -315,7 +315,7 @@ class Services_OpenStreetMap_User
     }
 
     /**
-     * return an array of the user's preferences.
+     * Return an array of the user's preferences.
      *
      * @return array
      */
@@ -336,7 +336,7 @@ class Services_OpenStreetMap_User
     }
 
     /**
-     * set user preferences, updating the values on the server automatically.
+     * Set user preferences, updating the values on the server automatically.
      *
      * To update a single preference, use an array wit just one entry.
      *

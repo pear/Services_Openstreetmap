@@ -27,13 +27,15 @@ class Services_OpenStreetMap_API_V06
     /**
      * Elements supported by the API (v0.6).
      * Used for validation purposes.
+     *
      * @var array
+     *
      * @internal
      */
     protected $elements = array('changeset', 'node', 'relation', 'way');
 
     /**
-     * transport
+     * Transport
      *
      * @var Services_OpenStreetMap_Transport
      */
@@ -48,7 +50,8 @@ class Services_OpenStreetMap_API_V06
 
     /**
      * Counter for assigning IDs to [newly] created objects.
-     * @var int
+     *
+     * @var      int
      * @internal
      */
     protected $newId = -1;
@@ -100,13 +103,14 @@ class Services_OpenStreetMap_API_V06
     }
 
     /**
-     * Get details of specified relation, optionally specify which version of
-     * the relation to be retrieved.
+     * Get details of specified relation.
      *
-     * <pre>
+     * Optionally specify which version of the relation to be retrieved.
+     *
+     * <code>
      * $r = $osm->getRelation(1234567);
      * $r = $osm->getRelation(1234567, 2);
-     * </pre>
+     * </code>
      *
      * @param mixed $relationID ID of relation
      * @param mixed $version    [optional] version of relation
@@ -119,11 +123,13 @@ class Services_OpenStreetMap_API_V06
     }
 
     /**
-     * Return an array of specified relations
+     * Return an array of specified relations.
      *
-     * <pre>
+     * Call with relation ids as parameters.
+     *
+     * <code>
      * $relations = $osm->getRelations($relationId, $relation2Id);
-     * </pre>
+     * </code>
      *
      * @return array
      */
@@ -136,7 +142,9 @@ class Services_OpenStreetMap_API_V06
     }
 
     /**
-     * Get details of specified changeset
+     * Get details of specified changeset.
+     *
+     * Optionally specify version of the changeset.
      *
      * <code>
      * $changeset = $osm->getChangeset(123456);
@@ -153,7 +161,9 @@ class Services_OpenStreetMap_API_V06
     }
 
     /**
-     * Create a changeset, used to transmit changes (creation, updates, deletion)
+     * Create a changeset.
+     *
+     * Used to transmit changes (creation, updates, deletion)
      * to the server. Username and password must be set.
      *
      * <code>
@@ -165,7 +175,7 @@ class Services_OpenStreetMap_API_V06
      * @param boolean $atomic atomic changeset?
      *
      * @return Services_OpenStreetMap_Changeset
-     * @see setConfig
+     * @see    setConfig
      */
     public function createChangeset($atomic = true)
     {
@@ -176,7 +186,7 @@ class Services_OpenStreetMap_API_V06
     }
 
     /**
-     * searchChangesets
+     * Search changesets for specified criteria.
      *
      * @param array $criteria Array of Services_OpenStreetMap_Criterion objects.
      *
@@ -203,6 +213,8 @@ class Services_OpenStreetMap_API_V06
 
     /**
      * Create and return a Services_OpenStreetMap_Node
+     *
+     * Latitude and longitude must be specified, array of tags optional.
      *
      * <code>
      * $node = $osm->createNode($lat, $lon, array('building' => 'yes'));
@@ -357,13 +369,15 @@ class Services_OpenStreetMap_API_V06
     }
 
     /**
-     * getWayFull
+     * Get way plus full XML of all nodes referenced by it.
+     *
+     * API call retrieves a way or relation and all other elements referenced by it
      *
      * @param mixed $wayID   wayID
      * @param mixed $version Version of way
      *
      * @return void
-     * @note: do a similary getRelationFull method also
+     * @note:  do a similary getRelationFull method also
      */
     public function getWayFull($wayID, $version)
     {
@@ -382,9 +396,11 @@ class Services_OpenStreetMap_API_V06
     /**
      * Return an array of specified ways.
      *
-     * <pre>
+     * Any number of ways can be specified.
+     *
+     * <code>
      * $ways = $osm->getWays($wayId, $way2Id);
-     * </pre>
+     * </code>
      *
      * @return array
      */
@@ -397,7 +413,9 @@ class Services_OpenStreetMap_API_V06
     }
 
     /**
-     * Get details of specified node
+     * Get details of specified node.
+     *
+     * Optionally, version of the node can be specified also.
      *
      * <code>
      * $osm = new Services_OpenStreetMap();
@@ -482,14 +500,14 @@ class Services_OpenStreetMap_API_V06
     /**
      * Return array of granted permissions.
      *
+     * The return array may be empty if authorisation failed.
+     *
      * # allow_read_prefs (read user preferences)
      * # allow_write_prefs (modify user preferences)
      * # allow_write_diary (create diary entries, comments and make friends)
      * # allow_write_api (modify the map)
      * # allow_read_gpx (read private GPS traces)
      * # allow_write_gpx (upload GPS traces)
-     *
-     * This may be empty if authorisation failed.
      *
      * @return array
      */

@@ -115,7 +115,7 @@ class Services_OpenStreetMap_Nominatim
     protected $transport = null;
 
     /**
-     * __construct
+     * Constructor
      *
      * @param Services_OpenStreetMap_Transport $transport Transport instance.
      *
@@ -166,7 +166,7 @@ class Services_OpenStreetMap_Nominatim
     }
 
     /**
-     * reverseGeocode
+     * Reverse geocode a lat/lon pair.
      *
      * Perform a reverse search/geoencoding.
      *
@@ -177,11 +177,11 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return void
      *
-     * @see setFormat
      * @throws Services_OpenStreetMap_RuntimeException If the set format
      *                                                 is not supported.
      *
      * @see setAcceptLanguage
+     * @see setFormat
      */
     public function reverseGeocode($lat, $lon, $addressdetails = 1, $zoom = 18)
     {
@@ -212,7 +212,7 @@ class Services_OpenStreetMap_Nominatim
     }
 
     /**
-     * search
+     * Search
      *
      * @param string  $place Name of place to geocode
      * @param integer $limit Maximum number of results to retrieve (optional)
@@ -271,7 +271,7 @@ class Services_OpenStreetMap_Nominatim
     }
 
     /**
-     * get which format is set for this instance (xml, json, html)
+     * Get which format is set for this instance (xml, json, html)
      *
      * @return string
      */
@@ -281,7 +281,7 @@ class Services_OpenStreetMap_Nominatim
     }
 
     /**
-     * setLimit
+     * Set limit of entries to retrieve.
      *
      * @param integer $limit Maximum number of entries to retrieve
      *
@@ -300,7 +300,7 @@ class Services_OpenStreetMap_Nominatim
     }
 
     /**
-     * get Limit
+     * Get Limit
      *
      * @return integer
      */
@@ -310,7 +310,7 @@ class Services_OpenStreetMap_Nominatim
     }
 
     /**
-     * set Transport object.
+     * Set Transport object.
      *
      * @param Services_OpenStreetMap_Transport $transport transport object
      *

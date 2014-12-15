@@ -30,14 +30,14 @@ class Services_OpenStreetMap_Transport_HTTPCached
 {
 
     /**
-     * cache object
+     * Cache object
      *
      * @var Cache
      */
     protected $cache;
 
     /**
-     * __construct
+     * Constructor, setting file Cache object.
      *
      * @return Services_OpenStreetMap_Transport_HTTPCached
      */
@@ -49,7 +49,7 @@ class Services_OpenStreetMap_Transport_HTTPCached
     }
 
     /**
-     * setCache
+     * Set the cache object
      *
      * @param Cache $cache Cache object
      *
@@ -74,10 +74,10 @@ class Services_OpenStreetMap_Transport_HTTPCached
      *
      * @access public
      * @return HTTP_Request2_Response
-     * @todo Consider just returning the content?
-     * @throws  Services_OpenStreetMap_Exception If something unexpected has
-     *                                           happened while conversing with
-     *                                           the server.
+     * @todo   Consider just returning the content?
+     * @throws Services_OpenStreetMap_Exception If something unexpected has
+     *                                          happened while conversing with
+     *                                          the server.
      */
     public function getResponse(
         $url,

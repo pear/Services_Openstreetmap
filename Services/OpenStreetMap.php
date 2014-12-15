@@ -39,21 +39,23 @@ class Services_OpenStreetMap
     protected $config = null;
 
     /**
-     * [Retrieved] XML
+     * Retrieved XML
+     *
      * @var string
+     *
      * @internal
      */
     protected $xml = null;
 
     /**
-     * transport
+     * Transport
      *
      * @var Services_OpenStreetMap_Transport
      */
     protected $transport = null;
 
     /**
-     * autoloader
+     * Autoloader
      *
      * @param string $class Name of class
      *
@@ -70,7 +72,7 @@ class Services_OpenStreetMap
     }
 
     /**
-     * constructor; which optionally sets config details.
+     * Constructor; which optionally sets config details.
      *
      * @param array $configuration Defaults to empty array if none provided
      *
@@ -100,6 +102,8 @@ class Services_OpenStreetMap
      * Convert a 'bbox' ordered set of coordinates to ordering required for get
      * method.
      *
+     * That is, return a,b,c,d as b,a,d,c
+     *
      * <code>
      * $osm = new Services_OpenStreetMap();
      * $osm->get($osm->bboxToMinMax($minLat, $minLon, $maxLat, $maxLon));
@@ -121,7 +125,10 @@ class Services_OpenStreetMap
     /**
      * Get XML describing area prescribed by the given co-ordinates.
      *
+     * Use in conjunction with bboxToMinMax if required.
+     *
      * <code>
+     * // $osm->get($osm->bboxToMinMax($minLat, $minLon, $maxLat, $maxLon));
      * $osm = new Services_OpenStreetMap();
      * $osm->get(-8.3564758, 52.821022799999994, -7.7330017, 53.0428644);
      * file_put_contents("area_covered.osm", $osm->getXML());
@@ -148,6 +155,8 @@ class Services_OpenStreetMap
 
     /**
      * Get co-ordinates of some named place
+     *
+     * Place can be comma delimited for precision. e.g. 'Limerick, Ireland'
      *
      * <code>
      * $coords = $osm->getCoordsOfPlace('Limerick, Ireland');
@@ -192,7 +201,7 @@ class Services_OpenStreetMap
     }
 
     /**
-     * reverseGeocode
+     * ReverseGeocode
      *
      * Peform a reverse search/geoencoding.
      *
@@ -227,7 +236,6 @@ class Services_OpenStreetMap
      * @param mixed $args results of call to func_get_args
      *
      * @return array
-     *
      */
     public static function getIDs($args)
     {
@@ -255,7 +263,7 @@ class Services_OpenStreetMap
     }
 
     /**
-     * return XML.
+     * Return XML.
      *
      * @return string
      */
@@ -265,9 +273,9 @@ class Services_OpenStreetMap
     }
 
     /**
-     * search based on given criteria.
+     * Search based on given criteria.
      *
-     * returns an array of objects such as Services_OpenStreetMap_Node etc.
+     * Returns an array of objects such as Services_OpenStreetMap_Node etc.
      *
      * <code>
      *  $osm = new Services_OpenStreetMap();
@@ -374,7 +382,9 @@ class Services_OpenStreetMap
     }
 
     /**
-     * minVersion - min API version supported by connected server.
+     * Minimum Version
+     *
+     * Min API version supported by connected server.
      *
      * <code>
      * $config = array('user' => 'fred@example.net', 'password' => 'wilma4eva');
@@ -390,7 +400,9 @@ class Services_OpenStreetMap
     }
 
     /**
-     * maxVersion - max API version supported by connected server.
+     * Maximum Version
+     *
+     * Max API version supported by connected server.
      *
      * <code>
      * $config = array('user' => 'fred@example.net', 'password' => 'wilma4eva');
@@ -406,6 +418,8 @@ class Services_OpenStreetMap
     }
 
     /**
+     * Maximum Area
+     *
      * Max size of area that can be downloaded in one request.
      *
      * <code>
@@ -422,6 +436,8 @@ class Services_OpenStreetMap
 
     /**
      * Maximum number of tracepoints per page.
+     *
+     * Re gpx tracepoints.
      *
      * <code>
      * $osm = new Services_OpenStreetMap();
@@ -454,6 +470,8 @@ class Services_OpenStreetMap
 
     /**
      * Number of elements allowed per changeset
+     *
+     * Maximum number of elements...
      *
      * <code>
      * $osm = new Services_OpenStreetMap();
@@ -531,7 +549,7 @@ class Services_OpenStreetMap
     }
 
     /**
-     * set Transport object.
+     * Set Transport object.
      *
      * @param Services_OpenStreetMap_Transport $transport transport object
      *
@@ -544,7 +562,7 @@ class Services_OpenStreetMap
     }
 
     /**
-     * __call
+     * Execute method provided by API class.
      *
      * If possible, call the appropriate method of the API instance.
      *

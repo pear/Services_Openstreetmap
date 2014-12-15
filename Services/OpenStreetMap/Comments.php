@@ -26,7 +26,7 @@
 class Services_OpenStreetMap_Comments extends Services_OpenStreetMap_Objects
 {
     /**
-     * type
+     * Type
      *
      * @return string type
      */
@@ -36,7 +36,7 @@ class Services_OpenStreetMap_Comments extends Services_OpenStreetMap_Objects
     }
 
     /**
-     * __construct
+     * Constructor
      *
      * @param array $array Objects
      *

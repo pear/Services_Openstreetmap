@@ -51,7 +51,7 @@ interface Services_OpenStreetMap_Transport
 
 
     /**
-     * getObject
+     * Get object of specified type and id, optionally of specified version.
      *
      * Returns false if the object is not found
      *
@@ -65,7 +65,7 @@ interface Services_OpenStreetMap_Transport
     public function getObject($type, $id, $version = null);
 
     /**
-     * getObjects
+     * Get objects of specified type.
      *
      * @param string $type object type
      * @param array  $ids  ids of objects to retrieve
@@ -87,10 +87,9 @@ interface Services_OpenStreetMap_Transport
      *
      * @access public
      * @return HTTP_Request2_Response
-     * @todo Consider just returning the content?
-     * @throws  Services_OpenStreetMap_Exception If something unexpected has
-     *                                           happened while conversing with
-     *                                           the server.
+     * @throws Services_OpenStreetMap_Exception If something unexpected has
+     *                                          happened while conversing with
+     *                                          the server.
      */
     public function getResponse(
         $url,
@@ -103,12 +102,14 @@ interface Services_OpenStreetMap_Transport
     );
 
     /**
-     * searchObjects
+     * Search Objects of specified type for certain criteria.
      *
      * @param string $type     object type (e.g. changeset)
      * @param array  $criteria array of criterion objects.
      *
      * @return Services_OpenStreetMap_Objects
+     *
+     * @see Services_OpenStreetMap_Criterion
      */
     public function searchObjects($type, array $criteria);
 

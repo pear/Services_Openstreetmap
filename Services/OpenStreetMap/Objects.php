@@ -27,7 +27,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
 {
 
     /**
-     * xml representation of the objects
+     * XML representation of the objects
      *
      * @var string
      */
@@ -41,14 +41,14 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
     protected $objects = null;
 
     /**
-     * position/pointer for navigating objects array
+     * Position/pointer for navigating objects array
      *
      * @var int
      */
     protected $position = 0;
 
     /**
-     * transport
+     * Transport object
      *
      * @var Services_OpenStreetMap_Transport
      */
@@ -74,7 +74,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
     }
 
     /**
-     * getXml
+     * Get Xml of the object.
      *
      * @return string
      */
@@ -84,7 +84,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
     }
 
     /**
-     * setXml
+     * Set Xml for the object.
      *
      * @param SimpleXMLElement $xml OSM XML
      *
@@ -225,6 +225,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return void
      * @throws LogicException
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function offsetSet($offset, $value)
@@ -239,6 +240,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return void
      * @throws LogicException
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function offsetUnset($offset)

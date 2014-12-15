@@ -104,7 +104,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
     }
 
     /**
-     * getComments
+     * Get Comments against this note.
      *
      * @return void
      */
@@ -114,11 +114,13 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
     }
 
     /**
-     * set the Latitude of the note
+     * Set the Latitude of the note
      *
-     * <pre>
+     * Latitude may range from -180 to 180 degrees.
+     *
+     * <code>
      * $note->setLat($lat)->setLon($lon);
-     * </pre>
+     * </code>
      *
      * @param float $value Latitude (-180 < y < 180)
      *
@@ -146,11 +148,13 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
     }
 
     /**
-     * set the Longitude of the note
+     * Set the Longitude of the note
      *
-     * <pre>
+     * Longitude may range from -90 to 90 degrees.
+     *
+     * <code>
      * $note->setLat($lat)->setLon($lon);
-     * </pre>
+     * </code>
      *
      * @param float $value Longitude (-90 < x < 90)
      *
@@ -178,7 +182,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
     }
 
     /**
-     * setXml
+     * Set XML
      *
      * @param SimpleXMLElement $xml OSM XML
      *

@@ -33,7 +33,7 @@ class Services_OpenStreetMap_Transport_HTTP
     implements Services_OpenStreetMap_Transport
 {
     /**
-     * __construct
+     * Constructor
      *
      * @return Services_OpenStreetMap_Transport_HTTP
      */
@@ -51,9 +51,10 @@ class Services_OpenStreetMap_Transport_HTTP
      * methods if necessary.
      *
      * @var HTTP_Request2 $request
-     * @internal
      * @see Services_OpenStreetMap::getRequest
      * @see Services_OpenStreetMap::setRequest
+     *
+     * @internal
      */
     protected $request = null;
 
@@ -85,9 +86,9 @@ class Services_OpenStreetMap_Transport_HTTP
      * @param array  $headers   (optional)
      *
      * @return HTTP_Request2_Response
-     * @throws  Services_OpenStreetMap_Exception If something unexpected has
-     *                                           happened while conversing with
-     *                                           the server.
+     * @throws Services_OpenStreetMap_Exception If something unexpected has
+     *                                          happened while conversing with
+     *                                          the server.
      */
     public function getResponse(
         $url,
@@ -195,7 +196,7 @@ class Services_OpenStreetMap_Transport_HTTP
     }
 
     /**
-     * set Log object
+     * Set Log object.
      *
      * @param Log $log Log object
      *
@@ -207,14 +208,14 @@ class Services_OpenStreetMap_Transport_HTTP
     }
 
     /**
-     * getObject
+     * Get object of specified type and id.
      *
      * Returns false if the object is not found
      *
      * @param string $type    object type
      * @param mixed  $id      id of object to retrieve
-     * @param mixed  $version version of object
-     * @param mixed  $append  portion to append to request URL
+     * @param mixed  $version version of object, optional
+     * @param mixed  $append  portion to append to request URL, optional
      *
      * @return object
      * @throws Services_OpenStreetMap_Exception
@@ -261,13 +262,12 @@ class Services_OpenStreetMap_Transport_HTTP
     }
 
     /**
-     * getObjects
+     * Get objects of specified type.
      *
      * @param string $type object type
      * @param array  $ids  ids of objects to retrieve
      *
      * @return void
-     *
      */
     public function getObjects($type, array $ids)
     {
@@ -334,7 +334,7 @@ class Services_OpenStreetMap_Transport_HTTP
     }
 
     /**
-     * searchObjects
+     * Search objects of specified type for certain criteria.
      *
      * @param string $type     object type (e.g. changeset)
      * @param array  $criteria array of criterion objects.

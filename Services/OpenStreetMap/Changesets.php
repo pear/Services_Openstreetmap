@@ -26,7 +26,7 @@
 class Services_OpenStreetMap_Changesets extends Services_OpenStreetMap_Objects
 {
     /**
-     * type ['changeset']
+     * Type ['changeset']
      *
      * @return string type
      */

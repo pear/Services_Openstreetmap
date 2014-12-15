@@ -52,7 +52,7 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
     }
 
     /**
-     * type
+     * Type
      *
      * @return string
      */
@@ -62,7 +62,7 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
     }
 
     /**
-     * addMember
+     * Add Member to the relation.
      *
      * @todo   add member to relation
      * @return void
@@ -72,7 +72,7 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
     }
 
     /**
-     * remove a member from the relation.
+     * Remove a member from the relation.
      *
      * @todo   remove member from relation
      * @return void
@@ -82,7 +82,7 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
     }
 
     /**
-     * setXml
+     * Set the Xml
      *
      * @param SimpleXMLElement $xml OSM XML
      *

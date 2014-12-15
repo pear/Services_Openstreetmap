@@ -26,7 +26,7 @@
 class Services_OpenStreetMap_Notes extends Services_OpenStreetMap_Objects
 {
     /**
-     * type
+     * Type
      *
      * @return string type
      */

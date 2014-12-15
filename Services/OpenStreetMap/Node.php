@@ -54,11 +54,13 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
     }
 
     /**
-     * set the Latitude of the node
+     * Set the Latitude of the node
      *
-     * <pre>
+     * Value must be in range of -90 to 90 degrees.
+     *
+     * <code>
      * $node->setLat($lat)->setLon($lon);
-     * </pre>
+     * </code>
      *
      * @param float $value Latitude (-90 < y < 90)
      *
@@ -86,11 +88,13 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
     }
 
     /**
-     * set the Longitude of the node
+     * Set the Longitude of the node
      *
-     * <pre>
+     * Value must be in range of -180 to 180 degrees.
+     *
+     * <code>
      * $node->setLat($lat)->setLon($lon);
-     * </pre>
+     * </code>
      *
      * @param float $value Longitude (-180 < x < 180)
      *

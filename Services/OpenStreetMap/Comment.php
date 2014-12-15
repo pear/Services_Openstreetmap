@@ -74,7 +74,7 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
     }
 
     /**
-     * setXml
+     * Set XML
      *
      * @param SimpleXMLElement $xml OSM XML
      *

@@ -27,7 +27,7 @@
 class Services_OpenStreetMap_Object
 {
     /**
-     * xml represention of the object
+     * XML represention of the object
      *
      * @var string
      */
@@ -48,7 +48,7 @@ class Services_OpenStreetMap_Object
     protected $id = null;
 
     /**
-     * transport
+     * Transport object
      *
      * @var Services_OpenStreetMap_Transport
      */
@@ -62,7 +62,7 @@ class Services_OpenStreetMap_Object
     protected $config = null;
 
     /**
-     * type of object
+     * Type of object
      *
      * @var string
      */
@@ -97,7 +97,7 @@ class Services_OpenStreetMap_Object
     protected $changesetId = null;
 
     /**
-     * getXml
+     * Get XML.
      *
      * @return string
      */
@@ -124,7 +124,7 @@ class Services_OpenStreetMap_Object
     }
 
     /**
-     * setXml
+     * Set XML.
      *
      * @param SimpleXMLElement $xml OSM XML
      *
@@ -274,9 +274,11 @@ class Services_OpenStreetMap_Object
     /**
      * Set the id value of the object in question.
      *
-     * <pre>
+     * Specified id should be numeric.
+     *
+     * <code>
      * $obj->setId($id)->...
-     * </pre>
+     * </code>
      *
      * @param integer $value new id of the object
      *
@@ -433,11 +435,13 @@ class Services_OpenStreetMap_Object
     }
 
     /**
-     * set tag to [new] key/value pair.
+     * Set tag to [new] key/value pair.
      *
-     * <pre>
+     * The object is returned, supporting Fluent coding style.
+     *
+     * <code>
      * $obj->setTag('key', 'value')->setTag(...);
-     * </pre>
+     * </code>
      *
      * @param mixed $key   key
      * @param mixed $value value
@@ -459,16 +463,18 @@ class Services_OpenStreetMap_Object
     }
 
     /**
+     * Set tags.
+     *
      * Set a number of tags at once, using an associative array.
      *
-     * <pre>
+     * <code>
      * $obj->setTag(
      *  array(
      *   'key' => 'value',
      *   'key2', 'value2',
      *  )
      * );
-     * </pre>
+     * </code>
      *
      * @param array $tags array of tags.
      *
@@ -484,10 +490,6 @@ class Services_OpenStreetMap_Object
 
     /**
      * Mark the object as deleted.
-     *
-     * <pre>
-     * $obj->delete();
-     * </pre>
      *
      * @return Services_OpenStreetMap_Object
      */

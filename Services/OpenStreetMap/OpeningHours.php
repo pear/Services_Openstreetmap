@@ -32,7 +32,7 @@ class Services_OpenStreetMap_OpeningHours
     protected $value;
 
     /**
-     * __construct
+     * Constructor
      *
      * @param string $value An opening_hours value
      *
@@ -64,7 +64,7 @@ class Services_OpenStreetMap_OpeningHours
      * @param double $time A numeric value representing a time. If null, the
      *                     current time is used.
      *
-     * @link http://wiki.openstreetmap.org/wiki/Key:opening_hours
+     * @link   http://wiki.openstreetmap.org/wiki/Key:opening_hours
      * @return null|boolean
      */
     public function isOpen($time = null)

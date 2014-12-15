@@ -77,7 +77,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     protected $updateMap = array();
 
     /**
-     * __construct
+     * Constructor
      *
      * @return Services_OpenStreetMap_Changeset
      */
@@ -301,7 +301,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     }
 
     /**
-     * getCreatedAt
+     * Get CreatedAt time.
      *
      * @return string
      */
@@ -311,7 +311,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     }
 
     /**
-     * getClosedAt
+     * Get ClosedAt time.
      *
      * @return string
      */
@@ -321,7 +321,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     }
 
     /**
-     * isOpen
+     * Is the changeset open?
      *
      * @return boolean
      */
