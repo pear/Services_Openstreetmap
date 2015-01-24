@@ -22,8 +22,10 @@ require_once 'Services/OpenStreetMap.php';
 
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
-require_once 'PHPUnit/Framework/TestCase.php';
-
+// don't pull in file if using phpunit installed as a PHAR
+if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
+    include_once 'PHPUnit/Framework/TestCase.php';
+}
 
 /**
  * Test Services_OpenStreetMap_Config functionality and how it's used
@@ -40,7 +42,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * test the  getCoordsOfPlace method.
+     * Test the getCoordsOfPlace method.
      *
      * @return void
      */
@@ -62,7 +64,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
      * An exception should be thrown if the place of interest can not be
      * found.
      *
-     * @expectedException Services_OpenStreetMap_Exception
+     * @expectedException        Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Could not get coords for Neeenaaa, Ireland
      *
      * @return void
@@ -82,7 +84,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test setFormat/getFormat methods w html value
+     * Test setFormat/getFormat methods w html value
      *
      * @return void
      */
@@ -96,7 +98,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test setFormat/getFormat methods w json value
+     * Test setFormat/getFormat methods w json value
      *
      * @return void
      */
@@ -110,7 +112,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test setFormat/getFormat methods w xml value
+     * Test setFormat/getFormat methods w xml value
      *
      * @return void
      */
@@ -142,7 +144,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
 
 
     /**
-     * test setLimit/getLimit methods
+     * Test setLimit/getLimit methods
      *
      * @return void
      */
@@ -173,7 +175,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test JSON search
+     * Test JSON search
      *
      * @return void
      */
@@ -217,8 +219,9 @@ class NominatimTest extends PHPUnit_Framework_TestCase
             $display
         );
     }
+
     /**
-     * test HTML search
+     * Test HTML search
      *
      * @return void
      */
@@ -235,7 +238,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test getServer/setServer methods
+     * Test getServer/setServer methods
      *
      * @return void
      */
@@ -279,7 +282,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test PEAR Bug 20205
+     * Test PEAR Bug 20205
      *
      * @return void
      */
@@ -307,7 +310,9 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $attribs = $test[0]->attributes();
         $display = (string) $attribs['display_name'];
         $this->assertEquals(
-            "Москва, Центральный федеральный округ, Российская Федерация",
+            "Москва, " .
+            "Центральный федеральный округ, " .
+            "Российская Федерация",
             $display
         );
     }
@@ -347,7 +352,11 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $xml = $nominatim
             ->setFormat('xml')
             ->reverseGeocode("53.3459641", "-6.2548149");
-        $this->AssertEquals($xml[0]->result, "The Irish Times, 24-28, Tara Street, Dublin 2, Dublin, County Dublin, Leinster, D02, Ireland");
+        $this->AssertEquals(
+            $xml[0]->result,
+            "The Irish Times, 24-28, Tara Street, Dublin 2, Dublin, " .
+            "County Dublin, Leinster, D02, Ireland"
+        );
         $this->AssertEquals($xml[0]->addressparts->road, "Tara Street");
         $this->AssertEquals($xml[0]->addressparts->city, "Dublin");
 

@@ -21,7 +21,9 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'AllTests::main');
 }
 
-require_once 'PHPUnit/TextUI/TestRunner.php';
+if (stream_resolve_include_path('PHPUnit/TextUI/TestRunner.php')) {
+    include_once 'PHPUnit/TextUI/TestRunner.php';
+}
 
 require_once 'ChangesetTest.php';
 require_once 'ConfigTest.php';

@@ -23,15 +23,41 @@ require_once 'Services/OpenStreetMap.php';
 
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
-require_once 'PHPUnit/Framework/TestCase.php';
+// Don't pull in file if using phpunit installed as a PHAR
+if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
+    include_once 'PHPUnit/Framework/TestCase.php';
+}
 
 require_once 'Log.php';
 require_once 'Log/null.php';
 require_once 'Log/observer.php';
 
+/**
+ * Log_OSMTest_Observer
+ *
+ * @category   Services
+ * @package    Services_OpenStreetMap
+ * @subpackage UnitTesting
+ * @author     Ken Guest <kguest@php.net>
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
+ * @link       OSMTest.php
+ */
 class Log_OSMTest_Observer extends Log_observer
 {
+    /**
+     * Entries
+     *
+     * @var array
+     */
     public $entries = array();
+
+    /**
+     * Notify
+     *
+     * @param mixed $event Event
+     *
+     * @return void
+     */
     public function notify($event)
     {
         $this->entries[] = $event;
@@ -151,7 +177,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
      * If the minimum version supported by the server is greater than what this
      * package supports then an exception should be thrown.
      *
-     * @expectedException Services_OpenStreetMap_Exception
+     * @expectedException        Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Specified API Version 0.6 not supported.
      *
      * @return void
@@ -368,7 +394,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * testGetReturnValue
+     * Test getXML's return value
      *
      * @return void
      */
@@ -499,7 +525,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test the  getCoordsOfPlace method.
+     * Test the getCoordsOfPlace method.
      *
      * @return void
      */
@@ -521,7 +547,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
      * An exception should be thrown if the place of interest can not be
      * found.
      *
-     * @expectedException Services_OpenStreetMap_Exception
+     * @expectedException        Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Could not get coords for Neeenaaa, Ireland
      *
      * @return void
@@ -541,7 +567,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test retrieving the history of an object.
+     * Test retrieving the history of an object.
      *
      * @return void
      */
@@ -568,7 +594,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test the bboxToMinMax method
+     * Test the bboxToMinMax method
      *
      * @return void
      */

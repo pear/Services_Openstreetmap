@@ -22,7 +22,9 @@ require_once 'Services/OpenStreetMap.php';
 
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
-require_once 'PHPUnit/Framework/TestCase.php';
+if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
+    include_once 'PHPUnit/Framework/TestCase.php';
+}
 
 /**
  * Test Services_OpenStreetMap_Config functionality and how it's used
@@ -84,7 +86,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     /**
      * Test unknown config detection.
      *
-     * @expectedException Services_OpenStreetMap_InvalidArgumentException
+     * @expectedException        Services_OpenStreetMap_InvalidArgumentException
      * @expectedExceptionMessage Unknown config parameter 'api'
      *
      * @return void
@@ -103,7 +105,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     /**
      * Test unknown config detection.
      *
-     * @expectedException Services_OpenStreetMap_InvalidArgumentException
+     * @expectedException        Services_OpenStreetMap_InvalidArgumentException
      * @expectedExceptionMessage Unknown config parameter 'api'
      *
      * @return void
@@ -120,7 +122,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * testGetValueEmptyParameter
+     * Test getValue method with an empty parameter
      *
      * @return void
      */
@@ -260,7 +262,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      * Exception should be thrown if the password file being set doesn't exist.
      * Do this via the setValue method.
      *
-     * @expectedException Services_OpenStreetMap_Exception
+     * @expectedException        Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Could not read password file
      *
      * @return void
@@ -278,7 +280,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      * Exception should be thrown if the password file being set doesn't exist
      * Do this via the explicit setPasswordfile method.
      *
-     * @expectedException Services_OpenStreetMap_Exception
+     * @expectedException        Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Could not read password file
      *
      * @return void
@@ -409,7 +411,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * testGenerator
+     * Test generator
      *
      * @return void
      */

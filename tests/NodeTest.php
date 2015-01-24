@@ -23,7 +23,10 @@ require_once 'Services/OpenStreetMap.php';
 
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
-require_once 'PHPUnit/Framework/TestCase.php';
+// don't pull in file if using phpunit installed as a PHAR
+if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
+    include_once 'PHPUnit/Framework/TestCase.php';
+}
 
 /**
  * Unit tests for retrieving and manipulating nodes.
@@ -409,6 +412,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
      *
      * @expectedException        InvalidArgumentException
      * @expectedExceptionMessage Longitude must be numeric
+     *
      * @return void
      */
     public function testCreateNodeNonnumericLonInConstructor()
@@ -427,7 +431,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test retrieving a number of nodes simultaneously with the getNodes
+     * Test retrieving a number of nodes simultaneously with the getNodes
      * method.
      *
      * @return void
@@ -542,6 +546,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
      *
      * @expectedException        Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Unexpected HTTP status: 500 Internal Server Error
+     *
      * @return void
      */
     public function testGetNodes500()

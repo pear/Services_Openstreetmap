@@ -23,7 +23,10 @@ require_once 'Services/OpenStreetMap.php';
 
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
-require_once 'PHPUnit/Framework/TestCase.php';
+// don't pull in file if using phpunit installed as a PHAR
+if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
+    include_once 'PHPUnit/Framework/TestCase.php';
+}
 
 require_once 'Log.php';
 require_once 'Log/null.php';
@@ -42,14 +45,14 @@ require_once 'Log/observer.php';
 class Log_Observer_Simple extends Log_observer
 {
     /**
-     * entries
+     * Entries
      *
      * @var array
      */
     public $entries = array();
 
     /**
-     * notify
+     * Notify event
      *
      * @param mixed $event Event
      *
@@ -74,7 +77,7 @@ class Log_Observer_Simple extends Log_observer
 class NotesTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * testGetNotesByBBox
+     * Test getNotesByBBox
      *
      * @return void
      */
@@ -116,7 +119,7 @@ class NotesTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * testGetNotesByBBoxSetLimit
+     * Test GetNotesByBBox - set limit
      *
      * @return void
      */
@@ -156,7 +159,7 @@ class NotesTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * testGetNotesByBBoxSetLimitAndClosed
+     * Test getNotesByBBox - set limit and closed
      *
      * @return void
      */
@@ -195,6 +198,11 @@ class NotesTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * Testa
+     *
+     * @return void
+     */
     public function testa()
     {
         $mock = new HTTP_Request2_Adapter_Mock();

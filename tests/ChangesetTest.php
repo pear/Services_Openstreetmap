@@ -22,8 +22,9 @@ require_once 'Services/OpenStreetMap.php';
 
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
-require_once 'PHPUnit/Framework/TestCase.php';
-
+if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
+    include_once 'PHPUnit/Framework/TestCase.php';
+}
 
 /**
  * Unit test class for Changeset related functionality.
@@ -202,7 +203,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * Test that an object can not be added to a closed changeset.
      * A changeset is closed after it has been committed.
      *
-     * @expectedException Services_OpenStreetMap_RuntimeException
+     * @expectedException        Services_OpenStreetMap_RuntimeException
      * @expectedExceptionMessage Object added to closed changeset
      *
      * @return void
@@ -259,7 +260,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
     /**
      * Test that the same object can not be added to the same changeset.
      *
-     * @expectedException Services_OpenStreetMap_RuntimeException
+     * @expectedException        Services_OpenStreetMap_RuntimeException
      * @expectedExceptionMessage Object added to changeset already
      *
      * @return void
@@ -311,7 +312,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
     /**
      * Test deleting a node - including an 'accidental' second commit...
      *
-     * @expectedException Services_OpenStreetMap_Exception
+     * @expectedException        Services_OpenStreetMap_Exception
      * @expectedExceptionMessage Attempt to commit a closed changeset
      *
      * @return void
@@ -407,7 +408,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * If an error occurs while closing a changeset [during a commit] then
      * an exception should be thrown. Test for this.
      *
-     * @expectedException Services_OpenStreetMap_Exception
+     * @expectedException       Services_OpenStreetMap_Exception
      * @xpectedExceptionMessage Error closing changeset
      *
      * @return void
@@ -532,7 +533,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             array(
                 'building' => 'yes',
                 'amenity' => 'vet'
-        )
+            )
         );
         $this->assertEquals(
             $node->getTags(),

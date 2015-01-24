@@ -22,8 +22,10 @@ require_once 'Services/OpenStreetMap.php';
 
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
-require_once 'PHPUnit/Framework/TestCase.php';
-
+// don't pull in file if using phpunit installed as a PHAR
+if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
+    include_once 'PHPUnit/Framework/TestCase.php';
+}
 
 /**
  * Unit test class for searching through changesets using Criterion objects.
@@ -173,7 +175,7 @@ class CriterionTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test searching on multiple criteria: changesets by specific user id,
+     * Test searching on multiple criteria: changesets by specific user id,
      * focused on a certain area (bbox) which have been closed.
      *
      * @return void
@@ -260,7 +262,7 @@ class CriterionTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * user value must be numeric.
+     * User value must be numeric.
      *
      * @expectedException        Services_OpenStreetMap_InvalidArgumentException
      * @expectedExceptionMessage User UID must be numeric
