@@ -16,9 +16,9 @@
     "type": "library",
     "require": {
         "php": ">=5.3.0",
-        "pear-pear/HTTP_Request2": "2.0.0",
-        "pear-pear/Log": "1.12.7",
-        "pear-pear/Cache": "1.5.6"
+        "pear/HTTP_Request2": "2.0.0",
+        "pear/Log": "1.12.7",
+        "pear/Cache": "1.5.6"
     },
     "require-dev": {
         "phpunit/phpunit": "*"
