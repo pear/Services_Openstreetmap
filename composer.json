@@ -10,6 +10,9 @@
     },
     "description": "More information available at https://pear.php.net/package/Services_OpenStreetMap",
     "homepage": "https://github.com/kenguest/Services_Openstreetmap",
+    "include-path": [
+        "./"
+    ],
     "keywords": ["openstreetmap"],
     "license": "BSD-3-Clause",
     "name": "kenguest/services-openstreetmap",
