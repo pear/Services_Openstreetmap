@@ -13,11 +13,11 @@
   <email>kguest@php.net</email>
   <active>yes</active>
  </lead>
- <date>2013-12-18</date>
- <time>14:01:59</time>
+ <date>2015-07-17</date>
+ <time>17:41:59</time>
  <version>
-  <release>0.3.1</release>
-  <api>0.3.0</api>
+  <release>0.4.0</release>
+  <api>0.4.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -25,7 +25,19 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
  <notes>
- Bug #20150: Bounds checking for lat/lon values are reversed.
+  * Add being able to set countrycodes for limiting Nominatim resultset.
+
+  * Add reverseGeocode method.
+
+  * Don't use created_by tag on map objects #4-github.
+    * The created_by tag is now only added to changesets.
+
+  * Fix for PEAR Bug #20205 - "Language is not English" at https://pear.php.net/bugs/bug.php?id=20205
+     * Fixed parameter name (accept-language v accept_language) in Nominatim query.
+     * Added support for setting accept-language config value.
+     * Unit tests for Config and Nominatim classes.
+
+  * More complete Notes functionality.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -111,6 +123,12 @@
      <file name="Changesets.php" role="php">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
+     <file name="Comment.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="Comments.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
      <file name="Config.php" role="php">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
@@ -130,6 +148,12 @@
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
      <file name="Nominatim.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="Note.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="Notes.php" role="php">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
      <file name="Object.php" role="php">
@@ -219,6 +243,9 @@
      <file name="capabilities_min.xml" role="test">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
+     <file name="capabilitiesNoStatus.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
      <file name="changeset.xml" role="test">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
@@ -241,6 +268,15 @@
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
      <file name="diff_create_node.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="get_notes.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="mapquestReverseGeocodeChurchtown.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="mapquestReverseGeocodeIrishTimes.xml" role="test">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
      <file name="node.osm" role="test">
@@ -279,6 +315,33 @@
      <file name="nominatim_search_neeenaaa.xml" role="test">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
+     <file name="nominatim_reverse_it.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="nominatim_search_20205_1.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="nominatim_search_20205_2.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="PEARBug20205_moskau_en.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="PEARBug20205_moskau_ru.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="PEARBug20205_russia_en.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="PEARBug20205_russia_fr.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="permissionsUnauthorised.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="permissions.xml" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
      <file name="relation.xml" role="test">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
@@ -295,6 +358,9 @@
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
      <file name="search.json" role="test">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="search_ga.json" role="test">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
      <file name="user.xml" role="test">
@@ -364,16 +430,28 @@
     <file name="CriterionTest.php" role="test">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
+    <file name="MapquestReverseGeocodeTest.php" role="test">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
     <file name="NodeTest.php" role="test">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
     <file name="NominatimTest.php" role="test">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
+    <file name="NotesTest.php" role="test">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
     <file name="OpeningHoursTest.php" role="test">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
     <file name="OSMTest.php" role="test">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="PearBug20205Test.php" role="test">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="PermissionsTest.php" role="test">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
     <file name="phpunit.xml" role="test">
@@ -385,6 +463,9 @@
     <file name="UserTest.php" role="test">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
+    <file name="WayFullTest.php" role="test">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
     <file name="WayTest.php" role="test">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
@@ -392,7 +473,7 @@
    <file name="build.xml" role="data">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
    </file>
-   <file name="README.markdown" role="data">
+   <file name="README.md" role="data">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
    </file>
   </dir> <!-- / -->
@@ -497,6 +578,33 @@ This release supports parsing of opening_hours values.
    <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
    <notes>
  Bug #20150: Bounds checking for lat/lon values are reversed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.0</release>
+    <api>0.4.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2015-07-15</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
+   <notes>
+ * Add being able to set countrycodes for limiting Nominatim resultset.
+
+ * Add reverseGeocode method.
+
+ * Don't use created_by tag on map objects #4-github.
+   * The created_by tag is now only added to changesets.
+
+ * Fix for PEAR Bug #20205 - "Language is not English" at https://pear.php.net/bugs/bug.php?id=20205
+    * Fixed parameter name (accept-language v accept_language) in Nominatim query.
+    * Added support for setting accept-language config value.
+    * Unit tests for Config and Nominatim classes.
+
+ * More complete Notes functionality.
    </notes>
   </release>
  </changelog>
