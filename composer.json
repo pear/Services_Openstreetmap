@@ -19,12 +19,14 @@
     "type": "library",
     "require": {
         "php": ">=5.3.0",
-        "pear/HTTP_Request2": "2.0.0",
-        "pear/Log": "1.12.7",
-        "pear/Cache": "1.5.6"
+        "pear/http_request2": "2.2.*",
+        "pear/log": "1.12.*"
     },
     "require-dev": {
         "phpunit/phpunit": "*"
+    },
+    "suggest": {
+        "pear/cache": "*"
     },
     "support": {
         "issues": "https://pear.php.net/bugs/search.php?cmd=display&package_name[]=Services_OpenStreetMap",
