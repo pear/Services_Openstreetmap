@@ -13,6 +13,9 @@
  * @link     http://wiki.openstreetmap.org/wiki/Api06
  */
 
+/**
+ * Pull in HTTP_Request2
+ */
 require_once 'HTTP/Request2.php';
 spl_autoload_register(array('Services_OpenStreetMap', 'autoload'));
 
@@ -184,9 +187,11 @@ class Services_OpenStreetMap
     /**
      * Return a structured result set for $place
      *
-     * @param string $place Location to search for details of
-     * @param string $format Format to retrieve. json/xml (default)
-     * @param bool $addressdetails Gathers more details of place if TRUE.
+     * @param string $place          Location to search for details of
+     * @param string $format         Format to retrieve. json/xml (default)
+     * @param bool   $addressdetails Gathers more details of place if TRUE.
+     *
+     * @return mixed
      */
     public function getPlace($place, $format = 'xml', $addressdetails = false)
     {

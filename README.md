@@ -123,6 +123,12 @@ The getUserById() method retrieves information for the specified user.
     $osm = new Services_OpenStreetMap();
     $user = $osm->getUserById(1);
 
+## Reverse lookup with MapQuest API
+
+    $osm = new Services_OpenStreetMap(['server' => 'http://open.mapquestapi.com/nominatim/v1/']);
+    $osm->setServer('mapquest');
+    $xml = $osm->setFormat('xml')->reverseGeocode("53.434343", "-6.4343343");
+
 ## What can Services_OpenStreetMap_OpeningHours parse?
 
 * General syntax "Mo 08:00-24:00; Tu-Fr 00:00-24:00; Sa 00:00-22:00; Su 10:00-20:00"

@@ -1,6 +1,6 @@
 <script>
-jQuery.each(mapMarkers, function() {
-    map.removeLayer(this);
+jQuery.each(window.mapMarkers, function() {
+    window.map.removeLayer(this);
 });
 </script>
 <?php
@@ -89,8 +89,10 @@ foreach ($results as $result) {
         $bLon = 0;
         foreach ($nodes as $node) {
             $n = $osm->getNode($node);
-            $bLat += $n->getLat();
-            $bLon += $n->getLon();
+            if ($n !== false) {
+                $bLat += $n->getLat();
+                $bLon += $n->getLon();
+            }
         }
         $bLat = $bLat / sizeof($nodes);
         $bLon = $bLon / sizeof($nodes);
@@ -125,10 +127,12 @@ foreach ($results as $result) {
     echo  "$name\n";
     $distance = $result->distance;
     echo "$bLat, ", $bLon, " (", number_format($distance, 4), "km)\n";
-    echo "<script>";
-    echo "var marker = L.marker([",$bLat  ,", ",$bLon," ]).addTo(map);";
+    echo "<script>
+        var marker = window.L.marker([",$bLat  ,", ",$bLon," ]);
+        marker.addTo(window.map);
+    ";
     echo "marker.bindPopup(\"<b>", htmlspecialchars($name), "</b>\");";
-    echo "mapMarkers.push(marker);";
+    echo "window.mapMarkers.push(marker);";
     echo "</script>";
     if ($line1 != null && $addrStreet != null) {
         echo "{$line1}{$addrStreet}\n";
@@ -154,5 +158,5 @@ $result = $results[0];
 $bLat = $result->lat;
 $bLon = $result->lon;
 echo "<script>";
-echo "map.panTo([",$bLat,", ",$bLon," ]);";
+echo "window.map.panTo([",$bLat,", ",$bLon," ]);";
 echo "</script>";

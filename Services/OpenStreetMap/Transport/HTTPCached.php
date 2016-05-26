@@ -13,7 +13,15 @@
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Services_OpenStreetMap
  */
+
+/**
+ * Load in the [PEAR] Cache package.
+ */
 require_once 'Cache.php';
+
+/**
+ * Using HTTP Transport.
+ */
 require_once 'Services/OpenStreetMap/Transport/HTTP.php';
 
 /**

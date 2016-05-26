@@ -13,10 +13,27 @@
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Services_OpenStreetMap
  */
+
+/**
+ * Implementing the Services_OpenStreetMap_Transport interface...
+ */
 require_once 'Services/OpenStreetMap/Transport.php';
 
+/**
+ * Pull in the PEAR Log package.
+ */
 require_once 'Log.php';
+
+/**
+ * Using the null log handler, this is overridden elsewhere when required.
+ *
+ * @see setLog
+ */
 require_once 'Log/null.php';
+
+/**
+ * Using HTTP_Request2 for HTTP.
+ */
 require_once 'HTTP/Request2.php';
 
 /**
@@ -148,12 +165,12 @@ class Services_OpenStreetMap_Transport_HTTP
             } else {
                 $eMsg = 'Unexpected HTTP status: '
                     . $code . ' '
-                    . $response->getReasonPhrase();
+                    . $response->getReasonPhrase()
+                    . ' [for ' .  $response->getEffectiveUrl() . ']';
                 $error = $response->getHeader('error');
                 if (!is_null($error)) {
                     $eMsg .= " ($error)";
                 }
-
             }
         } catch (HTTP_Request2_Exception $e) {
             $this->log->warning((string)$e);

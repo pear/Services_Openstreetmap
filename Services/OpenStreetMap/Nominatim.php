@@ -219,7 +219,7 @@ class Services_OpenStreetMap_Nominatim
      * @param string  $place Name of place to geocode
      * @param integer $limit Maximum number of results to retrieve (optional)
      *
-     * @return void
+     * @return mixed
      */
     public function search($place, $limit = null)
     {
@@ -452,6 +452,8 @@ class Services_OpenStreetMap_Nominatim
     }
 
     /**
+     * Retrieve addressdetails setting.
+     *
      * @return int
      */
     public function getAddressdetails()
@@ -460,12 +462,15 @@ class Services_OpenStreetMap_Nominatim
     }
 
     /**
-     * @param int $addressdetails
+     * Signal that addressdetails are to be broken down into elements.
+     *
+     * @param int $addressdetails Whether to get address details as elements.
+     *
      * @return Services_OpenStreetMap_Nominatim
      */
     public function setAddressdetails($addressdetails)
     {
-        $this->addressdetails = $addressdetails;
+        $this->addressdetails = (int) $addressdetails;
 
         return $this;
     }

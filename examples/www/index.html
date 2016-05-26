@@ -28,25 +28,28 @@ function supports_html5_storage() {
 }
       var coords;
       var map;
-      var mapMarkers = new Array();
+      window.mapMarkers = new Array();
       function init() {
         navigator.geolocation.getCurrentPosition(function(position) {
             coords = position.coords;
             console.log(coords);
-            map = L.map('map').setView([position.coords.latitude, position.coords.longitude ], 14);
-            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors', maxZoom: 18 }).addTo(map);
+            window.L = L;
+            window.map = L.map('map').setView([position.coords.latitude, position.coords.longitude ], 14);
+            console.log("map" + window.map);
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors', maxZoom: 18 }).addTo(window.map);
             noLoc = false;
         }
         , function(err) {
             if (err.code == 2) {
                 alert("Position unavailable.");
+            } else if (err.code = 3) {
+                alert("Timeout expired.");
             } else {
-            alert(err.code);
-            alert(err.message);
+                console.log(err.code);
+                console.log(err.message);
             }
-        }/*, {timeout: 0, enableHighAccuracy: false, maximumAge: 75000}
-        */
+        }, {timeout: 10000, enableHighAccuracy: false, maximumAge: 75000}
+
         );
       }
       function loadPoi() {
@@ -54,16 +57,39 @@ function supports_html5_storage() {
         $("select option:selected").each(function() {
             q += $(this).val() + ' ';
         });
-        $.ajax({'url' :'searchNear.php',
-                'data' : {'q': q, 'lat':coords.latitude,
-                'lon':coords.longitude}}).done(function(msg) {
-                        $('#results').html('<pre> ' + msg + '</pre>');
-                    } );
+        if (window.coords != null) {
+            $.ajax({'url' :'searchNear.php',
+                    'data' : {'q': q, 'lat':window.coords.latitude,
+                    'lon':coords.longitude}}).done(function(msg) {
+                            $('#results').html('<pre> ' + msg + '</pre>');
+            });
+        }
       }
+      function init2() {
+        window.coords = null;
+              if ( navigator.geolocation ) {
+            navigator.geolocation.watchPosition(
+                function ( Position ) {
+                    window.coords = Position.coords;
+            coords = window.coords;
+            console.log(coords);
+            window.L = L;
+            window.map = L.map('map').setView([Position.coords.latitude, Position.coords.longitude ], 14);
+            console.log("map" + window.map);
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors', maxZoom: 18 }).addTo(window.map);
+            noLoc = false;
+                },
+                function (err) {
+                    // there was an error getting the location
+                    console.log(err.message);
+                },
+                {enableHighAccuracy:false, maximumAge:100000, timeout:100000}
+            );
+        }}
     </script>
   </head>
 
-  <body onload="init();">
+  <body onload="init2();">
   <form>
   <select name="poi" onchange="loadPoi();">
   <option selected>Please select...</option>
