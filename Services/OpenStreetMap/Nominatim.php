@@ -46,7 +46,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @var int
      */
-    protected $addresssdetails = 0;
+    protected $addressdetails = 0;
 
     /**
      * Preferred language order. Standard rfc2616 string or a simple comma
@@ -142,6 +142,7 @@ class Services_OpenStreetMap_Nominatim
         $viewbox = $this->viewbox;
         $bounded = $this->bounded;
         $dedupe = $this->dedupe;
+        $addressdetails = $this->addressdetails;
 
         $q = $place;
 
@@ -152,7 +153,8 @@ class Services_OpenStreetMap_Nominatim
             'polygon',
             'viewbox',
             'bounded',
-            'dedupe'
+            'dedupe',
+            'addressdetails'
         );
         $params['accept-language'] = $accept_language;
         if ($this->email_address !== null) {
@@ -447,6 +449,25 @@ class Services_OpenStreetMap_Nominatim
     public function getEmailAddress()
     {
         return $this->email_address;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAddressdetails()
+    {
+        return $this->addressdetails;
+    }
+
+    /**
+     * @param int $addressdetails
+     * @return Services_OpenStreetMap_Nominatim
+     */
+    public function setAddressdetails($addressdetails)
+    {
+        $this->addressdetails = $addressdetails;
+
+        return $this;
     }
 }
 

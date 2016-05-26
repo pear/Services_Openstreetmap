@@ -184,18 +184,18 @@ class Services_OpenStreetMap
     /**
      * Return a structured result set for $place
      *
-     * @param string $place  Location to search for details of
+     * @param string $place Location to search for details of
      * @param string $format Format to retrieve. json/xml (default)
-     *
-     * @return void
+     * @param bool $addressdetails Gathers more details of place if TRUE.
      */
-    public function getPlace($place, $format = 'xml')
+    public function getPlace($place, $format = 'xml', $addressdetails = false)
     {
         $nominatim = new Services_OpenStreetMap_Nominatim(
             $this->getTransport()
         );
         return $nominatim
             ->setAcceptLanguage($this->config->getValue('accept-language'))
+            ->setAddressdetails($addressdetails)
             ->setFormat($format)
             ->search($place, 1);
     }
