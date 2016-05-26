@@ -142,6 +142,7 @@ class Services_OpenStreetMap_Nominatim
         $viewbox = $this->viewbox;
         $bounded = $this->bounded;
         $dedupe = $this->dedupe;
+        $addressdetails = $this->addressdetails;
 
         $q = $place;
 
@@ -152,7 +153,8 @@ class Services_OpenStreetMap_Nominatim
             'polygon',
             'viewbox',
             'bounded',
-            'dedupe'
+            'dedupe',
+            'addressdetails'
         );
         $params['accept-language'] = $accept_language;
         if ($this->email_address !== null) {
