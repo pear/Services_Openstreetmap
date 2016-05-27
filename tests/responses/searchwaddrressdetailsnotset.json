@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Date: Fri, 27 May 2016 13:12:55 GMT
+Server: Apache/2.4.7 (Ubuntu)
+X-Powered-By: PHP/5.5.9-1ubuntu4.17
+Access-Control-Allow-Methods: OPTIONS,GET
+Access-Control-Max-Age: 8640000
+Access-Control-Allow-Origin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+
+[{"place_id":"78506474","licence":"Data © OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"90394480","boundingbox":["52.5487473","52.5488481","-1.8165129","-1.8163463"],"lat":"52.5487921","lon":"-1.8164307339635","display_name":"135, Pilkington Avenue, Sutton Coldfield, Maney, Birmingham, West Midlands, England, B72 1LH, UK","class":"building","type":"yes","importance":0.301}]

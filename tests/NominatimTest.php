@@ -195,6 +195,81 @@ class NominatimTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test JSON search
+     *
+     * @return void
+     */
+    public function testJsonSearchWithAddressDetailsSet()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/searchwaddrressdetailsset.json', 'rb')
+        );
+
+        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+
+        $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
+        $nominatim->setFormat('json');
+        $nominatim->setAddressdetails(1);
+        $place = $nominatim->search('135, Pilkington Avenue, Birmingham', 1);
+        $this->assertObjectHasAttribute(
+            'address',
+            $place[0],
+            'place does not have address attribute exists?'
+        );
+    }
+
+    /**
+     * Test JSON search
+     *
+     * @return void
+     */
+    public function testJsonSearchWithAddressDetailsOff()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/searchwaddrressdetailssoff.json', 'rb')
+        );
+
+        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+
+        $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
+        $nominatim->setFormat('json');
+        $nominatim->setAddressdetails(0);
+        $place = $nominatim->search('135, Pilkington Avenue, Birmingham', 1);
+        $this->assertObjectNotHasAttribute(
+            'address',
+            $place[0],
+            'address attribute should not exist'
+        );
+    }
+    /**
+     * Test JSON search
+     *
+     * @return void
+     */
+    public function testJsonSearchWithAddressDetailsNotSpecified()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(
+            fopen(__DIR__ . '/responses/searchwaddrressdetailsnotset.json', 'rb')
+        );
+
+        //$osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap();
+
+        $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
+        $nominatim->setFormat('json');
+        $nominatim->setAddressdetails(0);
+        $place = $nominatim->search('135, Pilkington Avenue, Birmingham', 1);
+        $this->assertObjectNotHasAttribute(
+            'address',
+            $place[0],
+            'address attribute should not exist'
+        );
+    }
+
+    /**
      * Test searching for a placename as Gaeilge.
      *
      * @return void
