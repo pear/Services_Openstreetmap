@@ -23,7 +23,8 @@
         "pear/log": "1.12.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "phpdocumentor/phpdocumentor": "2.*"
     },
     "suggest": {
         "pear/cache": "*"
