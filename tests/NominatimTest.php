@@ -255,8 +255,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/searchwaddrressdetailsnotset.json', 'rb')
         );
 
-        //$osm = new Services_OpenStreetMap(array('adapter' => $mock));
-        $osm = new Services_OpenStreetMap();
+        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
 
         $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
         $nominatim->setFormat('json');
