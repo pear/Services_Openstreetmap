@@ -10,6 +10,7 @@
     <available file="${builddir}/pdepend" property="pdepend_exist" value="Y"/>
 
     <available file="/usr/local/bin/phpcpd.phar" property="phpcpd_phar" value="Y"/>
+    <available file="/usr/local/bin/phploc.phar" property="phploc_phar" value="Y"/>
 
     <fileset dir="tests" id="tests" includes="**/*.php"/>
     <fileset dir="Services" id="Services" includes="**/*.php"/>
@@ -101,8 +102,8 @@
             </then>
             <else>
                 <phpcpd>
-                <formatter type="pmd" outfile="${builddir}/logs/pmd-cpd.xml"/>
-                <fileset refid="Services"/>
+                    <formatter type="pmd" outfile="${builddir}/logs/pmd-cpd.xml"/>
+                    <fileset refid="Services"/>
                 </phpcpd>
             </else>
         </if>
@@ -127,10 +128,20 @@
     </target>
 
     <target name="phploc" description="Measure project size using PHPLOC" depends="prepare">
-        <phploc countTests="true" reportType="csv" reportName="phploc" reportDirectory="${builddir}/logs">
-            <fileset refid="Services"/>
-            <fileset refid="tests"/>
-        </phploc>
+        <if><equals arg1="${phploc_phar}" arg2="Y"/>
+            <then>
+                <phploc pharLocation="/usr/local/bin/phploc.phar" countTests="true" reportType="csv" reportName="phploc" reportDirectory="${builddir}/logs">
+                    <fileset refid="Services"/>
+                    <fileset refid="tests"/>
+                </phploc>
+            </then>
+            <else>
+                <phploc countTests="true" reportType="csv" reportName="phploc" reportDirectory="${builddir}/logs">
+                    <fileset refid="Services"/>
+                    <fileset refid="tests"/>
+                </phploc>
+            </else>
+        </if>
     </target>
 
 
