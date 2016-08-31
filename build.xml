@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- build xml -->
 
-<project name="services_openstreetmap" default="main">
+<project name="services_openstreetmap" default="main" phingVersion="2.11.0">
     <property name="builddir" value = "build"/>
     <available file="${builddir}/docs" property="docs_exist" value="Y"/>
     <available file="${builddir}/logs/pmd.xml" property="pmd_exist" value="Y"/>
@@ -9,10 +9,18 @@
     <available file="${builddir}/coverage" property="coverage_exist" value="Y"/>
     <available file="${builddir}/pdepend" property="pdepend_exist" value="Y"/>
 
+    <available file="/usr/local/bin/phpcpd.phar" property="phpcpd_phar" value="Y"/>
+
     <fileset dir="tests" id="tests" includes="**/*.php"/>
     <fileset dir="Services" id="Services" includes="**/*.php"/>
 
-    <target name="main" depends="clean,lint,phpcs,phpmd,docs,test,phpcpd,phploc,phpdepend"/>
+    <target name="prepare">
+        <mkdir dir="${builddir}" />
+        <mkdir dir="${builddir}/logs" />
+        <mkdir dir="${builddir}/coverage" />
+    </target>
+
+    <target name="main" depends="prepare,clean,lint,phpcs,phpmd,docs,test,phpcpd,phploc,phpdepend"/>
 
     <target name="clean" depends="clean_phpunit,clean_pmd,clean_phpcs,clean_docs,clean_phploc,clean_phpcpd,clean_phpdepend" description="Clean out all files." />
 
@@ -84,10 +92,20 @@
     </target>
 
     <target name="phpcpd" description="Generate pmd-cpd.xml using PHPCPD" depends="prepare">
-        <phpcpd>
-            <formatter type="pmd" outfile="${builddir}/logs/pmd-cpd.xml"/>
-            <fileset refid="Services"/>
-        </phpcpd>
+        <if><equals arg1="${phpcpd_phar}" arg2="Y"/>
+            <then>
+                <phpcpd pharLocation="/usr/local/bin/phpcpd.phar">
+                    <formatter type="pmd" outfile="${builddir}/logs/pmd-cpd.xml"/>
+                    <fileset refid="Services"/>
+                </phpcpd>
+            </then>
+            <else>
+                <phpcpd>
+                <formatter type="pmd" outfile="${builddir}/logs/pmd-cpd.xml"/>
+                <fileset refid="Services"/>
+                </phpcpd>
+            </else>
+        </if>
     </target>
     <target name="phpcs" description="coding standards">
         <phpcodesniffer format="checkstyle" standard="PEAR" haltonerror="yes"> 
