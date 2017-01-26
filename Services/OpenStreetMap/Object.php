@@ -489,6 +489,57 @@ class Services_OpenStreetMap_Object
     }
 
     /**
+     * Remove a tag.
+     *
+     * <code>
+     * $obj->removeTag("name:en");
+     * </code>
+     *
+     * @param mixed $key Name of a tag key to remove.
+     *
+     * @return Services_OpenStreetMap_Object
+     */
+    public function removeTag($key)
+    {
+        if (isset($this->tags[$key])) {
+            unset($this->tags[$key]);
+        }
+        return $this;
+    }
+
+    /**
+     * Remove tags.
+     *
+     * Remove more than one tag from the object.
+     *
+     * <code>
+     * $obj->removeTags(array("name:en", "name:kl"));
+     * </code>
+     *
+     * @param array $keys Associate array of keys to remove.
+     *
+     * @return Services_OpenStreetMap_Object
+     */
+    public function removeTags(array $keys)
+    {
+        if (sizeof($keys) === 0) {
+            return $this;
+        }
+        $tags = $this->getTags();
+
+        if (sizeof($tags) === 0) {
+            return $this;
+        }
+        foreach ($keys as $index => $key) {
+            if (isset($tags[$key])) {
+                unset($tags[$key]);
+            }
+        }
+        $this->tags = $tags;
+        return $this;
+    }
+
+    /**
      * Mark the object as deleted.
      *
      * @return Services_OpenStreetMap_Object

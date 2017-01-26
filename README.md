@@ -104,6 +104,11 @@ Simply require and initialize the Services_OpenStreetMap class:
     $changeset->add($node);
     $changeset->commit();
 
+### Remove one or nore tags from an object.
+
+    $object->RemoveTag("name:en");
+    $object->RemoveTags(array("name:en", "name:kl"));
+
 ### Working with user information.
 
 The getUser() method retrieves information for the current user.
