@@ -105,6 +105,26 @@ class RemoveTagsTest extends PHPUnit_Framework_TestCase
             $tagRemoved, []
         );
     }
+
+    public function testRemovingTagViaSetAllTags()
+    {
+        $osm = new Services_OpenStreetMap();
+        $createWith = [
+            'name' => 'cafe',
+            'amenity' => 'cafe',
+            'name:en' => 'cafe',
+            'name:uk' => 'cafe'
+        ];
+        $node = $osm->createNode(0, 0, $createWith);
+        $tags = $node->getTags();
+        $this->assertEquals($tags, $createWith);
+        $newTags = [
+            'name' => 'Stop 105',
+            'amenity' => 'bus_stop'
+        ];
+        $node->setAllTags($newTags);
+        $this->assertEquals($node->getTags(), $newTags);
+    }
 }
 // vim:set et ts=4 sw=4:
 ?>

@@ -489,6 +489,30 @@ class Services_OpenStreetMap_Object
     }
 
     /**
+     * Set all tags.
+     *
+     * This will overwrite all/any tags that are already set.
+     *
+     * <code>
+     * $obj->setAllTags(
+     *  array(
+     *   'key' => 'value',
+     *   'key2', 'value2',
+     *  )
+     * );
+     * </code>
+     *
+     * @param array $tags array of tags.
+     *
+     * @return Services_OpenStreetMap_Object
+     */
+    public function setAllTags($tags = array())
+    {
+        $this->tags = $tags;
+        return $this;
+    }
+
+    /**
      * Remove a tag.
      *
      * <code>
