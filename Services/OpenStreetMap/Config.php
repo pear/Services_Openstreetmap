@@ -300,25 +300,38 @@ class Services_OpenStreetMap_Config
             if (strpos($lang, '-') !== false) {
                 $subparts = explode("-", $lang);
                 foreach ($subparts as $subpart) {
-
-                    if (false === filter_var(
-                        $subpart,
-                        FILTER_VALIDATE_REGEXP,
-                        array('options' => array('regexp' => '/^[a-z]{1,8}$/i'))
-                    )) {
+                    if ($this->_validateLanguageRegex($subpart) === false) {
                         throw new Exception("Language Invalid: $language");
                     }
                 }
             } else {
-                if (false === filter_var(
-                    $lang,
-                    FILTER_VALIDATE_REGEXP,
-                    array('options' => array('regexp' => '/^[a-z]{1,8}$/i'))
-                )) {
+                if ($this->_validateLanguageRegex($lang) === false) {
                     throw new Exception("Language Invalid: $language");
                 }
             }
         }
+    }
+
+    /**
+     * Validate a language via simple regex.
+     *
+     * Return true/false depending on outcome (alphabetic 1-8 chars long)
+     *
+     * @param string $language Language to validate.
+     *
+     * @return bool
+     */
+    private function _validateLanguageRegex($language)
+    {
+        $valid === filter_var(
+            $language,
+            FILTER_VALIDATE_REGEXP,
+            array('options' => array('regexp' => '/^[a-z]{1,8}$/i'))
+        );
+        if ($valid !== false) {
+            return true;
+        }
+        return false;
     }
 
     /**
