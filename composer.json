@@ -2,8 +2,10 @@
     "authors": [
         {"name": "Ken Guest", "email": "ken@linux.ie", "role": "Lead"}
     ],
-    "autoload":{
-        "classmap":["Services/"]
+    "autoload": {
+        "psr-0": {
+            "Services": "./"
+        }
     },
     "autoload-dev": {
         "classmap": [ "tests" ]
@@ -13,7 +15,7 @@
     "include-path": [
         "./"
     ],
-    "keywords": ["openstreetmap"],
+    "keywords": ["openstreetmap", "open", "street", "map", "osm", "maps", "openstreetmaps"],
     "license": "BSD-3-Clause",
     "name": "kenguest/services-openstreetmap",
     "type": "library",
