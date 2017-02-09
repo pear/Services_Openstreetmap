@@ -323,7 +323,7 @@ class Services_OpenStreetMap_Config
      */
     private function _validateLanguageRegex($language)
     {
-        $valid === filter_var(
+        $valid = filter_var(
             $language,
             FILTER_VALIDATE_REGEXP,
             array('options' => array('regexp' => '/^[a-z]{1,8}$/i'))
