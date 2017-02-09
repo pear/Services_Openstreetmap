@@ -75,7 +75,7 @@ Simply require and initialize the Services_OpenStreetMap class:
 
     /*
      * If you are going to connect to the live API server to run a quick
-     * test that adds new data, such as POIS, with test/imaginary values
+     * test that adds new data, such as POIs, with test/imaginary values
      * please be responsible and delete them afterwards.
      */
 
