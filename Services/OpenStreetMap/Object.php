@@ -195,14 +195,8 @@ class Services_OpenStreetMap_Object
             }
             $tags = $xpath->query("//{$type}/tag");
 
-            $set = array();
-            for ($i = 0; $i < $tags->length; $i++) {
-                $key = $tags->item($i)->getAttribute('k');
-                $val = $tags->item($i)->getAttribute('v');
-                $set[$key] = $val;
-            }
-
-            $diff = array_diff($this->getTags(), $set);
+            
+            $diff = $this->getTags();
 
             // Remove existing tags
             for ($i = 0; $i < $tags->length; $i++) {
