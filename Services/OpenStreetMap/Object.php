@@ -202,7 +202,7 @@ class Services_OpenStreetMap_Object
                 $set[$key] = $val;
             }
 
-            $diff = array_diff($this->getTags(), $set);
+            $diff = array_diff_assoc($this->getTags(), $set);
 
             // Remove existing tags
             for ($i = 0; $i < $tags->length; $i++) {
