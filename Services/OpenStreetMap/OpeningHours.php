@@ -280,8 +280,8 @@ class Services_OpenStreetMap_OpeningHours
      */
     private function _startTime($time_spec)
     {
-        $starthour = substr($time_spec, 0, 2);
-        $startmin = substr($time_spec, 3, 2);
+        $starthour = (int) substr($time_spec, 0, 2);
+        $startmin  = (int) substr($time_spec, 3, 2);
         return $starthour * 60 + $startmin;
     }
 
