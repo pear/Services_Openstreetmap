@@ -174,10 +174,10 @@ class Services_OpenStreetMap_OpeningHours
             }
         } else {
             // here we go again... need to refactor/decide a better algorithm.
-            $months = array(
+            $months = [
                 'jan', 'feb', 'mar', 'apr', 'may', 'jun',
                 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
-            );
+            ];
             if (in_array($portions[0], $months)) {
                 $month = strtolower(date('M', $time));
                 $time_spec = trim($portions[1]);
@@ -208,7 +208,7 @@ class Services_OpenStreetMap_OpeningHours
      */
     private function _daySpecToArray($day_specification)
     {
-        $days = array('mo','tu', 'we','th','fr', 'sa', 'su');
+        $days = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'];
         $spec = trim(strtolower($day_specification));
         if ($pos = strpos($spec, '-')) {
             $start_day = substr($spec, 0, $pos);
@@ -236,11 +236,11 @@ class Services_OpenStreetMap_OpeningHours
             return $days;
         } elseif (strlen($spec) == 2) {
             if (in_array($spec, $days)) {
-                return array($spec);
+                return [$spec];
             }
         } elseif (strpos($spec, ',')) {
             $delimited = explode(',', $spec);
-            $ret = array();
+            $ret = [];
             foreach ($delimited as $item) {
                 if (in_array($item, $days)) {
                     $ret[] = $item;
@@ -295,8 +295,8 @@ class Services_OpenStreetMap_OpeningHours
      */
     private function _endTime($time_spec)
     {
-        $endhour = substr($time_spec, 0, 2);
-        $endmin = substr($time_spec, 3);
+        $endhour = (int) substr($time_spec, 0, 2);
+        $endmin = (int) substr($time_spec, 3);
         return $endhour * 60 + $endmin;
     }
 }

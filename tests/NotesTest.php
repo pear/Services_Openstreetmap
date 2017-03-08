@@ -49,7 +49,7 @@ class Log_Observer_Simple extends Log_observer
      *
      * @var array
      */
-    public $entries = array();
+    public $entries = [];
 
     /**
      * Notify event
@@ -88,14 +88,14 @@ class NotesTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/get_notes.xml', 'rb'));
 
         $server = 'http://api06.dev.openstreetmap.org/';
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'verbose' => true,
             'server' => $server,
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
 
-        $log = new Log_null('null', 'null', array(), 7);
+        $log = new Log_null('null', 'null', [], 7);
         $observer = new Log_Observer_Simple();
         $log->attach($observer);
         $osm->getTransport()->setLog($log);
@@ -130,14 +130,14 @@ class NotesTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/get_notes.xml', 'rb'));
 
         $server = 'http://api06.dev.openstreetmap.org/';
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'verbose' => true,
             'server' => $server,
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
 
-        $log = new Log_null('null', 'null', array(), 7);
+        $log = new Log_null('null', 'null', [], 7);
         $observer = new Log_Observer_Simple();
         $log->attach($observer);
         $osm->getTransport()->setLog($log);
@@ -170,14 +170,14 @@ class NotesTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/get_notes.xml', 'rb'));
 
         $server = 'http://api06.dev.openstreetmap.org/';
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'verbose' => true,
             'server' => $server,
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
 
-        $log = new Log_null('null', 'null', array(), 7);
+        $log = new Log_null('null', 'null', [], 7);
         $observer = new Log_Observer_Simple();
         $log->attach($observer);
         $osm->getTransport()->setLog($log);
@@ -210,10 +210,10 @@ class NotesTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/get_notes.xml', 'rb'));
 
         $server = 'http://api06.dev.openstreetmap.org/';
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => $server,
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
 
 

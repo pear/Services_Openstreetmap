@@ -50,12 +50,12 @@ class UserTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/user.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/user_preferences.xml', 'rb'));
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'user' => 'fred@example.com',
             'password' => 'w1lma4evah'
-        );
+        ];
 
         $osm = new Services_OpenStreetMap($config);
         $user = $osm->getUser();
@@ -76,11 +76,11 @@ class UserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($user->getBlocksIssued(), 15);
         $this->assertEquals($user->getActiveBlocksReceived(), 0);
         $this->assertEquals($user->getActiveBlocksIssued(), 4);
-        $this->assertEquals($user->getLanguages(), array('en-US','en'));
-        $this->assertEquals($user->getRoles(), array('moderator'));
+        $this->assertEquals($user->getLanguages(), ['en-US','en']);
+        $this->assertEquals($user->getRoles(), ['moderator']);
         $this->assertEquals(
             $user->getPreferences(),
-            array("diary.default_language" => "en")
+            ["diary.default_language" => "en"]
         );
     }
 
@@ -95,12 +95,12 @@ class UserTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/user_no_image.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/user_preferences.xml', 'rb'));
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'user' => 'fred@example.com',
             'password' => 'w1lma4evah'
-        );
+        ];
 
         $osm = new Services_OpenStreetMap($config);
         $user = $osm->getUser();
@@ -118,12 +118,12 @@ class UserTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/user_home_set.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/user_preferences.xml', 'rb'));
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'user' => 'fred@example.com',
             'password' => 'w1lma4evah'
-        );
+        ];
 
         $osm = new Services_OpenStreetMap($config);
         $user = $osm->getUser();
@@ -141,12 +141,12 @@ class UserTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/user11324.xml', 'rb'));
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'user' => 'fred@example.com',
             'password' => 'w1lma4evah'
-        );
+        ];
 
         $osm = new Services_OpenStreetMap($config);
         $user = $osm->getUserById(6367);
@@ -159,7 +159,7 @@ class UserTest extends PHPUnit_Framework_TestCase
         $this->assertNull($user->getBlocksIssued());
         $this->assertNull($user->getActiveBlocksIssued());
         $this->assertNull($user->getLanguages());
-        $this->assertEquals($user->getRoles(), array());
+        $this->assertEquals($user->getRoles(), []);
     }
 }
 // vim:set et ts=4 sw=4:

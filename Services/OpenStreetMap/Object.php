@@ -38,7 +38,7 @@ class Services_OpenStreetMap_Object
      *
      * @var array
      */
-    protected $tags = array();
+    protected $tags = [];
 
     /**
      * The Id of this object
@@ -195,7 +195,7 @@ class Services_OpenStreetMap_Object
             }
             $tags = $xpath->query("//{$type}/tag");
 
-            $set = array();
+            $set = [];
             for ($i = 0; $i < $tags->length; $i++) {
                 $key = $tags->item($i)->getAttribute('k');
                 $val = $tags->item($i)->getAttribute('v');
@@ -480,7 +480,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function setTags($tags = array())
+    public function setTags($tags = [])
     {
         foreach ($tags as $key => $value) {
             $this->setTag($key, $value);
@@ -506,7 +506,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function setAllTags($tags = array())
+    public function setAllTags($tags = [])
     {
         $this->tags = $tags;
         return $this;

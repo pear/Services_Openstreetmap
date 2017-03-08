@@ -39,14 +39,14 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
      *
      * @var Services_OpenStreetMap_Node[]
      */
-    protected $nodes = array();
+    protected $nodes = [];
 
     /**
      * Nodes to the way
      *
      * @var array
      */
-    protected $nodesNew = array();
+    protected $nodesNew = [];
 
     /**
      * Indicate whether nodes have been changed/added/deleted.
@@ -88,7 +88,7 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
         if (empty($this->nodes)) {
             $obj = simplexml_load_string($this->xml);
             $nds = $obj->xpath('//nd');
-            $nodes = array();
+            $nodes = [];
             foreach ($nds as $node) {
                 $nodes[] = (string) $node->attributes()->ref;
             }
@@ -210,13 +210,13 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
             return null;
         }
 
-        $ret  = array(
+        $ret  = [
             'addr_housename' => null,
             'addr_housenumber' => null,
             'addr_street' => null,
             'addr_city' => null,
             'addr_country' => null
-        );
+        ];
         $tags = $this->getTags();
         $detailsSet = false;
         foreach ($tags as $key => $value) {

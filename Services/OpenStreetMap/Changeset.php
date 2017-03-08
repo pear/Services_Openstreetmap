@@ -38,14 +38,14 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *
      * @var array
      */
-    protected $members = array();
+    protected $members = [];
 
     /**
      * Array of the Ids of the members of what this changeset represents.
      *
      * @var array
      */
-    protected $membersIds = array();
+    protected $membersIds = [];
 
     /**
      * Whether the changeset is open.
@@ -74,7 +74,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *
      * @var array
      */
-    protected $updateMap = array();
+    protected $updateMap = [];
 
     /**
      * Constructor
@@ -96,7 +96,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      */
     public function begin($message)
     {
-        $this->members = array();
+        $this->members = [];
         $this->open = true;
         $config = $this->getConfig();
         $userAgent = $config->getValue('User-Agent');
@@ -127,7 +127,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             $password,
             $doc,
             null,
-            array(array('Content-type', 'text/xml', true))
+            [['Content-type', 'text/xml', true]]
         );
         $code = $response->getStatus();
         if (Services_OpenStreetMap_Transport::OK == $code) {
@@ -213,7 +213,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 $config['password'],
                 $this->getOsmChangeXml(),
                 null,
-                array(array('Content-type', 'text/xml', true))
+                [['Content-type', 'text/xml', true]]
             );
             $this->updateObjectIds($response->getBody());
         } catch (Exception $ex) {
@@ -246,7 +246,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 $config['password'],
                 null,
                 null,
-                array(array('Content-type', 'text/xml', true))
+                [['Content-type', 'text/xml', true]]
             );
         } catch (Exception $ex) {
             $code = $ex->getCode();

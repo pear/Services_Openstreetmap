@@ -42,7 +42,7 @@ class Services_OpenStreetMap_Comments extends Services_OpenStreetMap_Objects
      *
      * @return Services_OpenStreetMap_Comments
      */
-    public function __construct(array $array = array())
+    public function __construct(array $array = [])
     {
         $this->objects = $array;
     }

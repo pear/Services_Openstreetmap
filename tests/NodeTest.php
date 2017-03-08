@@ -53,10 +53,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/node.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $node = $osm->getNode($id);
         $getTags = $node->getTags();
@@ -80,10 +80,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/node.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $node = $osm->getNode($id, 2);
         $getTags = $node->getTags();
@@ -108,10 +108,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/404', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $node = $osm->getNode($id);
         $this->assertFalse($node);
@@ -131,10 +131,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/410', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $node = $osm->getNode($id);
         $this->assertFalse($node);
@@ -156,10 +156,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/500', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $node = $osm->getNode($id);
     }
@@ -175,30 +175,30 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
         $lon = -8.1983611;
         $node = $osm->createNode(
             $lat,
             $lon,
-            array(
+            [
                 'building' => 'yes',
                 'amenity' => 'vet'
-            )
+            ]
         );
         $this->assertEquals('', ($node->getUser()));
         $this->assertEquals(1, $node->getVersion());
         $this->assertEquals(-1, $node->getId());
         $this->assertEquals(
             $node->getTags(),
-            array(
+            [
                 'building' => 'yes',
                 'amenity' => 'vet',
-            )
+            ]
         );
         $this->assertEquals($lat, $node->getlat());
         $this->assertEquals($lon, $node->getlon());
@@ -218,10 +218,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $lat = 252.8638729;
         $lon = -8.1983611;
@@ -242,10 +242,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $lat = -90.000010123;
         $lon = -8.1983611;
@@ -262,10 +262,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $lat = -90.0000;
         $lon = -8.1983611;
@@ -283,10 +283,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $lat = 90;
         $lon = -8.1983611;
@@ -307,10 +307,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $lat = 'ArticCircle';
         $lon = -8.1983611;
@@ -332,10 +332,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
-                'adapter'  => $mock,
-                'server'   => 'http://api06.dev.openstreetmap.org/',
-                );
+        $config = [
+            'adapter'  => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+        ];
         $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
         $lon = 180.1983611;
@@ -355,10 +355,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
-                'adapter'  => $mock,
-                'server'   => 'http://api06.dev.openstreetmap.org/',
-                );
+        $config = [
+            'adapter'  => $mock,
+            'server'   => 'http://api06.dev.openstreetmap.org/',
+        ];
         $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
         $lon = -180.1983611;
@@ -375,10 +375,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
         $lon = 180;
@@ -396,10 +396,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
         $lon = -180;
@@ -420,10 +420,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
-                'adapter' => $mock,
-                'server'  => 'http://api06.dev.openstreetmap.org/',
-                );
+        $config = [
+            'adapter' => $mock,
+            'server'  => 'http://api06.dev.openstreetmap.org/',
+        ];
         $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
         $lon = 'TheBlessing';
@@ -447,29 +447,29 @@ class NodeTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
-        $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
+        $nodes = $osm->getNodes([621953926, 621953928, 621953939]);
         $this->assertEquals(3, sizeof($nodes));
 
-        $nodesInfo = array(
-            array('id' => 621953926, 'source' => 'survey', 'address' => null),
-            array('id' => 621953928, 'source' => 'survey', 'address' => null),
-            array(
+        $nodesInfo = [
+            ['id' => 621953926, 'source' => 'survey', 'address' => null],
+            ['id' => 621953928, 'source' => 'survey', 'address' => null],
+            [
                 'id' => 621953939,
                 'source' => 'survey',
-                'address' => array (
+                'address' => [
                     'addr_housename' => null,
                     'addr_housenumber' => '5',
                     'addr_street' => 'Castle Street',
                     'addr_city' => 'Cahir',
                     'addr_country' => 'IE'
-                )
-            )
-        );
+                ]
+            ]
+        ];
         foreach ($nodes as $key => $node) {
             $tags = $node->getTags();
             $this->assertEquals($node->getId(), $nodesInfo[$key]['id']);
@@ -490,12 +490,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/401', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
-        $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
+        $nodes = $osm->getNodes([621953926, 621953928, 621953939]);
         $this->assertFalse($nodes);
     }
 
@@ -511,12 +511,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/404', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
-        $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
+        $nodes = $osm->getNodes([621953926, 621953928, 621953939]);
         $this->assertFalse($nodes);
     }
 
@@ -532,12 +532,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/410', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
-        $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
+        $nodes = $osm->getNodes([621953926, 621953928, 621953939]);
         $this->assertFalse($nodes);
     }
 
@@ -555,12 +555,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/500', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
-        $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
+        $nodes = $osm->getNodes([621953926, 621953928, 621953939]);
     }
 
     /**
@@ -584,17 +584,17 @@ class NodeTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/node_621953939_history.xml', 'rb')
         );
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
-        $nodes = $osm->getNodes(array(621953926, 621953928, 621953939));
-        $versions = array(
-            621953926 => array(1),
-            621953928 => array(1),
-            621953939 => array(1, 2)
-        );
+        $nodes = $osm->getNodes([621953926, 621953928, 621953939]);
+        $versions = [
+            621953926 => [1],
+            621953928 => [1],
+            621953939 => [1, 2]
+        ];
         foreach ($nodes as $node) {
             $history = $node->history();
             $id = $node->getId();
@@ -618,10 +618,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/node_248081837.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/way_23010474.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server'  => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
 
         $osm = new Services_OpenStreetMap($config);
 
@@ -630,13 +630,13 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(sizeof($ways), 1);
         $this->assertEquals(
             $ways[0]->getTags(),
-            array (
+            [
                 'highway' => 'residential',
                 'maxspeed' => '50',
                 'name' => 'Kingston Park',
                 'name:en' => 'Kingston Park',
                 'name:ga' => 'Páirc Kingston',
-            )
+            ]
         );
     }
 
@@ -652,10 +652,10 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/node_597697114.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/relation_405053.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server'  => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
 
         $osm = new Services_OpenStreetMap($config);
 
@@ -665,14 +665,14 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Services_OpenStreetMap_Relation', $relations[0]);
         $this->assertEquals(
             $relations[0]->getTags(),
-            array (
+            [
                 'complete'=> 'no',
                 'name'=> 'Dublin Bus route 75',
                 'operator'=> 'Dublin Bus',
                 'ref'=> '75',
                 'route'=> 'bus',
                 'type'=> 'route',
-            )
+            ]
         );
     }
 }

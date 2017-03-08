@@ -128,13 +128,13 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
      */
     public function getAddress()
     {
-        $ret  = array(
+        $ret  = [
             'addr_housename' => null,
             'addr_housenumber' => null,
             'addr_street' => null,
             'addr_city' => null,
             'addr_country' => null
-        );
+        ];
         $tags = $this->getTags();
         $detailsSet = false;
         foreach ($tags as $key => $value) {

@@ -96,7 +96,7 @@ class Services_OpenStreetMap_Transport_HTTPCached
         array $post_data = null,
         array $headers = null
     ) {
-        $arguments = array(
+        $arguments = [
             $url,
             $method,
             $user,
@@ -104,7 +104,7 @@ class Services_OpenStreetMap_Transport_HTTPCached
             $body,
             implode(":", (array) $post_data),
             implode(":", (array) $headers)
-        );
+        ];
         $id = md5(implode(":", $arguments));
 
         $data = $this->cache->get($id);
@@ -131,3 +131,4 @@ class Services_OpenStreetMap_Transport_HTTPCached
         return $response;
     }
 }
+?>

@@ -39,7 +39,7 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
      *
      * @var array
      */
-    protected $members = array();
+    protected $members = [];
 
     /**
      * Return all members of the relation.
@@ -100,11 +100,11 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
                     $this->tags[$key] = (string) $child->attributes()->v;
                 }
             } elseif ($childname == 'member') {
-                $this->members[] = array(
+                $this->members[] = [
                     'type'=> (string) $child->attributes()->type,
                     'ref'=> (string) $child->attributes()->ref,
                     'role'=> (string) $child->attributes()->role,
-                );
+                ];
 
             }
         }

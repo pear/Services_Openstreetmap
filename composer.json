@@ -20,7 +20,7 @@
     "name": "kenguest/services-openstreetmap",
     "type": "library",
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.4.0",
         "pear/http_request2": "2.2.*",
         "pear/log": "1.12.*"
     },

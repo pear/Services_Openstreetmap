@@ -30,7 +30,7 @@ class Services_OpenStreetMap_User
      *
      * @var array
      */
-    protected $preferences = array();
+    protected $preferences = [];
 
     /**
      * Transport object.
@@ -147,7 +147,7 @@ class Services_OpenStreetMap_User
      */
     public function getLanguages()
     {
-        $langers = array();
+        $langers = [];
         $cxml = simplexml_load_string($this->xml);
         $languages = $cxml->xpath('//user/languages');
         if (empty($languages)) {
@@ -302,7 +302,7 @@ class Services_OpenStreetMap_User
      */
     public function getRoles()
     {
-        $ret = array();
+        $ret = [];
         $cxml = simplexml_load_string($this->xml);
         $roles = $cxml->xpath('//user/roles');
         if (empty($roles)) {
@@ -321,9 +321,8 @@ class Services_OpenStreetMap_User
      */
     public function getPreferences()
     {
-        if ($this->preferences == array()) {
-
-            $preferences = array();
+        if ($this->preferences == []) {
+            $preferences = [];
             foreach ($this->prefObj[0]->children() as $child) {
                 $key = (string) $child->attributes()->k;
                 if ($key != '') {
@@ -373,7 +372,7 @@ class Services_OpenStreetMap_User
                 $config['password'],
                 $doc,
                 null,
-                array(array('Content-type', 'text/xml', true))
+                [['Content-type', 'text/xml', true]]
             );
             var_dump($response->getBody());
         } catch (Exception $ex) {

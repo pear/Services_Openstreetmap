@@ -17,7 +17,7 @@
  * Pull in HTTP_Request2
  */
 require_once 'HTTP/Request2.php';
-spl_autoload_register(array('Services_OpenStreetMap', 'autoload'));
+spl_autoload_register(['Services_OpenStreetMap', 'autoload']);
 
 /**
  * Services_OpenStreetMap - interface with OpenStreetMap
@@ -81,7 +81,7 @@ class Services_OpenStreetMap
      *
      * @return Services_OpenStreetMap
      */
-    public function __construct($configuration = array())
+    public function __construct($configuration = [])
     {
         $config = new Services_OpenStreetMap_Config();
         $this->setConfig($config);
@@ -122,7 +122,7 @@ class Services_OpenStreetMap
      */
     public function bboxToMinMax($minLat, $minLon, $maxLat, $maxLon)
     {
-        return array($minLon, $minLat, $maxLon, $maxLat);
+        return [$minLon, $minLat, $maxLon, $maxLat];
     }
 
     /**
@@ -244,7 +244,7 @@ class Services_OpenStreetMap
      */
     public static function getIDs($args)
     {
-        $IDs = array();
+        $IDs = [];
         foreach ($args as $arg) {
             if (is_array($arg)) {
                 $IDs = array_merge($arg, $IDs);
@@ -314,11 +314,11 @@ class Services_OpenStreetMap
      */
     public function search(array $criteria)
     {
-        $results = array();
+        $results = [];
 
         $xml = simplexml_load_string($this->xml);
         if ($xml === false) {
-            return array();
+            return [];
         }
         foreach ($criteria as $key => $value) {
             foreach ($xml->xpath('//way') as $node) {
@@ -351,7 +351,7 @@ class Services_OpenStreetMap
     private function _searchNode(SimpleXMLElement $node, $key, $value, $type)
     {
         $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($type));
-        $results = array();
+        $results = [];
         foreach ($node->tag as $tag) {
             if ($tag['k'] == $key) {
                 if ($tag['v'] == $value) {
@@ -581,7 +581,7 @@ class Services_OpenStreetMap
     public function __call($name, $arguments)
     {
         if (method_exists($this->api, $name)) {
-            return call_user_func_array(array($this->api, $name), $arguments);
+            return call_user_func_array([$this->api, $name], $arguments);
         } else {
             throw new Services_OpenStreetMap_Exception(
                 sprintf(

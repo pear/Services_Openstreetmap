@@ -49,7 +49,7 @@ class Log_OSMTest_Observer extends Log_observer
      *
      * @var array
      */
-    public $entries = array();
+    public $entries = [];
 
     /**
      * Notify
@@ -87,7 +87,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $this->assertInstanceOf('Services_OpenStreetMap', $osm);
     }
 
@@ -101,7 +101,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $this->assertEquals($osm->getXml(), null);
         $osm->loadXml(__DIR__ . '/files/osm.osm');
         $this->assertNotEquals($osm->getXml(), null);
@@ -117,10 +117,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $this->assertEquals($osm->getTimeout(), 300);
     }
@@ -135,10 +135,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities2.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $this->assertEquals($osm->getMinVersion(), 0.5);
         $this->assertEquals($osm->getMaxVersion(), 0.6);
@@ -163,10 +163,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/capabilitiesNoStatus.xml', 'rb')
         );
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $this->assertEquals($osm->getDatabaseStatus(), null);
         $this->assertEquals($osm->getApiStatus(), null);
@@ -187,10 +187,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities_min.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
     }
 
@@ -208,10 +208,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities_max.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
     }
 
@@ -230,10 +230,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/capabilities_invalid.xml', 'rb')
         );
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
     }
 
@@ -249,13 +249,13 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/area.xml', 'rb'));
 
         $server = 'http://api06.dev.openstreetmap.org/';
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'verbose' => true,
             'server' => $server
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
-        $results = $osm->search(array('amenity' => 'pharmacy'));
+        $results = $osm->search(['amenity' => 'pharmacy']);
         $this->AssertTrue(empty($results));
 
         $minlon = "-8.247245026639696";
@@ -263,7 +263,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $maxlat = "52.89957825532213";
         $maxlon = "-8.174161478654796";
 
-        $log = new Log_null('null', 'null', array(), 7);
+        $log = new Log_null('null', 'null', [], 7);
         $observer = new Log_OSMTest_Observer();
         $log->attach($observer);
         $osm->getTransport()->setLog($log);
@@ -287,17 +287,17 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($pxmaxlat, sprintf("%2.7f", $maxlat));
         $this->assertEquals($pxmaxlon, sprintf("%2.7f", $maxlon));
 
-        $results = $osm->search(array('amenity' => 'pharmacy'));
+        $results = $osm->search(['amenity' => 'pharmacy']);
 
-        $tags = array();
+        $tags = [];
         foreach ($results as $result) {
             $tags[] = $result->getTags();
         }
 
         $this->assertEquals(
             $tags,
-            array (
-                0 => array (
+            [
+                0 => [
                     'addr:city' => 'Nenagh',
                     'addr:country' => 'IE',
                     'addr:housename' => '20-21',
@@ -310,8 +310,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
                     'fax' => '+353 67 34540',
                     'name' => 'Ryans Pharmacy and Beauty Salon',
                     'phone' => '+353 67 31464',
-                ),
-                1 => array (
+                ],
+                1 => [
                     'addr:city' => 'Nenagh',
                     'addr:country' => 'IE',
                     'addr:housename' => '7',
@@ -323,8 +323,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
                     'opening_hours' => 'Mo-Fr 09:30-19:00',
                     'phone' => '+353 67 31249',
                     'shop' => 'chemist',
-                ),
-                2 => array (
+                ],
+                2 => [
                     'addr:city' => 'Nenagh',
                     'addr:country' => 'IE',
                     'addr:housename' => '20-21',
@@ -337,8 +337,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
                     'fax' => '+353 67 34540',
                     'name' => 'Ryans Pharmacy and Beauty Salon',
                     'phone' => '+353 67 31464',
-                ),
-                3 => array (
+                ],
+                3 => [
                     'addr:city' => 'Nenagh',
                     'addr:country' => 'IE',
                     'addr:housenumber' => 'Unit 1A',
@@ -348,8 +348,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
                     'opening_hours' =>
                         'Mo-Th 09:00-18:00; Fr 09:00-19:30; Sa 09:00-18:00',
                     'phone' => '+353 67 34244',
-                ),
-                4 => array (
+                ],
+                4 => [
                     'addr:city' => 'Nenagh',
                     'addr:country' => 'IE',
                     'addr:housename' => '7',
@@ -358,8 +358,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
                     'dispensing' => 'yes',
                     'name' => 'Guierins',
                     'phone' => '+353 67 31447',
-                    ),
-                5 => array (
+                    ],
+                5 => [
                     'addr:city' => 'Nenagh',
                     'addr:country' => 'IE',
                     'addr:housenumber' => '69',
@@ -368,8 +368,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
                     'dispensing' => 'yes',
                     'name' => 'Finnerty\'s',
                     'phone' => '+353 67 34155',
-                ),
-                6 => array (
+                ],
+                6 => [
                     'addr:city' => 'Nenagh',
                     'addr:country' => 'IE',
                     'addr:housenumber' => '67',
@@ -377,8 +377,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
                     'amenity' => 'pharmacy',
                     'name' => 'Cuddys',
                     'phone' => '+353 67 31262',
-                ),
-                7 => array (
+                ],
+                7 => [
                     'addr:city' => 'Nenagh',
                     'addr:country' => 'IE',
                     'addr:street' => 'Clare Street',
@@ -388,8 +388,8 @@ class OSMTest extends PHPUnit_Framework_TestCase
                     'name' => 'Clare Street Pharmacy',
                     'opening_hours' => 'Mo-Sa 09:15-18:00',
                     'phone' => '+3536742775',
-                ),
-            )
+                ],
+            ]
         );
     }
 
@@ -404,12 +404,12 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/area.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
-        $results = $osm->search(array('amenity' => 'pharmacy'));
+        $results = $osm->search(['amenity' => 'pharmacy']);
         $this->AssertTrue(empty($results));
         $xml = $osm->get(
             52.84824191354071, -8.247245026639696,
@@ -431,29 +431,29 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/area.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
-        $results = $osm->search(array('amenity' => 'pharmacy'));
+        $results = $osm->search(['amenity' => 'pharmacy']);
         $this->AssertTrue(empty($results));
         $osm->get(
             52.84824191354071, -8.247245026639696,
             52.89957825532213, -8.174161478654796
         );
-        $results = $osm->search(array('amenity' => 'restaurant'));
+        $results = $osm->search(['amenity' => 'restaurant']);
 
-        $tags = array();
+        $tags = [];
         foreach ($results as $result) {
             $tags[] = $result->getTags();
         }
 
         $this->assertEquals(
             $tags,
-            array (
+            [
                 0 =>
-                array (
+                [
                     'addr:city' => 'Nenagh',
                     'addr:country' => 'IE',
                     'addr:housenumber' => '19',
@@ -461,39 +461,39 @@ class OSMTest extends PHPUnit_Framework_TestCase
                     'amenity' => 'restaurant',
                     'building' => 'yes',
                     'building:levels' => '3',
-                ),
+                ],
                 1 =>
-                array (
+                [
                     'addr:city' => 'Nenagh',
                     'addr:country' => 'IE',
                     'addr:housenumber' => '26',
                     'addr:street' => 'Kenyon Street',
                     'amenity' => 'restaurant',
                     'name' => 'The Peppermill',
-                ),
+                ],
                 2 =>
-                array (
+                [
                     'amenity' => 'restaurant',
                     'cuisine' => 'italian',
                     'name' => 'Pepe\'s Restaurant',
-                ),
+                ],
                 3 =>
-                array (
+                [
                     'addr:city' => 'Nenagh',
                     'addr:country' => 'IE',
                     'addr:housenumber' => '19',
                     'addr:street' => 'Kenyon Street',
                     'amenity' => 'restaurant',
                     'name' => 'Simply Food',
-                ),
+                ],
                 4 =>
-                array (
+                [
                     'amenity' => 'restaurant',
                     'cuisine' => 'chinese',
                     'name' => 'Jin\'s',
-                ),
+                ],
                 5 =>
-                array (
+                [
                     'addr:city' => 'Nenagh',
                     'addr:country' => 'IE',
                     'addr:housenumber' => '23',
@@ -503,24 +503,24 @@ class OSMTest extends PHPUnit_Framework_TestCase
                     'phone' => '+353 67 32494',
                     'tourism' => 'guest_house',
                     'website' => 'http://www.andysnenagh.com',
-                ),
+                ],
                 6 =>
-                array (
+                [
                     'amenity' => 'restaurant',
                     'cuisine' => 'chinese',
                     'name' => 'Golden Star',
                     'opening_hours' => 'Mo-Su 17:00-24:00',
-                ),
+                ],
                 7 =>
-                array (
+                [
                     'amenity' => 'restaurant',
                     'cuisine' => 'indian',
                     'email' => 'turbanrest@gmail.com',
                     'name' => 'Turban',
                     'opening_hours' => 'Mo-Su 16:30-23:00; Fr,Sa 16:30-23:30',
                     'phone' => '+353 67 42794',
-                ),
-            )
+                ],
+            ]
         );
     }
 
@@ -536,10 +536,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/nominatim_search_limerick.xml', 'rb')
         );
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $this->AssertEquals(
             $osm->getCoordsOfPlace('Limerick, Ireland'),
-            array('lat'=> '52.6612577', 'lon'=> '-8.6302084')
+            ['lat'=> '52.6612577', 'lon'=> '-8.6302084']
         );
     }
 
@@ -562,7 +562,7 @@ class OSMTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $osm->getCoordsOfPlace('Neeenaaa, Ireland');
     }
 
@@ -580,10 +580,10 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/node.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/node_history.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $node = $osm->getNode($id);
         $history = $node->history();
@@ -603,17 +603,17 @@ class OSMTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array('adapter' => $mock);
+        $config = ['adapter' => $mock];
         $osm = new Services_OpenStreetMap($config);
         $this->assertEquals(
             $osm->bboxToMinMax(
                 '0.0327873', '52.260074599999996',
                 '0.0767326', '52.282047299999995'
             ),
-            array(
+            [
                 '52.260074599999996', '0.0327873',
                 '52.282047299999995', '0.0767326',
-            )
+            ]
         );
     }
 

@@ -51,10 +51,10 @@ class WayFullTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/way.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/way.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWayFull($id, 1);
         //var_dump($way);

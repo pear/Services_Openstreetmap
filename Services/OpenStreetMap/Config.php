@@ -122,7 +122,7 @@ class Services_OpenStreetMap_Config
      * @see Services_OpenStreetMap::getConfig
      * @see Services_OpenStreetMap::setConfig
      */
-    protected $config = array(
+    protected $config = [
         'accept-language' => 'en',
         'adapter'         => 'HTTP_Request2_Adapter_Socket',
         'api_version'     => '0.6',
@@ -132,7 +132,7 @@ class Services_OpenStreetMap_Config
         'User-Agent'      => 'Services_OpenStreetMap',
         'user'            => null,
         'verbose'         => false,
-    );
+    ];
 
     /**
      * Version of the [OSM] API which communications will be over.
@@ -326,7 +326,7 @@ class Services_OpenStreetMap_Config
         $valid = filter_var(
             $language,
             FILTER_VALIDATE_REGEXP,
-            array('options' => array('regexp' => '/^[a-z]{1,8}$/i'))
+            ['options' => ['regexp' => '/^[a-z]{1,8}$/i']]
         );
         if ($valid !== false) {
             return true;

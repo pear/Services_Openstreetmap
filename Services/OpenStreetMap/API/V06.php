@@ -32,7 +32,7 @@ class Services_OpenStreetMap_API_V06
      *
      * @internal
      */
-    protected $elements = array('changeset', 'node', 'relation', 'way');
+    protected $elements = ['changeset', 'node', 'relation', 'way'];
 
     /**
      * Transport
@@ -195,7 +195,7 @@ class Services_OpenStreetMap_API_V06
      */
     public function searchChangesets(array $criteria)
     {
-        $types = array();
+        $types = [];
         foreach ($criteria as $criterion) {
             $types[] = $criterion->type();
         }
@@ -226,7 +226,7 @@ class Services_OpenStreetMap_API_V06
      *
      * @return Services_OpenStreetMap_Node
      */
-    public function createNode($latitude, $longitude, array $tags = array())
+    public function createNode($latitude, $longitude, array $tags = [])
     {
         $node = new Services_OpenStreetMap_Node();
         $config = $this->getConfig();
@@ -538,7 +538,7 @@ class Services_OpenStreetMap_API_V06
             }
         }
         $obj = simplexml_load_string($response->getBody());
-        $ret = array();
+        $ret = [];
         $permissions = (array) $obj->permissions;
         if (isset($permissions['permission'])) {
             $permissions = $permissions['permission'];

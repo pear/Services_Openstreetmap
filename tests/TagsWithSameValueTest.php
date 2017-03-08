@@ -51,12 +51,12 @@ class TagsWithSameValueTest extends PHPUnit_Framework_TestCase
         $node = $osm->createNode(
             0,
             0,
-            array(
+            [
                 'name' => 'cafe',
                 'amenity' => 'cafe',
                 'name:en' => 'cafe',
                 'name:uk' => 'cafe'
-            )
+            ]
         );
         $xml = ($node->getOsmChangeXml());
         $expected = '<create>'

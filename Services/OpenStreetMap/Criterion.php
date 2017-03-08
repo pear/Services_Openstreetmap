@@ -165,7 +165,7 @@ class Services_OpenStreetMap_Criterion
         case 'display_name':
         case 'time':
         case 'user':
-            return http_build_query(array($this->type => $this->value));
+            return http_build_query([$this->type => $this->value]);
         }
     }
 

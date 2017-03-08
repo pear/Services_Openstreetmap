@@ -56,10 +56,10 @@ class RelationTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/relation_changeset.xml', 'rb')
         );
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server'  => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $relation = $osm->getRelation($id);
         $this->assertEquals($id, $relation->getId());
@@ -101,48 +101,48 @@ class RelationTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/relation_changeset.xml', 'rb')
         );
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
-        $relations = $osm->getRelations(array(917266,20645,2740));
+        $relations = $osm->getRelations([917266,20645,2740]);
 
         $this->assertEquals(3, sizeof($relations));
-        $relationsInfo = array(
-            array(
+        $relationsInfo = [
+            [
                 'id' => 2740,
                 'name' => 'The Wicklow Way',
                 'type' => 'route',
-                'members' => array(
+                'members' => [
                     'role' => '',
                     'count' => 113,
                     'type' => 'node'
-                )
-            ),
+                ]
+            ],
 
-            array(
+            [
                 'id' => 20645,
                 'name' => 'International E-road network',
                 'type' => 'network',
-                'members' => array(
+                'members' => [
                     'role' => '',
                     'type'=>'relation',
                     'count' => 48
-                )
-            ),
+                ]
+            ],
 
-            array(
+            [
                 'id' => 917266,
                 'name' => 'Dublin Bus route 14',
                 'type' => 'route',
-                'members' => array(
+                'members' => [
                     'role' => 'forward',
                     'type'=> 'way',
                     'count'=>112
-                )
-            ),
-        );
+                ]
+            ],
+        ];
         foreach ($relations as $key=>$relation) {
             $tags = $relation->getTags();
             $members = $relation->getMembers();
@@ -182,48 +182,48 @@ class RelationTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/relation_changeset.xml', 'rb')
         );
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $relations = $osm->getRelations(917266, 20645, 2740);
 
         $this->assertEquals(3, sizeof($relations));
-        $relationsInfo = array(
-            array(
+        $relationsInfo = [
+            [
                 'id' => 2740,
                 'name' => 'The Wicklow Way',
                 'type' => 'route',
-                'members' => array(
+                'members' => [
                     'role' => '',
                     'count' => 113,
                     'type' => 'node'
-                )
-            ),
+                ]
+            ],
 
-            array(
+            [
                 'id' => 20645,
                 'name' => 'International E-road network',
                 'type' => 'network',
-                'members' => array(
+                'members' => [
                     'role' => '',
                     'type'=>'relation',
                     'count' => 48
-                )
-            ),
+                ]
+            ],
 
-            array(
+            [
                 'id' => 917266,
                 'name' => 'Dublin Bus route 14',
                 'type' => 'route',
-                'members' => array(
+                'members' => [
                     'role' => 'forward',
                     'type'=> 'way',
                     'count'=>112
-                )
-            ),
-        );
+                ]
+            ],
+        ];
         foreach ($relations as $key=>$relation) {
             $tags = $relation->getTags();
             $members = $relation->getMembers();

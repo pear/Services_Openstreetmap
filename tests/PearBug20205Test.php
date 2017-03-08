@@ -57,10 +57,10 @@ class PearBug20205Test extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/PEARBug20205_russia_fr.xml', 'rb')
         );
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
 
         $osm->getConfig()->setAcceptLanguage('ru,en-AU');

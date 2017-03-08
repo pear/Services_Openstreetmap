@@ -84,7 +84,7 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
     {
         $this->xml = $xml->saveXml();
         $obj = $xml->xpath('//' . $this->getType());
-        $kids = array();
+        $kids = [];
         foreach ($obj[0]->children() as $child) {
             $key = (string) $child->attributes()->k;
             if ($key != '') {

@@ -192,7 +192,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
     {
         $this->xml = $xml->saveXml();
         $obj = $xml->xpath('//' . $this->getType());
-        $kids = array();
+        $kids = [];
         foreach ($obj[0]->children() as $child) {
             $key = (string) $child->attributes()->k;
             if ($key != '') {
@@ -200,7 +200,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
             }
             $name = (string) $child->getName();
             if ($name == 'comments') {
-                $comments = array();
+                $comments = [];
                 foreach ($child->children() as $gchild) {
                     $comment = new Services_OpenStreetMap_Comment;
                     $comment->setXml($gchild);

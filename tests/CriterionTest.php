@@ -50,13 +50,13 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changesets_11324.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server'  => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $changesets = $osm->searchChangesets(
-            array(new Services_OpenStreetMap_Criterion('user', 11324))
+            [new Services_OpenStreetMap_Criterion('user', 11324)]
         );
         $this->assertInstanceOf('Services_OpenStreetMap_Changesets', $changesets);
         $diff = false;
@@ -82,13 +82,13 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $changesets = $osm->searchChangesets(
-            array(new Services_OpenStreetMap_Criterion('uid', 11324))
+            [new Services_OpenStreetMap_Criterion('uid', 11324)]
         );
     }
 
@@ -103,13 +103,13 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changesets_11324.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $changesets = $osm->searchChangesets(
-            array(new Services_OpenStreetMap_Criterion('display_name', 'kenguest'))
+            [new Services_OpenStreetMap_Criterion('display_name', 'kenguest')]
         );
         $this->assertInstanceOf('Services_OpenStreetMap_Changesets', $changesets);
     }
@@ -129,10 +129,10 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changesets_11324.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $displayName = new Services_OpenStreetMap_Criterion(
             'display_name',
@@ -140,7 +140,7 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         );
         $this->assertEquals($displayName->type(), 'display_name');
         $user = new Services_OpenStreetMap_Criterion('user', 11324);
-        $changesets = $osm->searchChangesets(array($displayName, $user));
+        $changesets = $osm->searchChangesets([$displayName, $user]);
         $this->assertInstanceOf('Services_OpenStreetMap_Changesets', $changesets);
     }
 
@@ -155,13 +155,13 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changesets_11324.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server'  => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $changesets = $osm->searchChangesets(
-            array(
+            [
                 new Services_OpenStreetMap_Criterion(
                     'bbox',
                     -8.0590275,
@@ -169,7 +169,7 @@ class CriterionTest extends PHPUnit_Framework_TestCase
                     -7.9966939,
                     52.9611999
                 )
-            )
+            ]
         );
         $this->assertInstanceOf('Services_OpenStreetMap_Changesets', $changesets);
     }
@@ -186,10 +186,10 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changesets_11324.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
 
         $user = new Services_OpenStreetMap_Criterion('user', 11324);
@@ -213,7 +213,7 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($closed->type(), 'closed');
         $this->assertEquals($closed->query(), 'closed');
 
-        $changesets = $osm->searchChangesets(array($user, $bbox, $closed));
+        $changesets = $osm->searchChangesets([$user, $bbox, $closed]);
         $this->assertInstanceOf('Services_OpenStreetMap_Changesets', $changesets);
     }
 
@@ -234,10 +234,10 @@ class CriterionTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
 
         $time = '17 November 2011';
@@ -257,7 +257,7 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         );
         $this->assertEquals($c->type(), 'time');
 
-        $changesets = $osm->searchChangesets(array($displayName, $c));
+        $changesets = $osm->searchChangesets([$displayName, $c]);
         $this->assertInstanceOf('Services_OpenStreetMap_Changesets', $changesets);
     }
 
@@ -274,10 +274,10 @@ class CriterionTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
 
         $user = new Services_OpenStreetMap_Criterion('user', 'mustbenumeric');

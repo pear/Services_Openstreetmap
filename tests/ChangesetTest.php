@@ -15,7 +15,9 @@
 
 $version = '@package_version@';
 if (strstr($version, 'package_version')) {
-    set_include_path(dirname(dirname(__FILE__)) . PATH_SEPARATOR . get_include_path());
+    set_include_path(
+        dirname(dirname(__FILE__)) . PATH_SEPARATOR . get_include_path()
+    );
 }
 
 require_once 'Services/OpenStreetMap.php';
@@ -68,10 +70,10 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
 
         $cId = 2217466;
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $changeset = $osm->getChangeSet($cId);
         $this->assertEquals($cId, (int) $changeset->getId());
@@ -98,11 +100,11 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'user' => 'fred@example.com'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
@@ -126,11 +128,11 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'password' => 'wilma4evah'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
@@ -168,11 +170,11 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/changeset_closed', 'rb')
         );
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'passwordfile' => $this->credentialsFile
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
@@ -228,11 +230,11 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         );
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_closed', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'passwordfile' => $this->credentialsFile
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
@@ -252,7 +254,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $changeset->commit();
         $lat = 52.8638729;
         $lon = -8.1983611;
-        $tags = array('building' => 'yes', 'amenity' => 'vet');
+        $tags = ['building' => 'yes', 'amenity' => 'vet'];
         $node = $osm->createNode($lat, $lon, $tags);
         $changeset->add($node);
     }
@@ -283,11 +285,11 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         );
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_closed', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'passwordfile' => $this->credentialsFile
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
@@ -335,11 +337,11 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_closed', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/410', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'passwordfile' => $this->credentialsFile
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
@@ -384,11 +386,11 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         );
         $mock->addResponse(fopen(__DIR__ . '/responses/404', 'rb'));
 
-        $config = array(
-            'adapter'  => $mock,
-            'server'   => 'http://api06.dev.openstreetmap.org/',
+        $config = [
+            'adapter' => $mock,
+            'server'  => 'http://api06.dev.openstreetmap.org/',
             'passwordfile' => $this->credentialsFile
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
@@ -438,11 +440,11 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         );
         $mock->addResponse(fopen(__DIR__ . '/responses/400', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
             'passwordfile' => $this->credentialsFile
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
@@ -481,11 +483,11 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/400', 'rb'));
 
-        $config = array(
-            'adapter'  => $mock,
-            'server'   => 'http://api06.dev.openstreetmap.org/',
+        $config = [
+            'adapter' => $mock,
+            'server'  => 'http://api06.dev.openstreetmap.org/',
             'passwordfile' => $this->credentialsFile
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         try {
             $changeset = $osm->createChangeset();
@@ -519,39 +521,39 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/diff_create_node.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_closed', 'rb'));
-        $config = array(
-                'adapter'  => $mock,
-                'server'   => 'http://api06.dev.openstreetmap.org/',
-                'passwordfile' => $this->credentialsFile
-                );
+        $config = [
+            'adapter' => $mock,
+            'server'  => 'http://api06.dev.openstreetmap.org/',
+            'passwordfile' => $this->credentialsFile
+        ];
         $osm = new Services_OpenStreetMap($config);
         $lat = 52.8638729;
         $lon = -8.1983611;
         $node = $osm->createNode(
             $lat,
             $lon,
-            array(
+            [
                 'building' => 'yes',
                 'amenity' => 'vet'
-            )
+            ]
         );
         $this->assertEquals(
             $node->getTags(),
-            array(
+            [
                 'building' => 'yes',
                 'amenity' => 'vet',
-            )
+            ]
         );
         $this->assertEquals($lat, $node->getlat());
         $this->assertEquals($lon, $node->getlon());
         $node->setTag('amenity', 'veterinary')->setTag('name', 'O\'Kennedy');
         $this->assertEquals(
             $node->getTags(),
-            array(
+            [
                 'building' => 'yes',
                 'amenity' => 'veterinary',
                 'name' => 'O\'Kennedy'
-            )
+            ]
         );
         $this->assertEquals(-1, $node->getId());
 

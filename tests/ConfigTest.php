@@ -49,7 +49,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'api_version' => '0.6',
             'adapter' => $mock,
             'password' => null,
@@ -58,13 +58,13 @@ class ConfigTest extends PHPUnit_Framework_TestCase
             'verbose' => false,
             'User-Agent' => 'Services_OpenStreetMap',
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
 
         $osm = new Services_OpenStreetMap($config);
 
         $this->assertEquals(
             $osm->getConfig()->asArray(),
-            array (
+            [
                 'accept-language' => 'en',
                 'api_version' => '0.6',
                 'User-Agent' => 'Services_OpenStreetMap',
@@ -74,7 +74,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
                 'user' => null,
                 'password' => null,
                 'passwordfile' => null,
-            )
+            ]
         );
         $this->assertEquals('0.6', $osm->getConfig()->getValue('api_version'));
         $osm->getConfig()->setValue('User-Agent', 'Acme 1.2');
@@ -96,7 +96,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array('adapter' => $mock);
+        $config = ['adapter' => $mock];
         $osm = new Services_OpenStreetMap($config);
 
         $osm->getConfig()->setValue('api', '0.5');
@@ -115,7 +115,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array('adapter' => $mock);
+        $config = ['adapter' => $mock];
         $osm = new Services_OpenStreetMap($config);
 
         $osm->getConfig()->getValue('api');
@@ -131,7 +131,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array('adapter' => $mock);
+        $config = ['adapter' => $mock];
         $osm = new Services_OpenStreetMap($config);
 
         $configValues = $osm->getConfig()->getValue();
@@ -159,7 +159,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $osm->getConfig()->setValue('UserAgent', 'Acme/1.2');
     }
 
@@ -177,10 +177,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $osm = new Services_OpenStreetMap(
-            array(
+            [
                 'adapter' => $mock,
                 'UserAgent'=> 'Acme/1.2'
-            )
+            ]
         );
     }
 
@@ -195,7 +195,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/404', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/404', 'rb'));
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         try {
             $osm->getConfig()->setValue('server', 'http://example.com');
         } catch (Services_OpenStreetMap_Exception $ex) {
@@ -218,8 +218,8 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     {
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
-            $osm->getConfig()->setServer('http://example.com');
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
+        $osm->getConfig()->setServer('http://example.com');
         $config = $osm->getConfig()->getValue('server');
         $this->assertEquals($config, 'http://example.com');
     }
@@ -234,7 +234,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $osm  = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm  = new Services_OpenStreetMap(['adapter' => $mock]);
         $cobj = $osm->getConfig();
         $cobj->setValue('passwordfile', __DIR__ . '/files/pwd_1line');
         $config = $cobj->getValue('passwordfile');
@@ -251,7 +251,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $osm  = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm  = new Services_OpenStreetMap(['adapter' => $mock]);
         $cobj = $osm->getConfig();
         $cobj->setPasswordfile(__DIR__ . '/files/pwd_1line');
         $config = $cobj->getValue('passwordfile');
@@ -272,7 +272,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $osm->getConfig()->setValue('passwordfile', __DIR__ . '/files/credentels');
     }
 
@@ -290,7 +290,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $osm->getConfig()->setPasswordfile(__DIR__ . '/files/credentels');
     }
 
@@ -304,7 +304,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $osm->getConfig()->setValue('passwordfile', __DIR__ . '/files/pwd_empty');
         $config = $osm->getConfig()->getValue('passwordfile');
         $this->assertEquals($config, __DIR__ . '/files/pwd_empty');
@@ -322,7 +322,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $osm->getConfig()->setPasswordfile(__DIR__ . '/files/pwd_empty');
         $config = $osm->getConfig()->getValue('passwordfile');
         $this->assertEquals($config, __DIR__ . '/files/pwd_empty');
@@ -340,7 +340,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $osm->getConfig()->setValue('passwordfile', __DIR__ . '/files/pwd_1line');
         $config = $osm->getConfig();
         $this->assertEquals($config->getValue('user'), 'fred@example.com');
@@ -357,7 +357,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $osm->getConfig()->setPasswordfile(__DIR__ . '/files/pwd_1line');
         $config = $osm->getConfig();
         $this->assertEquals($config->getValue('user'), 'fred@example.com');
@@ -375,10 +375,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $osm = new Services_OpenStreetMap(
-            array(
+            [
                 'adapter' => $mock,
                 'user' => 'fred@example.com'
-            )
+            ]
         );
         $config = $osm->getConfig();
         $this->assertEquals($config->getValue('password'), null);
@@ -398,10 +398,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
         $osm = new Services_OpenStreetMap(
-            array(
+            [
                 'adapter' => $mock,
                 'user' => 'fred@example.com'
-            )
+            ]
         );
         $config = $osm->getConfig();
         $this->assertEquals($config->getValue('password'), null);
@@ -420,7 +420,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'api_version' => '0.6',
             'adapter' => $mock,
             'password' => null,
@@ -429,7 +429,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
             'verbose' => false,
             'User-Agent' => 'Services_OpenStreetMap',
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $generator = $osm->getConfig()->getGenerator();
         $this->assertEquals($generator, 'OpenStreetMap server');

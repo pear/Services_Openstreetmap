@@ -53,10 +53,10 @@ class NominatimTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/nominatim_search_limerick.xml', 'rb')
         );
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $this->AssertEquals(
             $osm->getCoordsOfPlace('Limerick, Ireland'),
-            array('lat'=> '52.6612577', 'lon'=> '-8.6302084')
+            ['lat'=> '52.6612577', 'lon'=> '-8.6302084']
         );
     }
 
@@ -79,7 +79,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $osm->getCoordsOfPlace('Neeenaaa, Ireland');
     }
 
@@ -184,7 +184,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/search.json', 'rb'));
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
 
         $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
         $nominatim->setFormat('json');
@@ -206,7 +206,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/searchwaddrressdetailsset.json', 'rb')
         );
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
 
         $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
         $nominatim->setFormat('json');
@@ -231,7 +231,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/searchwaddrressdetailssoff.json', 'rb')
         );
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
 
         $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
         $nominatim->setFormat('json');
@@ -255,7 +255,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/searchwaddrressdetailsnotset.json', 'rb')
         );
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
 
         $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
         $nominatim->setFormat('json');
@@ -278,7 +278,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/search_ga.json', 'rb'));
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
 
         $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
         $nominatim->setFormat('json');
@@ -304,7 +304,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/search.html', 'rb'));
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
         $nominatim->setFormat('html');
         $place = $nominatim->search('Limerick, Ireland', 1);
@@ -370,7 +370,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(
             fopen(__DIR__ . '/responses/nominatim_search_20205_2.xml', 'rb')
         );
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $osm->getConfig()->setAcceptLanguage('en');
         $test = $osm->getPlace('Moskau');
         $attribs = $test[0]->attributes();
@@ -421,7 +421,7 @@ class NominatimTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/nominatim_reverse_it.xml', 'rb')
         );
 
-        $osm = new Services_OpenStreetMap(array('adapter' => $mock));
+        $osm = new Services_OpenStreetMap(['adapter' => $mock]);
         $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
         $xml = $nominatim
             ->setFormat('xml')

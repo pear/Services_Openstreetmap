@@ -52,10 +52,10 @@ class MapquestReverseGeocodeTest extends PHPUnit_Framework_TestCase
             fopen(__DIR__ . '/responses/mapquestReverseGeocodeChurchtown.xml', 'rb')
         );
 
-        $config = array(
+        $config = [
             'server' => 'http://open.mapquestapi.com/nominatim/v1/',
             'adapter' => $mock
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
         $nominatim->setServer('mapquest');

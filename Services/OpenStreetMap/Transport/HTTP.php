@@ -138,13 +138,13 @@ class Services_OpenStreetMap_Transport_HTTP
         if ($user !== null && $password !== null) {
             $request->setAuth($user, $password);
         }
-        if ($post_data != array()) {
+        if ($post_data != []) {
             $request->setMethod(HTTP_Request2::METHOD_POST);
             foreach ($post_data as $key => $value) {
                 $request->addPostParameter($key, $value);
             }
         }
-        if ($headers != array()) {
+        if ($headers != []) {
             foreach ($headers as $header) {
                 $request->setHeader($header[0], $header[1], $header[2]);
             }
@@ -360,7 +360,7 @@ class Services_OpenStreetMap_Transport_HTTP
      */
     public function searchObjects($type, array $criteria)
     {
-        $query = array();
+        $query = [];
         foreach ($criteria as $criterion) {
             $query[] = $criterion->query();
         }

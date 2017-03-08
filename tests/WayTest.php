@@ -50,10 +50,10 @@ class WayTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/way.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
         $getTags = $way->getTags();
@@ -62,7 +62,7 @@ class WayTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($way->getUid(), 1379);
         $this->assertEquals($way->getVersion(), 1);
         $this->assertEquals($way->getUser(), 'AndrewMcCarthy');
-        $this->assertEquals($way->getNodes(), array('283393706','283393707'));
+        $this->assertEquals($way->getNodes(), ['283393706','283393707']);
     }
 
     /**
@@ -78,25 +78,25 @@ class WayTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/way.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
 
         $getTags = $way->getTags();
         $this->assertEquals($getTags['highway'], 'service');
-        $this->assertEquals($getTags, array ('highway' => 'service'));
+        $this->assertEquals($getTags, ['highway' => 'service']);
 
-        $way->setTags(array('service' => 'driveway' , 'surface' => 'gravel'));
+        $way->setTags(['service' => 'driveway' , 'surface' => 'gravel']);
         $this->assertEquals(
             $way->getTags(),
-            array (
+            [
             'highway' => 'service',
             'service' => 'driveway',
             'surface' => 'gravel',
-            )
+            ]
         );
 
     }
@@ -116,10 +116,10 @@ class WayTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/way_closed.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org/'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
         $tags = $way->getTags();
@@ -141,10 +141,10 @@ class WayTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/way_open.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
         $getTags = $way->getTags();
@@ -165,10 +165,10 @@ class WayTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/way_one_node.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
         $getTags = $way->getTags();
@@ -189,10 +189,10 @@ class WayTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/way_open.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
 
@@ -225,10 +225,10 @@ class WayTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/way_open.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
         $way->removeNode('way5432456');
@@ -247,10 +247,10 @@ class WayTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/way_open.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
         $nb = count($way->getNodes());
@@ -275,10 +275,10 @@ class WayTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(
             fopen(__DIR__ . '/responses/way_30357328_30357329.xml', 'rb')
         );
-        $config = array(
+        $config = [
             'adapter'  => $mock,
             'server'   => 'http://api06.dev.openstreetmap.org/',
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $ways = $osm->getWays($wayId, $way2Id);
         foreach ($ways as $key=>$way) {
@@ -299,19 +299,19 @@ class WayTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/way_75490756.xml', 'rb'));
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
-        );
+        ];
         $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWay($id);
-        $address = array(
+        $address = [
             'addr_housename' => null,
             'addr_housenumber' => '20-21',
             'addr_street' => 'Pearse Street',
             'addr_city' => 'Nenagh',
             'addr_country' => 'IE',
-        );
+        ];
         $this->assertEquals($address, $way->getAddress());
     }
 
@@ -332,10 +332,10 @@ class WayTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server' => 'http://api06.dev.openstreetmap.org'
-        );
+        ];
 
         $osm = new Services_OpenStreetMap($config);
 

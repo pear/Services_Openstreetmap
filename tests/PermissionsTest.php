@@ -49,16 +49,16 @@ class PermissionsTest extends PHPUnit_Framework_TestCase
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/permissions.xml', 'rb'));
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server'   => 'http://api.openstreetmap.org/',
             'user' => 'fred@example.com',
             'password' => 'wilma4evah'
-        );
+        ];
 
         $osm = new Services_OpenStreetMap($config);
         $permissions = $osm->getPermissions();
-        $expected = array (
+        $expected = [
             0 => 'allow_read_prefs',
             1 => 'allow_write_prefs',
             2 => 'allow_write_diary',
@@ -66,7 +66,7 @@ class PermissionsTest extends PHPUnit_Framework_TestCase
             4 => 'allow_read_gpx',
             5 => 'allow_write_gpx',
             6 => 'allow_write_notes',
-        );
+        ];
         $this->assertEquals($permissions, $expected);
     }
 
@@ -82,16 +82,16 @@ class PermissionsTest extends PHPUnit_Framework_TestCase
         $mock->addResponse(
             fopen(__DIR__ . '/responses/permissionsUnauthorised.xml', 'rb')
         );
-        $config = array(
+        $config = [
             'adapter' => $mock,
             'server'   => 'http://api.openstreetmap.org/',
             'user' => 'fred@example.com',
             'password' => 'wilmaAevah'
-        );
+        ];
 
         $osm = new Services_OpenStreetMap($config);
         $permissions = $osm->getPermissions();
-        $expected = array();
+        $expected = [];
         $this->assertEquals($permissions, $expected);
     }
 
