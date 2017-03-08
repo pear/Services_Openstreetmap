@@ -554,7 +554,7 @@ class Services_OpenStreetMap_Object
         if (sizeof($tags) === 0) {
             return $this;
         }
-        foreach ($keys as $index => $key) {
+        foreach ($keys as $key) {
             if (isset($tags[$key])) {
                 unset($tags[$key]);
             }

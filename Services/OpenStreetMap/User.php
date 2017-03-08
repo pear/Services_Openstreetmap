@@ -337,7 +337,7 @@ class Services_OpenStreetMap_User
     /**
      * Set user preferences, updating the values on the server automatically.
      *
-     * To update a single preference, use an array wit just one entry.
+     * To update a single preference, use an array with just one entry.
      *
      * @param array $preferences Key/Value pairs in associative array
      *
@@ -374,7 +374,6 @@ class Services_OpenStreetMap_User
                 null,
                 [['Content-type', 'text/xml', true]]
             );
-            var_dump($response->getBody());
         } catch (Exception $ex) {
             $code = $ex->getCode();
         }

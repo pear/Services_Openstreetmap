@@ -179,9 +179,7 @@ class Services_OpenStreetMap
             );
         }
         $attrs = $places[0]->attributes();
-        $lat = (string) $attrs['lat'];
-        $lon = (string) $attrs['lon'];
-        return compact('lat', 'lon');
+        return ['lat' => (string) $attrs['lat'], 'lon' => (string) $attrs['lon']];
     }
 
     /**

@@ -135,28 +135,17 @@ class Services_OpenStreetMap_Nominatim
      */
     private function _buildQuery($place)
     {
-        $format = $this->format;
-        $limit = $this->limit;
-        $accept_language = $this->accept_language;
-        $polygon = $this->polygon;
-        $viewbox = $this->viewbox;
-        $bounded = $this->bounded;
-        $dedupe = $this->dedupe;
-        $addressdetails = $this->addressdetails;
-
-        $q = $place;
-
-        $params = compact(
-            'q',
-            'format',
-            'limit',
-            'polygon',
-            'viewbox',
-            'bounded',
-            'dedupe',
-            'addressdetails'
-        );
-        $params['accept-language'] = $accept_language;
+        $params = [
+            'q' => $place,
+            'format' => $this->format,
+            'limit' => $this->limit,
+            'polygon' => $this->polygon,
+            'viewbox' => $this->viewbox,
+            'bounded' => $this->bounded,
+            'dedupe' => $this->dedupe,
+            'addressdetails' => $this->addressdetails
+        ];
+        $params['accept-language'] = $this->accept_language;
         if ($this->email_address !== null) {
             $params['email'] = $this->email_address;
         }
@@ -194,8 +183,13 @@ class Services_OpenStreetMap_Nominatim
                 'html format not accepted for reverseGeocode'
             );
         }
-        $params = compact('format', 'lat', 'lon', 'addressdetails');
-        $params['accept-language'] = $this->accept_language;
+        $params = [
+            'accept-language' => $this->accept_language,
+            'addressdetails'  => $addressdetails,
+            'format' => $format,
+            'lat' => $lat,
+            'lon' => $lon,
+        ];
         if ($this->email_address !== null) {
             $params['email'] = $this->email_address;
         }
