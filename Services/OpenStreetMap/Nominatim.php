@@ -189,6 +189,7 @@ class Services_OpenStreetMap_Nominatim
             'format' => $format,
             'lat' => $lat,
             'lon' => $lon,
+            'zoom' => $zoom
         ];
         if ($this->email_address !== null) {
             $params['email'] = $this->email_address;
