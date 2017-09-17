@@ -24,6 +24,11 @@
  */
 class Services_OpenStreetMap_Config
 {
+    protected $oauth_consumer_key=null;
+    protected $oauth_token=null;
+    protected $oauth_token_secret=null;
+    protected $consumer_secret=null;
+
 
     /**
      * Minimum version of the OSM API that is supported.
@@ -132,6 +137,12 @@ class Services_OpenStreetMap_Config
         'User-Agent'      => 'Services_OpenStreetMap',
         'user'            => null,
         'verbose'         => false,
+        /* Fields for OAuth auth */
+        'oauth_token'     => false,
+        'oauth_token_secret'=>false,
+        'oauth_consumer_key' => false,
+        'consumer_secret'=> false,
+
     ];
 
     /**
