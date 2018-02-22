@@ -13,19 +13,19 @@
   <email>kguest@php.net</email>
   <active>yes</active>
  </lead>
- <date>2016-05-31</date>
- <time>20:14:59</time>
+ <date>2018-02-22</date>
+ <time>23:14:59</time>
  <version>
-  <release>0.5.0</release>
+  <release>1.0.0RC1</release>
   <api>0.5.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
  <notes>
- * Add setAddressDetails method for Nominatim searches so that addresses are returned broken into elements. (With thanks to Sebastian Gierth.)
+ * Bug #23738/Issue #18: Change openstreetmap.org URLs to use https.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -614,6 +614,21 @@ This release supports parsing of opening_hours values.
    <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
    <notes>
  * Add setAddressDetails method for Nominatim searches so that addresses are returned broken into elements. (With thanks to Sebastian Gierth.)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2016-05-31</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
+   <notes>
+ * Bug #23738/Issue #18: Change openstreetmap.org URLs to use https.
    </notes>
   </release>
  </changelog>
