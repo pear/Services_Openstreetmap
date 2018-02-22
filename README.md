@@ -86,7 +86,7 @@ Simply require and initialize the Services_OpenStreetMap class:
         // Eg. fred@example.com:yabbadabbado
         'passwordfile' => './credentials',
         // The live API server is api.openstreetmap.org
-        'server'       => 'http://api06.dev.openstreetmap.org/',
+        'server'       => 'https://api06.dev.openstreetmap.org/',
         );
     $osm = new Services_OpenStreetMap($config);
 
@@ -130,7 +130,7 @@ The getUserById() method retrieves information for the specified user.
 
 ## Reverse lookup with MapQuest API
 
-    $osm = new Services_OpenStreetMap(['server' => 'http://open.mapquestapi.com/nominatim/v1/']);
+    $osm = new Services_OpenStreetMap(['server' => 'https://open.mapquestapi.com/nominatim/v1/']);
     $osm->setServer('mapquest');
     $xml = $osm->setFormat('xml')->reverseGeocode("53.434343", "-6.4343343");
 
@@ -148,5 +148,5 @@ The getUserById() method retrieves information for the specified user.
 At the moment, sunrise-sunset is the only sunrise/sunset spec that's tested.
 e.g. 14:00-sunset isn't tested, nor is sunrise-13:37 for that matter.
 
-Also it only recognises English month names in the values but this is per spec specification cf http://wiki.openstreetmap.org/wiki/Opening_times
+Also it only recognises English month names in the values but this is per spec specification cf https://wiki.openstreetmap.org/wiki/Opening_times
 It doesn't currently support parsing Public Holidays or School Holidays.
