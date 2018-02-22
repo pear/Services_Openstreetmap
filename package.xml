@@ -25,7 +25,13 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
  <notes>
- * Bug #23738/Issue #18: Change openstreetmap.org URLs to use https.
+ * Bug #23738/Issue #18: Change openstreetmap.org URLs to use https - thanks to grischard for reporting this requirement.
+ * Copyright year updates - thanks to Nolwennig.
+ * Include property "addressdetails" into query builder - thanks to FireLizard
+ * Include setter/getter for property "addressdetails" - thanks to FireLizard
+ * Possibility to get further addressdetails on looking for a place - thanks to FireLizard
+ * Some refactoring and PHP 7 Compatibility work.
+ * Various dependency updates - thanks to FireLizard.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -628,7 +634,13 @@ This release supports parsing of opening_hours values.
    <date>2016-05-31</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
    <notes>
- * Bug #23738/Issue #18: Change openstreetmap.org URLs to use https.
+ * Bug #23738/Issue #18: Change openstreetmap.org URLs to use https - thanks to grischard for reporting this requirement.
+ * Copyright year updates - thanks to Nolwennig.
+ * Include property "addressdetails" into query builder - thanks to FireLizard
+ * Include setter/getter for property "addressdetails" - thanks to FireLizard
+ * Possibility to get further addressdetails on looking for a place - thanks to FireLizard
+ * Some refactoring and PHP 7 Compatibility work.
+ * Various dependency updates - thanks to FireLizard.
    </notes>
   </release>
  </changelog>
