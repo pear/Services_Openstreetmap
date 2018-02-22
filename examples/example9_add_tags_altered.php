@@ -37,8 +37,7 @@ $config = array(
 );
 $osm = new Services_OpenStreetMap($config);
 
-$mm = ($osm->bboxToMinMax(-8.6519835,52.638735499999996,-8.6214513,52.649915099999994) );
-$osm->get($mm[0], $mm[1], $mm[2], $mm[3]);
+$osm->loadXML("./ballinacurragardens.osm");
 $results = $osm->search(array("building" => "yes"));
 
 $changeset = $osm->createChangeset();
@@ -50,7 +49,7 @@ foreach ($results as $result) {
     }
     $user = $result->getUser();
     $name = $result->getTag('name');
-    if ('exampleusername' == $user) {
+    if ('kenguest' == $user) {
         $tags = $result->getTags();
         if (isset($tags['building_roof'])) {
             continue;
@@ -62,9 +61,10 @@ foreach ($results as $result) {
                     'building:cladding' => 'brick',
                     'building:levels' => '2',
                     'building:roof' => 'tile',
-                    'building:roof:shape' => 'pitched',
+                    'building:roof:shape' => 'flat',
                     'source' => 'survey',
                     'source:geometry' => 'bing',
+                    'freeform' => 'Oakview Drive',
                 )
             );
             $changeset->add($result);
@@ -73,6 +73,8 @@ foreach ($results as $result) {
         }
     }
 }
+var_dump($changeset->getOsmChangeXml());
+die;
 $changeset->commit();
 // vim:set et ts=4 sw=4:
 ?>
