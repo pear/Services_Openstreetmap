@@ -24,7 +24,7 @@ $osm = new Services_OpenStreetMap(array('verbose' => true));
 var_dump($osm->getConfig());
 
 try {
-    $osm->getConfig()->setServer('http://api.openstreetmap.org/');
+    $osm->getConfig()->setServer('https://api.openstreetmap.org/');
 } catch (Exception $ex) {
     var_dump($ex->getMessage());
     // Fall back to default server...so carry on.

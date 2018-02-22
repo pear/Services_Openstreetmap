@@ -21,7 +21,7 @@ if (strstr($version, 'package_version')) {
 require_once 'Services/OpenStreetMap.php';
 
 $osm = new Services_OpenStreetMap();
-$osm->getConfig()->setServer('http://api.openstreetmap.org/');
+$osm->getConfig()->setServer('https://api.openstreetmap.org/');
 
 try {
     $osm->get(52.821022799999994,-8.3564758, 53.0428644, -7.7330017);
