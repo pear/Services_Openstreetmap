@@ -323,15 +323,15 @@ class NominatimTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $nominatim->getServer(),
-            'http://nominatim.openstreetmap.org/'
+            'https://nominatim.openstreetmap.org/'
         );
         $this->assertEquals(
             $nominatim->setServer('mapquest')->getServer(),
-            'http://open.mapquestapi.com/nominatim/v1/'
+            'https://open.mapquestapi.com/nominatim/v1/'
         );
         $this->assertEquals(
             $nominatim->setServer('nominatim')->getServer(),
-            'http://nominatim.openstreetmap.org/'
+            'https://nominatim.openstreetmap.org/'
         );
         $this->assertEquals(
             $nominatim->setServer('http://nominatim.example.com/')->getServer(),
