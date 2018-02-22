@@ -22,7 +22,7 @@
     "require": {
         "php": ">=5.4.0",
         "pear/http_request2": "2.3.*",
-        "pear/log": "1.12.*"
+        "pear/log": "1.12.*|1.13.*"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
