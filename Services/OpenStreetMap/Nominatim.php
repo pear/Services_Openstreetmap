@@ -32,7 +32,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @var string
      */
-    protected $server = 'http://nominatim.openstreetmap.org/';
+    protected $server = 'https://nominatim.openstreetmap.org/';
 
     /**
      * Format to perform queries in (xml|json|html). Defaults to 'xml'
@@ -343,11 +343,11 @@ class Services_OpenStreetMap_Nominatim
     {
         switch($server) {
         case 'nominatim':
-            $this->server = 'http://nominatim.openstreetmap.org/';
+            $this->server = 'https://nominatim.openstreetmap.org/';
             return $this;
             break;
         case 'mapquest':
-            $this->server = 'http://open.mapquestapi.com/nominatim/v1/';
+            $this->server = 'https://open.mapquestapi.com/nominatim/v1/';
             return $this;
             break;
         default:

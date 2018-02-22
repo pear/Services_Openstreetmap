@@ -137,7 +137,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $configValues = $osm->getConfig()->getValue();
         $this->assertEquals(
             $configValues['server'],
-            'http://api.openstreetmap.org/'
+            'https://api.openstreetmap.org/'
         );
         $this->assertEquals($configValues['api_version'], '0.6');
         $this->assertEquals($configValues['User-Agent'], 'Services_OpenStreetMap');
