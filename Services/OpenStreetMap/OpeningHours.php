@@ -88,7 +88,38 @@ class Services_OpenStreetMap_OpeningHours
         }
         // other simple test would be sunrise-sunset - with
         // offsets that would need to be taken into account
+        $matched = [];
+        $isVariableSunRiseSunSet = preg_match(
+            '/([^\(]?sunrise.*[^\)-]+).*-.*([^\(]?sunset.*[^\)])/u',
+            $this->value,
+            $matched
+        );
+        if ($isVariableSunRiseSunSet == 1) {
+            $term1 = $matched[1];
+            $term1modifier = substr(strpbrk($term1, "+-"), 0, 1);
+            $term1segments = sscanf(trim(substr(strpbrk($term1, "+-"), 1)), "%d:%d");
+            $term1minutes = $term1segments[0] * 60 + $term1segments[1];
+            if ($term1modifier === '-') {
+                $term1minutes = -$term1minutes;
+            }
 
+            $term2 = $matched[2];
+            $term2modifier = substr(strpbrk($term2, "+-"), 0, 1);
+            $term2segments = sscanf(trim(substr(strpbrk($term2, "+-"), 1)), "%d:%d");
+            $term2minutes = $term2segments[0] * 60 + $term2segments[1];
+            if ($term2modifier === '-') {
+                $term2minutes = -$term2minutes;
+            }
+            $start = $this->_startTime(date_sunrise($time));
+
+            $start += $term1minutes;
+            $end = $this->_endTime(date_sunset($time));
+            $end += $term2minutes;
+            $d = getdate($time);
+            $ctime = $d['hours'] * 60 + $d['minutes'];
+
+            return ($ctime >= $start && $ctime <= $end );
+        }
         // time specs...
         $rule_sequences = explode(';', $this->value);
         $day = strtolower(substr(date('D', $time), 0, 2));
