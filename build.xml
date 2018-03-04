@@ -163,7 +163,7 @@
         <mkdir dir="${builddir}/coverage" />
     </target>
 
-    <target name="test" description="run unit tests" depends="lint,clean_phpunit">
+    <target name="test" description="run unit tests" depends="lint,clean_phpunit,prepare">
         <echo msg='Run unit tests'/>
         <mkdir dir="tests/coverage" />
         <coverage-setup database="./coverage.db">
