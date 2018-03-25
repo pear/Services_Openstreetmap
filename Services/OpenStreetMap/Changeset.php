@@ -20,10 +20,13 @@
  * @category   Services
  * @package    Services_OpenStreetMap
  * @subpackage Services_OpenStreetMap_Object
- * @author     Ken Guest <kguest@php.net>
+ * @author     Ken Guest <kguest@php.net>, V Kh (OAuth)
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       Changeset.php
  */
+/*
+ToDo: Beautify and wrap Transport iteration
+*/
 class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
 {
     /**
@@ -112,23 +115,64 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             . '/changeset/create';
         $user = $config->getValue('user');
         $password = $config->getValue('password');
-        if (is_null($user)) {
-            throw new Services_OpenStreetMap_RuntimeException('User must be set');
-        }
-        if (is_null($password)) {
-            throw new Services_OpenStreetMap_RuntimeException(
-                'Password must be set'
+        /* Oauth1 Fields */
+        $oauth_consumer_key = $config->getValue('oauth_consumer_key');
+        $oauth_token = $config->getValue('oauth_token');
+        $consumer_secret = $config->getValue('consumer_secret');
+        $oauth_token_secret = $config->getValue('oauth_token_secret');
+
+
+        if(!is_null($user) && !is_null($password) ){
+
+            $response = $this->getTransport()->getResponse(
+                $url,
+                HTTP_Request2::METHOD_PUT,
+                $user,
+                $password,
+                $doc,
+                null,
+                [['Content-type', 'text/xml', true]]
             );
+
+        }  elseif(!empty($oauth_consumer_key) && !empty($oauth_token) && !empty($consumer_secret) && !empty($oauth_token_secret)) {
+
+            require_once 'OAuthHelper.php';
+            $timest=OAuthHelper::getOauthTimestamp();
+            $nounce=OAuthHelper::getOauthNonce();
+
+            $oAuthArray=[
+                'oauth_consumer_key'=>$oauth_consumer_key,
+                'oauth_nonce'=>OAuthHelper::getOauthNonce(),
+                'oauth_signature_method'=>'HMAC-SHA1',
+                'oauth_timestamp'=>OAuthHelper::getOauthTimestamp(),
+                'oauth_token'=>$oauth_token,
+                'oauth_version'=>'1.0'
+            ];
+
+            $hashString=HTTP_Request2::METHOD_PUT.'&'.rawurlencode($url).'&'.rawurlencode(OAuthHelper::assocArrayToString($oAuthArray));
+
+            $oAuthArray['oauth_signature']=OAuthHelper::getOauthSignature($consumer_secret.'&'.$oauth_token_secret,$hashString);
+
+            $authStr='OAuth '.OAuthHelper::assocArrayToString($oAuthArray,'=',', ','"');
+
+            $response = $this->getTransport()->getResponse(
+                $url,
+                HTTP_Request2::METHOD_PUT,
+                null,
+                null,
+                $doc,
+                null,
+                [['Content-type', 'text/xml', true],
+                 ['Authorization',$authStr, true]]
+            );
+        
+        } else {
+
+            throw new Services_OpenStreetMap_RuntimeException("User & Password for user based auth OR oauth_consumer_key, oauth_token,consumer_secret, oauth_token_secret have to be defined to iteract with OSM  API");  
         }
-        $response = $this->getTransport()->getResponse(
-            $url,
-            HTTP_Request2::METHOD_PUT,
-            $user,
-            $password,
-            $doc,
-            null,
-            [['Content-type', 'text/xml', true]]
-        );
+        
+    
+
         $code = $response->getStatus();
         if (Services_OpenStreetMap_Transport::OK == $code) {
             $trimmed = trim($response->getBody());
@@ -137,6 +181,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             }
         }
     }
+
 
     /**
      * Add object to the changeset so changes can be transmitted to the server.
@@ -198,24 +243,79 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 throw new Services_OpenStreetMap_RuntimeException($msg);
             }
         }
-        $config = $this->getConfig()->asArray();
-        $url = $config['server']
+        $config = $this->getConfig();
+        $url = $config->getValue('server')
             . 'api/'
-            . $config['api_version'] .
+            . $config->getValue('api_version').
             "/changeset/{$cId}/upload";
+
+        $user = $config->getValue('user');
+        $password = $config->getValue('password');
+        /* Oauth1 Fields */
+        $oauth_consumer_key = $config->getValue('oauth_consumer_key');
+        $oauth_token = $config->getValue('oauth_token');
+        $consumer_secret = $config->getValue('consumer_secret');
+        $oauth_token_secret = $config->getValue('oauth_token_secret');
+
+
 
         // Post the osmChange document to the server
         try {
-            $response = $this->getTransport()->getResponse(
-                $url,
-                HTTP_Request2::METHOD_POST,
-                $config['user'],
-                $config['password'],
-                $this->getOsmChangeXml(),
-                null,
-                [['Content-type', 'text/xml', true]]
-            );
+
+            if(!is_null($user) && !is_null($password) ){
+
+                $response = $this->getTransport()->getResponse(
+                    $url,
+                    HTTP_Request2::METHOD_POST,
+                    $user,
+                    $password,
+                    $this->getOsmChangeXml(),
+                    null,
+                    [['Content-type', 'text/xml', true]]
+                );
+
+            }  elseif(!empty($oauth_consumer_key) && !empty($oauth_token) && !empty($consumer_secret) && !empty($oauth_token_secret)) {
+
+                require_once 'OAuthHelper.php';
+                $timest=OAuthHelper::getOauthTimestamp();
+                $nounce=OAuthHelper::getOauthNonce();
+
+                $oAuthArray=[
+                    'oauth_consumer_key'=>$oauth_consumer_key,
+                    'oauth_nonce'=>OAuthHelper::getOauthNonce(),
+                    'oauth_signature_method'=>'HMAC-SHA1',
+                    'oauth_timestamp'=>OAuthHelper::getOauthTimestamp(),
+                    'oauth_token'=>$oauth_token,
+                    'oauth_version'=>'1.0'
+                ];
+
+                $hashString=HTTP_Request2::METHOD_POST.'&'.rawurlencode($url).'&'.rawurlencode(OAuthHelper::assocArrayToString($oAuthArray));
+
+                $oAuthArray['oauth_signature']=OAuthHelper::getOauthSignature($consumer_secret.'&'.$oauth_token_secret,$hashString);
+
+                $authStr='OAuth '.OAuthHelper::assocArrayToString($oAuthArray,'=',', ','"');
+
+                $response = $this->getTransport()->getResponse(
+                    $url,
+                    HTTP_Request2::METHOD_POST,
+                    null,
+                    null,
+                    $this->getOsmChangeXml(),
+                    null,
+                    [['Content-type', 'text/xml', true],
+                     ['Authorization',$authStr, true]]
+                );
+
+            } else {
+
+                throw new Services_OpenStreetMap_RuntimeException("User & Password for user based auth OR oauth_consumer_key, oauth_token,consumer_secret, oauth_token_secret have to be defined to iteract with OSM  API");  
+            }   
+
+
+
             $this->updateObjectIds($response->getBody());
+        
+
         } catch (Exception $ex) {
             $code = $ex->getCode();
         }
@@ -231,23 +331,66 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
 
         }
         // Explicitly close the changeset
-        $url = $config['server']
+        $url = $config->getValue('server')
             . 'api/'
-            . $config['api_version']
+            . $config->getValue('api_version')
             . "/changeset/{$cId}/close";
 
         $code = null;
         $response = null;
         try {
-            $response = $this->getTransport()->getResponse(
-                $url,
-                HTTP_Request2::METHOD_PUT,
-                $config['user'],
-                $config['password'],
-                null,
-                null,
-                [['Content-type', 'text/xml', true]]
-            );
+
+            if(!is_null($user) && !is_null($password) ){
+
+                $response = $this->getTransport()->getResponse(
+                    $url,
+                    HTTP_Request2::METHOD_PUT,
+                    $user,
+                    $password,
+                    null,
+                    null,
+                    [['Content-type', 'text/xml', true]]
+                );
+
+            }  elseif(!empty($oauth_consumer_key) && !empty($oauth_token) && !empty($consumer_secret) && !empty($oauth_token_secret)) {
+
+                require_once 'OAuthHelper.php';
+                $timest=OAuthHelper::getOauthTimestamp();
+                $nounce=OAuthHelper::getOauthNonce();
+
+                $oAuthArray=[
+                    'oauth_consumer_key'=>$oauth_consumer_key,
+                    'oauth_nonce'=>OAuthHelper::getOauthNonce(),
+                    'oauth_signature_method'=>'HMAC-SHA1',
+                    'oauth_timestamp'=>OAuthHelper::getOauthTimestamp(),
+                    'oauth_token'=>$oauth_token,
+                    'oauth_version'=>'1.0'
+                ];
+
+                $hashString=HTTP_Request2::METHOD_PUT.'&'.rawurlencode($url).'&'.rawurlencode(OAuthHelper::assocArrayToString($oAuthArray));
+
+                $oAuthArray['oauth_signature']=OAuthHelper::getOauthSignature($consumer_secret.'&'.$oauth_token_secret,$hashString);
+
+                $authStr='OAuth '.OAuthHelper::assocArrayToString($oAuthArray,'=',', ','"');
+
+                $response = $this->getTransport()->getResponse(
+                    $url,
+                    HTTP_Request2::METHOD_PUT,
+                    null,
+                    null,
+                    null,
+                    null,
+                    [['Content-type', 'text/xml', true],
+                     ['Authorization',$authStr, true]]
+                );
+
+            } else {
+
+                throw new Services_OpenStreetMap_RuntimeException("User & Password for user based auth OR oauth_consumer_key, oauth_token,consumer_secret, oauth_token_secret have to be defined to iteract with OSM  API");  
+            }  
+
+
+
         } catch (Exception $ex) {
             $code = $ex->getCode();
         }
@@ -452,6 +595,6 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     {
         return $this->updateMap;
     }
-}
-// vim:set et ts=4 sw=4:
+} 
+
 ?>
