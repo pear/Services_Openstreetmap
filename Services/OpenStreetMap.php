@@ -337,7 +337,8 @@ class Services_OpenStreetMap
 
     /**
      * Search node for a specific key/value pair, allowing for value to be
-     * included in a semicolon delimited list.
+     * included in a semicolon delimited list, or allowing for a wild-card
+     * search.
      *
      * @param SimpleXMLElement $node  Node to search
      * @param string           $key   Key to search for (Eg 'amenity')
@@ -353,6 +354,12 @@ class Services_OpenStreetMap
         foreach ($node->tag as $tag) {
             if ($tag['k'] == $key) {
                 if ($tag['v'] == $value) {
+                    $obj = new $class();
+                    $obj->setTransport($this->getTransport());
+                    $obj->setConfig($this->getConfig());
+                    $obj->setXml(simplexml_load_string($node->saveXML()));
+                    $results[] = $obj;
+                } elseif ($value == '*') {
                     $obj = new $class();
                     $obj->setTransport($this->getTransport());
                     $obj->setConfig($this->getConfig());
