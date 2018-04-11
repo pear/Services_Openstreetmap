@@ -411,7 +411,8 @@ class Services_OpenStreetMap_Config
             );
         }
         $this->config['passwordfile'] =  $file;
-        array_walk($lines, create_function('&$val', '$val = trim($val);'));
+        $lines = array_map('trim', $lines);
+
         if (sizeof($lines) == 1) {
             if (strpos($lines[0], '#') !== 0) {
                 list($this->config['user'], $this->config['password'])
