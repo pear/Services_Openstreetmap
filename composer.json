@@ -1,5 +1,4 @@
 {
-    "name": "khvalov/services_openstreetmap",
     "authors": [
         {"name": "Ken Guest", "email": "ken@linux.ie", "role": "Lead"}
     ],
@@ -18,14 +17,16 @@
     ],
     "keywords": ["openstreetmap", "open", "street", "map", "osm", "maps", "openstreetmaps"],
     "license": "BSD-3-Clause",
+    "name": "kenguest/services-openstreetmap",
     "type": "library",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.6.0",
         "pear/http_request2": "2.3.*",
         "pear/log": "1.12.*|1.13.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
+        "phpunit/phpunit": "^4.8",
+        "squizlabs/php_codesniffer": "~2.2",
         "phpdocumentor/phpdocumentor": "2.*"
     },
     "suggest": {
