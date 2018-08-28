@@ -61,7 +61,7 @@ class Services_OpenStreetMap_OpeningHours
      * Return true, false or null depending on whether the [opening hours]
      * value explicitly indicates an open, closed or undecided result.
      *
-     * @param double $time A numeric value representing a time. If null, the
+     * @param int $time A numeric value representing a time. If null, the
      *                     current time is used.
      *
      * @link   http://wiki.openstreetmap.org/wiki/Key:opening_hours
@@ -94,7 +94,7 @@ class Services_OpenStreetMap_OpeningHours
             $this->value,
             $matched
         );
-        if ($isVariableSunRiseSunSet == 1) {
+        if ($isVariableSunRiseSunSet === 1) {
             $term1 = $matched[1];
             $term1modifier = substr(strpbrk($term1, "+-"), 0, 1);
             $term1segments = sscanf(trim(substr(strpbrk($term1, "+-"), 1)), "%d:%d");
@@ -168,7 +168,7 @@ class Services_OpenStreetMap_OpeningHours
                 if ($rday === $day) {
                     //day is a match
                     $time_spec = trim($portions[1]);
-                    if (strtolower($time_spec) == 'off') {
+                    if (strtolower($time_spec) === 'off') {
                         return false;
                     }
                     if (strpos($time_spec, '-')
@@ -247,7 +247,7 @@ class Services_OpenStreetMap_OpeningHours
             if ($start_day !== 'mo') {
                 foreach ($days as $day) {
                     if ($day !== $start_day) {
-                        $off = array_shift($days);
+                        array_shift($days);
                     } else {
                         break;
                     }
@@ -257,7 +257,7 @@ class Services_OpenStreetMap_OpeningHours
             if ($end_day !== 'su') {
                 foreach ($rdays as $day) {
                     if ($day !== $end_day) {
-                        $off = array_shift($rdays);
+                        array_shift($rdays);
                     } else {
                         break;
                     }

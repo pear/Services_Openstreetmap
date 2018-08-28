@@ -472,8 +472,8 @@ class Services_OpenStreetMap_API_V06
      * @param string  $maxLat Max Latitude (top point)
      * @param integer $limit  Number of entries to return at max, defaults to 100
      * @param integer $closed Number of days a bug needs to be closed to not be
-     * included in the returned dataset. 0 means only open bugs are returned,
-     * -1 means all are. Defaults to 7.
+     *                        included in the returned dataset. 0 means only open
+     *                        bugs are returned, -1 means all are. Defaults to 7.
      *
      * @return void
      */

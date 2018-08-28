@@ -118,6 +118,9 @@ class Services_OpenStreetMap_Transport_HTTP
     ) {
         $response = null;
         $eMsg = null;
+        if ($headers === null) {
+            $headers = [];
+        }
 
 
         if ($this->getConfig()->getValue('verbose')) {
@@ -140,15 +143,9 @@ class Services_OpenStreetMap_Transport_HTTP
         }
         if ($post_data != []) {
             $request->setMethod(HTTP_Request2::METHOD_POST);
-            foreach ($post_data as $key => $value) {
-                $request->addPostParameter($key, $value);
-            }
+            $this->addPostParameters($post_data, $request);
         }
-        if ($headers != []) {
-            foreach ($headers as $header) {
-                $request->setHeader($header[0], $header[1], $header[2]);
-            }
-        }
+        $this->setHeaders($headers, $request);
         if ($body !== null) {
             $request->setBody($body);
         }
@@ -160,7 +157,7 @@ class Services_OpenStreetMap_Transport_HTTP
             $this->log->log($response->getHeader());
             $this->log->log($response->getBody());
 
-            if (self::OK == $code) {
+            if (self::OK === $code) {
                 return $response;
             } else {
                 $eMsg = 'Unexpected HTTP status: '
@@ -168,7 +165,7 @@ class Services_OpenStreetMap_Transport_HTTP
                     . $response->getReasonPhrase()
                     . ' [for ' .  $response->getEffectiveUrl() . ']';
                 $error = $response->getHeader('error');
-                if (!is_null($error)) {
+                if (null !== $error) {
                     $eMsg .= " ($error)";
                 }
             }
@@ -180,7 +177,7 @@ class Services_OpenStreetMap_Transport_HTTP
                 $e
             );
         }
-        if ($eMsg != null) {
+        if ($eMsg !== null) {
             throw new Services_OpenStreetMap_Exception($eMsg, $code);
         }
     }
@@ -222,6 +219,7 @@ class Services_OpenStreetMap_Transport_HTTP
     public function setLog(Log $log)
     {
         $this->log = $log;
+        return $this;
     }
 
     /**
@@ -284,7 +282,8 @@ class Services_OpenStreetMap_Transport_HTTP
      * @param string $type object type
      * @param array  $ids  ids of objects to retrieve
      *
-     * @return void
+     * @return void|bool
+     * @throws Services_OpenStreetMap_Exception
      */
     public function getObjects($type, array $ids)
     {
@@ -391,5 +390,29 @@ class Services_OpenStreetMap_Transport_HTTP
             $obj->setXml($sxe);
         }
         return $obj;
+    }
+
+    /**
+     * @param array $headers
+     * @param HTTP_Request2 $request
+     */
+    public function setHeaders(array $headers, $request)
+    {
+        if ($headers != []) {
+            foreach ($headers as $header) {
+                $request->setHeader($header[0], $header[1], $header[2]);
+            }
+        }
+    }
+
+    /**
+     * @param array $post_data
+     * @param $request
+     */
+    public function addPostParameters(array $post_data, $request)
+    {
+        foreach ($post_data as $key => $value) {
+            $request->addPostParameter($key, $value);
+        }
     }
 }

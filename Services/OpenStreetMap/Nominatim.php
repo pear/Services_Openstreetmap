@@ -338,6 +338,7 @@ class Services_OpenStreetMap_Nominatim
      * @param string $server Server URL or shorthand (nominatim / mapquest)
      *
      * @return Services_OpenStreetMap_Nominatim
+     * @throws Services_OpenStreetMap_RuntimeException
      */
     public function setServer($server)
     {

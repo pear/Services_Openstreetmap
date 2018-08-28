@@ -87,7 +87,7 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
         $kids = [];
         foreach ($obj[0]->children() as $child) {
             $key = (string) $child->attributes()->k;
-            if ($key != '') {
+            if ($key !== '') {
                 $this->tags[$key] = (string) $child->attributes()->v;
             }
             $name = (string) $child->getName();
