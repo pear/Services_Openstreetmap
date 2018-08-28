@@ -28,7 +28,8 @@ interface Services_OpenStreetMap_Transport
 {
 
     /**#@+
-     * @link http://tools.ietf.org/html/rfc2616
+     *
+     * @link   http://tools.ietf.org/html/rfc2616
      * @access public
      */
     /**

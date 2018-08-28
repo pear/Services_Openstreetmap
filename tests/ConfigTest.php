@@ -74,6 +74,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase
                 'user' => null,
                 'password' => null,
                 'passwordfile' => null,
+                'oauth_token' => false,
+                'oauth_token_secret' => false,
+                'oauth_consumer_key' => false,
+                'consumer_secret' => false,
             ]
         );
         $this->assertEquals('0.6', $osm->getConfig()->getValue('api_version'));
