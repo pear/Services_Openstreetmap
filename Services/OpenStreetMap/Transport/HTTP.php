@@ -393,8 +393,12 @@ class Services_OpenStreetMap_Transport_HTTP
     }
 
     /**
-     * @param array $headers
-     * @param HTTP_Request2 $request
+     * Add headers to request
+     *
+     * @param array         $headers Associative key/val array of headers
+     * @param HTTP_Request2 $request Request
+     *
+     * @return void
      */
     public function setHeaders(array $headers, $request)
     {
@@ -406,8 +410,12 @@ class Services_OpenStreetMap_Transport_HTTP
     }
 
     /**
-     * @param array $post_data
-     * @param $request
+     * Add post parameters to request object
+     *
+     * @param array         $post_data Associative key/val array of post parameters
+     * @param HTTP_Request2 $request   Request
+     *
+     * @return void
      */
     public function addPostParameters(array $post_data, $request)
     {
