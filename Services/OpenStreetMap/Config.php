@@ -142,7 +142,14 @@ class Services_OpenStreetMap_Config
         'oauth_token_secret'=>false,
         'oauth_consumer_key' => false,
         'consumer_secret'=> false,
-
+        /* SSL Config - prompted by Erkin Sergey <bacbone@mail.ru> with thanks */
+        /* https://github.com/pear/Services_Openstreetmap/issues/32            */
+        /* http://pear.php.net/manual/en/package.http.http-request2.config.php */
+        'ssl_verify_peer' => true,
+        'ssl_verify_host' => true,
+        'ssl_cafile' => null,
+        'ssl_local_cert' => null,
+        'ssl_passphrase' => null,
     ];
 
     /**
@@ -212,16 +219,27 @@ class Services_OpenStreetMap_Config
      *
      * The following parameters are available:
      * <ul>
-     *  <li> 'accept-language' - language to use for queries with Nominatim</li>
-     *  <li> 'adapter'         - adapter to use (string)</li>
-     *  <li> 'api_version'     - Version of API to communicate via (string)</li>
-     *  <li> 'password'        - password (string, optional)</li>
-     *  <li> 'passwordfile'    - passwordfile (string, optional)</li>
-     *  <li> 'server'          - server to connect to (string)</li>
-     *  <li> 'User-Agent'      - User-Agent (string)</li>
-     *  <li> 'user'            - user (string, optional)</li>
-     *  <li> 'verbose'         - verbose (boolean, optional)</li>
+     *  <li> 'accept-language'    - language to use for queries with Nominatim</li>
+     *  <li> 'adapter'            - adapter to use (string)</li>
+     *  <li> 'api_version'        - Version of API to communicate via (string)</li>
+     *  <li> 'password'           - password (string, optional)</li>
+     *  <li> 'passwordfile'       - passwordfile (string, optional)</li>
+     *  <li> 'server'             - server to connect to (string)</li>
+     *  <li> 'User-Agent'         - User-Agent (string)</li>
+     *  <li> 'user'               - user (string, optional)</li>
+     *  <li> 'verbose'            - verbose (boolean, optional)</li>
+     *  <li> 'oauth_token'        - false</li>
+     *  <li> 'oauth_token_secret' - false</li>
+     *  <li> 'oauth_consumer_key' - false</li>
+     *  <li> 'consumer_secret'    - false</li>
+     *  <li> 'ssl_verify_peer'    - true</li>
+     *  <li> 'ssl_verify_host'    - true</li>
+     *  <li> 'ssl_cafile'         - null</li>
+     *  <li> 'ssl_local_cert'     - null</li>
+     *  <li> 'ssl_passphrase'     - null</li>
      * </ul>
+     * SSL related parameters are documented at
+     * http://pear.php.net/manual/en/package.http.http-request2.config.php
      *
      * @param mixed $config array containing config settings
      * @param mixed $value  config value if $config is not an array
