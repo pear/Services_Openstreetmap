@@ -121,22 +121,26 @@ class Services_OpenStreetMap_Transport_HTTP
         if ($headers === null) {
             $headers = [];
         }
+        $config = $this->getConfig();
 
 
-        if ($this->getConfig()->getValue('verbose')) {
+        if ($config->getValue('verbose')) {
             $this->log->log($url);
         }
 
         $request = $this->getRequest();
         $request->setUrl($url);
         $request->setMethod($method);
-        $request->setAdapter($this->getConfig()->getValue('adapter'));
+        $request->setAdapter($config->getValue('adapter'));
 
+        /* Issue 32 - SSL Config */
+        $request->setConfig('ssl_verify_peer', $config->getValue('ssl_verify_peer'));
+        $request->setConfig('ssl_verify_host', $config->getValue('ssl_verify_host'));
+        $request->setConfig('ssl_cafile', $config->getValue('ssl_cafile'));
+        $request->setConfig('ssl_local_cert', $config->getValue('ssl_local_cert'));
+        $request->setConfig('ssl_passphrase', $config->getValue('ssl_passphrase'));
 
-        $request->setHeader(
-            'User-Agent',
-            $this->getConfig()->getValue('User-Agent')
-        );
+        $request->setHeader('User-Agent', $config->getValue('User-Agent'));
 
         if ($user !== null && $password !== null) {
             $request->setAuth($user, $password);
