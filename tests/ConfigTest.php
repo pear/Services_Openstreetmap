@@ -15,7 +15,8 @@
 
 $version = '@package_version@';
 if (strstr($version, 'package_version')) {
-    set_include_path(dirname(dirname(__FILE__)) . PATH_SEPARATOR . get_include_path());
+    $parent = dirname(dirname(__FILE__));
+    set_include_path($parent . PATH_SEPARATOR . get_include_path());
 }
 
 require_once 'Services/OpenStreetMap.php';
@@ -78,6 +79,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase
                 'oauth_token_secret' => false,
                 'oauth_consumer_key' => false,
                 'consumer_secret' => false,
+                'ssl_verify_peer' => true,
+                'ssl_verify_host' => true,
+                'ssl_cafile' => null,
+                'ssl_local_cert' => null,
+                'ssl_passphrase' => null,
+
             ]
         );
         $this->assertEquals('0.6', $osm->getConfig()->getValue('api_version'));
@@ -85,6 +92,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($osm->getConfig()->getValue('User-Agent'), 'Acme 1.2');
         $osm->getConfig()->setValue('api_version', '0.5');
         $this->assertEquals($osm->getConfig()->getValue('api_version'), '0.5');
+        $osm->getConfig()->setValue("ssl_verify_peer", false);
+        $this->assertEquals($osm->getConfig()->getValue('ssl_verify_peer'), false);
+        $osm->getConfig()->setValue("ssl_verify_host", false);
+        $this->assertEquals($osm->getConfig()->getValue('ssl_verify_host'), false);
     }
 
     /**
