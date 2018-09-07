@@ -86,10 +86,12 @@
 
 
     <target name="docs" description="Generate Documentation" depends="clean_docs">
+        <!--
         <mkdir dir="build/docs" />
         <phpdoc2 title="Services_Openstreetmap" destdir="build/docs">
             <fileset refid="Services"/>
         </phpdoc2>
+        -->
     </target>
 
     <target name="phpcpd" description="Generate pmd-cpd.xml using PHPCPD" depends="prepare">
