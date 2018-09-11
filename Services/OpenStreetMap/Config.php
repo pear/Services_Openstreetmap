@@ -24,10 +24,10 @@
  */
 class Services_OpenStreetMap_Config
 {
-    protected $oauth_consumer_key=null;
-    protected $oauth_token=null;
-    protected $oauth_token_secret=null;
-    protected $consumer_secret=null;
+    protected $oauth_consumer_key = null;
+    protected $oauth_token = null;
+    protected $oauth_token_secret = null;
+    protected $consumer_secret = null;
 
 
     /**
@@ -255,6 +255,7 @@ class Services_OpenStreetMap_Config
             if (isset($config['adapter'])) {
                 $this->config['adapter'] = $config['adapter'];
             }
+            $refreshServerSettings = 0;
             foreach ($config as $key=>$value) {
                 if (!array_key_exists($key, $this->config)) {
                     throw new Services_OpenStreetMap_InvalidArgumentException(
@@ -262,9 +263,6 @@ class Services_OpenStreetMap_Config
                     );
                 }
                 switch($key) {
-                case 'server':
-                    $this->setServer($value);
-                    break;
                 case 'passwordfile':
                     $this->setPasswordfile($value);
                     break;
@@ -280,9 +278,24 @@ class Services_OpenStreetMap_Config
                 case 'accept_language':
                     $this->setAcceptLanguage($value);
                     break;
+                case 'oauth_token':
+                case 'oauth_token_secret':
+                case 'oauth_consumer_key':
+                case 'consumer_secret':
+                case 'ssl_verify_peer':
+                case 'ssl_verify_host':
+                case 'ssl_cafile':
+                case 'ssl_local_cert':
+                case 'ssl_passphrase':
+                    $refreshServerSettings = 1;
                 default:
                     $this->config[$key] = $value;
                 }
+            }
+            if (isset($config['server'])) {
+                $this->setServer($config['server']);
+            } elseif ($refreshServerSettings) {
+                $this->setServer($this->config['server']);
             }
         } else {
             if (!array_key_exists($config, $this->config)) {
