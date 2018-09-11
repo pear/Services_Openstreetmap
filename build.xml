@@ -87,6 +87,7 @@
 
     <target name="docs" description="Generate Documentation" depends="clean_docs">
         <mkdir dir="build/docs" />
+        <touch file="build/docs/index.html"/>
         <!--
         <phpdoc2 title="Services_Openstreetmap" destdir="build/docs">
             <fileset refid="Services"/>
