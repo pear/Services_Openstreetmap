@@ -86,8 +86,8 @@
 
 
     <target name="docs" description="Generate Documentation" depends="clean_docs">
-        <!--
         <mkdir dir="build/docs" />
+        <!--
         <phpdoc2 title="Services_Openstreetmap" destdir="build/docs">
             <fileset refid="Services"/>
         </phpdoc2>
