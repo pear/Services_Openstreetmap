@@ -527,6 +527,7 @@ class Services_OpenStreetMap_Object
     {
         if (isset($this->tags[$key])) {
             unset($this->tags[$key]);
+            $this->dirty = true;
         }
         return $this;
     }
@@ -557,6 +558,7 @@ class Services_OpenStreetMap_Object
         foreach ($keys as $key) {
             if (isset($tags[$key])) {
                 unset($tags[$key]);
+                $this->dirty = true;
             }
         }
         $this->tags = $tags;
@@ -572,6 +574,16 @@ class Services_OpenStreetMap_Object
     {
         $this->action = 'delete';
         return $this;
+    }
+
+    /**
+     * Indicate whether object has had a tag added, edited or removed.
+     *
+     * @return bool
+     */
+    public function isDirty()
+    {
+        return $this->dirty;
     }
 
     /**

@@ -125,6 +125,27 @@ class RemoveTagsTest extends PHPUnit_Framework_TestCase
         $node->setAllTags($newTags);
         $this->assertEquals($node->getTags(), $newTags);
     }
+
+    public function testDirtyOrNotWhenTagIsRemovedOrNot()
+    {
+        $mock = new HTTP_Request2_Adapter_Mock();
+        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
+        $mock->addResponse(fopen(__DIR__ . '/responses/node_248081837.xml', 'rb'));
+
+        $config = [
+            'adapter' => $mock,
+            'server'  => 'http://api06.dev.openstreetmap.org/',
+        ];
+
+        $osm = new Services_OpenStreetMap($config);
+
+        $node = $osm->getNode(248081837);
+        $this->assertEquals($node->isDirty(), false);
+        $node->removeTag("x-sosm-imaginary");
+        $this->assertEquals($node->isDirty(), false);
+        $node->removeTag("created_by");
+        $this->assertEquals($node->isDirty(), true);
+    }
 }
 // vim:set et ts=4 sw=4:
 ?>
