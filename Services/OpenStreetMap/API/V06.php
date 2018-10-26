@@ -231,7 +231,24 @@ class Services_OpenStreetMap_API_V06
         $node = new Services_OpenStreetMap_Node();
         $config = $this->getConfig();
         $apiVersion = $config->getValue('api_version');
+        if (strlen($apiVersion) > 255) {
+            throw new Services_OpenStreetMap_RuntimeException(
+                'apiVersion should be no longer than 255 characters'
+            );
+        }
         $userAgent  = $config->getValue('User-Agent');
+        if (strlen($userAgent) > 255) {
+            throw new Services_OpenStreetMap_RuntimeException(
+                'userAgent should be no longer than 255 characters'
+            );
+        }
+        foreach($tags as $key => $value) {
+            if (strlen($key) > 255 || strlen($value) > 255) {
+                throw new Services_OpenStreetMap_RuntimeException(
+                    "$key and its value are capped at 255 characters"
+                );
+            } 
+        }
         $xml = "<?xml version='1.0' encoding='UTF-8'?>
 <osm version='{$apiVersion}' generator='{$userAgent}'>
 <node lat='{$latitude}' lon='{$longitude}' version='1'/></osm>";
