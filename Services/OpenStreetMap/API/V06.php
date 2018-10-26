@@ -231,7 +231,24 @@ class Services_OpenStreetMap_API_V06
         $node = new Services_OpenStreetMap_Node();
         $config = $this->getConfig();
         $apiVersion = $config->getValue('api_version');
+        if (strlen($apiVersion) > 255) {
+            throw new Services_OpenStreetMap_RuntimeException(
+                'apiVersion should be no longer than 255 characters'
+            );
+        }
         $userAgent  = $config->getValue('User-Agent');
+        if (strlen($userAgent) > 255) {
+            throw new Services_OpenStreetMap_RuntimeException(
+                'userAgent should be no longer than 255 characters'
+            );
+        }
+        foreach($tags as $key => $value) {
+            if (strlen($key) > 255 || strlen($value) > 255) {
+                throw new Services_OpenStreetMap_RuntimeException(
+                    "$key and its value are capped at 255 characters"
+                );
+            } 
+        }
         $xml = "<?xml version='1.0' encoding='UTF-8'?>
 <osm version='{$apiVersion}' generator='{$userAgent}'>
 <node lat='{$latitude}' lon='{$longitude}' version='1'/></osm>";
@@ -486,6 +503,54 @@ class Services_OpenStreetMap_API_V06
             . $config->getValue('api_version')
             . "/notes.xml?bbox=$minLon,$minLat,$maxLon,$maxLat"
             . "&limit=$limit&closed=$closed";
+        $response = $this->getTransport()->getResponse($url);
+        $collection = new Services_OpenStreetMap_Notes();
+        $sxe = @simplexml_load_string($response->getBody());
+        if (!is_null($config)) {
+            $collection->setConfig($config);
+        }
+        $collection->setTransport($this);
+        $collection->setXml($sxe);
+        return $collection;
+    }
+
+    /**
+     * Retrieve bug data by search.
+     *
+     * 
+     * @param string  $searchTerm Term(s) to search on
+     * @param integer $limit  Number of entries to return at max, defaults to 100
+     * @param integer $closed Number of days a bug needs to be closed to not be
+     *                        included in the returned dataset. 0 means only open
+     *                        bugs are returned, -1 means all are. Defaults to 7.
+     * @param string  $displayName the creator of the returned notes by the display name. Does not work together with the user parameter
+     * @param int     $user a valid user id
+     * @param date    $from specifies start date in which to search notes within
+     * @param date    $to specified end date in which to search notes within - defaults to current date
+     *
+     * @return void
+     */
+    public function getNotesBySearch(
+        $searchTerm, $limit = 100, $closed = 7, $displayName = '', $user = 0, $from = '', $to = ''
+    ) {
+        $config = $this->getConfig();
+        $url = $config->getValue('server')
+            . 'api/'
+            . $config->getValue('api_version')
+            . "/notes.xml'?q=$searchTerm";
+            if ($displayName !== "") {
+                $url .= "&display_name=$displayName";
+            }
+            if ($user !== 0 && $displayName === "") {
+                $url .= "&user=$user";
+            }
+            if ($from !== "") {
+                $url .= "&from=$from";
+            }
+            if ($to !== "") {
+                $url .= "&to=$to";
+            }
+            $url .= "&limit=$limit&closed=$closed";
         $response = $this->getTransport()->getResponse($url);
         $collection = new Services_OpenStreetMap_Notes();
         $sxe = @simplexml_load_string($response->getBody());
