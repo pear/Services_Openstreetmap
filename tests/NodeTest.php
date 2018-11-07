@@ -675,6 +675,48 @@ class NodeTest extends PHPUnit_Framework_TestCase
             ]
         );
     }
+
+    /**
+     * Test length constraints
+     *
+     * @expectedException Services_OpenStreetMap_RuntimeException
+     *
+     * @expectedExceptionMessageRegExp /.* capped at 255 characters$/
+     *
+     * @return void
+     */
+    public function testCreateNodeMaxLenghtConstraints()
+    {
+        $osm = new Services_OpenStreetMap();
+        $lat = 52.8638729;
+        $lon = -8.1983611;
+        $node = $osm->createNode(
+            $lat,
+            $lon,
+            [str_pad("", 256, "a") => "yes"]
+        );
+    }
+
+    /**
+     * Test length constraints
+     *
+     * @expectedException Services_OpenStreetMap_RuntimeException
+     *
+     * @expectedExceptionMessageRegExp /.* capped at 255 characters$/
+     *
+     * @return void
+     */
+    public function testCreateNodeMaxLenghtConstraints2()
+    {
+        $osm = new Services_OpenStreetMap();
+        $lat = 52.8638729;
+        $lon = -8.1983611;
+        $node = $osm->createNode(
+            $lat,
+            $lon,
+            ["test" => str_pad("", 256, "a")]
+        );
+    }
 }
 
 ?>
