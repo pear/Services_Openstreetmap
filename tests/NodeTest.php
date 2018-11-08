@@ -16,7 +16,7 @@
 
 $version = '@package_version@';
 if (strstr($version, 'package_version')) {
-    set_include_path(dirname(dirname(__FILE__)) . PATH_SEPARATOR . get_include_path());
+    set_include_path(dirname(__DIR__) . PATH_SEPARATOR . get_include_path());
 }
 
 require_once 'Services/OpenStreetMap.php';
@@ -685,7 +685,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testCreateNodeMaxLenghtConstraints()
+    public function testCreateNodeMaxKeyLengthConstraintExceeded()
     {
         $osm = new Services_OpenStreetMap();
         $lat = 52.8638729;
@@ -706,7 +706,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testCreateNodeMaxLenghtConstraints2()
+    public function testCreateNodeMaxValLengthConstraintExceeded()
     {
         $osm = new Services_OpenStreetMap();
         $lat = 52.8638729;
@@ -717,6 +717,45 @@ class NodeTest extends PHPUnit_Framework_TestCase
             ["test" => str_pad("", 256, "a")]
         );
     }
+
+    /**
+     * testCreateNodeMaxValLengthAllowed
+     *
+     * @return void
+     */
+    public function testCreateNodeMaxValLengthAllowed()
+    {
+        $osm = new Services_OpenStreetMap();
+        $lat = 52.8638729;
+        $lon = -8.1983611;
+        $node = $osm->createNode(
+            $lat,
+            $lon,
+            ["test" => str_pad("", 255, "a")]
+        );
+        // no exception thrown as 255 char length is ok.
+        $this->assertTrue(is_object($node));
+    }
+
+    /**
+     * Test length constraints
+     *
+     * @return void
+     */
+    public function testCreateNodeMaxKeyLengthAllowed()
+    {
+        $osm = new Services_OpenStreetMap();
+        $lat = 52.8638729;
+        $lon = -8.1983611;
+        $node = $osm->createNode(
+            $lat,
+            $lon,
+            [str_pad("", 255, "a") => "yes"]
+        );
+        // no exception thrown as 255 char length is ok.
+        $this->assertTrue(is_object($node));
+    }
+
 }
 
 ?>
