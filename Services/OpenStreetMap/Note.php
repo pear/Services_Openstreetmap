@@ -34,6 +34,13 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
     protected $type = 'note';
 
     /**
+     * Comments object
+     *
+     * @var Services_OpenStreetMap_Comments
+     */
+    protected $comments;
+
+    /**
      * Latitude of note
      *
      * @return float
@@ -106,7 +113,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
     /**
      * Get Comments against this note.
      *
-     * @return void
+     * @return Services_OpenStreetMap_Comments
      */
     public function getComments()
     {
@@ -190,6 +197,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
      */
     public function setXml(SimpleXMLElement $xml)
     {
+        $comments = [];
         $this->xml = $xml->saveXml();
         $obj = $xml->xpath('//' . $this->getType());
         $kids = [];

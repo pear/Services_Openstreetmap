@@ -46,6 +46,33 @@ class Services_OpenStreetMap_User
      */
     protected $config = null;
 
+    /**
+     * XML represention of the User
+     *
+     * @var string
+     */
+    protected $xml = null;
+
+    /**
+     * Object based on xml for user
+     *
+     * @var object|false
+     */
+    protected $obj;
+
+    /**
+     * Preferences XML
+     *
+     * @var string
+     */
+    protected $prefXml;
+
+    /**
+     * Preferences object
+     *
+     * @var object|false
+     */
+    protected $prefObj;
 
     /**
      * Set the XML representing this user.
@@ -77,7 +104,7 @@ class Services_OpenStreetMap_User
     /**
      * Return the attributes set for this user instance.
      *
-     * @return string getAttributes()
+     * @return mixed getAttributes()
      */
     public function getAttributes()
     {
@@ -102,7 +129,7 @@ class Services_OpenStreetMap_User
      */
     public function getAccountCreated()
     {
-        return (string) $this->getAttributes()->account_created;
+        return (string) ($this->getAttributes()->account_created);
     }
 
     /**
@@ -119,7 +146,7 @@ class Services_OpenStreetMap_User
     /**
      * Retrieve the id of the user.
      *
-     * @return integer id of the object
+     * @return float id of the object
      */
     public function getId()
     {
@@ -129,7 +156,7 @@ class Services_OpenStreetMap_User
     /**
      * Return href to user's profile image, null if not set.
      *
-     * @return string
+     * @return string|null
      */
     public function getImage()
     {
@@ -143,7 +170,7 @@ class Services_OpenStreetMap_User
     /**
      * Return an array of the user's preferred languages.
      *
-     * @return array
+     * @return array|null
      */
     public function getLanguages()
     {
@@ -164,7 +191,7 @@ class Services_OpenStreetMap_User
     /**
      * Latitude of 'home' setting for user.
      *
-     * @return float
+     * @return float|null
      */
     public function getLat()
     {
@@ -178,7 +205,7 @@ class Services_OpenStreetMap_User
     /**
      * Longitude of 'home' setting for user.
      *
-     * @return float
+     * @return float|null
      */
     public function getLon()
     {
@@ -193,7 +220,7 @@ class Services_OpenStreetMap_User
     /**
      * Zoom level of 'home' setting for user.
      *
-     * @return integer
+     * @return integer|null
      */
     public function getZoom()
     {
@@ -208,7 +235,7 @@ class Services_OpenStreetMap_User
     /**
      * The number of changesets opened by the user.
      *
-     * @return integer
+     * @return integer|null
      */
     public function getChangesets()
     {
@@ -223,7 +250,7 @@ class Services_OpenStreetMap_User
     /**
      * The number of traces uploaded by the user.
      *
-     * @return integer
+     * @return integer|null
      */
     public function getTraces()
     {
@@ -238,7 +265,7 @@ class Services_OpenStreetMap_User
     /**
      * The [total] number of blocks received by the user.
      *
-     * @return integer
+     * @return integer|null
      */
     public function getBlocksReceived()
     {
@@ -253,7 +280,7 @@ class Services_OpenStreetMap_User
     /**
      * The number of active blocks received by the user.
      *
-     * @return integer
+     * @return integer|null
      */
     public function getActiveBlocksReceived()
     {
@@ -268,7 +295,7 @@ class Services_OpenStreetMap_User
     /**
      * The [total] number of blocks issued by the user.
      *
-     * @return integer
+     * @return integer|null
      */
     public function getBlocksIssued()
     {
@@ -283,7 +310,7 @@ class Services_OpenStreetMap_User
     /**
      * The number of active blocks issued by the user.
      *
-     * @return integer
+     * @return integer|null
      */
     public function getActiveBlocksIssued()
     {
@@ -345,6 +372,7 @@ class Services_OpenStreetMap_User
      */
     public function setPreferences($preferences)
     {
+        $doc = '';
         $this->preferences = $preferences;
         $config = $this->getConfig()->asArray();
         $url = $config['server']

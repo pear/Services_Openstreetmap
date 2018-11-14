@@ -13,7 +13,7 @@
  */
 
 /**
- * OAuthHelper
+ * Services_OpenStreetMap_OAuthHelper
  *
  * @category Services
  * @package  Services_OpenStreetMap
@@ -21,12 +21,12 @@
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @link     OAuthHelper.php
  */
-class OAuthHelper
+class Services_OpenStreetMap_OAuthHelper
 {
     /**
      * Return time-stamp for oauth use
      *
-     * @return string
+     * @return int
      */
     public static function getOauthTimestamp()
     {

@@ -51,6 +51,15 @@ class Services_OpenStreetMap
     protected $xml = null;
 
     /**
+     * API Object
+     *
+     * @var Services_OpenStreetMap_API_V06
+     *
+     * @internal
+     */
+    protected $api = null;
+
+    /**
      * Transport
      *
      * @var Services_OpenStreetMap_Transport
@@ -142,7 +151,7 @@ class Services_OpenStreetMap
      * @param string $maxLon max Longitude (rightmost point)
      * @param string $maxLat max Latitude (top point)
      *
-     * @return void
+     * @return string
      */
     public function get($minLon, $minLat, $maxLon, $maxLat)
     {
@@ -208,13 +217,13 @@ class Services_OpenStreetMap
      *
      * Peform a reverse search/geoencoding.
      *
-     * @param sttring $lat            Latitude
+     * @param string  $lat            Latitude
      * @param string  $lon            Longitude
      * @param bool    $addressdetails Whether to include address details in results
      * @param int     $zoom           Zoom level to search at
      * @param string  $format         Format to retrieve. json/xml (default)
      *
-     * @return void
+     * @return object|string
      */
     public function reverseGeocode(
         $lat,

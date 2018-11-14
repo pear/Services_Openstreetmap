@@ -78,12 +78,22 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     protected $updateMap = [];
 
     /**
+     * Atomic?
+     *
+     * @var bool
+     */
+    protected $atomic;
+
+    /**
      * Constructor
+     *
+     * @param bool $atomic Whether changeset is atomic or not.
      *
      * @return Services_OpenStreetMap_Changeset
      */
-    public function __construct()
+    public function __construct($atomic = true)
     {
+        $this->atomic = $atomic;
     }
 
     /**
@@ -97,6 +107,8 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      */
     public function begin($message)
     {
+        $response = null;
+        $code = null;
         $this->members = [];
         $this->open = true;
         $config = $this->getConfig();
@@ -135,29 +147,29 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             && !empty($consumer_secret)
             && !empty($oauth_token_secret)
         ) {
-            include_once 'OAuthHelper.php';
-            $timest = OAuthHelper::getOauthTimestamp();
-            $nonce = OAuthHelper::getOauthNonce();
+            include_once 'Services/OpenStreetMap/OAuthHelper.php';
+            $timest = Services_OpenStreetMap_OAuthHelper::getOauthTimestamp();
+            $nonce = Services_OpenStreetMap_OAuthHelper::getOauthNonce();
 
             $oAuthArray = [
                 'oauth_consumer_key'     => $oauth_consumer_key,
-                'oauth_nonce'            => OAuthHelper::getOauthNonce(),
+                'oauth_nonce'            => Services_OpenStreetMap_OAuthHelper::getOauthNonce(),
                 'oauth_signature_method' => 'HMAC-SHA1',
-                'oauth_timestamp'        => OAuthHelper::getOauthTimestamp(),
+                'oauth_timestamp'        => Services_OpenStreetMap_OAuthHelper::getOauthTimestamp(),
                 'oauth_token'            => $oauth_token,
                 'oauth_version'          => '1.0'
             ];
 
             $hashString = HTTP_Request2::METHOD_PUT . '&' . rawurlencode($url)
                         . '&' . rawurlencode(
-                            OAuthHelper::assocArrayToString($oAuthArray)
+                            Services_OpenStreetMap_OAuthHelper::assocArrayToString($oAuthArray)
                         );
 
-            $oAuthArray['oauth_signature'] = OAuthHelper::getOauthSignature(
+            $oAuthArray['oauth_signature'] = Services_OpenStreetMap_OAuthHelper::getOauthSignature(
                 $consumer_secret . '&' . $oauth_token_secret, $hashString
             );
 
-            $authStr = 'OAuth ' . OAuthHelper::assocArrayToString(
+            $authStr = 'OAuth ' . Services_OpenStreetMap_OAuthHelper::assocArrayToString(
                 $oAuthArray,
                 '=',
                 ', ',
@@ -253,6 +265,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             );
         }
 
+        $code = null;
         // Generate URL that the osmChange document will be posted to
         $cId = $this->getId();
         if (!is_numeric($cId)) {
@@ -291,35 +304,35 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                     null,
                     [['Content-type', 'text/xml', true]]
                 );
-            } elseif (!empty($oauth_consumer_key) 
-                && !empty($oauth_token) 
+            } elseif (!empty($oauth_consumer_key)
+                && !empty($oauth_token)
                 && !empty($consumer_secret)
                 && !empty($oauth_token_secret)
             ) {
 
-                include_once 'OAuthHelper.php';
-                $timest=OAuthHelper::getOauthTimestamp();
-                $nonce=OAuthHelper::getOauthNonce();
+                include_once 'Services/OpenStreetMap/OAuthHelper.php';
+                $timest=Services_OpenStreetMap_OAuthHelper::getOauthTimestamp();
+                $nonce=Services_OpenStreetMap_OAuthHelper::getOauthNonce();
 
                 $oAuthArray = [
                     'oauth_consumer_key'     => $oauth_consumer_key,
-                    'oauth_nonce'            => OAuthHelper::getOauthNonce(),
+                    'oauth_nonce'            => Services_OpenStreetMap_OAuthHelper::getOauthNonce(),
                     'oauth_signature_method' => 'HMAC-SHA1',
-                    'oauth_timestamp'        => OAuthHelper::getOauthTimestamp(),
+                    'oauth_timestamp'        => Services_OpenStreetMap_OAuthHelper::getOauthTimestamp(),
                     'oauth_token'            => $oauth_token,
                     'oauth_version'          => '1.0'
                 ];
 
-                $oAuthString = OAuthHelper::assocArrayToString($oAuthArray);
+                $oAuthString = Services_OpenStreetMap_OAuthHelper::assocArrayToString($oAuthArray);
                 $hashString = HTTP_Request2::METHOD_POST . '&'
                             . rawurlencode($url) . '&'
                             . rawurlencode($oAuthString);
 
-                $oAuthArray['oauth_signature'] = OAuthHelper::getOauthSignature(
+                $oAuthArray['oauth_signature'] = Services_OpenStreetMap_OAuthHelper::getOauthSignature(
                     $consumer_secret . '&' . $oauth_token_secret, $hashString
                 );
 
-                $authStr='OAuth '.OAuthHelper::assocArrayToString(
+                $authStr='OAuth '.Services_OpenStreetMap_OAuthHelper::assocArrayToString(
                     $oAuthArray, '=', ', ', '"'
                 );
 
@@ -379,28 +392,28 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 && !empty($consumer_secret)
                 && !empty($oauth_token_secret)
             ) {
-                include_once 'OAuthHelper.php';
-                $timest = OAuthHelper::getOauthTimestamp();
-                $nonce  = OAuthHelper::getOauthNonce();
+                include_once 'Services_OpenStreetMap_OAuthHelper.php';
+                $timest = Services_OpenStreetMap_OAuthHelper::getOauthTimestamp();
+                $nonce  = Services_OpenStreetMap_OAuthHelper::getOauthNonce();
 
                 $oAuthArray = [
                     'oauth_consumer_key'     => $oauth_consumer_key,
-                    'oauth_nonce'            => OAuthHelper::getOauthNonce(),
+                    'oauth_nonce'            => Services_OpenStreetMap_OAuthHelper::getOauthNonce(),
                     'oauth_signature_method' => 'HMAC-SHA1',
-                    'oauth_timestamp'        => OAuthHelper::getOauthTimestamp(),
+                    'oauth_timestamp'        => Services_OpenStreetMap_OAuthHelper::getOauthTimestamp(),
                     'oauth_token'            => $oauth_token,
                     'oauth_version'          => '1.0'
                 ];
 
-                $oauthString = OAuthHelper::assocArrayToString($oAuthArray);
+                $oauthString = Services_OpenStreetMap_OAuthHelper::assocArrayToString($oAuthArray);
                 $hashString = HTTP_Request2::METHOD_PUT . '&' . rawurlencode($url)
                             . '&' . rawurlencode($oauthString);
 
-                $oAuthArray['oauth_signature'] = OAuthHelper::getOauthSignature(
+                $oAuthArray['oauth_signature'] = Services_OpenStreetMap_OAuthHelper::getOauthSignature(
                     $consumer_secret . '&' . $oauth_token_secret, $hashString
                 );
 
-                $authStr = 'OAuth ' . OAuthHelper::assocArrayToString(
+                $authStr = 'OAuth ' . Services_OpenStreetMap_OAuthHelper::assocArrayToString(
                     $oAuthArray,
                     '=',
                     ', ',
@@ -557,7 +570,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     /**
      * Get changeset Id.
      *
-     * @return numeric value or null if none set
+     * @return null|float value or null if none set
      */
     public function getId()
     {

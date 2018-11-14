@@ -109,9 +109,8 @@ class Services_OpenStreetMap_Transport_HTTPCached
 
         $data = $this->cache->get($id);
         if ($data) {
-            $response = new HTTP_Request2_Response();
-            $response->setStatus(200);
-            $response->setBody($data);
+            $response = new HTTP_Request2_Response('HTTP/1.1 200 OK');
+            $response->appendBody($data);
 
             return $response;
         }

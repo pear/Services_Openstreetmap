@@ -57,13 +57,14 @@ interface Services_OpenStreetMap_Transport
      * Returns false if the object is not found
      *
      * @param string $type    object type
-     * @param mixed  $id      id of object to retrieve
-     * @param mixed  $version version of object
+     * @param string $id      id of object to retrieve
+     * @param string $version version of object, optional
+     * @param string $append  portion to append to request URL, optional
      *
-     * @return object
+     * @return Services_OpenStreetMap_Object
      * @throws Services_OpenStreetMap_Exception
      */
-    public function getObject($type, $id, $version = null);
+    public function getObject($type, $id, $version = null, $append = null);
 
     /**
      * Get objects of specified type.
@@ -71,7 +72,7 @@ interface Services_OpenStreetMap_Transport
      * @param string $type object type
      * @param array  $ids  ids of objects to retrieve
      *
-     * @return void
+     * @return Services_OpenStreetMap_Objects
      */
     public function getObjects($type, array $ids);
 

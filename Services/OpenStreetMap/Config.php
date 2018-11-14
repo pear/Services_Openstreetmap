@@ -29,6 +29,14 @@ class Services_OpenStreetMap_Config
     protected $oauth_token_secret = null;
     protected $consumer_secret = null;
 
+    protected $api = null;
+
+    /**
+     * Transport object.
+     *
+     * @var Services_OpenStreetMap_Transport
+     */
+    protected $transport = null;
 
     /**
      * Minimum version of the OSM API that is supported.

@@ -183,9 +183,9 @@ class Services_OpenStreetMap_Object
         if ($this->dirty) {
             $version = $this->getVersion();
             $version++;
-            $domd = new DomDocument();
+            $domd = new DOMDocument();
             $domd->loadXml($this->getXml());
-            $xpath = new DomXPath($domd);
+            $xpath = new DOMXPath($domd);
             $nodelist = $xpath->query("//{$type}");
             $nodelist->item(0)->setAttribute('action', $this->action);
             $nodelist->item(0)->setAttribute('id', $this->getId());
@@ -225,9 +225,9 @@ class Services_OpenStreetMap_Object
 
         } elseif ($this->action == 'delete') {
             $xml = null;
-            $domd = new DomDocument();
+            $domd = new DOMDocument();
             $domd->loadXml($this->getXml());
-            $xpath = new DomXPath($domd);
+            $xpath = new DOMXPath($domd);
             $n = $xpath->query("//{$type}");
             $version = $this->getVersion();
             $version++;
@@ -262,7 +262,7 @@ class Services_OpenStreetMap_Object
     public function getId()
     {
         if (!is_null($this->id)) {
-            return $this->id;
+            return (integer) $this->id;
         }
 
         $attribs = $this->getAttributes();
@@ -280,7 +280,7 @@ class Services_OpenStreetMap_Object
      * $obj->setId($id)->...
      * </code>
      *
-     * @param integer $value new id of the object
+     * @param string $value new id of the object
      *
      * @return Services_OpenStreetMap_Object
      */
@@ -319,7 +319,7 @@ class Services_OpenStreetMap_Object
     /**
      * Retrieve the version of the object in question
      *
-     * @return string version of the object
+     * @return integer version of the object
      */
     public function getVersion()
     {
@@ -332,7 +332,7 @@ class Services_OpenStreetMap_Object
     /**
      * Return the attributes set for this object in question.
      *
-     * @return string getAttributes()
+     * @return mixed getAttributes()
      */
     public function getAttributes()
     {
@@ -360,7 +360,7 @@ class Services_OpenStreetMap_Object
      *
      * @param string $key Key value, For example, 'amenity', 'highway' etc
      *
-     * @return string
+     * @return string|null
      */
     public function getTag($key)
     {

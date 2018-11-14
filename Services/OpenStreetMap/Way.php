@@ -37,7 +37,7 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
     /**
      * A way is a collection of nodes.
      *
-     * @var Services_OpenStreetMap_Node[]
+     * @var Services_OpenStreetMap_Node[]|int
      */
     protected $nodes = [];
 
@@ -121,7 +121,7 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
     /**
      * Remove a node from the way.
      *
-     * @param node $node Either a Node object or an id/ref of such an object.
+     * @param mixed $node Either a Node object or an id/ref of such an object.
      *
      * @return Services_OpenStreetMap_Way
      * @throws Services_OpenStreetMap_InvalidArgumentException
@@ -164,9 +164,9 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
     public function osmChangeXml($xml)
     {
         if ($this->dirtyNodes) {
-            $domd = new DomDocument();
+            $domd = new DOMDocument();
             $domd->loadXml($xml);
-            $xpath = new DomXPath($domd);
+            $xpath = new DOMXPath($domd);
             $nodelist = $xpath->query('//' . $this->action . '/way');
             $nd = $xpath->query("//{$this->action}/way/nd");
 
@@ -202,7 +202,7 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
     /**
      * Return address [tags], as an array, if set on a closed way.
      *
-     * @return array
+     * @return array|null
      */
     public function getAddress()
     {
