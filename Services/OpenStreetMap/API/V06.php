@@ -261,11 +261,13 @@ class Services_OpenStreetMap_API_V06
      *
      * @see setConfig
      *
-     * @return Services_OpenStreetMap_User
+     * @return Services_OpenStreetMap_User|false
      * @throws Services_OpenStreetMap_Exception
      */
     public function getUser()
     {
+        $response = null;
+        $prefs = null;
         $config = $this->getConfig()->asArray();
         $url = $config['server']
             . 'api/'
@@ -327,11 +329,12 @@ class Services_OpenStreetMap_API_V06
      *
      * @see setConfig
      *
-     * @return Services_OpenStreetMap_User
+     * @return Services_OpenStreetMap_User|false
      * @throws Services_OpenStreetMap_Exception
      */
     public function getUserById($id)
     {
+        $response = null;
         $config = $this->getConfig()->asArray();
         $url = $config['server']
             . 'api/'
@@ -383,7 +386,7 @@ class Services_OpenStreetMap_API_V06
      * @param mixed $wayID   wayID
      * @param mixed $version Version of way
      *
-     * @return void
+     * @return Services_OpenStreetMap_Way
      * @note:  do a similary getRelationFull method also
      */
     public function getWayFull($wayID, $version)
@@ -392,6 +395,7 @@ class Services_OpenStreetMap_API_V06
             throw new Services_OpenStreetMap_RuntimeException("Invalid version");
         }
 
+        /** @var Services_OpenStreetMap_Way $way */
         $way = $this->getTransport()->getObject('way', $wayID, $version, 'full');
         if ($way !== false) {
             $way->setTransport($this->getTransport());
@@ -515,8 +519,8 @@ class Services_OpenStreetMap_API_V06
      *                             Defaults to 7.
      * @param string  $displayName the creator of the returned notes by the display name. Does not work together with the user parameter
      * @param int     $user        a valid user id
-     * @param date    $from        specifies start date in which to search notes within
-     * @param date    $to          specified end date in which to search notes within - defaults to current date
+     * @param string  $from        specifies start date in which to search notes within
+     * @param string  $to          specified end date in which to search notes within - defaults to current date
      *
      * @return Services_OpenStreetMap_Notes
      */
@@ -564,10 +568,11 @@ class Services_OpenStreetMap_API_V06
      * # allow_read_gpx (read private GPS traces)
      * # allow_write_gpx (upload GPS traces)
      *
-     * @return array
+     * @return array|false
      */
     public function getPermissions()
     {
+        $response = null;
         $config = $this->getConfig()->asArray();
         $user = $config['user'];
         $password = $config['password'];

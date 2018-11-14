@@ -168,6 +168,11 @@ class Services_OpenStreetMap_Transport_HTTP
                     . $code . ' '
                     . $response->getReasonPhrase()
                     . ' [for ' .  $response->getEffectiveUrl() . ']';
+                /**
+                 * What text for the error  was retrieved?
+                 *
+                 * @var string $error
+                 */
                 $error = $response->getHeader('error');
                 if (null !== $error) {
                     $eMsg .= " ($error)";
@@ -232,11 +237,11 @@ class Services_OpenStreetMap_Transport_HTTP
      * Returns false if the object is not found
      *
      * @param string $type    object type
-     * @param mixed  $id      id of object to retrieve
-     * @param mixed  $version version of object, optional
-     * @param mixed  $append  portion to append to request URL, optional
+     * @param string $id      id of object to retrieve
+     * @param string $version version of object, optional
+     * @param string $append  portion to append to request URL, optional
      *
-     * @return object
+     * @return object|false
      * @throws Services_OpenStreetMap_Exception
      */
     public function getObject($type, $id, $version = null, $append = null)
@@ -286,7 +291,7 @@ class Services_OpenStreetMap_Transport_HTTP
      * @param string $type object type
      * @param array  $ids  ids of objects to retrieve
      *
-     * @return void|bool
+     * @return Services_OpenStreetMap_Objects|false
      * @throws Services_OpenStreetMap_Exception
      */
     public function getObjects($type, array $ids)
@@ -296,6 +301,7 @@ class Services_OpenStreetMap_Transport_HTTP
             throw new Services_OpenStreetMap_Exception('Invalid Element Type');
         }
         */
+        $response = null;
         $config = $this->getConfig();
         $url = $config->getValue('server')
             . 'api/'
@@ -359,10 +365,11 @@ class Services_OpenStreetMap_Transport_HTTP
      * @param string $type     object type (e.g. changeset)
      * @param array  $criteria array of criterion objects.
      *
-     * @return Services_OpenStreetMap_Objects
+     * @return Services_OpenStreetMap_Objects|false
      */
     public function searchObjects($type, array $criteria)
     {
+        $response = null;
         $query = [];
         foreach ($criteria as $criterion) {
             $query[] = $criterion->query();

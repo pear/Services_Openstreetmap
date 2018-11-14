@@ -74,6 +74,16 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
     }
 
     /**
+     * Type
+     *
+     * @return string Type
+     */
+    public function getType()
+    {
+        return '';
+    }
+
+    /**
      * Get Xml of the object.
      *
      * @return string

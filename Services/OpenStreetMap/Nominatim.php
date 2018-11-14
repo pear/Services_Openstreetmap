@@ -103,7 +103,7 @@ class Services_OpenStreetMap_Nominatim
     /**
      * CSVs of valid country codes to restrict search to.
      *
-     * @var string
+     * @var string|null
      */
     protected $countryCodes = null;
 
@@ -166,7 +166,7 @@ class Services_OpenStreetMap_Nominatim
      * @param bool   $addressdetails Include address details, defaults to true.
      * @param int    $zoom           Zoom level, defaults to 18.
      *
-     * @return void
+     * @return object|string
      *
      * @throws Services_OpenStreetMap_RuntimeException If the set format
      *                                                 is not supported.

@@ -44,7 +44,7 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
     /**
      * Return all members of the relation.
      *
-     * @return void
+     * @return array
      */
     public function getMembers()
     {
