@@ -116,6 +116,7 @@ class Services_OpenStreetMap_API_V06
      * @param mixed $version    [optional] version of relation
      *
      * @return string
+     * @throws Services_OpenStreetMap_Exception
      */
     public function getRelation($relationID, $version = null)
     {
@@ -154,6 +155,7 @@ class Services_OpenStreetMap_API_V06
      * @param string $version optional
      *
      * @return string
+     * @throws Services_OpenStreetMap_Exception
      */
     public function getChangeset($id, $version = null)
     {
@@ -239,9 +241,11 @@ class Services_OpenStreetMap_API_V06
                 );
             }
         }
-        $xml = "<?xml version='1.0' encoding='UTF-8'?>
+        $xml = <<< XML
+<?xml version='1.0' encoding='UTF-8'?>
 <osm version='{$apiVersion}' generator='{$userAgent}'>
-<node lat='{$latitude}' lon='{$longitude}' version='1'/></osm>";
+<node lat='{$latitude}' lon='{$longitude}' version='1'/></osm>
+XML;
         $node->setLat($latitude);
         $node->setLon($longitude);
         $node->setXml(simplexml_load_string($xml));
@@ -263,6 +267,7 @@ class Services_OpenStreetMap_API_V06
      *
      * @return Services_OpenStreetMap_User|false
      * @throws Services_OpenStreetMap_Exception
+     * @throws HTTP_Request2_Exception
      */
     public function getUser()
     {
@@ -331,6 +336,7 @@ class Services_OpenStreetMap_API_V06
      *
      * @return Services_OpenStreetMap_User|false
      * @throws Services_OpenStreetMap_Exception
+     * @throws HTTP_Request2_Exception
      */
     public function getUserById($id)
     {
@@ -367,6 +373,7 @@ class Services_OpenStreetMap_API_V06
      * @param mixed $version [optional] version of way
      *
      * @return string
+     * @throws Services_OpenStreetMap_Exception
      */
     public function getWay($wayID, $version = null)
     {
@@ -388,6 +395,7 @@ class Services_OpenStreetMap_API_V06
      *
      * @return Services_OpenStreetMap_Way
      * @note:  do a similary getRelationFull method also
+     * @throws Services_OpenStreetMap_Exception
      */
     public function getWayFull($wayID, $version)
     {
@@ -413,7 +421,7 @@ class Services_OpenStreetMap_API_V06
      * $ways = $osm->getWays($wayId, $way2Id);
      * </code>
      *
-     * @return array
+     * @return Services_OpenStreetMap_Ways
      */
     public function getWays()
     {
@@ -433,10 +441,11 @@ class Services_OpenStreetMap_API_V06
      * var_dump($osm->getNode(52245107));
      * </code>
      *
-     * @param string $nodeID  nodeID
-     * @param mixed  $version [optional] version of node
+     * @param string $nodeID nodeID
+     * @param mixed $version [optional] version of node
      *
      * @return string
+     * @throws Services_OpenStreetMap_Exception
      */
     public function getNode($nodeID, $version = null)
     {
@@ -477,16 +486,18 @@ class Services_OpenStreetMap_API_V06
     /**
      * Retrieve bug data by bounding box.
      *
-     * @param string  $minLon Min Longitude (leftmost point)
-     * @param string  $minLat Min Latitude (bottom point)
-     * @param string  $maxLon Max Longitude (rightmost point)
-     * @param string  $maxLat Max Latitude (top point)
+     * @param string $minLon  Min Longitude (leftmost point)
+     * @param string $minLat  Min Latitude (bottom point)
+     * @param string $maxLon  Max Longitude (rightmost point)
+     * @param string $maxLat  Max Latitude (top point)
      * @param integer $limit  Number of entries to return at max, defaults to 100
      * @param integer $closed Number of days a bug needs to be closed to not be
      *                        included in the returned dataset. 0 means only open
      *                        bugs are returned, -1 means all are. Defaults to 7.
      *
      * @return Services_OpenStreetMap_Notes
+     * @throws HTTP_Request2_Exception
+     * @throws Services_OpenStreetMap_Exception
      */
     public function getNotesByBbox(
         $minLon, $minLat, $maxLon, $maxLat, $limit = 100, $closed = 7
@@ -511,18 +522,20 @@ class Services_OpenStreetMap_API_V06
     /**
      * Retrieve bug data by search.
      *
-     * @param string  $searchTerm  Term(s) to search on
+     * @param string $searchTerm   Term(s) to search on
      * @param integer $limit       Number of entries to return at max, defaults to 100
      * @param integer $closed      Number of days a bug needs to be closed to not be
      *                             included in the returned dataset. 0 means only
      *                             open bugs are returned, -1 means all are.
      *                             Defaults to 7.
-     * @param string  $displayName the creator of the returned notes by the display name. Does not work together with the user parameter
-     * @param int     $user        a valid user id
-     * @param string  $from        specifies start date in which to search notes within
-     * @param string  $to          specified end date in which to search notes within - defaults to current date
+     * @param string $displayName  the creator of the returned notes by the display name. Does not work together with the user parameter
+     * @param int $user            a valid user id
+     * @param string $from         specifies start date in which to search notes within
+     * @param string $to           specified end date in which to search notes within - defaults to current date
      *
      * @return Services_OpenStreetMap_Notes
+     * @throws HTTP_Request2_Exception
+     * @throws Services_OpenStreetMap_Exception
      */
     public function getNotesBySearch(
         $searchTerm, $limit = 100, $closed = 7, $displayName = '', $user = 0, $from = '', $to = ''
@@ -569,6 +582,8 @@ class Services_OpenStreetMap_API_V06
      * # allow_write_gpx (upload GPS traces)
      *
      * @return array|false
+     * @throws HTTP_Request2_Exception
+     * @throws Services_OpenStreetMap_Exception
      */
     public function getPermissions()
     {
@@ -609,5 +624,3 @@ class Services_OpenStreetMap_API_V06
         return $ret;
     }
 }
-
-?>
