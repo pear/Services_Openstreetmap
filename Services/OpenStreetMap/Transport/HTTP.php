@@ -58,7 +58,7 @@ class Services_OpenStreetMap_Transport_HTTP
     {
         $this->setConfig(new Services_OpenStreetMap_Config());
         $this->setRequest(new HTTP_Request2());
-        $this->setLog(new Log_null(null, null));
+        $this->setLog(new Log_null('null', ''));
     }
 
     /**
@@ -90,7 +90,6 @@ class Services_OpenStreetMap_Transport_HTTP
     protected $log = null;
 
 
-
     /**
      * Send request to OSM server and return the response.
      *
@@ -102,7 +101,8 @@ class Services_OpenStreetMap_Transport_HTTP
      * @param array  $post_data (optional)
      * @param array  $headers   (optional)
      *
-     * @return HTTP_Request2_Response
+     * @return void
+     * @throws HTTP_Request2_LogicException
      * @throws Services_OpenStreetMap_Exception If something unexpected has
      *                                          happened while conversing with
      *                                          the server.
@@ -145,7 +145,7 @@ class Services_OpenStreetMap_Transport_HTTP
         if ($user !== null && $password !== null) {
             $request->setAuth($user, $password);
         }
-        if ($post_data != []) {
+        if ($post_data !== []) {
             $request->setMethod(HTTP_Request2::METHOD_POST);
             $this->addPostParameters($post_data, $request);
         }
@@ -242,6 +242,7 @@ class Services_OpenStreetMap_Transport_HTTP
      * @param string $append  portion to append to request URL, optional
      *
      * @return object|false
+     * @throws HTTP_Request2_LogicException
      * @throws Services_OpenStreetMap_Exception
      */
     public function getObject($type, $id, $version = null, $append = null)
@@ -271,15 +272,16 @@ class Services_OpenStreetMap_Transport_HTTP
             $this->log->warning((string)$ex);
 
             $code = $ex->getCode();
-            if (self::NOT_FOUND == $code) {
+            if (self::NOT_FOUND === $code) {
                 return false;
-            } elseif (self::GONE == $code) {
-                return false;
-            } else {
-                throw $ex;
             }
+            if (self::GONE === $code) {
+                return false;
+            }
+            throw $ex;
         }
         $class =  'Services_OpenStreetMap_' . ucfirst(strtolower($type));
+        /** @var Services_OpenStreetMap_Object $obj */
         $obj = new $class();
         $obj->setXml(simplexml_load_string($response->getBody()));
         return $obj;
@@ -293,6 +295,7 @@ class Services_OpenStreetMap_Transport_HTTP
      *
      * @return Services_OpenStreetMap_Objects|false
      * @throws Services_OpenStreetMap_Exception
+     * @throws HTTP_Request2_LogicException
      */
     public function getObjects($type, array $ids)
     {
@@ -323,10 +326,9 @@ class Services_OpenStreetMap_Transport_HTTP
         }
 
         $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($type)) . 's';
+        /** @var Services_OpenStreetMap_Objects $obj */
         $obj = new $class();
-        if (!is_null($config)) {
-            $obj->setConfig($config);
-        }
+        $obj->setConfig($config);
         $obj->setTransport($this);
         $sxe = @simplexml_load_string($response->getBody());
         if ($sxe === false) {
@@ -366,6 +368,8 @@ class Services_OpenStreetMap_Transport_HTTP
      * @param array  $criteria array of criterion objects.
      *
      * @return Services_OpenStreetMap_Objects|false
+     * @throws HTTP_Request2_LogicException
+     * @throws Services_OpenStreetMap_Exception
      */
     public function searchObjects($type, array $criteria)
     {
@@ -393,6 +397,7 @@ class Services_OpenStreetMap_Transport_HTTP
             }
         }
         $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($type)) . 's';
+        /** @var Services_OpenStreetMap_Objects $obj */
         $obj = new $class();
         $sxe = @simplexml_load_string($response->getBody());
         if ($sxe === false) {
@@ -410,10 +415,11 @@ class Services_OpenStreetMap_Transport_HTTP
      * @param HTTP_Request2 $request Request
      *
      * @return void
+     * @throws HTTP_Request2_LogicException
      */
     public function setHeaders(array $headers, $request)
     {
-        if ($headers != []) {
+        if ($headers !== []) {
             foreach ($headers as $header) {
                 $request->setHeader($header[0], $header[1], $header[2]);
             }

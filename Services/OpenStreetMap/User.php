@@ -140,7 +140,7 @@ class Services_OpenStreetMap_User
     public function getDescription()
     {
         $desc = simplexml_load_string($this->xml)->xpath('//user/description');
-        return (string) trim($desc[0]);
+        return trim($desc[0]);
     }
 
     /**

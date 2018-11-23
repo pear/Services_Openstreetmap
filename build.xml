@@ -213,4 +213,8 @@
         </delete>
     </target>
 
+    <target name="stan">
+            <phpstan command="analyse" level="7" paths="Services"/>
+    </target>
+
 </project>

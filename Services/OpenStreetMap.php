@@ -75,7 +75,7 @@ class Services_OpenStreetMap
      */
     public static function autoload($class)
     {
-        $dir = dirname(dirname(__FILE__));
+        $dir = dirname(__DIR__);
         $file = $dir . '/' . str_replace('_', '/', $class) . '.php';
         if (file_exists($file)) {
             return include_once $file;
@@ -152,6 +152,8 @@ class Services_OpenStreetMap
      * @param string $maxLat max Latitude (top point)
      *
      * @return string
+     * @throws HTTP_Request2_Exception
+     * @throws Services_OpenStreetMap_Exception
      */
     public function get($minLon, $minLat, $maxLon, $maxLat)
     {
@@ -588,7 +590,7 @@ class Services_OpenStreetMap
      * @param string $name      Name of missing method to call.
      * @param array  $arguments Arguments to be used when calling method.
      *
-     * @return void
+     * @return mixed
      * @throws Services_OpenStreetMap_Exception If the method is not supported
      *                                          by the API instance.
      */
@@ -596,14 +598,13 @@ class Services_OpenStreetMap
     {
         if (method_exists($this->api, $name)) {
             return call_user_func_array([$this->api, $name], $arguments);
-        } else {
-            throw new Services_OpenStreetMap_Exception(
-                sprintf(
-                    'Method %s does not exist.',
-                    $name
-                )
-            );
         }
+        throw new Services_OpenStreetMap_Exception(
+            sprintf(
+                'Method %s does not exist.',
+                $name
+            )
+        );
     }
 }
 
