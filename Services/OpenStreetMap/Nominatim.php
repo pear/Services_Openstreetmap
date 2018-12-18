@@ -62,14 +62,14 @@ class Services_OpenStreetMap_Nominatim
      *
      * @var string
      */
-    protected $email_address = null;
+    protected $email_address;
 
     /**
      * Output polygon outlines for items found.
      *
      * @var null|boolean
      */
-    protected $polygon = null;
+    protected $polygon;
 
     /**
      * The preferred area to find search results
@@ -77,42 +77,42 @@ class Services_OpenStreetMap_Nominatim
      *
      * @var null|string
      */
-    protected $viewbox = null;
+    protected $viewbox;
 
     /**
      * If true, restrict results to those within the bounding box/view box.
      *
      * @var null|boolean
      */
-    protected $bounded = null;
+    protected $bounded;
 
     /**
      * Remove duplicates?
      *
      * @var null|boolean
      */
-    protected $dedupe = null;
+    protected $dedupe;
 
     /**
      * Maximum number of entries to retrieve.
      *
      * @var int
      */
-    protected $limit = null;
+    protected $limit;
 
     /**
      * CSVs of valid country codes to restrict search to.
      *
      * @var string|null
      */
-    protected $countryCodes = null;
+    protected $countryCodes;
 
     /**
      * The transport to use
      *
      * @var Services_OpenStreetMap_Transport
      */
-    protected $transport = null;
+    protected $transport;
 
     /**
      * Constructor
@@ -152,8 +152,7 @@ class Services_OpenStreetMap_Nominatim
         if ($this->countryCodes !== null) {
             $params['countrycodes'] = $this->countryCodes;
         }
-        $query = http_build_query($params);
-        return $query;
+        return http_build_query($params);
     }
 
     /**
@@ -163,14 +162,13 @@ class Services_OpenStreetMap_Nominatim
      *
      * @param string $lat            Latitude
      * @param string $lon            Longitude
-     * @param bool   $addressdetails Include address details, defaults to true.
+     * @param int    $addressdetails Include address details, defaults to 1.
      * @param int    $zoom           Zoom level, defaults to 18.
      *
      * @return object|string
      *
-     * @throws Services_OpenStreetMap_RuntimeException If the set format
-     *                                                 is not supported.
-     *
+     * @throws HTTP_Request2_Exception
+     * @throws Services_OpenStreetMap_Exception
      * @see setAcceptLanguage
      * @see setFormat
      */
@@ -178,7 +176,7 @@ class Services_OpenStreetMap_Nominatim
     {
 
         $format = $this->format;
-        if ($format == 'html') {
+        if ($format === 'html') {
             throw new Services_OpenStreetMap_RuntimeException(
                 'html format not accepted for reverseGeocode'
             );
@@ -199,10 +197,10 @@ class Services_OpenStreetMap_Nominatim
 
         $reversegeocode = null;
         $response = $this->getTransport()->getResponse($url);
-        if ($format == 'xml') {
+        if ($format === 'xml') {
             $xml = simplexml_load_string($response->getBody());
             $reversegeocode = $xml->xpath('//reversegeocode');
-        } elseif ($format == 'json' || $format == 'jsonv2') {
+        } elseif ($format === 'json' || $format === 'jsonv2') {
             $reversegeocode = json_decode($response->getBody());
         }
         return $reversegeocode;
@@ -471,5 +469,3 @@ class Services_OpenStreetMap_Nominatim
         return $this;
     }
 }
-
-?>

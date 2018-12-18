@@ -80,12 +80,14 @@ class Services_OpenStreetMap_Transport_HTTPCached
      * @param array  $post_data (optional)
      * @param array  $headers   (optional)
      *
-     * @access public
      * @return HTTP_Request2_Response
-     * @todo   Consider just returning the content?
+     * @throws HTTP_Request2_LogicException
+     * @throws HTTP_Request2_MessageException
      * @throws Services_OpenStreetMap_Exception If something unexpected has
      *                                          happened while conversing with
      *                                          the server.
+     * @access public
+     * @todo   Consider just returning the content?
      */
     public function getResponse(
         $url,
