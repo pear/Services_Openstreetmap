@@ -153,7 +153,7 @@ class Services_OpenStreetMap_Criterion
      *
      * @return string
      */
-    public function query()
+    public function query(): string
     {
         switch($this->type) {
         case 'bbox':
@@ -174,7 +174,7 @@ class Services_OpenStreetMap_Criterion
      *
      * @return string
      */
-    public function type()
+    public function type(): string
     {
         return $this->type;
     }

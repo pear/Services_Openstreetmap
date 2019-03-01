@@ -30,7 +30,7 @@ class Services_OpenStreetMap_Nodes extends Services_OpenStreetMap_Objects
      *
      * @return string type
      */
-    public function getType()
+    public function getType(): string
     {
         return 'node';
     }

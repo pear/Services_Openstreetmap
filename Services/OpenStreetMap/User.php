@@ -11,7 +11,7 @@
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
  * @link     User.php
-*/
+ */
 
 /**
  * Services_OpenStreetMap_User
@@ -81,7 +81,7 @@ class Services_OpenStreetMap_User
      *
      * @return Services_OpenStreetMap_User
      */
-    public function setXml(SimpleXMLElement $xml)
+    public function setXml(SimpleXMLElement $xml): Services_OpenStreetMap_User
     {
         $this->xml = $xml->saveXML();
         $this->obj = $xml->xpath('//user');
@@ -95,7 +95,7 @@ class Services_OpenStreetMap_User
      *
      * @return void
      */
-    public function setPreferencesXml($xml)
+    public function setPreferencesXml($xml): void
     {
         $this->prefXml = $xml;
         $this->prefObj = simplexml_load_string($xml)->xpath('//preferences');
@@ -116,7 +116,7 @@ class Services_OpenStreetMap_User
      *
      * @return string display name of user.
      */
-    public function getDisplayName()
+    public function getDisplayName(): string
     {
         return (string) $this->getAttributes()->display_name;
     }
@@ -127,7 +127,7 @@ class Services_OpenStreetMap_User
      *
      * @return string
      */
-    public function getAccountCreated()
+    public function getAccountCreated(): string
     {
         return (string) ($this->getAttributes()->account_created);
     }
@@ -137,7 +137,7 @@ class Services_OpenStreetMap_User
      *
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         $desc = simplexml_load_string($this->xml)->xpath('//user/description');
         return trim($desc[0]);
@@ -148,7 +148,7 @@ class Services_OpenStreetMap_User
      *
      * @return float id of the object
      */
-    public function getId()
+    public function getId(): float
     {
         return (float) $this->getAttributes()->id;
     }
@@ -158,7 +158,7 @@ class Services_OpenStreetMap_User
      *
      * @return string|null
      */
-    public function getImage()
+    public function getImage(): ?string
     {
         $img = simplexml_load_string($this->xml)->xpath('//user/img');
         if (empty($img)) {
@@ -172,7 +172,7 @@ class Services_OpenStreetMap_User
      *
      * @return array|null
      */
-    public function getLanguages()
+    public function getLanguages(): ?array
     {
         $langers = [];
         $cxml = simplexml_load_string($this->xml);
@@ -193,7 +193,7 @@ class Services_OpenStreetMap_User
      *
      * @return float|null
      */
-    public function getLat()
+    public function getLat(): ?float
     {
         $home = simplexml_load_string($this->xml)->xpath('//user/home');
         if (empty($home)) {
@@ -207,7 +207,7 @@ class Services_OpenStreetMap_User
      *
      * @return float|null
      */
-    public function getLon()
+    public function getLon(): ?float
     {
         $cxml = simplexml_load_string($this->xml);
         $home = $cxml->xpath('//user/home');
@@ -222,7 +222,7 @@ class Services_OpenStreetMap_User
      *
      * @return integer|null
      */
-    public function getZoom()
+    public function getZoom(): ?int
     {
         $cxml = simplexml_load_string($this->xml);
         $home = $cxml->xpath('//user/home');
@@ -237,7 +237,7 @@ class Services_OpenStreetMap_User
      *
      * @return integer|null
      */
-    public function getChangesets()
+    public function getChangesets(): ?int
     {
         $cxml = simplexml_load_string($this->xml);
         $changesets = $cxml->xpath('//user/changesets');
@@ -252,7 +252,7 @@ class Services_OpenStreetMap_User
      *
      * @return integer|null
      */
-    public function getTraces()
+    public function getTraces(): ?int
     {
         $cxml = simplexml_load_string($this->xml);
         $traces = $cxml->xpath('//user/traces');
@@ -267,7 +267,7 @@ class Services_OpenStreetMap_User
      *
      * @return integer|null
      */
-    public function getBlocksReceived()
+    public function getBlocksReceived(): ?int
     {
         $cxml = simplexml_load_string($this->xml);
         $changesets = $cxml->xpath('//user/blocks/received');
@@ -282,7 +282,7 @@ class Services_OpenStreetMap_User
      *
      * @return integer|null
      */
-    public function getActiveBlocksReceived()
+    public function getActiveBlocksReceived(): ?int
     {
         $cxml = simplexml_load_string($this->xml);
         $changesets = $cxml->xpath('//user/blocks/received');
@@ -297,7 +297,7 @@ class Services_OpenStreetMap_User
      *
      * @return integer|null
      */
-    public function getBlocksIssued()
+    public function getBlocksIssued(): ?int
     {
         $cxml = simplexml_load_string($this->xml);
         $changesets = $cxml->xpath('//user/blocks/issued');
@@ -312,7 +312,7 @@ class Services_OpenStreetMap_User
      *
      * @return integer|null
      */
-    public function getActiveBlocksIssued()
+    public function getActiveBlocksIssued(): ?int
     {
         $cxml = simplexml_load_string($this->xml);
         $changesets = $cxml->xpath('//user/blocks/issued');
@@ -327,7 +327,7 @@ class Services_OpenStreetMap_User
      *
      * @return array
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         $ret = [];
         $cxml = simplexml_load_string($this->xml);
@@ -346,7 +346,7 @@ class Services_OpenStreetMap_User
      *
      * @return array
      */
-    public function getPreferences()
+    public function getPreferences(): array
     {
         if ($this->preferences == []) {
             $preferences = [];
@@ -370,7 +370,7 @@ class Services_OpenStreetMap_User
      *
      * @return Services_OpenStreetMap_User
      */
-    public function setPreferences($preferences)
+    public function setPreferences(array $preferences): Services_OpenStreetMap_User
     {
         $doc = '';
         $this->preferences = $preferences;
@@ -415,8 +415,9 @@ class Services_OpenStreetMap_User
      *
      * @return Services_OpenStreetMap_User
      */
-    public function setTransport($transport)
-    {
+    public function setTransport(
+        Services_OpenStreetMap_Transport $transport
+    ): Services_OpenStreetMap_User {
         $this->transport = $transport;
         return $this;
     }
@@ -426,7 +427,7 @@ class Services_OpenStreetMap_User
      *
      * @return Services_OpenStreetMap_Transport.
      */
-    public function getTransport()
+    public function getTransport(): \Services_OpenStreetMap_Transport
     {
         return $this->transport;
     }
@@ -436,7 +437,7 @@ class Services_OpenStreetMap_User
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function getConfig()
+    public function getConfig(): \Services_OpenStreetMap_Config
     {
         return $this->config;
     }
@@ -448,12 +449,12 @@ class Services_OpenStreetMap_User
      *
      * @return Services_OpenStreetMap_User
      */
-    public function setConfig(Services_OpenStreetMap_Config $config)
-    {
+    public function setConfig(
+        Services_OpenStreetMap_Config $config
+    ): Services_OpenStreetMap_User {
         $this->config = $config;
         return $this;
     }
-
 }
 // vim:set et ts=4 sw=4:
 ?>

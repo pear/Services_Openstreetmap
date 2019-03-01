@@ -28,7 +28,7 @@ class Services_OpenStreetMap_OAuthHelper
      *
      * @return int
      */
-    public static function getOauthTimestamp()
+    public static function getOauthTimestamp(): int
     {
         return time();
     }
@@ -38,7 +38,7 @@ class Services_OpenStreetMap_OAuthHelper
      *
      * @return string
      */
-    public static function getOauthNonce()
+    public static function getOauthNonce(): string
     {
         return md5(uniqid('', true));
     }
@@ -51,7 +51,7 @@ class Services_OpenStreetMap_OAuthHelper
      *
      * @return string
      */
-    private static function _hmacSha1($key, $data)
+    private static function _hmacSha1(string $key, $data): string
     {
         return base64_encode(hash_hmac('sha1', $data, $key, true));
     }
@@ -64,7 +64,7 @@ class Services_OpenStreetMap_OAuthHelper
      *
      * @return string
      */
-    public static function getOauthSignature($key, $data)
+    public static function getOauthSignature(string $key, $data): string
     {
         return rawurlencode(self::_hmacSha1($key, $data));
     }
@@ -80,7 +80,7 @@ class Services_OpenStreetMap_OAuthHelper
      * @return string|bool
      */
     public static function assocArrayToString(
-        $arr, $glue = '=', $sep = '&', $wrap = ''
+        array $arr, string $glue = '=', string $sep = '&', string $wrap = ''
     ) {
         $str = '';
         $i = 0;

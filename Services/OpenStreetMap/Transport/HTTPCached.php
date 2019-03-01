@@ -63,8 +63,9 @@ class Services_OpenStreetMap_Transport_HTTPCached
      *
      * @return Services_OpenStreetMap_Transport_HTTPCached
      */
-    public function setCache($cache)
-    {
+    public function setCache(
+        Cache $cache
+    ): Services_OpenStreetMap_Transport_HTTPCached {
         $this->cache = $cache;
         return $this;
     }
@@ -90,14 +91,14 @@ class Services_OpenStreetMap_Transport_HTTPCached
      * @todo   Consider just returning the content?
      */
     public function getResponse(
-        $url,
-        $method = HTTP_Request2::METHOD_GET,
-        $user = null,
-        $password = null,
-        $body = null,
+        string $url,
+        string $method = HTTP_Request2::METHOD_GET,
+        string $user = null,
+        string $password = null,
+        string $body = null,
         array $post_data = null,
         array $headers = null
-    ) {
+    ): \HTTP_Request2_Response {
         $arguments = [
             $url,
             $method,

@@ -60,7 +60,7 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
      *
      * @return boolean
      */
-    public function isClosed()
+    public function isClosed(): bool
     {
         // Not closed if there's just one node.
         // Otherwise a way is considered closed if the first node has
@@ -83,7 +83,7 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
      *
      * @return array
      */
-    public function getNodes()
+    public function getNodes(): array
     {
         if (empty($this->nodes)) {
             $obj = simplexml_load_string($this->xml);
@@ -104,8 +104,9 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Way
      */
-    public function addNode(Services_OpenStreetMap_Node $node)
-    {
+    public function addNode(
+        Services_OpenStreetMap_Node $node
+    ): Services_OpenStreetMap_Way {
         $id = $node->getId();
         $pos = array_search($id, $this->nodes);
         if ($pos === false) {
@@ -126,7 +127,7 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
      * @return Services_OpenStreetMap_Way
      * @throws Services_OpenStreetMap_InvalidArgumentException
      */
-    public function removeNode($node)
+    public function removeNode($node): Services_OpenStreetMap_Way
     {
         if (empty($this->nodes)) {
             $this->nodes = $this->getNodes();
@@ -161,7 +162,7 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
      * @see    getOsmChangeXml
      * @link   http://wiki.openstreetmap.org/wiki/OsmChange
      */
-    public function osmChangeXml($xml)
+    public function osmChangeXml(string $xml): ?string
     {
         if ($this->dirtyNodes) {
             $domd = new DOMDocument();
@@ -204,7 +205,7 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
      *
      * @return array|null
      */
-    public function getAddress()
+    public function getAddress(): ?array
     {
         if (!$this->isClosed()) {
             return null;

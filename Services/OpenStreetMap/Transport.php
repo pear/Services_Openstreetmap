@@ -27,28 +27,39 @@
 interface Services_OpenStreetMap_Transport
 {
 
-    /**#@+
+    /**
+     * #@+
      *
      * @link   http://tools.ietf.org/html/rfc2616
      * @access public
      */
     /**
      * Ok
+     *
+     * @var \int
      */
     const OK = 200;
     /**
      * Unauthorised, e.g. login credentials wrong.
+     *
+     * @var \int
      */
     const UNAUTHORISED = 401;
     /**
      * Resource not found.
+     *
+     * @var \int
      */
     const NOT_FOUND = 404;
     /**
      * Resource no longer available.
+     *
+     * @var \int
      */
     const GONE = 410;
-    /**#@-*/
+    /**
+     * #@-
+     */
 
 
     /**
@@ -64,7 +75,12 @@ interface Services_OpenStreetMap_Transport
      * @return Services_OpenStreetMap_Object
      * @throws Services_OpenStreetMap_Exception
      */
-    public function getObject($type, $id, $version = null, $append = null);
+    public function getObject(
+        string $type,
+        string $id,
+        string $version = null,
+        string $append = null
+    ): Services_OpenStreetMap_Object;
 
     /**
      * Get objects of specified type.
@@ -74,7 +90,10 @@ interface Services_OpenStreetMap_Transport
      *
      * @return Services_OpenStreetMap_Objects
      */
-    public function getObjects($type, array $ids);
+    public function getObjects(
+        string $type,
+        array $ids
+    ): Services_OpenStreetMap_Objects;
 
     /**
      * Send request to OSM server and return the response.
@@ -94,14 +113,14 @@ interface Services_OpenStreetMap_Transport
      *                                          the server.
      */
     public function getResponse(
-        $url,
-        $method = HTTP_Request2::METHOD_GET,
-        $user = null,
-        $password = null,
-        $body = null,
+        string $url,
+        string $method = HTTP_Request2::METHOD_GET,
+        string $user = null,
+        string $password = null,
+        string $body = null,
         array $post_data = null,
         array $headers = null
-    );
+    ): HTTP_Request2_Response;
 
     /**
      * Search Objects of specified type for certain criteria.
@@ -113,7 +132,8 @@ interface Services_OpenStreetMap_Transport
      *
      * @see Services_OpenStreetMap_Criterion
      */
-    public function searchObjects($type, array $criteria);
-
-
+    public function searchObjects(
+        string $type,
+        array $criteria
+    ): Services_OpenStreetMap_Objects;
 }

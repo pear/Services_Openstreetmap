@@ -30,6 +30,7 @@ class Services_OpenStreetMap_OpeningHours
      * @var string
      */
     protected $value;
+    protected $comment;
 
     /**
      * Constructor
@@ -38,8 +39,14 @@ class Services_OpenStreetMap_OpeningHours
      *
      * @return Services_OpenStreetMap_OpeningHours
      */
-    public function __construct(string $value = null)
+    public function __construct($value = null)
     {
+        $firstQuotePos = strpos($value, '"');
+        if (($firstQuotePos !== false) && substr_count($value, '"') >= 2) {
+            $comment = substr($value, $firstQuotePos);
+            $value = substr($value, $firstQuotePos - 1);
+            $this->comment = $comment;
+        }
         $this->value = $value;
         return $this;
     }
@@ -51,7 +58,7 @@ class Services_OpenStreetMap_OpeningHours
      *
      * @return Services_OpenStreetMap_OpeningHours
      */
-    public function setValue(string $value): Services_OpenStreetMap_OpeningHours
+    public function setValue($value)
     {
         $this->value = $value;
         return $this;
@@ -61,13 +68,13 @@ class Services_OpenStreetMap_OpeningHours
      * Return true, false or null depending on whether the [opening hours]
      * value explicitly indicates an open, closed or undecided result.
      *
-     * @param int $time A numeric value representing a time. If null, the
-     *                  current time is used.
+     * @param double $time A numeric value representing a time. If null, the
+     *                     current time is used.
      *
      * @link   http://wiki.openstreetmap.org/wiki/Key:opening_hours
      * @return null|boolean
      */
-    public function isOpen(int $time = null): ?bool
+    public function isOpen($time = null)
     {
         if ($this->value === null) {
             return null;
@@ -94,7 +101,7 @@ class Services_OpenStreetMap_OpeningHours
             $this->value,
             $matched
         );
-        if ($isVariableSunRiseSunSet === 1) {
+        if ($isVariableSunRiseSunSet == 1) {
             $term1 = $matched[1];
             $term1modifier = substr(strpbrk($term1, "+-"), 0, 1);
             $term1segments = sscanf(trim(substr(strpbrk($term1, "+-"), 1)), "%d:%d");
@@ -136,9 +143,9 @@ class Services_OpenStreetMap_OpeningHours
             // @fixme: brittle. use preg_replace with \w
             $portions = explode(' ', str_replace(', ', ',', $rule_sequence));
             $open = $this->_openTimeSpec($portions, $time);
-            if ($open !== null) {
+            if ($open) {
                 $retval = true;
-            } elseif (!$open) {
+            } elseif ($open === false) {
                 $retval = false;
             }
         }
@@ -154,7 +161,7 @@ class Services_OpenStreetMap_OpeningHours
      *
      * @return null|boolean
      */
-    private function _openTimeSpec($portions, $time): bool
+    private function _openTimeSpec($portions, $time)
     {
         if ($time === null) {
             $time = time();
@@ -168,7 +175,7 @@ class Services_OpenStreetMap_OpeningHours
                 if ($rday === $day) {
                     //day is a match
                     $time_spec = trim($portions[1]);
-                    if (strtolower($time_spec) === 'off') {
+                    if (strtolower($time_spec) == 'off') {
                         return false;
                     }
                     if (strpos($time_spec, '-')
@@ -197,7 +204,7 @@ class Services_OpenStreetMap_OpeningHours
                         return false;
                     } elseif (preg_match($pattern, $time_spec)) {
                         // open-ended.
-                        if (!$this->_evaluateOpenEnded($time_spec)) {
+                        if ($this->_evaluateOpenEnded($time_spec) === false) {
                             return false;
                         }
                     }
@@ -237,7 +244,7 @@ class Services_OpenStreetMap_OpeningHours
      *
      * @return array
      */
-    private function _daySpecToArray(string $day_specification): array
+    private function _daySpecToArray($day_specification)
     {
         $days = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'];
         $spec = trim(strtolower($day_specification));
@@ -247,7 +254,7 @@ class Services_OpenStreetMap_OpeningHours
             if ($start_day !== 'mo') {
                 foreach ($days as $day) {
                     if ($day !== $start_day) {
-                        array_shift($days);
+                        $off = array_shift($days);
                     } else {
                         break;
                     }
@@ -257,7 +264,7 @@ class Services_OpenStreetMap_OpeningHours
             if ($end_day !== 'su') {
                 foreach ($rdays as $day) {
                     if ($day !== $end_day) {
-                        array_shift($rdays);
+                        $off = array_shift($rdays);
                     } else {
                         break;
                     }
@@ -289,7 +296,7 @@ class Services_OpenStreetMap_OpeningHours
      *
      * @return bool
      */
-    private function _evaluateOpenEnded(string $time_spec): bool
+    private function _evaluateOpenEnded($time_spec)
     {
         $start = $this->_startTime($time_spec);
         $d = getdate($start);
@@ -309,7 +316,7 @@ class Services_OpenStreetMap_OpeningHours
      *
      * @return int
      */
-    private function _startTime(string $time_spec): int
+    private function _startTime($time_spec)
     {
         $starthour = (int) substr($time_spec, 0, 2);
         $startmin  = (int) substr($time_spec, 3, 2);
@@ -324,12 +331,13 @@ class Services_OpenStreetMap_OpeningHours
      *
      * @return int
      */
-    private function _endTime(string $time_spec): int
+    private function _endTime($time_spec)
     {
         $endhour = (int) substr($time_spec, 0, 2);
         $endmin = (int) substr($time_spec, 3);
         return $endhour * 60 + $endmin;
     }
 }
+
 // vim:set et ts=4 sw=4:
 ?>

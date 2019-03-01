@@ -101,7 +101,7 @@ class Services_OpenStreetMap_Object
      *
      * @return string
      */
-    public function getXml()
+    public function getXml(): string
     {
         return $this->xml;
     }
@@ -113,7 +113,7 @@ class Services_OpenStreetMap_Object
      * @return string
      * @link   http://wiki.openstreetmap.org/wiki/OsmChange
      */
-    public function __toString()
+    public function __toString(): string
     {
         $changeXML = $this->getOsmChangeXml();
         if (is_null($changeXML)) {
@@ -130,7 +130,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function setXml(SimpleXMLElement $xml)
+    public function setXml(SimpleXMLElement $xml): Services_OpenStreetMap_Object
     {
         $this->xml = $xml->saveXml();
         $obj = $xml->xpath('//' . $this->getType());
@@ -151,7 +151,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function setVal($value)
+    public function setVal(string $value): Services_OpenStreetMap_Object
     {
         $this->xml = $value;
         return $this;
@@ -164,7 +164,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function setChangesetId($id)
+    public function setChangesetId(int $id): Services_OpenStreetMap_Object
     {
         $this->changesetId = $id;
         return $this;
@@ -177,7 +177,7 @@ class Services_OpenStreetMap_Object
      * @return string
      * @link   http://wiki.openstreetmap.org/wiki/OsmChange
      */
-    public function getOsmChangeXml()
+    public function getOsmChangeXml(): string
     {
         $type = $this->getType();
         if ($this->dirty) {
@@ -249,7 +249,7 @@ class Services_OpenStreetMap_Object
      * @see    getOsmChangeXml
      * @link   http://wiki.openstreetmap.org/wiki/OsmChange
      */
-    public function osmChangeXml($xml)
+    public function osmChangeXml(string $xml): string
     {
         return $xml;
     }
@@ -259,7 +259,7 @@ class Services_OpenStreetMap_Object
      *
      * @return integer id of the object
      */
-    public function getId()
+    public function getId(): int
     {
         if (!is_null($this->id)) {
             return (integer) $this->id;
@@ -284,7 +284,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function setId($value)
+    public function setId(string $value): Services_OpenStreetMap_Object
     {
         $this->id = $value;
         return $this;
@@ -295,7 +295,7 @@ class Services_OpenStreetMap_Object
      *
      * @return integer uid of the object
      */
-    public function getUid()
+    public function getUid(): int
     {
         $attribs = $this->getAttributes();
         if (!is_null($attribs)) {
@@ -308,7 +308,7 @@ class Services_OpenStreetMap_Object
      *
      * @return string user of the object
      */
-    public function getUser()
+    public function getUser(): string
     {
         $attribs = $this->getAttributes();
         if (!is_null($attribs)) {
@@ -321,7 +321,7 @@ class Services_OpenStreetMap_Object
      *
      * @return integer version of the object
      */
-    public function getVersion()
+    public function getVersion(): int
     {
         $attribs = $this->getAttributes();
         if (!is_null($attribs)) {
@@ -348,7 +348,7 @@ class Services_OpenStreetMap_Object
      *
      * @return array tags
      */
-    public function getTags()
+    public function getTags(): array
     {
         return $this->tags;
     }
@@ -362,7 +362,7 @@ class Services_OpenStreetMap_Object
      *
      * @return string|null
      */
-    public function getTag($key)
+    public function getTag(string $key): ?string
     {
         if (isset($this->tags[$key])) {
             return $this->tags[$key];
@@ -376,7 +376,7 @@ class Services_OpenStreetMap_Object
      *
      * @return string type
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -386,7 +386,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Objects
      */
-    public function history()
+    public function history(): Services_OpenStreetMap_Objects
     {
         $transport = null;
         $type = $this->getType();
@@ -401,7 +401,7 @@ class Services_OpenStreetMap_Object
         $response = $transport->getResponse($url);
         $obj = new $class();
         $sxe = @simplexml_load_string($response->getBody());
-        if ($sxe === false) {
+        if (!$sxe) {
             $obj->setVal(trim($response->getBody()));
         } else {
             $obj->setXml($sxe);
@@ -414,7 +414,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Relations
      */
-    public function getRelations()
+    public function getRelations(): \Services_OpenStreetMap_Relations
     {
         $type = $this->getType();
         $id = $this->getId();
@@ -426,7 +426,7 @@ class Services_OpenStreetMap_Object
         $response = $this->getTransport()->getResponse($url);
         $obj = new Services_OpenStreetMap_Relations();
         $sxe = @simplexml_load_string($response->getBody());
-        if ($sxe === false) {
+        if (!$sxe) {
             $obj->setVal(trim($response->getBody()));
         } else {
             $obj->setXml($sxe);
@@ -448,7 +448,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function setTag($key, $value)
+    public function setTag($key, $value): Services_OpenStreetMap_Object
     {
         if (is_null($this->action)) {
             if ($this->getId() < 0) {
@@ -480,7 +480,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function setTags($tags = [])
+    public function setTags(array $tags = []): Services_OpenStreetMap_Object
     {
         foreach ($tags as $key => $value) {
             $this->setTag($key, $value);
@@ -506,7 +506,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function setAllTags($tags = [])
+    public function setAllTags(array $tags = []): Services_OpenStreetMap_Object
     {
         $this->tags = $tags;
         return $this;
@@ -523,7 +523,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function removeTag($key)
+    public function removeTag($key): Services_OpenStreetMap_Object
     {
         if (isset($this->tags[$key])) {
             unset($this->tags[$key]);
@@ -545,7 +545,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function removeTags(array $keys)
+    public function removeTags(array $keys): Services_OpenStreetMap_Object
     {
         if (sizeof($keys) === 0) {
             return $this;
@@ -570,7 +570,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function delete()
+    public function delete(): Services_OpenStreetMap_Object
     {
         $this->action = 'delete';
         return $this;
@@ -581,7 +581,7 @@ class Services_OpenStreetMap_Object
      *
      * @return bool
      */
-    public function isDirty()
+    public function isDirty(): bool
     {
         return $this->dirty;
     }
@@ -593,8 +593,9 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Changeset
      */
-    public function setConfig(Services_OpenStreetMap_Config $config)
-    {
+    public function setConfig(
+        Services_OpenStreetMap_Config $config
+    ): Services_OpenStreetMap_Changeset {
         $this->config = $config;
         return $this;
     }
@@ -604,7 +605,7 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function getConfig()
+    public function getConfig(): \Services_OpenStreetMap_Config
     {
         return $this->config;
     }
@@ -616,8 +617,9 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function setTransport($transport)
-    {
+    public function setTransport(
+        Services_OpenStreetMap_Transport $transport
+    ): Services_OpenStreetMap_Config {
         $this->transport = $transport;
         return $this;
     }
@@ -627,11 +629,10 @@ class Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Transport.
      */
-    public function getTransport()
+    public function getTransport(): \Services_OpenStreetMap_Transport
     {
         return $this->transport;
     }
 }
-
 // vim:set et ts=4 sw=4:
 ?>

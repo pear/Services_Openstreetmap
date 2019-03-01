@@ -68,7 +68,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getXml();
     }
@@ -78,7 +78,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return string Type
      */
-    public function getType()
+    public function getType(): string
     {
         return '';
     }
@@ -88,7 +88,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return string
      */
-    public function getXml()
+    public function getXml(): string
     {
         return $this->xml;
     }
@@ -100,7 +100,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return Services_OpenStreetMap_Objects
      */
-    public function setXml(SimpleXMLElement $xml)
+    public function setXml(SimpleXMLElement $xml): Services_OpenStreetMap_Objects
     {
         $this->xml = $xml->saveXML();
         $objs = $xml->xpath('//' . $this->getType());
@@ -117,7 +117,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return Services_OpenStreetMap_Objects
      */
-    public function setVal($value)
+    public function setVal(string $value): Services_OpenStreetMap_Objects
     {
         $this->xml = $value;
         return $this;
@@ -129,7 +129,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return sizeof($this->objects);
     }
@@ -139,7 +139,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return void
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->position = 0;
     }
@@ -149,7 +149,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function current()
+    public function current(): Services_OpenStreetMap_Object
     {
         $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($this->getType()));
         $object = new $class();
@@ -167,7 +167,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return void
      */
-    public function next()
+    public function next(): void
     {
         ++$this->position;
     }
@@ -177,7 +177,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return int
      */
-    public function key()
+    public function key(): int
     {
         return $this->position;
     }
@@ -188,7 +188,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->objects[$this->position]);
     }
@@ -200,7 +200,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->objects[$offset]);
     }
@@ -212,7 +212,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): Services_OpenStreetMap_Object
     {
         $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($this->getType()));
         $object = new $class();
@@ -238,7 +238,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new LogicException('Changing properties not implemented');
     }
@@ -253,7 +253,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new LogicException('Changing properties not implemented');
     }
@@ -265,8 +265,9 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return Services_OpenStreetMap_Changeset
      */
-    public function setConfig(Services_OpenStreetMap_Config $config)
-    {
+    public function setConfig(
+        Services_OpenStreetMap_Config $config
+    ): Services_OpenStreetMap_Changeset {
         $this->config = $config;
         return $this;
     }
@@ -276,7 +277,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function getConfig()
+    public function getConfig(): \Services_OpenStreetMap_Config
     {
         return $this->config;
     }
@@ -288,8 +289,9 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function setTransport($transport)
-    {
+    public function setTransport(
+        Services_OpenStreetMap_Transport $transport
+    ): Services_OpenStreetMap_Config {
         $this->transport = $transport;
         return $this;
     }
@@ -299,10 +301,9 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return Services_OpenStreetMap_Transport.
      */
-    public function getTransport()
+    public function getTransport(): \Services_OpenStreetMap_Transport
     {
         return $this->transport;
     }
 }
-
 ?>

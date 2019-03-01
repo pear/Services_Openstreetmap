@@ -30,7 +30,7 @@ class Services_OpenStreetMap_Comments extends Services_OpenStreetMap_Objects
      *
      * @return string type
      */
-    public function getType()
+    public function getType(): string
     {
         return 'comment';
     }
@@ -47,5 +47,4 @@ class Services_OpenStreetMap_Comments extends Services_OpenStreetMap_Objects
         $this->objects = $array;
     }
 }
-
 ?>
