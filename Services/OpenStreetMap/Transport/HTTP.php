@@ -108,14 +108,14 @@ class Services_OpenStreetMap_Transport_HTTP
      *                                          the server.
      */
     public function getResponse(
-        $url,
-        $method = HTTP_Request2::METHOD_GET,
-        $user = null,
-        $password = null,
-        $body = null,
+        string $url,
+        string $method = HTTP_Request2::METHOD_GET,
+        string $user = null,
+        string $password = null,
+        string $body = null,
         array $post_data = null,
         array $headers = null
-    ) {
+    ): \HTTP_Request2_Response {
         $response = null;
         $eMsg = null;
         if ($headers === null) {
@@ -197,7 +197,7 @@ class Services_OpenStreetMap_Transport_HTTP
      * @access public
      * @return HTTP_Request2
      */
-    public function getRequest()
+    public function getRequest(): \HTTP_Request2
     {
         return $this->request;
     }
@@ -212,7 +212,7 @@ class Services_OpenStreetMap_Transport_HTTP
      *
      * @return Services_OpenStreetMap
      */
-    public function setRequest(HTTP_Request2 $request)
+    public function setRequest(HTTP_Request2 $request): Services_OpenStreetMap
     {
         $this->request = $request;
         return $this;
@@ -225,7 +225,7 @@ class Services_OpenStreetMap_Transport_HTTP
      *
      * @return Services_OpenStreetMap_Transport_HTTP
      */
-    public function setLog(Log $log)
+    public function setLog(Log $log): Services_OpenStreetMap_Transport_HTTP
     {
         $this->log = $log;
         return $this;
@@ -245,8 +245,12 @@ class Services_OpenStreetMap_Transport_HTTP
      * @throws HTTP_Request2_LogicException
      * @throws Services_OpenStreetMap_Exception
      */
-    public function getObject($type, $id, $version = null, $append = null)
-    {
+    public function getObject(
+        string $type,
+        string $id,
+        string $version = null,
+        string $append = null
+    ): Services_OpenStreetMap_Object {
         /*
         if (!in_array($type, $this->elements)) {
             throw new Services_OpenStreetMap_Exception(
@@ -297,8 +301,10 @@ class Services_OpenStreetMap_Transport_HTTP
      * @throws Services_OpenStreetMap_Exception
      * @throws HTTP_Request2_LogicException
      */
-    public function getObjects($type, array $ids)
-    {
+    public function getObjects(
+        string $type,
+        array $ids
+    ): Services_OpenStreetMap_Objects {
         /*
         if (!in_array($type, $this->elements)) {
             throw new Services_OpenStreetMap_Exception('Invalid Element Type');
@@ -331,7 +337,7 @@ class Services_OpenStreetMap_Transport_HTTP
         $obj->setConfig($config);
         $obj->setTransport($this);
         $sxe = @simplexml_load_string($response->getBody());
-        if ($sxe === false) {
+        if (!$sxe) {
             $obj->setVal(trim($response->getBody()));
         } else {
             $obj->setXml($sxe);
@@ -346,7 +352,7 @@ class Services_OpenStreetMap_Transport_HTTP
      *
      * @return Services_OpenStreetMap_API_V06
      */
-    public function setConfig(Services_OpenStreetMap_Config $config)
+    public function setConfig(Services_OpenStreetMap_Config $config): void
     {
         $this->config = $config;
     }
@@ -356,7 +362,7 @@ class Services_OpenStreetMap_Transport_HTTP
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function getConfig()
+    public function getConfig(): \Services_OpenStreetMap_Config
     {
         return $this->config;
     }
@@ -371,8 +377,10 @@ class Services_OpenStreetMap_Transport_HTTP
      * @throws HTTP_Request2_LogicException
      * @throws Services_OpenStreetMap_Exception
      */
-    public function searchObjects($type, array $criteria)
-    {
+    public function searchObjects(
+        string $type,
+        array $criteria
+    ): Services_OpenStreetMap_Objects {
         $response = null;
         $query = [];
         foreach ($criteria as $criterion) {
@@ -400,7 +408,7 @@ class Services_OpenStreetMap_Transport_HTTP
         /** @var Services_OpenStreetMap_Objects $obj */
         $obj = new $class();
         $sxe = @simplexml_load_string($response->getBody());
-        if ($sxe === false) {
+        if (!$sxe) {
             $obj->setVal(trim($response->getBody()));
         } else {
             $obj->setXml($sxe);
@@ -417,7 +425,7 @@ class Services_OpenStreetMap_Transport_HTTP
      * @return void
      * @throws HTTP_Request2_LogicException
      */
-    public function setHeaders(array $headers, $request)
+    public function setHeaders(array $headers, HTTP_Request2 $request): void
     {
         if ($headers !== []) {
             foreach ($headers as $header) {
@@ -434,7 +442,7 @@ class Services_OpenStreetMap_Transport_HTTP
      *
      * @return void
      */
-    public function addPostParameters(array $post_data, $request)
+    public function addPostParameters(array $post_data, HTTP_Request2 $request): void
     {
         foreach ($post_data as $key => $value) {
             $request->addPostParameter($key, $value);

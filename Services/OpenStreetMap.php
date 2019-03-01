@@ -73,7 +73,7 @@ class Services_OpenStreetMap
      *
      * @return boolean
      */
-    public static function autoload($class)
+    public static function autoload(string $class): bool
     {
         $dir = dirname(__DIR__);
         $file = $dir . '/' . str_replace('_', '/', $class) . '.php';
@@ -90,7 +90,7 @@ class Services_OpenStreetMap
      *
      * @return Services_OpenStreetMap
      */
-    public function __construct($configuration = [])
+    public function __construct(array $configuration = [])
     {
         $config = new Services_OpenStreetMap_Config();
         $this->setConfig($config);
@@ -129,7 +129,7 @@ class Services_OpenStreetMap
      *
      * @return array
      */
-    public function bboxToMinMax($minLat, $minLon, $maxLat, $maxLon)
+    public function bboxToMinMax($minLat, $minLon, $maxLat, $maxLon): array
     {
         return [$minLon, $minLat, $maxLon, $maxLat];
     }
@@ -155,8 +155,12 @@ class Services_OpenStreetMap
      * @throws HTTP_Request2_Exception
      * @throws Services_OpenStreetMap_Exception
      */
-    public function get($minLon, $minLat, $maxLon, $maxLat)
-    {
+    public function get(
+        string $minLon,
+        string $minLat,
+        string $maxLon,
+        string $maxLat
+    ): string {
         $config = $this->getConfig();
         $url = $config->getValue('server')
             . 'api/'
@@ -181,7 +185,7 @@ class Services_OpenStreetMap
      * @return array Associated array of lat/lon values.
      * @throws Services_OpenStreetMap_Exception If the place can not be found.
      */
-    public function getCoordsOfPlace($place)
+    public function getCoordsOfPlace(string $place): array
     {
         $places = $this->getPlace($place);
         if (empty($places)) {
@@ -202,8 +206,11 @@ class Services_OpenStreetMap
      *
      * @return mixed
      */
-    public function getPlace($place, $format = 'xml', $addressdetails = false)
-    {
+    public function getPlace(
+        string $place,
+        string $format = 'xml',
+        bool $addressdetails = false
+    ) {
         $nominatim = new Services_OpenStreetMap_Nominatim(
             $this->getTransport()
         );
@@ -219,21 +226,21 @@ class Services_OpenStreetMap
      *
      * Peform a reverse search/geoencoding.
      *
-     * @param string  $lat            Latitude
-     * @param string  $lon            Longitude
-     * @param bool    $addressdetails Whether to include address details in results
-     * @param int     $zoom           Zoom level to search at
-     * @param string  $format         Format to retrieve. json/xml (default)
+     * @param string $lat            Latitude
+     * @param string $lon            Longitude
+     * @param bool   $addressdetails Whether to include address details in results
+     * @param int    $zoom           Zoom level to search at
+     * @param string $format         Format to retrieve. json/xml (default)
      *
      * @return object|string
      */
     public function reverseGeocode(
-        $lat,
-        $lon,
-        $addressdetails = true,
-        $zoom = 18,
-        $format = 'xml'
-    ) {
+        string $lat,
+        string $lon,
+        bool $addressdetails = true,
+        int $zoom = 18,
+        string $format = 'xml'
+    ): string {
         $nominatim = new Services_OpenStreetMap_Nominatim(
             $this->getTransport()
         );
@@ -251,7 +258,7 @@ class Services_OpenStreetMap
      *
      * @return array
      */
-    public static function getIDs($args)
+    public static function getIDs($args): array
     {
         $IDs = [];
         foreach ($args as $arg) {
@@ -271,7 +278,7 @@ class Services_OpenStreetMap
      *
      * @return void
      */
-    public function loadXml($file)
+    public function loadXml(string $file): void
     {
         $this->xml = file_get_contents($file);
     }
@@ -281,7 +288,7 @@ class Services_OpenStreetMap
      *
      * @return string
      */
-    public function getXml()
+    public function getXml(): string
     {
         return $this->xml;
     }
@@ -321,12 +328,12 @@ class Services_OpenStreetMap
      *
      * @return array
      */
-    public function search(array $criteria)
+    public function search(array $criteria): array
     {
         $results = [];
 
         $xml = simplexml_load_string($this->xml);
-        if ($xml === false) {
+        if (!$xml) {
             return [];
         }
         foreach ($criteria as $key => $value) {
@@ -358,8 +365,12 @@ class Services_OpenStreetMap
      *
      * @return array
      */
-    private function _searchNode(SimpleXMLElement $node, $key, $value, $type)
-    {
+    private function _searchNode(
+        SimpleXMLElement $node,
+        string $key,
+        string $value,
+        string $type
+    ): array {
         $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($type));
         $results = [];
         foreach ($node->tag as $tag) {
@@ -397,7 +408,7 @@ class Services_OpenStreetMap
      *
      * @return int
      */
-    public function getTimeout()
+    public function getTimeout(): int
     {
         return $this->getConfig()->getTimeout();
     }
@@ -415,7 +426,7 @@ class Services_OpenStreetMap
      *
      * @return float
      */
-    public function getMinVersion()
+    public function getMinVersion(): float
     {
         return $this->getConfig()->getMinVersion();
     }
@@ -433,7 +444,7 @@ class Services_OpenStreetMap
      *
      * @return float
      */
-    public function getMaxVersion()
+    public function getMaxVersion(): float
     {
         return $this->getConfig()->getMaxVersion();
     }
@@ -450,7 +461,7 @@ class Services_OpenStreetMap
      *
      * @return float
      */
-    public function getMaxArea()
+    public function getMaxArea(): float
     {
         return $this->getConfig()->getMaxArea();
     }
@@ -467,7 +478,7 @@ class Services_OpenStreetMap
      *
      * @return float
      */
-    public function getTracepointsPerPage()
+    public function getTracepointsPerPage(): float
     {
         return $this->getConfig()->getTracepointsPerPage();
     }
@@ -484,7 +495,7 @@ class Services_OpenStreetMap
      *
      * @return float
      */
-    public function getMaxNodes()
+    public function getMaxNodes(): float
     {
         return $this->getConfig()->getMaxNodes();
     }
@@ -501,7 +512,7 @@ class Services_OpenStreetMap
      *
      * @return float
      */
-    public function getMaxElements()
+    public function getMaxElements(): float
     {
         return $this->getConfig()->getMaxElements();
     }
@@ -511,7 +522,7 @@ class Services_OpenStreetMap
      *
      * @return string
      */
-    public function getDatabaseStatus()
+    public function getDatabaseStatus(): ?string
     {
         return $this->getConfig()->getDatabaseStatus();
     }
@@ -521,7 +532,7 @@ class Services_OpenStreetMap
      *
      * @return string
      */
-    public function getApiStatus()
+    public function getApiStatus(): ?string
     {
         return $this->getConfig()->getApiStatus();
     }
@@ -531,7 +542,7 @@ class Services_OpenStreetMap
      *
      * @return string
      */
-    public function getGpxStatus()
+    public function getGpxStatus(): ?string
     {
         return $this->getConfig()->getGpxStatus();
     }
@@ -543,8 +554,9 @@ class Services_OpenStreetMap
      *
      * @return Services_OpenStreetMap_API_V06
      */
-    public function setConfig(Services_OpenStreetMap_Config $config)
-    {
+    public function setConfig(
+        Services_OpenStreetMap_Config $config
+    ): Services_OpenStreetMap_API_V06 {
         $this->config = $config;
         return $this;
     }
@@ -554,7 +566,7 @@ class Services_OpenStreetMap
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function getConfig()
+    public function getConfig(): \Services_OpenStreetMap_Config
     {
         return $this->config;
     }
@@ -564,7 +576,7 @@ class Services_OpenStreetMap
      *
      * @return Services_OpenStreetMap_Transport
      */
-    public function getTransport()
+    public function getTransport(): \Services_OpenStreetMap_Transport
     {
         return $this->transport;
     }
@@ -576,8 +588,9 @@ class Services_OpenStreetMap
      *
      * @return Services_OpenStreetMap
      */
-    public function setTransport($transport)
-    {
+    public function setTransport(
+        Services_OpenStreetMap_Transport $transport
+    ): Services_OpenStreetMap {
         $this->transport = $transport;
         return $this;
     }
@@ -594,7 +607,7 @@ class Services_OpenStreetMap
      * @throws Services_OpenStreetMap_Exception If the method is not supported
      *                                          by the API instance.
      */
-    public function __call($name, $arguments)
+    public function __call(string $name, array $arguments)
     {
         if (method_exists($this->api, $name)) {
             return call_user_func_array([$this->api, $name], $arguments);
@@ -607,6 +620,5 @@ class Services_OpenStreetMap
         );
     }
 }
-
 // vim:set et ts=4 sw=4:
 ?>

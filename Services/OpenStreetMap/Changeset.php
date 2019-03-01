@@ -91,7 +91,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Changeset
      */
-    public function __construct($atomic = true)
+    public function __construct(bool $atomic = true)
     {
         $this->atomic = $atomic;
     }
@@ -105,7 +105,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      * @throws Services_OpenStreetMap_RuntimeException If either user or
      *                                                 password are not set.
      */
-    public function begin($message)
+    public function begin(string $message): void
     {
         $response = null;
         $code = null;
@@ -160,10 +160,8 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 'oauth_version'          => '1.0'
             ];
 
-            $hashString = HTTP_Request2::METHOD_PUT . '&' . rawurlencode($url)
-                        . '&' . rawurlencode(
-                            Services_OpenStreetMap_OAuthHelper::assocArrayToString($oAuthArray)
-                        );
+            $encoded = rawurlencode(Services_OpenStreetMap_OAuthHelper::assocArrayToString($oAuthArray));
+            $hashString = HTTP_Request2::METHOD_PUT . '&' . rawurlencode($url) . '&' . $encoded;
 
             $oAuthArray['oauth_signature'] = Services_OpenStreetMap_OAuthHelper::getOauthSignature(
                 $consumer_secret . '&' . $oauth_token_secret, $hashString
@@ -183,8 +181,10 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 null,
                 $doc,
                 null,
-                [['Content-type', 'text/xml', true],
-                 ['Authorization',$authStr, true]]
+                [
+                    ['Content-type', 'text/xml', true],
+                    ['Authorization',$authStr, true]
+                ]
             );
         } else {
             if (!is_null($user) && is_null($password)) {
@@ -213,7 +213,6 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         }
     }
 
-
     /**
      * Add object to the changeset so changes can be transmitted to the server.
      *
@@ -225,9 +224,9 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *                                                 or has been added to a
      *                                                 closed changeset.
      */
-    public function add(Services_OpenStreetMap_Object $object)
+    public function add(Services_OpenStreetMap_Object $object): void
     {
-        if ($this->open === false) {
+        if (!$this->open) {
             throw new Services_OpenStreetMap_RuntimeException(
                 'Object added to closed changeset'
             );
@@ -257,7 +256,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      * @throws Services_OpenStreetMap_Transport        If changeset is already
      *                                                 closed.
      */
-    public function commit()
+    public function commit(): void
     {
         if (!$this->open) {
             throw new Services_OpenStreetMap_Exception(
@@ -289,12 +288,9 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         $consumer_secret = $config->getValue('consumer_secret');
         $oauth_token_secret = $config->getValue('oauth_token_secret');
 
-
-
         // Post the osmChange document to the server
         try {
             if (!is_null($user) && !is_null($password)) {
-
                 $response = $this->getTransport()->getResponse(
                     $url,
                     HTTP_Request2::METHOD_POST,
@@ -309,7 +305,6 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 && !empty($consumer_secret)
                 && !empty($oauth_token_secret)
             ) {
-
                 include_once 'Services/OpenStreetMap/OAuthHelper.php';
                 $timest=Services_OpenStreetMap_OAuthHelper::getOauthTimestamp();
                 $nonce=Services_OpenStreetMap_OAuthHelper::getOauthNonce();
@@ -427,10 +422,11 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                     null,
                     null,
                     null,
-                    [['Content-type', 'text/xml', true],
-                     ['Authorization',$authStr, true]]
+                    [
+                        ['Content-type', 'text/xml', true],
+                        ['Authorization',$authStr, true]
+                    ]
                 );
-
             } else {
                 throw new Services_OpenStreetMap_RuntimeException(
                     "User and Password for user based auth OR oauth_consumer_key, " .
@@ -460,7 +456,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      * @return string
      * @link   http://wiki.openstreetmap.org/wiki/OsmChange
      */
-    public function getOsmChangeXml()
+    public function getOsmChangeXml(): string
     {
         if (is_null($this->osmChangeXml)) {
 
@@ -484,7 +480,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Changeset
      */
-    public function setOsmChangeXml($xml)
+    public function setOsmChangeXml(string $xml): Services_OpenStreetMap_Changeset
     {
         $this->osmChangeXml = $xml;
         return $this;
@@ -495,7 +491,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *
      * @return string
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): string
     {
         return (string) $this->getAttributes()->created_at;
     }
@@ -505,7 +501,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *
      * @return string
      */
-    public function getClosedAt()
+    public function getClosedAt(): string
     {
         return (string) $this->getAttributes()->closed_at;
     }
@@ -515,7 +511,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *
      * @return boolean
      */
-    public function isOpen()
+    public function isOpen(): bool
     {
         $attribs = $this->getAttributes();
         if (!is_null($attribs)) {
@@ -530,7 +526,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *
      * @return float
      */
-    public function getMinLon()
+    public function getMinLon(): float
     {
         return (float) $this->getAttributes()->min_lon;
     }
@@ -540,7 +536,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *
      * @return float
      */
-    public function getMinLat()
+    public function getMinLat(): float
     {
         return (float) $this->getAttributes()->min_lat;
     }
@@ -551,7 +547,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *
      * @return float
      */
-    public function getMaxLon()
+    public function getMaxLon(): float
     {
         return (float) $this->getAttributes()->max_lon;
     }
@@ -561,18 +557,17 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *
      * @return float
      */
-    public function getMaxLat()
+    public function getMaxLat(): float
     {
         return (float) $this->getAttributes()->max_lat;
     }
-
 
     /**
      * Get changeset Id.
      *
      * @return null|float value or null if none set
      */
-    public function getId()
+    public function getId(): ?float
     {
         $p_id = parent::getId();
         if (is_null($p_id)) {
@@ -591,7 +586,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      * @return void
      * @throws Services_OpenStreetMap_Exception If diffResult xml is invalid.
      */
-    public function updateObjectIds($body)
+    public function updateObjectIds(string $body): void
     {
         $body = trim($body);
             // should check here that body has expected form.
@@ -618,7 +613,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *
      * @return void
      */
-    public function updateObjectId($type, $old_id, $new_id)
+    public function updateObjectId(string $type, int $old_id, int $new_id): void
     {
         if ($old_id == $new_id) {
             return;
@@ -638,10 +633,9 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      *
      * @return array
      */
-    public function getUpdateMap()
+    public function getUpdateMap(): array
     {
         return $this->updateMap;
     }
-} 
-
+}
 ?>

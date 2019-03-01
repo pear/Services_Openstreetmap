@@ -38,7 +38,7 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
      *
      * @return string
      */
-    public function getAction()
+    public function getAction(): string
     {
         return $this->obj[0]->action;
     }
@@ -48,7 +48,7 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
      *
      * @return int
      */
-    public function getDate()
+    public function getDate(): int
     {
         return $this->obj[0]->date;
     }
@@ -58,7 +58,7 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
      *
      * @return string
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->obj[0]->text;
     }
@@ -68,7 +68,7 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
      *
      * @return string
      */
-    public function getHtml()
+    public function getHtml(): string
     {
         return $this->obj[0]->html;
     }
@@ -80,7 +80,7 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Comment
      */
-    public function setXml(SimpleXMLElement $xml)
+    public function setXml(SimpleXMLElement $xml): Services_OpenStreetMap_Comment
     {
         $this->xml = $xml->saveXml();
         $obj = $xml->xpath('//' . $this->getType());

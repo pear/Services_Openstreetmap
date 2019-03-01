@@ -203,7 +203,7 @@ class Services_OpenStreetMap_Config
      * @throws Services_OpenStreetMap_InvalidArgumentException If the parameter
      *                                                         is unknown
      */
-    public function getValue($name = null)
+    public function getValue(string $name = null): array
     {
         if (is_null($name)) {
             return $this->config;
@@ -257,7 +257,7 @@ class Services_OpenStreetMap_Config
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function setValue($config, $value = null)
+    public function setValue($config, $value = null): Services_OpenStreetMap_Config
     {
         if (is_array($config)) {
             if (isset($config['adapter'])) {
@@ -328,8 +328,9 @@ class Services_OpenStreetMap_Config
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function setAcceptLanguage($language)
-    {
+    public function setAcceptLanguage(
+        string $language
+    ): Services_OpenStreetMap_Config {
         $this->_validateLanguage($language);
         $this->config['accept-language'] = $language;
         return $this;
@@ -343,19 +344,19 @@ class Services_OpenStreetMap_Config
      * @return void
      * @throws Exception If language invalid
      */
-    private function _validateLanguage($language)
+    private function _validateLanguage(string $language): void
     {
         $langs = explode(",", $language);
         foreach ($langs as $lang) {
             if (strpos($lang, '-') !== false) {
                 $subparts = explode("-", $lang);
                 foreach ($subparts as $subpart) {
-                    if ($this->_validateLanguageRegex($subpart) === false) {
+                    if (!$this->_validateLanguageRegex($subpart)) {
                         throw new Exception("Language Invalid: $language");
                     }
                 }
             } else {
-                if ($this->_validateLanguageRegex($lang) === false) {
+                if (!$this->_validateLanguageRegex($lang)) {
                     throw new Exception("Language Invalid: $language");
                 }
             }
@@ -371,7 +372,7 @@ class Services_OpenStreetMap_Config
      *
      * @return bool
      */
-    private function _validateLanguageRegex($language)
+    private function _validateLanguageRegex(string $language): bool
     {
         $valid = filter_var(
             $language,
@@ -392,7 +393,7 @@ class Services_OpenStreetMap_Config
      * @return Services_OpenStreetMap
      * @throws Services_OpenStreetMap_Exception If valid response isn't received.
      */
-    public function setServer($server)
+    public function setServer(string $server): Services_OpenStreetMap
     {
         try {
             $c = $this->getTransport()->getResponse($server . '/api/capabilities');
@@ -438,13 +439,13 @@ class Services_OpenStreetMap_Config
      *
      * @return Services_OpenStreetMap
      */
-    public function setPasswordfile($file)
+    public function setPasswordfile(string $file): Services_OpenStreetMap
     {
         if (is_null($file)) {
             return $this;
         }
         $lines = @file($file);
-        if ($lines === false) {
+        if (!$lines) {
             throw new Services_OpenStreetMap_Exception(
                 'Could not read password file'
             );
@@ -485,8 +486,9 @@ class Services_OpenStreetMap_Config
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function setTransport(Services_OpenStreetMap_Transport $transport)
-    {
+    public function setTransport(
+        Services_OpenStreetMap_Transport $transport
+    ): Services_OpenStreetMap_Config {
         $this->transport = $transport;
         return $this;
     }
@@ -496,7 +498,7 @@ class Services_OpenStreetMap_Config
      *
      * @return Services_OpenStreetMap_Transport.
      */
-    public function getTransport()
+    public function getTransport(): \Services_OpenStreetMap_Transport
     {
         return $this->transport;
     }
@@ -506,7 +508,7 @@ class Services_OpenStreetMap_Config
      *
      * @return array
      */
-    public function asArray()
+    public function asArray(): array
     {
         return $this->config;
     }
@@ -527,10 +529,10 @@ class Services_OpenStreetMap_Config
      * @throws   Services_OpenStreetMap_Exception If the API Version is not
      *                                            supported.
      */
-    private function _checkCapabilities($capabilities)
+    private function _checkCapabilities($capabilities): bool
     {
         $xml = simplexml_load_string($capabilities);
-        if ($xml === false) {
+        if (!$xml) {
             return false;
         }
 
@@ -613,7 +615,7 @@ class Services_OpenStreetMap_Config
      *
      * @return float
      */
-    public function getMaxArea()
+    public function getMaxArea(): float
     {
         return $this->areaMaximum;
     }
@@ -630,7 +632,7 @@ class Services_OpenStreetMap_Config
      *
      * @return float
      */
-    public function getMinVersion()
+    public function getMinVersion(): float
     {
         return $this->minVersion;
     }
@@ -647,7 +649,7 @@ class Services_OpenStreetMap_Config
      *
      * @return float
      */
-    public function getMaxVersion()
+    public function getMaxVersion(): float
     {
         return $this->maxVersion;
     }
@@ -658,7 +660,7 @@ class Services_OpenStreetMap_Config
      *
      * @return int
      */
-    public function getTimeout()
+    public function getTimeout(): int
     {
         return $this->timeout;
     }
@@ -674,7 +676,7 @@ class Services_OpenStreetMap_Config
      *
      * @return float
      */
-    public function getTracepointsPerPage()
+    public function getTracepointsPerPage(): int
     {
         return $this->tracepointsPerPage;
     }
@@ -691,7 +693,7 @@ class Services_OpenStreetMap_Config
      *
      * @return float
      */
-    public function getMaxNodes()
+    public function getMaxNodes(): int
     {
         return $this->waynodesMaximum;
     }
@@ -707,7 +709,7 @@ class Services_OpenStreetMap_Config
      *
      * @return float
      */
-    public function getMaxElements()
+    public function getMaxElements(): int
     {
         return $this->changesetMaximumElements;
     }
@@ -717,7 +719,7 @@ class Services_OpenStreetMap_Config
      *
      * @return null|string
      */
-    public function getDatabaseStatus()
+    public function getDatabaseStatus(): string
     {
         return $this->databaseStatus;
     }
@@ -727,7 +729,7 @@ class Services_OpenStreetMap_Config
      *
      * @return null|string
      */
-    public function getApiStatus()
+    public function getApiStatus(): string
     {
         return $this->apiStatus;
     }
@@ -737,7 +739,7 @@ class Services_OpenStreetMap_Config
      *
      * @return null|string
      */
-    public function getGpxStatus()
+    public function getGpxStatus(): string
     {
         return $this->gpxStatus;
     }
@@ -747,7 +749,7 @@ class Services_OpenStreetMap_Config
      *
      * @return string
      */
-    public function getGenerator()
+    public function getGenerator(): string
     {
         return $this->generator;
     }
@@ -764,10 +766,10 @@ class Services_OpenStreetMap_Config
      */
     public function getXmlValue(
         SimpleXMLElement $xml,
-        $tag,
-        $attribute,
+        string $tag,
+        string $attribute,
         $default = null
-    ) {
+    ): string {
         $obj = $xml->xpath('//' . $tag);
         if (empty($obj)) {
             return $default;
@@ -775,5 +777,4 @@ class Services_OpenStreetMap_Config
         return $obj[0]->attributes()->$attribute;
     }
 }
-
 ?>

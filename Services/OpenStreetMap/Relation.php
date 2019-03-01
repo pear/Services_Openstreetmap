@@ -46,7 +46,7 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
      *
      * @return array
      */
-    public function getMembers()
+    public function getMembers(): array
     {
         return $this->members;
     }
@@ -56,7 +56,7 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -67,7 +67,7 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
      * @todo   add member to relation
      * @return void
      */
-    public function addMember()
+    public function addMember(): void
     {
     }
 
@@ -77,7 +77,7 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
      * @todo   remove member from relation
      * @return void
      */
-    public function removeMember()
+    public function removeMember(): void
     {
     }
 
@@ -88,7 +88,7 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Relation
      */
-    public function setXml(SimpleXMLElement $xml)
+    public function setXml(SimpleXMLElement $xml): Services_OpenStreetMap_Relation
     {
         $this->xml = $xml->saveXML();
         $obj = $xml->xpath('//' . $this->getType());

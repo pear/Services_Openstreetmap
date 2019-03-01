@@ -63,8 +63,9 @@ class Services_OpenStreetMap_API_V06
      *
      * @return Services_OpenStreetMap_API_V06
      */
-    public function setConfig(Services_OpenStreetMap_Config $config)
-    {
+    public function setConfig(
+        Services_OpenStreetMap_Config $config
+    ): Services_OpenStreetMap_API_V06 {
         $this->config = $config;
         return $this;
     }
@@ -74,7 +75,7 @@ class Services_OpenStreetMap_API_V06
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function getConfig()
+    public function getConfig(): Services_OpenStreetMap_Config
     {
         return $this->config;
     }
@@ -86,8 +87,9 @@ class Services_OpenStreetMap_API_V06
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function setTransport(Services_OpenStreetMap_Transport $transport)
-    {
+    public function setTransport(
+        Services_OpenStreetMap_Transport $transport
+    ): Services_OpenStreetMap_Config {
         $this->transport = $transport;
         return $this;
     }
@@ -97,7 +99,7 @@ class Services_OpenStreetMap_API_V06
      *
      * @return Services_OpenStreetMap_Transport.
      */
-    public function getTransport()
+    public function getTransport(): Services_OpenStreetMap_Transport
     {
         return $this->transport;
     }
@@ -118,8 +120,10 @@ class Services_OpenStreetMap_API_V06
      * @return string
      * @throws Services_OpenStreetMap_Exception
      */
-    public function getRelation($relationID, $version = null)
-    {
+    public function getRelation(
+        $relationID,
+        $version = null
+    ): Services_OpenStreetMap_Object {
         return $this->getTransport()->getObject('relation', $relationID, $version);
     }
 
@@ -134,7 +138,7 @@ class Services_OpenStreetMap_API_V06
      *
      * @return array
      */
-    public function getRelations()
+    public function getRelations(): Services_OpenStreetMap_Objects
     {
         return $this->getTransport()->getObjects(
             'relation',
@@ -157,8 +161,10 @@ class Services_OpenStreetMap_API_V06
      * @return string
      * @throws Services_OpenStreetMap_Exception
      */
-    public function getChangeset($id, $version = null)
-    {
+    public function getChangeset(
+        string $id,
+        string $version = null
+    ): Services_OpenStreetMap_Object {
         return $this->getTransport()->getObject('changeset', $id, $version);
     }
 
@@ -179,8 +185,9 @@ class Services_OpenStreetMap_API_V06
      * @return Services_OpenStreetMap_Changeset
      * @see    setConfig
      */
-    public function createChangeset($atomic = true)
-    {
+    public function createChangeset(
+        bool $atomic = true
+    ): Services_OpenStreetMap_Changeset {
         $changeset = new Services_OpenStreetMap_Changeset($atomic);
         $changeset->setTransport($this->getTransport());
         $changeset->setConfig($this->getConfig());
@@ -195,7 +202,7 @@ class Services_OpenStreetMap_API_V06
      * @return Services_OpenStreetMap_Changesets
      * @throws Services_OpenStreetMap_RuntimeException
      */
-    public function searchChangesets(array $criteria)
+    public function searchChangesets(array $criteria): Services_OpenStreetMap_Objects
     {
         $types = [];
         foreach ($criteria as $criterion) {
@@ -228,8 +235,11 @@ class Services_OpenStreetMap_API_V06
      *
      * @return Services_OpenStreetMap_Node
      */
-    public function createNode($latitude, $longitude, array $tags = [])
-    {
+    public function createNode(
+        float $latitude,
+        float $longitude,
+        array $tags = []
+    ): Services_OpenStreetMap_Node {
         $node = new Services_OpenStreetMap_Node();
         $config = $this->getConfig();
         $apiVersion = $config->getValue('api_version');
@@ -338,7 +348,7 @@ XML;
      * @throws Services_OpenStreetMap_Exception
      * @throws HTTP_Request2_Exception
      */
-    public function getUserById($id)
+    public function getUserById(int $id)
     {
         $response = null;
         $config = $this->getConfig()->asArray();
@@ -375,7 +385,7 @@ XML;
      * @return string
      * @throws Services_OpenStreetMap_Exception
      */
-    public function getWay($wayID, $version = null)
+    public function getWay($wayID, $version = null): Services_OpenStreetMap_Object
     {
         $way = $this->getTransport()->getObject('way', $wayID, $version);
         if ($way !== false) {
@@ -397,7 +407,7 @@ XML;
      * @note:  do a similary getRelationFull method also
      * @throws Services_OpenStreetMap_Exception
      */
-    public function getWayFull($wayID, $version)
+    public function getWayFull($wayID, $version): Services_OpenStreetMap_Way
     {
         if (!is_numeric($version)) {
             throw new Services_OpenStreetMap_RuntimeException("Invalid version");
@@ -423,7 +433,7 @@ XML;
      *
      * @return Services_OpenStreetMap_Ways
      */
-    public function getWays()
+    public function getWays(): Services_OpenStreetMap_Objects
     {
         return $this->getTransport()->getObjects(
             'way',
@@ -441,14 +451,16 @@ XML;
      * var_dump($osm->getNode(52245107));
      * </code>
      *
-     * @param string $nodeID nodeID
-     * @param mixed $version [optional] version of node
+     * @param string $nodeID  nodeID
+     * @param mixed  $version [optional] version of node
      *
      * @return string
      * @throws Services_OpenStreetMap_Exception
      */
-    public function getNode($nodeID, $version = null)
-    {
+    public function getNode(
+        string $nodeID,
+        $version = null
+    ): Services_OpenStreetMap_Object {
         $node = $this->getTransport()->getObject('node', $nodeID, $version);
         if ($node !== false) {
             $node->setTransport($this->getTransport());
@@ -475,7 +487,7 @@ XML;
      *
      * @return Services_OpenStreetMap_Nodes
      */
-    public function getNodes()
+    public function getNodes(): Services_OpenStreetMap_Objects
     {
         return $this->getTransport()->getObjects(
             'node',
@@ -486,10 +498,10 @@ XML;
     /**
      * Retrieve bug data by bounding box.
      *
-     * @param string $minLon  Min Longitude (leftmost point)
-     * @param string $minLat  Min Latitude (bottom point)
-     * @param string $maxLon  Max Longitude (rightmost point)
-     * @param string $maxLat  Max Latitude (top point)
+     * @param string  $minLon Min Longitude (leftmost point)
+     * @param string  $minLat Min Latitude (bottom point)
+     * @param string  $maxLon Max Longitude (rightmost point)
+     * @param string  $maxLat Max Latitude (top point)
      * @param integer $limit  Number of entries to return at max, defaults to 100
      * @param integer $closed Number of days a bug needs to be closed to not be
      *                        included in the returned dataset. 0 means only open
@@ -500,8 +512,13 @@ XML;
      * @throws Services_OpenStreetMap_Exception
      */
     public function getNotesByBbox(
-        $minLon, $minLat, $maxLon, $maxLat, $limit = 100, $closed = 7
-    ) {
+        string $minLon,
+        string $minLat,
+        string $maxLon,
+        string $maxLat,
+        int $limit = 100,
+        int $closed = 7
+    ): Services_OpenStreetMap_Notes {
         $config = $this->getConfig();
         $url = $config->getValue('server')
             . 'api/'
@@ -522,24 +539,32 @@ XML;
     /**
      * Retrieve bug data by search.
      *
-     * @param string $searchTerm   Term(s) to search on
-     * @param integer $limit       Number of entries to return at max, defaults to 100
-     * @param integer $closed      Number of days a bug needs to be closed to not be
-     *                             included in the returned dataset. 0 means only
-     *                             open bugs are returned, -1 means all are.
-     *                             Defaults to 7.
-     * @param string $displayName  the creator of the returned notes by the display name. Does not work together with the user parameter
-     * @param int $user            a valid user id
-     * @param string $from         specifies start date in which to search notes within
-     * @param string $to           specified end date in which to search notes within - defaults to current date
+     * @param string $searchTerm  Term(s) to search on
+     * @param int    $limit       Number of entries to return at max, defaults to 100
+     * @param int    $closed      Number of days a bug needs to be closed to not be
+     *                            included in the returned dataset. 0 means only
+     *                            open bugs are returned, -1 means all are.
+     *                            Defaults to 7.
+     * @param string $displayName Display-name of the creator of the returned notes.
+     *                            Does not work together with the user parameter
+     * @param int    $user        Valid user id
+     * @param string $from        Start date in which to search notes within
+     * @param string $to          End date in which to search notes within.
+     *                            Defaults to current date
      *
      * @return Services_OpenStreetMap_Notes
      * @throws HTTP_Request2_Exception
      * @throws Services_OpenStreetMap_Exception
      */
     public function getNotesBySearch(
-        $searchTerm, $limit = 100, $closed = 7, $displayName = '', $user = 0, $from = '', $to = ''
-    ) {
+        string $searchTerm,
+        int $limit = 100,
+        int $closed = 7,
+        string $displayName = '',
+        int $user = 0,
+        string $from = '',
+        string $to = ''
+    ): Services_OpenStreetMap_Notes {
         $config = $this->getConfig();
         $url = $config->getValue('server')
             . 'api/'

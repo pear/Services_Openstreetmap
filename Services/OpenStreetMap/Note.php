@@ -45,7 +45,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
      *
      * @return float
      */
-    public function getLat()
+    public function getLat(): float
     {
         return (float) $this->getAttributes()->lat;
     }
@@ -55,7 +55,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
      *
      * @return float
      */
-    public function getLon()
+    public function getLon(): float
     {
         return (float) $this->getAttributes()->lon;
     }
@@ -65,7 +65,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
      *
      * @return string
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->obj[0]->status;
     }
@@ -75,7 +75,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
      *
      * @return int
      */
-    public function getDateCreated()
+    public function getDateCreated(): int
     {
         return strtotime($this->obj[0]->date_created);
     }
@@ -85,7 +85,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
      *
      * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->obj[0]->url;
     }
@@ -95,7 +95,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
      *
      * @return string
      */
-    public function getCommentUrl()
+    public function getCommentUrl(): string
     {
         return $this->obj[0]->comment_url;
     }
@@ -105,7 +105,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
      *
      * @return string
      */
-    public function getCloseUrl()
+    public function getCloseUrl(): string
     {
         return $this->obj[0]->close_url;
     }
@@ -115,7 +115,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Comments
      */
-    public function getComments()
+    public function getComments(): \Services_OpenStreetMap_Comments
     {
         return $this->comments;
     }
@@ -134,7 +134,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
      * @return Services_OpenStreetMap_Note
      * @throws Services_OpenStreetMap_InvalidArgumentException
      */
-    public function setLat($value)
+    public function setLat(float $value): Services_OpenStreetMap_Note
     {
         if (!is_numeric($value)) {
             throw new Services_OpenStreetMap_InvalidArgumentException(
@@ -168,7 +168,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
      * @return Services_OpenStreetMap_Note
      * @throws Services_OpenStreetMap_InvalidArgumentException
      */
-    public function setLon($value)
+    public function setLon(float $value): Services_OpenStreetMap_Note
     {
         if (!is_numeric($value)) {
             throw new Services_OpenStreetMap_InvalidArgumentException(
@@ -195,7 +195,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Note
      */
-    public function setXml(SimpleXMLElement $xml)
+    public function setXml(SimpleXMLElement $xml): Services_OpenStreetMap_Note
     {
         $comments = [];
         $this->xml = $xml->saveXml();

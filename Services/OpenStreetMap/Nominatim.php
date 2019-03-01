@@ -121,7 +121,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return Services_OpenStreetMap_Nominatim
      */
-    public function __construct($transport)
+    public function __construct(Services_OpenStreetMap_Transport $transport)
     {
         $this->setTransport($transport);
     }
@@ -133,7 +133,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return string
      */
-    private function _buildQuery($place)
+    private function _buildQuery(string $place): string
     {
         $params = [
             'q' => $place,
@@ -169,12 +169,15 @@ class Services_OpenStreetMap_Nominatim
      *
      * @throws HTTP_Request2_Exception
      * @throws Services_OpenStreetMap_Exception
-     * @see setAcceptLanguage
-     * @see setFormat
+     * @see    setAcceptLanguage
+     * @see    setFormat
      */
-    public function reverseGeocode($lat, $lon, $addressdetails = 1, $zoom = 18)
-    {
-
+    public function reverseGeocode(
+        string $lat,
+        string $lon,
+        int $addressdetails = 1,
+        int $zoom = 18
+    ) {
         $format = $this->format;
         if ($format === 'html') {
             throw new Services_OpenStreetMap_RuntimeException(
@@ -214,7 +217,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return mixed
      */
-    public function search($place, $limit = null)
+    public function search(string $place, int $limit = null)
     {
         if ($limit !== null) {
             $this->setLimit($limit);
@@ -248,7 +251,7 @@ class Services_OpenStreetMap_Nominatim
      * @throws Services_OpenStreetMap_RuntimeException If the specified format
      *                                                 is not supported.
      */
-    public function setFormat($format)
+    public function setFormat(string $format): Services_OpenStreetMap_Nominatim
     {
         switch($format) {
         case 'html':
@@ -270,7 +273,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return string
      */
-    public function getFormat()
+    public function getFormat(): string
     {
         return $this->format;
     }
@@ -282,7 +285,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return Services_OpenStreetMap_Nominatim
      */
-    public function setLimit($limit)
+    public function setLimit(int $limit): Services_OpenStreetMap_Nominatim
     {
         if (is_numeric($limit)) {
             $this->limit = $limit;
@@ -299,7 +302,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return integer
      */
-    public function getLimit()
+    public function getLimit(): int
     {
         return $this->limit;
     }
@@ -311,8 +314,9 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return Services_OpenStreetMap_Nominatim
      */
-    public function setTransport($transport)
-    {
+    public function setTransport(
+        Services_OpenStreetMap_Transport $transport
+    ): Services_OpenStreetMap_Nominatim {
         $this->transport = $transport;
         return $this;
     }
@@ -322,7 +326,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return Services_OpenStreetMap_Transport
      */
-    public function getTransport()
+    public function getTransport(): \Services_OpenStreetMap_Transport
     {
         return $this->transport;
     }
@@ -338,7 +342,7 @@ class Services_OpenStreetMap_Nominatim
      * @return Services_OpenStreetMap_Nominatim
      * @throws Services_OpenStreetMap_RuntimeException
      */
-    public function setServer($server)
+    public function setServer(string $server): Services_OpenStreetMap_Nominatim
     {
         switch($server) {
         case 'nominatim':
@@ -376,8 +380,9 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return Services_OpenStreetMap_Nominatim
      */
-    public function setAcceptLanguage($language)
-    {
+    public function setAcceptLanguage(
+        string $language
+    ): Services_OpenStreetMap_Nominatim {
         $this->accept_language = $language;
         return $this;
     }
@@ -387,7 +392,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return string
      */
-    public function getServer()
+    public function getServer(): string
     {
         return $this->server;
     }
@@ -400,9 +405,9 @@ class Services_OpenStreetMap_Nominatim
      * @return Services_OpenStreetMap_Nominatim
      * @throws Services_OpenStreetMap_RuntimeException If email address invalid
      */
-    public function setEmailAddress($email)
+    public function setEmailAddress(string $email): Services_OpenStreetMap_Nominatim
     {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new Services_OpenStreetMap_RuntimeException(
                 sprintf("Email address '%s' is not valid", $email)
             );
@@ -418,7 +423,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return Services_OpenStreetMap_Nominatim
      */
-    public function setCountryCodes($codes)
+    public function setCountryCodes(string $codes): Services_OpenStreetMap_Nominatim
     {
         if ($codes == '') {
             $this->countryCodes = null;
@@ -440,7 +445,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return string|null
      */
-    public function getEmailAddress()
+    public function getEmailAddress(): string
     {
         return $this->email_address;
     }
@@ -450,7 +455,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return int
      */
-    public function getAddressdetails()
+    public function getAddressdetails(): int
     {
         return $this->addressdetails;
     }
@@ -462,8 +467,9 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return Services_OpenStreetMap_Nominatim
      */
-    public function setAddressdetails($addressdetails)
-    {
+    public function setAddressdetails(
+        int $addressdetails
+    ): Services_OpenStreetMap_Nominatim {
         $this->addressdetails = (int) $addressdetails;
 
         return $this;

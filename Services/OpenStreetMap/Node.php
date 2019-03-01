@@ -12,7 +12,7 @@
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @version    Release: @package_version@
  * @link       Node.php
-*/
+ */
 
 /**
  * Services_OpenStreetMap_Node
@@ -38,7 +38,7 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
      *
      * @return float
      */
-    public function getLat()
+    public function getLat(): float
     {
         return (float) $this->getAttributes()->lat;
     }
@@ -48,7 +48,7 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
      *
      * @return float
      */
-    public function getLon()
+    public function getLon(): float
     {
         return (float) $this->getAttributes()->lon;
     }
@@ -67,7 +67,7 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
      * @return Services_OpenStreetMap_Node
      * @throws Services_OpenStreetMap_InvalidArgumentException
      */
-    public function setLat($value)
+    public function setLat(float $value): Services_OpenStreetMap_Node
     {
         if (!is_numeric($value)) {
             throw new Services_OpenStreetMap_InvalidArgumentException(
@@ -101,7 +101,7 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
      * @return Services_OpenStreetMap_Node
      * @throws Services_OpenStreetMap_InvalidArgumentException
      */
-    public function setLon($value)
+    public function setLon(float $value): Services_OpenStreetMap_Node
     {
         if (!is_numeric($value)) {
             throw new Services_OpenStreetMap_InvalidArgumentException(
@@ -126,7 +126,7 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
      *
      * @return array
      */
-    public function getAddress()
+    public function getAddress(): array
     {
         $ret  = [
             'addr_housename' => null,
@@ -155,7 +155,7 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Ways
      */
-    public function getWays()
+    public function getWays(): \Services_OpenStreetMap_Ways
     {
         $config = $this->getConfig();
         $id = $this->getId();
@@ -166,7 +166,7 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
         $response = $this->getTransport()->getResponse($url);
         $obj = new Services_OpenStreetMap_Ways();
         $sxe = @simplexml_load_string($response->getBody());
-        if ($sxe === false) {
+        if (!$sxe) {
             $obj->setVal(trim($response->getBody()));
         } else {
             $obj->setXml($sxe);
