@@ -18,9 +18,9 @@
  * @category  Services
  * @package   Services_OpenStreetMap
  * @author    Ken Guest <kguest@php.net>
- * @copyright 2010-2018 Ken Guest
+ * @copyright 2010-2019 Ken Guest
  * @license   BSD http://www.opensource.org/licenses/bsd-license.php
- * @version   Release: 0.0.1
+ * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Services_OpenStreetMap
  */
 class Services_OpenStreetMap_InvalidArgumentException extends
