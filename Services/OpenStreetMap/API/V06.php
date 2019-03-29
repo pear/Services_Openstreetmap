@@ -51,7 +51,8 @@ class Services_OpenStreetMap_API_V06
     /**
      * Counter for assigning IDs to [newly] created objects.
      *
-     * @var      int
+     * @var int
+     *
      * @internal
      */
     protected $newId = -1;
@@ -73,9 +74,9 @@ class Services_OpenStreetMap_API_V06
     /**
      * Get current Config object
      *
-     * @return Services_OpenStreetMap_Config
+     * @return Services_OpenStreetMap_Config|null
      */
-    public function getConfig(): Services_OpenStreetMap_Config
+    public function getConfig():? Services_OpenStreetMap_Config
     {
         return $this->config;
     }
@@ -117,7 +118,7 @@ class Services_OpenStreetMap_API_V06
      * @param mixed $relationID ID of relation
      * @param mixed $version    [optional] version of relation
      *
-     * @return string
+     * @return Services_OpenStreetMap_Object
      * @throws Services_OpenStreetMap_Exception
      */
     public function getRelation(
@@ -136,7 +137,7 @@ class Services_OpenStreetMap_API_V06
      * $relations = $osm->getRelations($relationId, $relation2Id);
      * </code>
      *
-     * @return array
+     * @return Services_OpenStreetMap_Objects
      */
     public function getRelations(): Services_OpenStreetMap_Objects
     {
@@ -158,7 +159,7 @@ class Services_OpenStreetMap_API_V06
      * @param string $id      numeric ID of changeset
      * @param string $version optional
      *
-     * @return string
+     * @return Services_OpenStreetMap_Object
      * @throws Services_OpenStreetMap_Exception
      */
     public function getChangeset(
@@ -202,7 +203,8 @@ class Services_OpenStreetMap_API_V06
      * @return Services_OpenStreetMap_Changesets
      * @throws Services_OpenStreetMap_RuntimeException
      */
-    public function searchChangesets(array $criteria): Services_OpenStreetMap_Objects
+    public function searchChangesets(array $criteria)
+    : Services_OpenStreetMap_Changesets
     {
         $types = [];
         foreach ($criteria as $criterion) {
@@ -259,7 +261,7 @@ XML;
         $node->setLat($latitude);
         $node->setLon($longitude);
         $node->setXml(simplexml_load_string($xml));
-        $node->setId($this->newId--);
+        $node->setId((string) $this->newId--);
         if (!empty($tags)) {
             foreach ($tags as $key => $value) {
                 $node->setTag($key, $value);
@@ -382,7 +384,7 @@ XML;
      * @param mixed $wayID   wayID
      * @param mixed $version [optional] version of way
      *
-     * @return string
+     * @return Services_OpenStreetMap_Object
      * @throws Services_OpenStreetMap_Exception
      */
     public function getWay($wayID, $version = null): Services_OpenStreetMap_Object
@@ -454,7 +456,7 @@ XML;
      * @param string $nodeID  nodeID
      * @param mixed  $version [optional] version of node
      *
-     * @return string
+     * @return Services_OpenStreetMap_Node|false
      * @throws Services_OpenStreetMap_Exception
      */
     public function getNode(string $nodeID, $version = null)

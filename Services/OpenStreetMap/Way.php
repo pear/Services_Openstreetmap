@@ -37,7 +37,7 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
     /**
      * A way is a collection of nodes.
      *
-     * @var Services_OpenStreetMap_Node[]|int
+     * @var Services_OpenStreetMap_Node[]|string[]
      */
     protected $nodes = [];
 

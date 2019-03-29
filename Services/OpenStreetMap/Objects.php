@@ -275,7 +275,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @param Services_OpenStreetMap_Config $config Config object
      *
-     * @return Services_OpenStreetMap_Changeset
+     * @return Services_OpenStreetMap_Objects
      */
     public function setConfig(
         Services_OpenStreetMap_Config $config

@@ -29,7 +29,7 @@ class Services_OpenStreetMap_Object
     /**
      * XML represention of the object
      *
-     * @var string
+     * @var string|null
      */
     protected $xml = null;
 
@@ -43,21 +43,21 @@ class Services_OpenStreetMap_Object
     /**
      * The Id of this object
      *
-     * @var string
+     * @var string|null
      */
     protected $id = null;
 
     /**
      * Transport object
      *
-     * @var Services_OpenStreetMap_Transport
+     * @var Services_OpenStreetMap_Transport|null
      */
     protected $transport = null;
 
     /**
      * Config object, contains setting on how to interact with API Endpoint
      *
-     * @var Services_OpenStreetMap_Config $config
+     * @var Services_OpenStreetMap_Config|null $config
      */
     protected $config = null;
 
@@ -92,7 +92,7 @@ class Services_OpenStreetMap_Object
     /**
      * The Changeset Id for this object, if applicable.
      *
-     * @var int
+     * @var string|null
      */
     protected $changesetId = null;
 
@@ -160,11 +160,11 @@ class Services_OpenStreetMap_Object
     /**
      * Set the Changeset Id for this object.
      *
-     * @param integer $id Changeset Id (numeric)
+     * @param string $id Changeset Id (numeric)
      *
      * @return Services_OpenStreetMap_Object
      */
-    public function setChangesetId(int $id): Services_OpenStreetMap_Object
+    public function setChangesetId(string $id): Services_OpenStreetMap_Object
     {
         $this->changesetId = $id;
         return $this;
@@ -174,10 +174,10 @@ class Services_OpenStreetMap_Object
      * Generate and return the OsmChange XML required to record the changes
      * made to the object in question.
      *
-     * @return string
+     * @return string|null
      * @link   http://wiki.openstreetmap.org/wiki/OsmChange
      */
-    public function getOsmChangeXml(): string
+    public function getOsmChangeXml():? string
     {
         $type = $this->getType();
         if ($this->dirty) {
@@ -258,7 +258,7 @@ class Services_OpenStreetMap_Object
     /**
      * Retrieve the id of the object in question.
      *
-     * @return double id of the object
+     * @return null|string id of the object
      */
     public function getId(): ?string
     {

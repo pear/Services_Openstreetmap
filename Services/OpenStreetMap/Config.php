@@ -392,7 +392,7 @@ class Services_OpenStreetMap_Config
      *
      * @param string $server base server details, e.g. https://api.openstreetmap.org
      *
-     * @return Services_OpenStreetMap
+     * @return Services_OpenStreetMap_Config
      * @throws Services_OpenStreetMap_Exception If valid response isn't received.
      */
     public function setServer(string $server): Services_OpenStreetMap_Config
@@ -443,7 +443,7 @@ class Services_OpenStreetMap_Config
      */
     public function setPasswordfile(string $file): Services_OpenStreetMap_Config
     {
-        if (is_null($file)) {
+        if ($file === '') {
             return $this;
         }
         $lines = @file($file);
@@ -676,7 +676,7 @@ class Services_OpenStreetMap_Config
      * $tracepoints = $osm->getTracepointsPerPage();
      * </code>
      *
-     * @return float
+     * @return int
      */
     public function getTracepointsPerPage(): int
     {
@@ -693,7 +693,7 @@ class Services_OpenStreetMap_Config
      * $max = $osm->getMaxNodes();
      * </code>
      *
-     * @return float
+     * @return int
      */
     public function getMaxNodes(): int
     {
@@ -709,7 +709,7 @@ class Services_OpenStreetMap_Config
      * $max = $osm->getMaxElements();
      * </code>
      *
-     * @return float
+     * @return int
      */
     public function getMaxElements(): int
     {
