@@ -35,13 +35,10 @@ class Services_OpenStreetMap_OpeningHours
      * Constructor
      *
      * @param string $value An opening_hours value
-     *
-     * @return Services_OpenStreetMap_OpeningHours
      */
     public function __construct(string $value = null)
     {
         $this->value = $value;
-        return $this;
     }
 
     /**
@@ -139,7 +136,7 @@ class Services_OpenStreetMap_OpeningHours
             $open = $this->_openTimeSpec($portions, $time);
             if ($open !== false) {
                 $retval = true;
-            } elseif (!$open) {
+            } else {
                 $retval = false;
             }
         }

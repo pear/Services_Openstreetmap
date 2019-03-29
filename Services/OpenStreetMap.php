@@ -218,7 +218,7 @@ class Services_OpenStreetMap
         );
         return $nominatim
             ->setAcceptLanguage($this->config->getValue('accept-language'))
-            ->setAddressdetails($addressdetails)
+            ->setAddressdetails((int) $addressdetails)
             ->setFormat($format)
             ->search($place, 1);
     }
@@ -248,7 +248,7 @@ class Services_OpenStreetMap
         );
         return $nominatim
             ->setFormat($format)
-            ->reverseGeocode($lat, $lon, $addressdetails, $zoom);
+            ->reverseGeocode($lat, $lon, (int) $addressdetails, $zoom);
     }
 
     /**
@@ -554,7 +554,7 @@ class Services_OpenStreetMap
      *
      * @param Services_OpenStreetMap_Config $config Config settings.
      *
-     * @return Services_OpenStreetMap_API_V06
+     * @return Services_OpenStreetMap
      */
     public function setConfig(
         Services_OpenStreetMap_Config $config

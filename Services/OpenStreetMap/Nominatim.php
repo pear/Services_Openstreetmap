@@ -287,13 +287,7 @@ class Services_OpenStreetMap_Nominatim
      */
     public function setLimit(int $limit): Services_OpenStreetMap_Nominatim
     {
-        if (is_numeric($limit)) {
-            $this->limit = $limit;
-        } else {
-            throw new Services_OpenStreetMap_RuntimeException(
-                'Limit must be a numeric value'
-            );
-        }
+        $this->limit = $limit;
         return $this;
     }
 
@@ -445,7 +439,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return string|null
      */
-    public function getEmailAddress(): string
+    public function getEmailAddress():? string
     {
         return $this->email_address;
     }

@@ -216,7 +216,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
                 }
                 $kids[] = $comments;
             } elseif ($name == 'id') {
-                $this->setId((double) $child);
+                $this->setId((string) $child);
 
             }
         }

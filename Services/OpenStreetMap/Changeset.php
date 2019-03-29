@@ -58,14 +58,14 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     /**
      * The Id of this changeset.
      *
-     * @var string
+     * @var string|null
      */
     protected $id = null;
 
     /**
      * The OsmChange XML for this changeset.
      *
-     * @var string
+     * @var string|null
      */
     protected $osmChangeXml = null;
 
@@ -565,7 +565,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     /**
      * Get changeset Id.
      *
-     * @return null|double value or null if none set
+     * @return null|string value or null if none set
      */
     public function getId(): ?string
     {

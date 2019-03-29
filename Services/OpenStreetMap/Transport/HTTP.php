@@ -101,7 +101,7 @@ class Services_OpenStreetMap_Transport_HTTP
      * @param array  $post_data (optional)
      * @param array  $headers   (optional)
      *
-     * @return void
+     * @return HTTP_Request2_Response
      * @throws HTTP_Request2_LogicException
      * @throws Services_OpenStreetMap_Exception If something unexpected has
      *                                          happened while conversing with
@@ -210,9 +210,9 @@ class Services_OpenStreetMap_Transport_HTTP
      *
      * @param HTTP_Request2 $request The HTTP_Request2 instance to set.
      *
-     * @return Services_OpenStreetMap
+     * @return Services_OpenStreetMap_Transport_HTTP
      */
-    public function setRequest(HTTP_Request2 $request): Services_OpenStreetMap_Transport
+    public function setRequest(HTTP_Request2 $request): Services_OpenStreetMap_Transport_HTTP
     {
         $this->request = $request;
         return $this;
@@ -241,7 +241,7 @@ class Services_OpenStreetMap_Transport_HTTP
      * @param string $version version of object, optional
      * @param string $append  portion to append to request URL, optional
      *
-     * @return object|null
+     * @return Services_OpenStreetMap_Object|null
      * @throws HTTP_Request2_LogicException
      * @throws Services_OpenStreetMap_Exception
      */
@@ -350,11 +350,12 @@ class Services_OpenStreetMap_Transport_HTTP
      *
      * @param Services_OpenStreetMap_Config $config Config settings.
      *
-     * @return Services_OpenStreetMap_API_V06
+     * @return Services_OpenStreetMap_Transport
      */
-    public function setConfig(Services_OpenStreetMap_Config $config): void
+    public function setConfig(Services_OpenStreetMap_Config $config): Services_OpenStreetMap_Transport
     {
         $this->config = $config;
+        return $this;
     }
 
     /**
@@ -373,14 +374,14 @@ class Services_OpenStreetMap_Transport_HTTP
      * @param string $type     object type (e.g. changeset)
      * @param array  $criteria array of criterion objects.
      *
-     * @return Services_OpenStreetMap_Objects|false
+     * @return Services_OpenStreetMap_Objects|null
      * @throws HTTP_Request2_LogicException
      * @throws Services_OpenStreetMap_Exception
      */
     public function searchObjects(
         string $type,
         array $criteria
-    ): Services_OpenStreetMap_Objects {
+    ):? Services_OpenStreetMap_Objects {
         $response = null;
         $query = [];
         foreach ($criteria as $criterion) {
@@ -399,7 +400,7 @@ class Services_OpenStreetMap_Transport_HTTP
             case self::NOT_FOUND:
             case self::UNAUTHORISED:
             case self::GONE:
-                return false;
+                return null;
             default:
                 throw $ex;
             }
