@@ -80,7 +80,7 @@ interface Services_OpenStreetMap_Transport
         string $id,
         string $version = null,
         string $append = null
-    ): Services_OpenStreetMap_Object;
+    ): ?Services_OpenStreetMap_Object;
 
     /**
      * Get objects of specified type.
@@ -90,10 +90,7 @@ interface Services_OpenStreetMap_Transport
      *
      * @return Services_OpenStreetMap_Objects
      */
-    public function getObjects(
-        string $type,
-        array $ids
-    ): Services_OpenStreetMap_Objects;
+    public function getObjects(string $type, array $ids);
 
     /**
      * Send request to OSM server and return the response.

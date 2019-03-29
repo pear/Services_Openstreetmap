@@ -195,7 +195,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Note
      */
-    public function setXml(SimpleXMLElement $xml): Services_OpenStreetMap_Note
+    public function setXml(SimpleXMLElement $xml): Services_OpenStreetMap_Object
     {
         $comments = [];
         $this->xml = $xml->saveXml();
@@ -225,7 +225,6 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
         $this->obj = $obj;
         return $this;
     }
-
 }
 // vim:set et ts=4 sw=4:
 ?>

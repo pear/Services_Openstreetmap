@@ -203,7 +203,7 @@ class Services_OpenStreetMap_Config
      * @throws Services_OpenStreetMap_InvalidArgumentException If the parameter
      *                                                         is unknown
      */
-    public function getValue(string $name = null): array
+    public function getValue(string $name = null)
     {
         if (is_null($name)) {
             return $this->config;
@@ -272,7 +272,9 @@ class Services_OpenStreetMap_Config
                 }
                 switch($key) {
                 case 'passwordfile':
-                    $this->setPasswordfile($value);
+                    if ($value !== null) {
+                        $this->setPasswordfile($value);
+                    }
                     break;
                 case 'api_version':
                     $this->config[$key] = $value;
@@ -393,7 +395,7 @@ class Services_OpenStreetMap_Config
      * @return Services_OpenStreetMap
      * @throws Services_OpenStreetMap_Exception If valid response isn't received.
      */
-    public function setServer(string $server): Services_OpenStreetMap
+    public function setServer(string $server): Services_OpenStreetMap_Config
     {
         try {
             $c = $this->getTransport()->getResponse($server . '/api/capabilities');
@@ -437,15 +439,15 @@ class Services_OpenStreetMap_Config
      *
      * @param string $file file containing credentials
      *
-     * @return Services_OpenStreetMap
+     * @return Services_OpenStreetMap_Config
      */
-    public function setPasswordfile(string $file): Services_OpenStreetMap
+    public function setPasswordfile(string $file): Services_OpenStreetMap_Config
     {
         if (is_null($file)) {
             return $this;
         }
         $lines = @file($file);
-        if (!$lines) {
+        if ($lines === false) {
             throw new Services_OpenStreetMap_Exception(
                 'Could not read password file'
             );
@@ -719,7 +721,7 @@ class Services_OpenStreetMap_Config
      *
      * @return null|string
      */
-    public function getDatabaseStatus(): string
+    public function getDatabaseStatus():? string
     {
         return $this->databaseStatus;
     }
@@ -729,7 +731,7 @@ class Services_OpenStreetMap_Config
      *
      * @return null|string
      */
-    public function getApiStatus(): string
+    public function getApiStatus():? string
     {
         return $this->apiStatus;
     }
@@ -739,7 +741,7 @@ class Services_OpenStreetMap_Config
      *
      * @return null|string
      */
-    public function getGpxStatus(): string
+    public function getGpxStatus():? string
     {
         return $this->gpxStatus;
     }
@@ -769,7 +771,7 @@ class Services_OpenStreetMap_Config
         string $tag,
         string $attribute,
         $default = null
-    ): string {
+    ):? string {
         $obj = $xml->xpath('//' . $tag);
         if (empty($obj)) {
             return $default;

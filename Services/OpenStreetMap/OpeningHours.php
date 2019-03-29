@@ -131,12 +131,13 @@ class Services_OpenStreetMap_OpeningHours
             if (preg_match('/' . $day .'/', $rule_sequence)) {
                 // @fixme: brittle. use preg_replace with \w
                 $portions = explode(' ', str_replace(', ', ',', $rule_sequence));
-                return $this->_openTimeSpec($portions, $time);
+                $ret = $this->_openTimeSpec($portions, $time);
+                return $ret;
             }
             // @fixme: brittle. use preg_replace with \w
             $portions = explode(' ', str_replace(', ', ',', $rule_sequence));
             $open = $this->_openTimeSpec($portions, $time);
-            if ($open !== null) {
+            if ($open !== false) {
                 $retval = true;
             } elseif (!$open) {
                 $retval = false;
@@ -154,14 +155,14 @@ class Services_OpenStreetMap_OpeningHours
      *
      * @return null|boolean
      */
-    private function _openTimeSpec($portions, $time): bool
+    private function _openTimeSpec($portions, $time): ?bool
     {
         if ($time === null) {
             $time = time();
         }
 
         $day = strtolower(substr(date('D', $time), 0, 2));
-        $days = $this->_daySpecToArray($portions[0]);
+        $days = $this->_daySpecToArray(trim($portions[0], ":"));
         $pattern = '/^[0-2][0-9]:[0-5][0-9]\+$/';
         if (is_array($days)) {
             foreach ($days as $rday) {
@@ -227,6 +228,7 @@ class Services_OpenStreetMap_OpeningHours
                 return true;
             }
         }
+        return null;
     }
 
     /**
@@ -237,7 +239,7 @@ class Services_OpenStreetMap_OpeningHours
      *
      * @return array
      */
-    private function _daySpecToArray(string $day_specification): array
+    private function _daySpecToArray(string $day_specification): ?array
     {
         $days = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'];
         $spec = trim(strtolower($day_specification));
@@ -279,6 +281,7 @@ class Services_OpenStreetMap_OpeningHours
             }
             return $ret;
         }
+        return null;
     }
 
     /**

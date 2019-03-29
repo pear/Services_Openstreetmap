@@ -325,7 +325,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('Credentials file does not exist.');
         }
 
-        $nodeID = 1436433375;
+        $nodeID = "1436433375";
 
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));

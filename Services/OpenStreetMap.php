@@ -98,8 +98,10 @@ class Services_OpenStreetMap
         $transport = new Services_OpenStreetMap_Transport_HTTP();
         $transport->setConfig($config);
 
-        $this->setTransport($transport);
-        $config->setTransport($transport);
+        if ($transport !== null) {
+            $this->setTransport($transport);
+            $config->setTransport($transport);
+        }
         $config->setValue($configuration);
 
         $version = $config->getValue('api_version');
@@ -240,7 +242,7 @@ class Services_OpenStreetMap
         bool $addressdetails = true,
         int $zoom = 18,
         string $format = 'xml'
-    ): string {
+    ) {
         $nominatim = new Services_OpenStreetMap_Nominatim(
             $this->getTransport()
         );
@@ -288,7 +290,7 @@ class Services_OpenStreetMap
      *
      * @return string
      */
-    public function getXml(): string
+    public function getXml():? string
     {
         return $this->xml;
     }
@@ -556,7 +558,7 @@ class Services_OpenStreetMap
      */
     public function setConfig(
         Services_OpenStreetMap_Config $config
-    ): Services_OpenStreetMap_API_V06 {
+    ): Services_OpenStreetMap {
         $this->config = $config;
         return $this;
     }

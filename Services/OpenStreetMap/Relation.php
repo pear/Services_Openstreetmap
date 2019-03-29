@@ -88,7 +88,7 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Relation
      */
-    public function setXml(SimpleXMLElement $xml): Services_OpenStreetMap_Relation
+    public function setXml(SimpleXMLElement $xml): Services_OpenStreetMap_Object
     {
         $this->xml = $xml->saveXML();
         $obj = $xml->xpath('//' . $this->getType());
