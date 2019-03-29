@@ -145,7 +145,7 @@ class Services_OpenStreetMap_Transport_HTTP
         if ($user !== null && $password !== null) {
             $request->setAuth($user, $password);
         }
-        if ($post_data !== []) {
+        if ($post_data !== [] && $post_data !== null) {
             $request->setMethod(HTTP_Request2::METHOD_POST);
             $this->addPostParameters($post_data, $request);
         }
@@ -212,7 +212,7 @@ class Services_OpenStreetMap_Transport_HTTP
      *
      * @return Services_OpenStreetMap
      */
-    public function setRequest(HTTP_Request2 $request): Services_OpenStreetMap
+    public function setRequest(HTTP_Request2 $request): Services_OpenStreetMap_Transport
     {
         $this->request = $request;
         return $this;
@@ -241,7 +241,7 @@ class Services_OpenStreetMap_Transport_HTTP
      * @param string $version version of object, optional
      * @param string $append  portion to append to request URL, optional
      *
-     * @return object|false
+     * @return object|null
      * @throws HTTP_Request2_LogicException
      * @throws Services_OpenStreetMap_Exception
      */
@@ -250,7 +250,7 @@ class Services_OpenStreetMap_Transport_HTTP
         string $id,
         string $version = null,
         string $append = null
-    ): Services_OpenStreetMap_Object {
+    ): ?Services_OpenStreetMap_Object {
         /*
         if (!in_array($type, $this->elements)) {
             throw new Services_OpenStreetMap_Exception(
@@ -277,10 +277,10 @@ class Services_OpenStreetMap_Transport_HTTP
 
             $code = $ex->getCode();
             if (self::NOT_FOUND === $code) {
-                return false;
+                return null;
             }
             if (self::GONE === $code) {
-                return false;
+                return null;
             }
             throw $ex;
         }
@@ -304,7 +304,7 @@ class Services_OpenStreetMap_Transport_HTTP
     public function getObjects(
         string $type,
         array $ids
-    ): Services_OpenStreetMap_Objects {
+    ) {
         /*
         if (!in_array($type, $this->elements)) {
             throw new Services_OpenStreetMap_Exception('Invalid Element Type');

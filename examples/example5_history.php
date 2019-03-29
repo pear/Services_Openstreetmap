@@ -34,6 +34,5 @@ foreach ($all_versions as $way) {
     var_dump($way->getVersion());
 }
 
-
 // vim:set et ts=4 sw=4:
 ?>

@@ -126,7 +126,7 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
      *
      * @return array
      */
-    public function getAddress(): array
+    public function getAddress():? array
     {
         $ret  = [
             'addr_housename' => null,

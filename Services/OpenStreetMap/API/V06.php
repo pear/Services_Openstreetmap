@@ -85,11 +85,11 @@ class Services_OpenStreetMap_API_V06
      *
      * @param Services_OpenStreetMap_Transport $transport Transport instance.
      *
-     * @return Services_OpenStreetMap_Config
+     * @return Services_OpenStreetMap_API_V06
      */
     public function setTransport(
         Services_OpenStreetMap_Transport $transport
-    ): Services_OpenStreetMap_Config {
+    ): Services_OpenStreetMap_API_V06 {
         $this->transport = $transport;
         return $this;
     }
@@ -457,14 +457,14 @@ XML;
      * @return string
      * @throws Services_OpenStreetMap_Exception
      */
-    public function getNode(
-        string $nodeID,
-        $version = null
-    ): Services_OpenStreetMap_Object {
+    public function getNode(string $nodeID, $version = null)
+    {
         $node = $this->getTransport()->getObject('node', $nodeID, $version);
-        if ($node !== false) {
+        if ($node !== null) {
             $node->setTransport($this->getTransport());
             $node->setConfig($this->getConfig());
+        } else {
+            $node = false;
         }
         return $node;
     }
@@ -487,7 +487,7 @@ XML;
      *
      * @return Services_OpenStreetMap_Nodes
      */
-    public function getNodes(): Services_OpenStreetMap_Objects
+    public function getNodes()
     {
         return $this->getTransport()->getObjects(
             'node',
@@ -531,7 +531,7 @@ XML;
         if (!is_null($config)) {
             $collection->setConfig($config);
         }
-        $collection->setTransport($this);
+        $collection->setTransport($this->getTransport());
         $collection->setXml($sxe);
         return $collection;
     }

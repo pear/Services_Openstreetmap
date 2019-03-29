@@ -40,7 +40,11 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
      */
     public function getAction(): string
     {
-        return $this->obj[0]->action;
+        if (!is_null($this->obj[0])) {
+            return $this->obj[0]->action;
+        } else {
+            return '';
+        }
     }
 
     /**
@@ -50,7 +54,11 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
      */
     public function getDate(): int
     {
-        return $this->obj[0]->date;
+        if (!is_null($this->obj[0])) {
+            return $this->obj[0]->date;
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -80,7 +88,7 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
      *
      * @return Services_OpenStreetMap_Comment
      */
-    public function setXml(SimpleXMLElement $xml): Services_OpenStreetMap_Comment
+    public function setXml(SimpleXMLElement $xml): Services_OpenStreetMap_Object
     {
         $this->xml = $xml->saveXml();
         $obj = $xml->xpath('//' . $this->getType());

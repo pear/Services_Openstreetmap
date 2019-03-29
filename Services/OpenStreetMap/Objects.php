@@ -157,8 +157,14 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
         if (!is_null($config)) {
             $object->setConfig($config);
         }
-        $object->setTransport($this->getTransport());
-        $object->setXml(simplexml_load_string($this->objects[$this->position]));
+        $transport = $this->getTransport();
+        if (!is_null($transport)) {
+            $object->setTransport($transport);
+        }
+        $el = simplexml_load_string($this->objects[$this->position]);
+        if ($el !== false) {
+            $object->setXml($el);
+        }
         return $object;
     }
 
@@ -220,9 +226,15 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
         if (!is_null($config)) {
             $object->setConfig($config);
         }
-        $object->setTransport($this->getTransport());
+        $transport = $this->getTransport();
+        if (!is_null($transport)) {
+            $object->setTransport($transport);
+        }
         if (isset($this->objects[$offset])) {
-            $object->setXml(simplexml_load_string($this->objects[$offset]));
+            $element = simplexml_load_string($this->objects[$offset]);
+            if ($element !== false) {
+                $object->setXml($element);
+            }
             return $object;
         }
     }
@@ -267,7 +279,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      */
     public function setConfig(
         Services_OpenStreetMap_Config $config
-    ): Services_OpenStreetMap_Changeset {
+    ) {
         $this->config = $config;
         return $this;
     }
@@ -277,7 +289,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function getConfig(): \Services_OpenStreetMap_Config
+    public function getConfig(): ?\Services_OpenStreetMap_Config
     {
         return $this->config;
     }
@@ -291,7 +303,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      */
     public function setTransport(
         Services_OpenStreetMap_Transport $transport
-    ): Services_OpenStreetMap_Config {
+    ): Services_OpenStreetMap_Objects {
         $this->transport = $transport;
         return $this;
     }
@@ -301,7 +313,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @return Services_OpenStreetMap_Transport.
      */
-    public function getTransport(): \Services_OpenStreetMap_Transport
+    public function getTransport(): ?\Services_OpenStreetMap_Transport
     {
         return $this->transport;
     }

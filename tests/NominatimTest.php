@@ -158,23 +158,6 @@ class NominatimTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Check that an exception is thrown when attempting to set limit to an
-     * unrecognised value.
-     *
-     * @expectedException        Services_OpenStreetMap_RuntimeException
-     * @expectedExceptionMessage Limit must be a numeric value
-     *
-     * @return void
-     */
-    public function testSetInvalidLimit()
-    {
-        $osm = new Services_OpenStreetMap();
-        $transport = $osm->getTransport();
-        $nominatim = new Services_OpenStreetMap_Nominatim($transport);
-        $nominatim->setLimit('one');
-    }
-
-    /**
      * Test JSON search
      *
      * @return void

@@ -146,11 +146,11 @@ class Services_OpenStreetMap_User
     /**
      * Retrieve the id of the user.
      *
-     * @return float id of the object
+     * @return string id of the object
      */
-    public function getId(): float
+    public function getId(): string
     {
-        return (float) $this->getAttributes()->id;
+        return (string) $this->getAttributes()->id;
     }
 
     /**

@@ -238,6 +238,7 @@ class Services_OpenStreetMap_Object
             $xml = $domd->saveXml($n->item(0));
             return $this->osmChangeXml("<delete>{$xml}</delete>");
         }
+        return '';
     }
 
     /**
@@ -249,7 +250,7 @@ class Services_OpenStreetMap_Object
      * @see    getOsmChangeXml
      * @link   http://wiki.openstreetmap.org/wiki/OsmChange
      */
-    public function osmChangeXml(string $xml): string
+    public function osmChangeXml(string $xml): ?string
     {
         return $xml;
     }
@@ -257,18 +258,19 @@ class Services_OpenStreetMap_Object
     /**
      * Retrieve the id of the object in question.
      *
-     * @return integer id of the object
+     * @return double id of the object
      */
-    public function getId(): int
+    public function getId(): ?string
     {
         if (!is_null($this->id)) {
-            return (integer) $this->id;
+            return $this->id;
         }
 
         $attribs = $this->getAttributes();
         if (!is_null($attribs)) {
-            return (integer) $attribs->id;
+            return $attribs->id;
         }
+        return null;
     }
 
     /**
@@ -295,12 +297,13 @@ class Services_OpenStreetMap_Object
      *
      * @return integer uid of the object
      */
-    public function getUid(): int
+    public function getUid():? int
     {
         $attribs = $this->getAttributes();
         if (!is_null($attribs)) {
             return (integer) $attribs->uid;
         }
+        return null;
     }
 
     /**
@@ -308,12 +311,13 @@ class Services_OpenStreetMap_Object
      *
      * @return string user of the object
      */
-    public function getUser(): string
+    public function getUser():? string
     {
         $attribs = $this->getAttributes();
         if (!is_null($attribs)) {
             return (string) $attribs->user;
         }
+        return null;
     }
 
     /**
@@ -321,12 +325,13 @@ class Services_OpenStreetMap_Object
      *
      * @return integer version of the object
      */
-    public function getVersion(): int
+    public function getVersion():? int
     {
         $attribs = $this->getAttributes();
         if (!is_null($attribs)) {
             return (integer) $attribs->version;
         }
+        return null;
     }
 
     /**
@@ -591,11 +596,11 @@ class Services_OpenStreetMap_Object
      *
      * @param Services_OpenStreetMap_Config $config Config object
      *
-     * @return Services_OpenStreetMap_Changeset
+     * @return Services_OpenStreetMap_Object
      */
     public function setConfig(
         Services_OpenStreetMap_Config $config
-    ): Services_OpenStreetMap_Changeset {
+    ): Services_OpenStreetMap_Object {
         $this->config = $config;
         return $this;
     }
@@ -615,11 +620,11 @@ class Services_OpenStreetMap_Object
      *
      * @param Services_OpenStreetMap_Transport $transport Transport instance.
      *
-     * @return Services_OpenStreetMap_Config
+     * @return Services_OpenStreetMap_Object
      */
     public function setTransport(
         Services_OpenStreetMap_Transport $transport
-    ): Services_OpenStreetMap_Config {
+    ) {
         $this->transport = $transport;
         return $this;
     }

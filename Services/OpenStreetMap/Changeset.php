@@ -565,9 +565,9 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     /**
      * Get changeset Id.
      *
-     * @return null|float value or null if none set
+     * @return null|double value or null if none set
      */
-    public function getId(): ?float
+    public function getId(): ?string
     {
         $p_id = parent::getId();
         if (is_null($p_id)) {
@@ -607,13 +607,13 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     /**
      * Update id of some type of object.
      *
-     * @param string  $type   Object type
-     * @param integer $old_id Old id
-     * @param integer $new_id New id
+     * @param string $type   Object type
+     * @param string $old_id Old id
+     * @param string $new_id New id
      *
      * @return void
      */
-    public function updateObjectId(string $type, int $old_id, int $new_id): void
+    public function updateObjectId(string $type, string $old_id, string $new_id): void
     {
         if ($old_id == $new_id) {
             return;

@@ -22,7 +22,7 @@ require_once 'Services/OpenStreetMap.php';
 
 $osm = new Services_OpenStreetMap();
 
-// var_dump($osm->getCoordsOfPlace("Nenagh, Ireland"));
+//var_dump($osm->getCoordsOfPlace("Nenagh, Ireland"));
 var_dump($osm->getNode(52245107));
 
 // vim:set et ts=4 sw=4:

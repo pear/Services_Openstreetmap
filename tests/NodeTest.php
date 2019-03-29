@@ -295,30 +295,6 @@ class NodeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test invalid latitude value in constructor
-     *
-     * @expectedException        InvalidArgumentException
-     * @expectedExceptionMessage Latitude must be numeric
-     *
-     * @return void
-     */
-    public function testCreateNodeNonnumericLatInConstructor()
-    {
-        $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
-
-        $config = [
-            'adapter'  => $mock,
-            'server'   => 'http://api06.dev.openstreetmap.org/',
-        ];
-        $osm = new Services_OpenStreetMap($config);
-        $lat = 'ArticCircle';
-        $lon = -8.1983611;
-        $node = $osm->createNode($lat, $lon);
-    }
-
-
-    /**
      * Test invalid longitude value in constructor and that value greater than
      * 180 degrees causes an exception.
      *
@@ -405,29 +381,6 @@ class NodeTest extends PHPUnit_Framework_TestCase
         $lon = -180;
         $node = $osm->createNode($lat, $lon);
         $this->assertEquals($lon, $node->getLon());
-    }
-
-    /**
-     * Test invalid longitude value in constructor
-     *
-     * @expectedException        InvalidArgumentException
-     * @expectedExceptionMessage Longitude must be numeric
-     *
-     * @return void
-     */
-    public function testCreateNodeNonnumericLonInConstructor()
-    {
-        $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
-
-        $config = [
-            'adapter' => $mock,
-            'server'  => 'http://api06.dev.openstreetmap.org/',
-        ];
-        $osm = new Services_OpenStreetMap($config);
-        $lat = 52.8638729;
-        $lon = 'TheBlessing';
-        $node = $osm->createNode($lat, $lon);
     }
 
     /**
