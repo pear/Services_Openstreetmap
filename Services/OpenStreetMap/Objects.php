@@ -299,7 +299,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      *
      * @param Services_OpenStreetMap_Transport $transport Transport instance.
      *
-     * @return Services_OpenStreetMap_Config
+     * @return Services_OpenStreetMap_Objects
      */
     public function setTransport(
         Services_OpenStreetMap_Transport $transport
