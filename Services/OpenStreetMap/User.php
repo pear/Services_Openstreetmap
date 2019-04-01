@@ -352,7 +352,7 @@ class Services_OpenStreetMap_User
             $preferences = [];
             foreach ($this->prefObj[0]->children() as $child) {
                 $key = (string) $child->attributes()->k;
-                if ($key != '') {
+                if ($key !== '') {
                     $preferences[$key] = (string) $child->attributes()->v;
                 }
             }
@@ -386,7 +386,7 @@ class Services_OpenStreetMap_User
                 $doc .= "<preference k='$key' v='$value' />";
             }
             $doc .= '</preferences></osm>';
-        } elseif (count($preferences) == 1) {
+        } elseif (count($preferences) === 1) {
             foreach ($preferences as $k => $v) {
                 $url .= '/' . $k;
                 $doc = $v;

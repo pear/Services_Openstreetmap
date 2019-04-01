@@ -183,7 +183,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 null,
                 [
                     ['Content-type', 'text/xml', true],
-                    ['Authorization',$authStr, true]
+                    ['Authorization', $authStr, true]
                 ]
             );
         } else {
@@ -327,7 +327,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                     $consumer_secret . '&' . $oauth_token_secret, $hashString
                 );
 
-                $authStr='OAuth '.Services_OpenStreetMap_OAuthHelper::assocArrayToString(
+                $authStr = 'OAuth ' . Services_OpenStreetMap_OAuthHelper::assocArrayToString(
                     $oAuthArray, '=', ', ', '"'
                 );
 
@@ -339,7 +339,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                     $this->getOsmChangeXml(),
                     null,
                     [['Content-type', 'text/xml', true],
-                     ['Authorization',$authStr, true]]
+                     ['Authorization', $authStr, true]]
                 );
             } else {
                 throw new Services_OpenStreetMap_RuntimeException(
@@ -424,7 +424,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                     null,
                     [
                         ['Content-type', 'text/xml', true],
-                        ['Authorization',$authStr, true]
+                        ['Authorization', $authStr, true]
                     ]
                 );
             } else {
@@ -607,22 +607,22 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     /**
      * Update id of some type of object.
      *
-     * @param string $type   Object type
-     * @param string $old_id Old id
-     * @param string $new_id New id
+     * @param string $type  Object type
+     * @param string $oldId Old id
+     * @param string $newId New id
      *
      * @return void
      */
-    public function updateObjectId(string $type, string $old_id, string $new_id): void
+    public function updateObjectId(string $type, string $oldId, string $newId): void
     {
-        if ($old_id == $new_id) {
+        if ($oldId === $newId) {
             return;
         }
         foreach ($this->members as $member) {
             if ($member->getType() == $type) {
-                if ($member->getId() == $old_id) {
-                    $member->setId($new_id);
-                    $this->updateMap[$old_id] = $new_id;
+                if ($member->getId() == $oldId) {
+                    $member->setId($newId);
+                    $this->updateMap[$oldId] = $newId;
                 }
             }
         }

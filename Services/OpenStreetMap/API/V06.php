@@ -211,8 +211,8 @@ class Services_OpenStreetMap_API_V06
             $types[] = $criterion->type();
         }
 
-        if (array_search('user', $types) !== false
-            && array_search('display_name', $types) !== false
+        if (in_array('user', $types, true)
+            && in_array('display_name', $types, true)
         ) {
             throw new Services_OpenStreetMap_RuntimeException(
                 'Can\'t supply both user and display_name criteria'

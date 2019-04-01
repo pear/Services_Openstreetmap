@@ -203,11 +203,11 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
         $kids = [];
         foreach ($obj[0]->children() as $child) {
             $key = (string) $child->attributes()->k;
-            if ($key != '') {
+            if ($key !== '') {
                 $this->tags[$key] = (string) $child->attributes()->v;
             }
             $name = (string) $child->getName();
-            if ($name == 'comments') {
+            if ($name === 'comments') {
                 $comments = [];
                 foreach ($child->children() as $gchild) {
                     $comment = new Services_OpenStreetMap_Comment;
@@ -215,7 +215,7 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
                     $comments[] = $comment;
                 }
                 $kids[] = $comments;
-            } elseif ($name == 'id') {
+            } elseif ($name === 'id') {
                 $this->setId((string) $child);
 
             }

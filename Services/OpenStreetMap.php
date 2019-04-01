@@ -383,7 +383,7 @@ class Services_OpenStreetMap
                     $obj->setConfig($this->getConfig());
                     $obj->setXml(simplexml_load_string($node->saveXML()));
                     $results[] = $obj;
-                } elseif ($value == '*') {
+                } elseif ($value === '*') {
                     $obj = new $class();
                     $obj->setTransport($this->getTransport());
                     $obj->setConfig($this->getConfig());
