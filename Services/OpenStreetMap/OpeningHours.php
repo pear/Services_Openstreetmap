@@ -128,17 +128,12 @@ class Services_OpenStreetMap_OpeningHours
             if (preg_match('/' . $day .'/', $rule_sequence)) {
                 // @fixme: brittle. use preg_replace with \w
                 $portions = explode(' ', str_replace(', ', ',', $rule_sequence));
-                $ret = $this->_openTimeSpec($portions, $time);
-                return $ret;
+                return $this->_openTimeSpec($portions, $time);
             }
             // @fixme: brittle. use preg_replace with \w
             $portions = explode(' ', str_replace(', ', ',', $rule_sequence));
             $open = $this->_openTimeSpec($portions, $time);
-            if ($open !== false) {
-                $retval = true;
-            } else {
-                $retval = false;
-            }
+            $retval = $open !== false;
         }
         return $retval;
     }
@@ -264,7 +259,7 @@ class Services_OpenStreetMap_OpeningHours
                 $days = array_reverse($rdays);
             }
             return $days;
-        } elseif (strlen($spec) == 2) {
+        } elseif (strlen($spec) === 2) {
             if (in_array($spec, $days)) {
                 return [$spec];
             }

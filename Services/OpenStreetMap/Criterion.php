@@ -134,11 +134,7 @@ class Services_OpenStreetMap_Criterion
                 }
                 $before = gmstrftime('%Y-%m-%dT%H:%M:%SZ', $time);
             }
-            if (!is_null($before)) {
-                $this->value = "{$after},{$before}";
-            } else {
-                $this->value = $after;
-            }
+            $this->value = !is_null($before) ? "{$after},{$before}" : $after;
             break;
         default:
             $this->type = null;

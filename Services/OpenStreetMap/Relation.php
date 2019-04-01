@@ -96,7 +96,7 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
             $childname = $child->getName();
             if ($childname == 'tag') {
                 $key = (string) $child->attributes()->k;
-                if ($key != '') {
+                if ($key !== '') {
                     $this->tags[$key] = (string) $child->attributes()->v;
                 }
             } elseif ($childname == 'member') {

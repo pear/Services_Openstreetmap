@@ -381,10 +381,7 @@ class Services_OpenStreetMap_Config
             FILTER_VALIDATE_REGEXP,
             ['options' => ['regexp' => '/^[a-z]{1,8}$/i']]
         );
-        if ($valid !== false) {
-            return true;
-        }
-        return false;
+        return $valid !== false;
     }
 
     /**
@@ -455,12 +452,12 @@ class Services_OpenStreetMap_Config
         $this->config['passwordfile'] =  $file;
         $lines = array_map('trim', $lines);
 
-        if (sizeof($lines) == 1) {
+        if (sizeof($lines) === 1) {
             if (strpos($lines[0], '#') !== 0) {
                 list($this->config['user'], $this->config['password'])
                     = explode(':', $lines[0]);
             }
-        } elseif (sizeof($lines) == 2) {
+        } elseif (sizeof($lines) === 2) {
             if (strpos($lines[0], '#') === 0) {
                 if (strpos($lines[1], '#') !== 0) {
                     list($this->config['user'], $this->config['password'])

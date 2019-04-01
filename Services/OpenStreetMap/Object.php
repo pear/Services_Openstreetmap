@@ -136,7 +136,7 @@ class Services_OpenStreetMap_Object
         $obj = $xml->xpath('//' . $this->getType());
         foreach ($obj[0]->children() as $child) {
             $key = (string) $child->attributes()->k;
-            if ($key != '') {
+            if ($key !== '') {
                 $this->tags[$key] = (string) $child->attributes()->v;
             }
         }
@@ -456,11 +456,7 @@ class Services_OpenStreetMap_Object
     public function setTag($key, $value): Services_OpenStreetMap_Object
     {
         if (is_null($this->action)) {
-            if ($this->getId() < 0) {
-                $this->action = 'create';
-            } else {
-                $this->action = 'modify';
-            }
+            $this->action = $this->getId() < 0 ? 'create' : 'modify';
         }
         $this->dirty = true;
         $this->tags[$key] = $value;

@@ -228,14 +228,12 @@ class Services_OpenStreetMap_Nominatim
         $url = $this->server . 'search?' . $query;
 
         $response = $this->getTransport()->getResponse($url);
-        if ($format == 'xml') {
+        if ($format === 'xml') {
             $xml = simplexml_load_string($response->getBody());
-            $places = $xml->xpath('//place');
-            return $places;
-        } elseif ($format == 'json' || $format == 'jsonv2') {
-            $places = json_decode($response->getBody());
-            return $places;
-        } elseif ($format == 'html') {
+            return $xml->xpath('//place');
+        } elseif ($format === 'json' || $format === 'jsonv2') {
+            return json_decode($response->getBody());
+        } elseif ($format === 'html') {
             return $response->getBody();
         }
     }
@@ -419,11 +417,7 @@ class Services_OpenStreetMap_Nominatim
      */
     public function setCountryCodes(string $codes): Services_OpenStreetMap_Nominatim
     {
-        if ($codes == '') {
-            $this->countryCodes = null;
-        } else {
-            $this->countryCodes = $codes;
-        }
+        $this->countryCodes = $codes === '' ? null : $codes;
         return $this;
     }
 
