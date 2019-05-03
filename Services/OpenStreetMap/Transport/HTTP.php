@@ -163,20 +163,20 @@ class Services_OpenStreetMap_Transport_HTTP
 
             if (self::OK === $code) {
                 return $response;
-            } else {
-                $eMsg = 'Unexpected HTTP status: '
-                    . $code . ' '
-                    . $response->getReasonPhrase()
-                    . ' [for ' .  $response->getEffectiveUrl() . ']';
-                /**
-                 * What text for the error  was retrieved?
-                 *
-                 * @var string $error
-                 */
-                $error = $response->getHeader('error');
-                if (null !== $error) {
-                    $eMsg .= " ($error)";
-                }
+            }
+
+            $eMsg = sprintf(
+                "Unexpected HTTP status: %s %s [for %s]", $code,
+                $response->getReasonPhrase(), $response->getEffectiveUrl()
+            );
+            /**
+             * What text for the error  was retrieved?
+             *
+             * @var string $error
+             */
+            $error = $response->getHeader('error');
+            if (null !== $error) {
+                $eMsg .= " ($error)";
             }
         } catch (HTTP_Request2_Exception $e) {
             $this->log->warning((string)$e);
@@ -259,11 +259,10 @@ class Services_OpenStreetMap_Transport_HTTP
         }*/
 
         $config = $this->getConfig()->asArray();
-        $url = $config['server']
-            . 'api/'
-            . $config['api_version']
-            . '/' . $type . '/'
-            . $id;
+        $url = sprintf(
+            "%sapi/%s/%s/%s", $config['server'], $config['api_version'], $type,
+            $id
+        );
         if ($version !== null) {
             $url .= "/$version";
             if ($append !== null) {
@@ -312,11 +311,10 @@ class Services_OpenStreetMap_Transport_HTTP
         */
         $response = null;
         $config = $this->getConfig();
-        $url = $config->getValue('server')
-            . 'api/'
-            . $config->getValue('api_version')
-            . '/' . $type . 's?' . $type . 's='
-            . implode(',', $ids);
+        $url = sprintf(
+            "%sapi/%s/%ss?%ss=%s", $config->getValue('server'),
+            $config->getValue('api_version'), $type, $type, implode(',', $ids)
+        );
         try {
             $response = $this->getResponse($url);
         } catch (Services_OpenStreetMap_Exception $ex) {

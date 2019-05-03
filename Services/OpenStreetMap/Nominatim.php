@@ -458,7 +458,7 @@ class Services_OpenStreetMap_Nominatim
     public function setAddressdetails(
         int $addressdetails
     ): Services_OpenStreetMap_Nominatim {
-        $this->addressdetails = (int) $addressdetails;
+        $this->addressdetails = $addressdetails;
 
         return $this;
     }
