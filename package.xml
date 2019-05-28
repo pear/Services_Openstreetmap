@@ -13,10 +13,10 @@
   <email>kguest@php.net</email>
   <active>yes</active>
  </lead>
- <date>2018-02-22</date>
+ <date>2019-05-28</date>
  <time>23:14:59</time>
  <version>
-  <release>1.0.0RC1</release>
+  <release>1.0.0RC2</release>
   <api>0.5.0</api>
  </version>
  <stability>
@@ -25,13 +25,15 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
  <notes>
- * Bug #23738/Issue #18: Change openstreetmap.org URLs to use https - thanks to grischard for reporting this requirement.
- * Copyright year updates - thanks to Nolwennig.
- * Include property "addressdetails" into query builder - thanks to FireLizard
- * Include setter/getter for property "addressdetails" - thanks to FireLizard
- * Possibility to get further addressdetails on looking for a place - thanks to FireLizard
- * Some refactoring and PHP 7 Compatibility work.
- * Various dependency updates - thanks to FireLizard.
+ * Minimum version of PHP raised to PHP 7.1
+ * Should be compatible with PHP 7.2
+ * Retrieval of notes via search endpoint added (thanks to LiamBailey)
+ * Some key/value checks for max length 255 (thanks to LiamBailey)
+ * Documentation broken out to separate files (thanks to franciscollanquipichun)
+ * SSL Options can be configured (Issue #32)
+ * Support for Wildcard Search has been added (Issue #22)
+ * Support for OAuth has been added (thanks to khvalov)
+ * Support for variable times around sunset/sunrise has been added.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -145,6 +147,9 @@
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
      <file name="Notes.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="OAuthHelper.php" role="php">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
      <file name="Object.php" role="php">
@@ -481,7 +486,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.4.0</min>
+    <min>7.1.0</min>
    </php>
    <pearinstaller>
     <min>1.10.1</min>
