@@ -201,18 +201,13 @@ class Services_OpenStreetMap_Object
                 $val = $tags->item($i)->getAttribute('v');
                 $set[$key] = $val;
             }
-
-            $diff = array_diff_assoc($this->getTags(), $set);
-
+            
             // Remove existing tags
             for ($i = 0; $i < $tags->length; $i++) {
-                $rkey = $tags->item($i)->getAttribute('k');
-                if (isset($diff[$rkey])) {
-                    $nodelist->item(0)->removeChild($tags->item($i));
-                }
+                $nodelist->item(0)->removeChild($tags->item($i));
             }
 
-            foreach ($diff as $key=>$value) {
+            foreach ($this->getTags() as $key=>$value) {
                 $new = $domd->createElement('tag');
                 $new->setAttribute('k', $key);
                 $new->setAttribute('v', $value);
