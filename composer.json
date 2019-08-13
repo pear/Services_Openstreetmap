@@ -17,7 +17,7 @@
     ],
     "keywords": ["openstreetmap", "open", "street", "map", "osm", "maps", "openstreetmaps"],
     "license": "BSD-3-Clause",
-    "name": "kenguest/services-openstreetmap",
+    "name": "zoonru/services-openstreetmap",
     "type": "library",
     "require": {
         "php": ">=7.1",
