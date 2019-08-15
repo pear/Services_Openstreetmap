@@ -40,7 +40,7 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
      */
     public function getAction(): string
     {
-        if (!is_null($this->obj[0])) {
+        if ($this->obj[0] !== null) {
             return $this->obj[0]->action;
         } else {
             return '';
@@ -54,7 +54,7 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
      */
     public function getDate(): int
     {
-        if (!is_null($this->obj[0])) {
+        if ($this->obj[0] !== null) {
             return $this->obj[0]->date;
         } else {
             return 0;
@@ -110,4 +110,3 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
     }
 }
 // vim:set et ts=4 sw=4:
-?>

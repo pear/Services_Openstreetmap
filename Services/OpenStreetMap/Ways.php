@@ -36,4 +36,3 @@ class Services_OpenStreetMap_Ways extends Services_OpenStreetMap_Objects
     }
 }
 // vim:set et ts=4 sw=4:
-?>

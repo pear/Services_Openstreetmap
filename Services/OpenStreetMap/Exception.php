@@ -26,6 +26,4 @@
 class Services_OpenStreetMap_Exception extends Exception
 {
 }
-
 // vim:set et ts=4 sw=4:
-?>

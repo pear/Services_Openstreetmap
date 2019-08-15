@@ -132,5 +132,5 @@ interface Services_OpenStreetMap_Transport
     public function searchObjects(
         string $type,
         array $criteria
-    ):? Services_OpenStreetMap_Objects;
+    ):?Services_OpenStreetMap_Objects;
 }

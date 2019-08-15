@@ -101,11 +101,10 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
                 }
             } elseif ($childname == 'member') {
                 $this->members[] = [
-                    'type'=> (string) $child->attributes()->type,
-                    'ref'=> (string) $child->attributes()->ref,
-                    'role'=> (string) $child->attributes()->role,
+                    'type' => (string) $child->attributes()->type,
+                    'ref'  => (string) $child->attributes()->ref,
+                    'role' => (string) $child->attributes()->role,
                 ];
-
             }
         }
         $this->obj = $obj;
@@ -113,4 +112,3 @@ class Services_OpenStreetMap_Relation extends Services_OpenStreetMap_Object
     }
 }
 // vim:set et ts=4 sw=4:
-?>

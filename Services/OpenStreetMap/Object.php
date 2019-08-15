@@ -116,7 +116,7 @@ class Services_OpenStreetMap_Object
     public function __toString(): string
     {
         $changeXML = $this->getOsmChangeXml();
-        if (is_null($changeXML)) {
+        if ($changeXML === null) {
             return '' . $this->getXml();
         } else {
             return $changeXML;
@@ -177,7 +177,7 @@ class Services_OpenStreetMap_Object
      * @return string|null
      * @link   http://wiki.openstreetmap.org/wiki/OsmChange
      */
-    public function getOsmChangeXml():? string
+    public function getOsmChangeXml():?string
     {
         $type = $this->getType();
         if ($this->dirty) {
@@ -190,7 +190,7 @@ class Services_OpenStreetMap_Object
             $nodelist->item(0)->setAttribute('action', $this->action);
             $nodelist->item(0)->setAttribute('id', $this->getId());
 
-            if (!is_null($this->changesetId)) {
+            if ($this->changesetId !== null) {
                 $nodelist->item(0)->setAttribute('changeset', $this->changesetId);
             }
             $tags = $xpath->query("//{$type}/tag");
@@ -212,7 +212,7 @@ class Services_OpenStreetMap_Object
                 }
             }
 
-            foreach ($diff as $key=>$value) {
+            foreach ($diff as $key => $value) {
                 $new = $domd->createElement('tag');
                 $new->setAttribute('k', $key);
                 $new->setAttribute('v', $value);
@@ -222,8 +222,7 @@ class Services_OpenStreetMap_Object
             $xml = $domd->saveXml($nodelist->item(0));
             $xml = "<{$this->action}>{$xml}</{$this->action}>";
             return $this->osmChangeXml($xml);
-
-        } elseif ($this->action == 'delete') {
+        } elseif ($this->action === 'delete') {
             $xml = null;
             $domd = new DOMDocument();
             $domd->loadXml($this->getXml());
@@ -231,7 +230,7 @@ class Services_OpenStreetMap_Object
             $n = $xpath->query("//{$type}");
             $version = $this->getVersion();
             $version++;
-            if (!is_null($this->changesetId)) {
+            if ($this->changesetId !== null) {
                 $n->item(0)->setAttribute('changeset', $this->changesetId);
             }
             $n->item(0)->setAttribute('action', 'delete');
@@ -262,12 +261,12 @@ class Services_OpenStreetMap_Object
      */
     public function getId(): ?string
     {
-        if (!is_null($this->id)) {
+        if ($this->id !== null) {
             return $this->id;
         }
 
         $attribs = $this->getAttributes();
-        if (!is_null($attribs)) {
+        if ($attribs !== null) {
             return $attribs->id;
         }
         return null;
@@ -297,11 +296,11 @@ class Services_OpenStreetMap_Object
      *
      * @return integer uid of the object
      */
-    public function getUid():? int
+    public function getUid():?int
     {
         $attribs = $this->getAttributes();
-        if (!is_null($attribs)) {
-            return (integer) $attribs->uid;
+        if ($attribs !== null) {
+            return (int) $attribs->uid;
         }
         return null;
     }
@@ -311,10 +310,10 @@ class Services_OpenStreetMap_Object
      *
      * @return string user of the object
      */
-    public function getUser():? string
+    public function getUser():?string
     {
         $attribs = $this->getAttributes();
-        if (!is_null($attribs)) {
+        if ($attribs !== null) {
             return (string) $attribs->user;
         }
         return null;
@@ -325,11 +324,11 @@ class Services_OpenStreetMap_Object
      *
      * @return integer version of the object
      */
-    public function getVersion():? int
+    public function getVersion():?int
     {
         $attribs = $this->getAttributes();
-        if (!is_null($attribs)) {
-            return (integer) $attribs->version;
+        if ($attribs !== null) {
+            return (int) $attribs->version;
         }
         return null;
     }
@@ -342,7 +341,7 @@ class Services_OpenStreetMap_Object
     public function getAttributes()
     {
 
-        if (is_null($this->obj[0])) {
+        if ($this->obj[0] === null) {
             return null;
         }
         return $this->obj[0]->attributes();
@@ -455,7 +454,7 @@ class Services_OpenStreetMap_Object
      */
     public function setTag($key, $value): Services_OpenStreetMap_Object
     {
-        if (is_null($this->action)) {
+        if ($this->action === null) {
             $this->action = $this->getId() < 0 ? 'create' : 'modify';
         }
         $this->dirty = true;
@@ -548,12 +547,12 @@ class Services_OpenStreetMap_Object
      */
     public function removeTags(array $keys): Services_OpenStreetMap_Object
     {
-        if (sizeof($keys) === 0) {
+        if (count($keys) === 0) {
             return $this;
         }
         $tags = $this->getTags();
 
-        if (sizeof($tags) === 0) {
+        if (count($tags) === 0) {
             return $this;
         }
         foreach ($keys as $key) {
@@ -636,4 +635,3 @@ class Services_OpenStreetMap_Object
     }
 }
 // vim:set et ts=4 sw=4:
-?>

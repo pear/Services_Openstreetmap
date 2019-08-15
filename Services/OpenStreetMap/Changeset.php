@@ -132,7 +132,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         $oauth_token_secret = $config->getValue('oauth_token_secret');
 
 
-        if (!is_null($user) && !is_null($password)) {
+        if ($user !== null && $password !== null) {
             $response = $this->getTransport()->getResponse(
                 $url,
                 HTTP_Request2::METHOD_PUT,
@@ -153,18 +153,23 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
 
             $oAuthArray = [
                 'oauth_consumer_key'     => $oauth_consumer_key,
-                'oauth_nonce'            => Services_OpenStreetMap_OAuthHelper::getOauthNonce(),
+                'oauth_nonce'            => $nonce,
                 'oauth_signature_method' => 'HMAC-SHA1',
-                'oauth_timestamp'        => Services_OpenStreetMap_OAuthHelper::getOauthTimestamp(),
+                'oauth_timestamp'        => $timest,
                 'oauth_token'            => $oauth_token,
                 'oauth_version'          => '1.0'
             ];
 
-            $encoded = rawurlencode(Services_OpenStreetMap_OAuthHelper::assocArrayToString($oAuthArray));
+            $authString = Services_OpenStreetMap_OAuthHelper::assocArrayToString($oAuthArray);
+            $encoded = '';
+            if (is_string($authString)) {
+                $encoded = rawurlencode($authString);
+            }
             $hashString = HTTP_Request2::METHOD_PUT . '&' . rawurlencode($url) . '&' . $encoded;
 
             $oAuthArray['oauth_signature'] = Services_OpenStreetMap_OAuthHelper::getOauthSignature(
-                $consumer_secret . '&' . $oauth_token_secret, $hashString
+                $consumer_secret . '&' . $oauth_token_secret,
+                $hashString
             );
 
             $authStr = 'OAuth ' . Services_OpenStreetMap_OAuthHelper::assocArrayToString(
@@ -187,15 +192,15 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 ]
             );
         } else {
-            if (!is_null($user) && is_null($password)) {
+            if ($user !== null && $password === null) {
                 throw new Services_OpenStreetMap_RuntimeException(
                     "Password must be set"
                 );
-            } elseif (is_null($user) && !is_null($password)) {
+            } elseif ($user === null && $password !== null) {
                 throw new Services_OpenStreetMap_RuntimeException(
                     "User must be set"
                 );
-            } elseif (is_null($this->getConfig()->getValue('passwordfile'))) {
+            } elseif ($this->getConfig()->getValue('passwordfile') === null) {
                 throw new Services_OpenStreetMap_RuntimeException(
                     "User & Password for user based auth OR oauth_consumer_key, " .
                     "oauth_token, consumer_secret, oauth_token_secret have to be " .
@@ -253,7 +258,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      * @link   http://wiki.openstreetmap.org/wiki/OsmChange
      * @throws Services_OpenStreetMap_RuntimeException If changeset Id is not
      *                                                 numeric.
-     * @throws Services_OpenStreetMap_Transport        If changeset is already
+     * @throws Services_OpenStreetMap_Exception        If changeset is already
      *                                                 closed.
      */
     public function commit(): void
@@ -277,7 +282,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         $config = $this->getConfig();
         $url = $config->getValue('server')
             . 'api/'
-            . $config->getValue('api_version').
+            . $config->getValue('api_version') .
             "/changeset/{$cId}/upload";
 
         $user = $config->getValue('user');
@@ -290,7 +295,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
 
         // Post the osmChange document to the server
         try {
-            if (!is_null($user) && !is_null($password)) {
+            if ($user !== null && $password !== null) {
                 $response = $this->getTransport()->getResponse(
                     $url,
                     HTTP_Request2::METHOD_POST,
@@ -306,29 +311,35 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 && !empty($oauth_token_secret)
             ) {
                 include_once 'Services/OpenStreetMap/OAuthHelper.php';
-                $timest=Services_OpenStreetMap_OAuthHelper::getOauthTimestamp();
-                $nonce=Services_OpenStreetMap_OAuthHelper::getOauthNonce();
+                $timest = Services_OpenStreetMap_OAuthHelper::getOauthTimestamp();
+                $nonce = Services_OpenStreetMap_OAuthHelper::getOauthNonce();
 
                 $oAuthArray = [
                     'oauth_consumer_key'     => $oauth_consumer_key,
-                    'oauth_nonce'            => Services_OpenStreetMap_OAuthHelper::getOauthNonce(),
+                    'oauth_nonce'            => $nonce,
                     'oauth_signature_method' => 'HMAC-SHA1',
-                    'oauth_timestamp'        => Services_OpenStreetMap_OAuthHelper::getOauthTimestamp(),
+                    'oauth_timestamp'        => $timest,
                     'oauth_token'            => $oauth_token,
                     'oauth_version'          => '1.0'
                 ];
 
                 $oAuthString = Services_OpenStreetMap_OAuthHelper::assocArrayToString($oAuthArray);
-                $hashString = HTTP_Request2::METHOD_POST . '&'
-                            . rawurlencode($url) . '&'
-                            . rawurlencode($oAuthString);
-
+                $reUrl = rawurlencode($url);
+                $reAuthString = '';
+                if (is_string($oAuthString)) {
+                    $reAuthString = rawurlencode($oAuthString);
+                }
+                $hashString = HTTP_Request2::METHOD_POST . '&' . $reUrl . '&' . $reAuthString;
                 $oAuthArray['oauth_signature'] = Services_OpenStreetMap_OAuthHelper::getOauthSignature(
-                    $consumer_secret . '&' . $oauth_token_secret, $hashString
+                    $consumer_secret . '&' . $oauth_token_secret,
+                    $hashString
                 );
 
                 $authStr = 'OAuth ' . Services_OpenStreetMap_OAuthHelper::assocArrayToString(
-                    $oAuthArray, '=', ', ', '"'
+                    $oAuthArray,
+                    '=',
+                    ', ',
+                    '"'
                 );
 
                 $response = $this->getTransport()->getResponse(
@@ -361,7 +372,6 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 'Error posting changeset',
                 $code
             );
-
         }
         // Explicitly close the changeset
         $url = $config->getValue('server')
@@ -372,7 +382,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         $code = null;
         $response = null;
         try {
-            if (!is_null($user) && !is_null($password) ) {
+            if ($user !== null && $password !== null) {
                 $response = $this->getTransport()->getResponse(
                     $url,
                     HTTP_Request2::METHOD_PUT,
@@ -393,19 +403,27 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
 
                 $oAuthArray = [
                     'oauth_consumer_key'     => $oauth_consumer_key,
-                    'oauth_nonce'            => Services_OpenStreetMap_OAuthHelper::getOauthNonce(),
+                    'oauth_nonce'            => $nonce,
                     'oauth_signature_method' => 'HMAC-SHA1',
-                    'oauth_timestamp'        => Services_OpenStreetMap_OAuthHelper::getOauthTimestamp(),
+                    'oauth_timestamp'        => $timest,
                     'oauth_token'            => $oauth_token,
                     'oauth_version'          => '1.0'
                 ];
 
                 $oauthString = Services_OpenStreetMap_OAuthHelper::assocArrayToString($oAuthArray);
-                $hashString = HTTP_Request2::METHOD_PUT . '&' . rawurlencode($url)
-                            . '&' . rawurlencode($oauthString);
+                $reUrl = rawurlencode($url);
+                $reAuthString = '';
+                if (is_string($oauthString)) {
+                    $reAuthString = rawurlencode($oauthString);
+                }
+                $hashString = '';
+                if (($reUrl !== false) && ($reAuthString !== false)) {
+                    $hashString = HTTP_Request2::METHOD_PUT . '&' . $reUrl . '&' . $reAuthString;
+                }
 
                 $oAuthArray['oauth_signature'] = Services_OpenStreetMap_OAuthHelper::getOauthSignature(
-                    $consumer_secret . '&' . $oauth_token_secret, $hashString
+                    $consumer_secret . '&' . $oauth_token_secret,
+                    $hashString
                 );
 
                 $authStr = 'OAuth ' . Services_OpenStreetMap_OAuthHelper::assocArrayToString(
@@ -458,8 +476,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      */
     public function getOsmChangeXml(): string
     {
-        if (is_null($this->osmChangeXml)) {
-
+        if ($this->osmChangeXml === null) {
             // Generate the osmChange document
             $blocks = null;
             foreach ($this->members as $member) {
@@ -514,7 +531,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     public function isOpen(): bool
     {
         $attribs = $this->getAttributes();
-        if (!is_null($attribs)) {
+        if ($attribs !== null) {
             return $attribs->open == 'true';
         } else {
             return $this->open;
@@ -570,7 +587,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     public function getId(): ?string
     {
         $p_id = parent::getId();
-        if (is_null($p_id)) {
+        if ($p_id === null) {
             return $this->id;
         } else {
             return $p_id;
@@ -590,17 +607,19 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     {
         $body = trim($body);
             // should check here that body has expected form.
-        if (stripos($body, 'diffResult') === false ) {
+        if (stripos($body, 'diffResult') === false) {
             throw new Services_OpenStreetMap_Exception('Invalid diffResult XML');
         }
         $cxml = simplexml_load_string($body);
-        $obj = $cxml->xpath('//diffResult');
-        foreach ($obj[0]->children() as $child) {
-            $old_id = null;
-            $new_id = null;
-            $old_id = (string) $child->attributes()->old_id;
-            $new_id = (string) $child->attributes()->new_id;
-            $this->updateObjectId($child->getName(), $old_id, $new_id);
+        if ($cxml !== false) {
+            $obj = $cxml->xpath('//diffResult');
+            foreach ($obj[0]->children() as $child) {
+                $old_id = null;
+                $new_id = null;
+                $old_id = (string) $child->attributes()->old_id;
+                $new_id = (string) $child->attributes()->new_id;
+                $this->updateObjectId($child->getName(), $old_id, $new_id);
+            }
         }
     }
 
@@ -638,4 +657,3 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         return $this->updateMap;
     }
 }
-?>

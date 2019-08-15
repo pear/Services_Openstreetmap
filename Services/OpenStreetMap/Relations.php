@@ -35,4 +35,3 @@ class Services_OpenStreetMap_Relations extends Services_OpenStreetMap_Objects
         return 'relation';
     }
 }
-?>

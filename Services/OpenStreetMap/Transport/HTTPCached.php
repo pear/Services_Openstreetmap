@@ -133,4 +133,3 @@ class Services_OpenStreetMap_Transport_HTTPCached
         return $response;
     }
 }
-?>

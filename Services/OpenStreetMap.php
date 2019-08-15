@@ -107,7 +107,7 @@ class Services_OpenStreetMap
         $version = $config->getValue('api_version');
 
         $api = "Services_OpenStreetMap_API_V" . str_replace('.', '', $version);
-        $this->api = new $api;
+        $this->api = new $api();
         $this->api->setTransport($transport);
         $this->api->setConfig($config);
     }
@@ -290,7 +290,7 @@ class Services_OpenStreetMap
      *
      * @return string
      */
-    public function getXml():? string
+    public function getXml():?string
     {
         return $this->xml;
     }
@@ -342,13 +342,13 @@ class Services_OpenStreetMap
             foreach ($xml->xpath('//way') as $node) {
                 $results = array_merge(
                     $results,
-                    $this->_searchNode($node, $key, $value, 'way')
+                    $this->searchNode($node, $key, $value, 'way')
                 );
             }
             foreach ($xml->xpath('//node') as $node) {
                 $results = array_merge(
                     $results,
-                    $this->_searchNode($node, $key, $value, 'node')
+                    $this->searchNode($node, $key, $value, 'node')
                 );
             }
         }
@@ -367,7 +367,7 @@ class Services_OpenStreetMap
      *
      * @return array
      */
-    private function _searchNode(
+    private function searchNode(
         SimpleXMLElement $node,
         string $key,
         string $value,
@@ -623,4 +623,3 @@ class Services_OpenStreetMap
     }
 }
 // vim:set et ts=4 sw=4:
-?>

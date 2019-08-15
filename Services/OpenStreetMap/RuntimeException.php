@@ -23,9 +23,7 @@
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Services_OpenStreetMap
  */
-class Services_OpenStreetMap_RuntimeException extends
-RuntimeException
+class Services_OpenStreetMap_RuntimeException extends RuntimeException
 {
 }
 // vim:set et ts=4 sw=4:
-?>

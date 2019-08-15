@@ -93,19 +93,28 @@ class Services_OpenStreetMap_OpeningHours
         );
         if ($isVariableSunRiseSunSet === 1) {
             $term1 = $matched[1];
-            $term1modifier = substr(strpbrk($term1, "+-"), 0, 1);
-            $term1segments = sscanf(trim(substr(strpbrk($term1, "+-"), 1)), "%d:%d");
-            $term1minutes = $term1segments[0] * 60 + $term1segments[1];
-            if ($term1modifier === '-') {
-                $term1minutes = -$term1minutes;
+            $term1modifier = '';
+            $bork = strpbrk($term1, "+-");
+            $term1minutes = 0;
+            if ($bork !== false) {
+                $term1modifier = $bork[0];
+                $term1segments = sscanf(trim(substr($bork, 1)), "%d:%d");
+                $term1minutes = $term1segments[0] * 60 + $term1segments[1];
+                if ($term1modifier === '-') {
+                    $term1minutes = -$term1minutes;
+                }
             }
 
             $term2 = $matched[2];
-            $term2modifier = substr(strpbrk($term2, "+-"), 0, 1);
-            $term2segments = sscanf(trim(substr(strpbrk($term2, "+-"), 1)), "%d:%d");
-            $term2minutes = $term2segments[0] * 60 + $term2segments[1];
-            if ($term2modifier === '-') {
-                $term2minutes = -$term2minutes;
+            $bork2 = strpbrk($term2, "+-");
+            $term2minutes = 0;
+            if ($bork2 !== false) {
+                $term2modifier = $bork2[0];
+                $term2segments = sscanf(trim(substr($bork2, 1)), "%d:%d");
+                $term2minutes = $term2segments[0] * 60 + $term2segments[1];
+                if ($term2modifier === '-') {
+                    $term2minutes = -$term2minutes;
+                }
             }
             $start = $this->_startTime(date_sunrise($time));
 
@@ -125,7 +134,7 @@ class Services_OpenStreetMap_OpeningHours
             $rule_sequence = strtolower(trim($rule_sequence));
             // If the day is explicitly specified in the rule sequence then
             // processing it takes precedence.
-            if (preg_match('/' . $day .'/', $rule_sequence)) {
+            if (preg_match('/' . $day . '/', $rule_sequence)) {
                 // @fixme: brittle. use preg_replace with \w
                 $portions = explode(' ', str_replace(', ', ',', $rule_sequence));
                 return $this->_openTimeSpec($portions, $time);
@@ -327,4 +336,3 @@ class Services_OpenStreetMap_OpeningHours
     }
 }
 // vim:set et ts=4 sw=4:
-?>

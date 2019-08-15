@@ -147,9 +147,9 @@ class Services_OpenStreetMap_Config
         'verbose'         => false,
         /* Fields for OAuth auth */
         'oauth_token'     => false,
-        'oauth_token_secret'=>false,
+        'oauth_token_secret' => false,
         'oauth_consumer_key' => false,
-        'consumer_secret'=> false,
+        'consumer_secret' => false,
         /* SSL Config - prompted by Erkin Sergey <bacbone@mail.ru> with thanks */
         /* https://github.com/pear/Services_Openstreetmap/issues/32            */
         /* http://pear.php.net/manual/en/package.http.http-request2.config.php */
@@ -205,7 +205,7 @@ class Services_OpenStreetMap_Config
      */
     public function getValue(string $name = null)
     {
-        if (is_null($name)) {
+        if ($name === null) {
             return $this->config;
         } elseif (!array_key_exists($name, $this->config)) {
             throw new Services_OpenStreetMap_InvalidArgumentException(
@@ -264,13 +264,13 @@ class Services_OpenStreetMap_Config
                 $this->config['adapter'] = $config['adapter'];
             }
             $refreshServerSettings = 0;
-            foreach ($config as $key=>$value) {
+            foreach ($config as $key => $value) {
                 if (!array_key_exists($key, $this->config)) {
                     throw new Services_OpenStreetMap_InvalidArgumentException(
                         "Unknown config parameter '$key'"
                     );
                 }
-                switch($key) {
+                switch ($key) {
                 case 'passwordfile':
                     if ($value !== null) {
                         $this->setPasswordfile($value);
@@ -283,7 +283,7 @@ class Services_OpenStreetMap_Config
                         '',
                         $value
                     );
-                    $this->api = new $api;
+                    $this->api = new $api();
                     break;
                 case 'accept_language':
                     $this->setAcceptLanguage($value);
@@ -297,6 +297,7 @@ class Services_OpenStreetMap_Config
                 case 'ssl_cafile':
                 case 'ssl_local_cert':
                 case 'ssl_passphrase':
+                    /* fallthru critera should refresh server settings */
                     $refreshServerSettings = 1;
                 default:
                     $this->config[$key] = $value;
@@ -452,12 +453,12 @@ class Services_OpenStreetMap_Config
         $this->config['passwordfile'] =  $file;
         $lines = array_map('trim', $lines);
 
-        if (sizeof($lines) === 1) {
+        if (count($lines) === 1) {
             if (strpos($lines[0], '#') !== 0) {
                 list($this->config['user'], $this->config['password'])
                     = explode(':', $lines[0]);
             }
-        } elseif (sizeof($lines) === 2) {
+        } elseif (count($lines) === 2) {
             if (strpos($lines[0], '#') === 0) {
                 if (strpos($lines[1], '#') !== 0) {
                     list($this->config['user'], $this->config['password'])
@@ -541,7 +542,7 @@ class Services_OpenStreetMap_Config
             || $this->api_version > $this->maxVersion)
         ) {
             throw new Services_OpenStreetMap_Exception(
-                'Specified API Version ' . $this->api_version .' not supported.'
+                'Specified API Version ' . $this->api_version . ' not supported.'
             );
         }
         $this->timeout = (int) $this->getXmlValue($xml, 'timeout', 'seconds');
@@ -718,7 +719,7 @@ class Services_OpenStreetMap_Config
      *
      * @return null|string
      */
-    public function getDatabaseStatus():? string
+    public function getDatabaseStatus():?string
     {
         return $this->databaseStatus;
     }
@@ -728,7 +729,7 @@ class Services_OpenStreetMap_Config
      *
      * @return null|string
      */
-    public function getApiStatus():? string
+    public function getApiStatus():?string
     {
         return $this->apiStatus;
     }
@@ -738,7 +739,7 @@ class Services_OpenStreetMap_Config
      *
      * @return null|string
      */
-    public function getGpxStatus():? string
+    public function getGpxStatus():?string
     {
         return $this->gpxStatus;
     }
@@ -768,7 +769,7 @@ class Services_OpenStreetMap_Config
         string $tag,
         string $attribute,
         $default = null
-    ):? string {
+    ):?string {
         $obj = $xml->xpath('//' . $tag);
         if (empty($obj)) {
             return $default;
@@ -776,4 +777,3 @@ class Services_OpenStreetMap_Config
         return $obj[0]->attributes()->$attribute;
     }
 }
-?>

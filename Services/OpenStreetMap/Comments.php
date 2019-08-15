@@ -47,4 +47,3 @@ class Services_OpenStreetMap_Comments extends Services_OpenStreetMap_Objects
         $this->objects = $array;
     }
 }
-?>

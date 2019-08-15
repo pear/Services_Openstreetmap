@@ -104,8 +104,10 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
     {
         $this->xml = $xml->saveXML();
         $objs = $xml->xpath('//' . $this->getType());
-        foreach ($objs as $obj) {
-            $this->objects[] = $obj->saveXML();
+        if ($objs !== false) {
+            foreach ($objs as $obj) {
+                $this->objects[] = $obj->saveXML();
+            }
         }
         return $this;
     }
@@ -131,7 +133,7 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
      */
     public function count(): int
     {
-        return sizeof($this->objects);
+        return count($this->objects);
     }
 
     /**
@@ -154,11 +156,11 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
         $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($this->getType()));
         $object = new $class();
         $config = $this->getConfig();
-        if (!is_null($config)) {
+        if ($config !== null) {
             $object->setConfig($config);
         }
         $transport = $this->getTransport();
-        if (!is_null($transport)) {
+        if ($transport !== null) {
             $object->setTransport($transport);
         }
         $el = simplexml_load_string($this->objects[$this->position]);
@@ -223,11 +225,11 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
         $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($this->getType()));
         $object = new $class();
         $config = $this->getConfig();
-        if (!is_null($config)) {
+        if ($config !== null) {
             $object->setConfig($config);
         }
         $transport = $this->getTransport();
-        if (!is_null($transport)) {
+        if ($transport !== null) {
             $object->setTransport($transport);
         }
         if (isset($this->objects[$offset])) {
@@ -318,4 +320,3 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
         return $this->transport;
     }
 }
-?>

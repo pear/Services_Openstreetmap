@@ -35,5 +35,3 @@ class Services_OpenStreetMap_Nodes extends Services_OpenStreetMap_Objects
         return 'node';
     }
 }
-
-?>

@@ -70,7 +70,7 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
         } else {
             $nodes = $this->nodes;
         }
-        if (sizeof($nodes) == 1) {
+        if (count($nodes) == 1) {
             $closed = false;
         } else {
             $closed = ($nodes[0]) == ($nodes[count($nodes) - 1]);
@@ -87,10 +87,15 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
     {
         if (empty($this->nodes)) {
             $obj = simplexml_load_string($this->xml);
+            if ($obj === false) {
+                return [];
+            }
             $nds = $obj->xpath('//nd');
             $nodes = [];
-            foreach ($nds as $node) {
-                $nodes[] = (string) $node->attributes()->ref;
+            if ($nds !== false) {
+                foreach ($nds as $node) {
+                    $nodes[] = (string) $node->attributes()->ref;
+                }
             }
             $this->nodes = $nodes;
         }
@@ -234,4 +239,3 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
 
 }
 // vim:set et ts=4 sw=4:
-?>

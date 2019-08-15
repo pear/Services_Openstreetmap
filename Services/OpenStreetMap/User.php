@@ -98,7 +98,10 @@ class Services_OpenStreetMap_User
     public function setPreferencesXml($xml): void
     {
         $this->prefXml = $xml;
-        $this->prefObj = simplexml_load_string($xml)->xpath('//preferences');
+        $sXml = simplexml_load_string($xml);
+        if ($sXml !== false) {
+            $this->prefObj = $sXml->xpath('//preferences');
+        }
     }
 
     /**
@@ -108,6 +111,9 @@ class Services_OpenStreetMap_User
      */
     public function getAttributes()
     {
+        if ($this->obj === false) {
+            return false;
+        }
         return $this->obj[0]->attributes();
     }
 
@@ -139,7 +145,11 @@ class Services_OpenStreetMap_User
      */
     public function getDescription(): string
     {
-        $desc = simplexml_load_string($this->xml)->xpath('//user/description');
+        $sXml = simplexml_load_string($this->xml);
+        if ($sXml === false) {
+            return '';
+        }
+        $desc = $sXml->xpath('//user/description');
         return trim($desc[0]);
     }
 
@@ -160,7 +170,11 @@ class Services_OpenStreetMap_User
      */
     public function getImage(): ?string
     {
-        $img = simplexml_load_string($this->xml)->xpath('//user/img');
+        $sXml = simplexml_load_string($this->xml);
+        if ($sXml === false) {
+            return null;
+        }
+        $img = $sXml->xpath('//user/img');
         if (empty($img)) {
             return null;
         }
@@ -176,6 +190,9 @@ class Services_OpenStreetMap_User
     {
         $langers = [];
         $cxml = simplexml_load_string($this->xml);
+        if ($cxml === false) {
+            return null;
+        }
         $languages = $cxml->xpath('//user/languages');
         if (empty($languages)) {
             return null;
@@ -195,8 +212,12 @@ class Services_OpenStreetMap_User
      */
     public function getLat(): ?float
     {
-        $home = simplexml_load_string($this->xml)->xpath('//user/home');
-        if (empty($home)) {
+        $cxml = simplexml_load_string($this->xml);
+        if ($cxml === false) {
+            return null;
+        }
+        $home = $cxml->xpath('//user/home');
+        if ($home === false) {
             return null;
         }
         return (float) $home[0]->attributes()->lat;
@@ -210,6 +231,9 @@ class Services_OpenStreetMap_User
     public function getLon(): ?float
     {
         $cxml = simplexml_load_string($this->xml);
+        if ($cxml === false) {
+            return null;
+        }
         $home = $cxml->xpath('//user/home');
         if (empty($home)) {
             return null;
@@ -225,11 +249,14 @@ class Services_OpenStreetMap_User
     public function getZoom(): ?int
     {
         $cxml = simplexml_load_string($this->xml);
+        if ($cxml === false) {
+            return null;
+        }
         $home = $cxml->xpath('//user/home');
         if (empty($home)) {
             return null;
         }
-        return (integer) $home[0]->attributes()->zoom;
+        return (int) $home[0]->attributes()->zoom;
     }
 
     /**
@@ -240,11 +267,14 @@ class Services_OpenStreetMap_User
     public function getChangesets(): ?int
     {
         $cxml = simplexml_load_string($this->xml);
+        if ($cxml === false) {
+            return null;
+        }
         $changesets = $cxml->xpath('//user/changesets');
         if (empty($changesets)) {
             return null;
         }
-        return (integer) $changesets[0]->attributes()->count;
+        return (int) $changesets[0]->attributes()->count;
     }
 
     /**
@@ -255,11 +285,14 @@ class Services_OpenStreetMap_User
     public function getTraces(): ?int
     {
         $cxml = simplexml_load_string($this->xml);
+        if ($cxml === false) {
+            return null;
+        }
         $traces = $cxml->xpath('//user/traces');
         if (empty($traces)) {
             return null;
         }
-        return (integer) $traces[0]->attributes()->count;
+        return (int) $traces[0]->attributes()->count;
     }
 
     /**
@@ -270,11 +303,14 @@ class Services_OpenStreetMap_User
     public function getBlocksReceived(): ?int
     {
         $cxml = simplexml_load_string($this->xml);
+        if ($cxml === false) {
+            return null;
+        }
         $changesets = $cxml->xpath('//user/blocks/received');
         if (empty($changesets)) {
             return null;
         }
-        return (integer) $changesets[0]->attributes()->count;
+        return (int) $changesets[0]->attributes()->count;
     }
 
     /**
@@ -285,11 +321,14 @@ class Services_OpenStreetMap_User
     public function getActiveBlocksReceived(): ?int
     {
         $cxml = simplexml_load_string($this->xml);
+        if ($cxml === false) {
+            return null;
+        }
         $changesets = $cxml->xpath('//user/blocks/received');
         if (empty($changesets)) {
             return null;
         }
-        return (integer) $changesets[0]->attributes()->active;
+        return (int) $changesets[0]->attributes()->active;
     }
 
     /**
@@ -300,11 +339,14 @@ class Services_OpenStreetMap_User
     public function getBlocksIssued(): ?int
     {
         $cxml = simplexml_load_string($this->xml);
+        if ($cxml === false) {
+            return null;
+        }
         $changesets = $cxml->xpath('//user/blocks/issued');
         if (empty($changesets)) {
             return null;
         }
-        return (integer) $changesets[0]->attributes()->count;
+        return (int) $changesets[0]->attributes()->count;
     }
 
     /**
@@ -315,11 +357,14 @@ class Services_OpenStreetMap_User
     public function getActiveBlocksIssued(): ?int
     {
         $cxml = simplexml_load_string($this->xml);
+        if ($cxml === false) {
+            return null;
+        }
         $changesets = $cxml->xpath('//user/blocks/issued');
         if (empty($changesets)) {
             return null;
         }
-        return (integer) $changesets[0]->attributes()->active;
+        return (int) $changesets[0]->attributes()->active;
     }
 
     /**
@@ -331,6 +376,9 @@ class Services_OpenStreetMap_User
     {
         $ret = [];
         $cxml = simplexml_load_string($this->xml);
+        if ($cxml === false) {
+            return [];
+        }
         $roles = $cxml->xpath('//user/roles');
         if (empty($roles)) {
             return $ret;
@@ -350,10 +398,12 @@ class Services_OpenStreetMap_User
     {
         if ($this->preferences == []) {
             $preferences = [];
-            foreach ($this->prefObj[0]->children() as $child) {
-                $key = (string) $child->attributes()->k;
-                if ($key !== '') {
-                    $preferences[$key] = (string) $child->attributes()->v;
+            if ($this->prefObj !== false) {
+                foreach ($this->prefObj[0]->children() as $child) {
+                    $key = (string) $child->attributes()->k;
+                    if ($key !== '') {
+                        $preferences[$key] = (string) $child->attributes()->v;
+                    }
                 }
             }
             $this->preferences = $preferences;
@@ -457,4 +507,3 @@ class Services_OpenStreetMap_User
     }
 }
 // vim:set et ts=4 sw=4:
-?>

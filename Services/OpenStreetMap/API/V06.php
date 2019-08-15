@@ -76,7 +76,7 @@ class Services_OpenStreetMap_API_V06
      *
      * @return Services_OpenStreetMap_Config|null
      */
-    public function getConfig():? Services_OpenStreetMap_Config
+    public function getConfig():?Services_OpenStreetMap_Config
     {
         return $this->config;
     }
@@ -204,8 +204,7 @@ class Services_OpenStreetMap_API_V06
      * @throws Services_OpenStreetMap_RuntimeException
      */
     public function searchChangesets(array $criteria)
-    : Services_OpenStreetMap_Changesets
-    {
+    : Services_OpenStreetMap_Changesets {
         $types = [];
         foreach ($criteria as $criterion) {
             $types[] = $criterion->type();
@@ -530,7 +529,7 @@ XML;
         $response = $this->getTransport()->getResponse($url);
         $collection = new Services_OpenStreetMap_Notes();
         $sxe = @simplexml_load_string($response->getBody());
-        if (!is_null($config)) {
+        if ($config !== null) {
             $collection->setConfig($config);
         }
         $collection->setTransport($this->getTransport());
@@ -588,7 +587,7 @@ XML;
         $response = $this->getTransport()->getResponse($url);
         $collection = new Services_OpenStreetMap_Notes();
         $sxe = @simplexml_load_string($response->getBody());
-        if (!is_null($config)) {
+        if ($config !== null) {
             $collection->setConfig($config);
         }
         $collection->setTransport($this);
@@ -645,7 +644,7 @@ XML;
         if (isset($permissions['permission'])) {
             $permissions = $permissions['permission'];
             foreach ($permissions as $permission) {
-                $ret[] = $permission->attributes()->name->__toString();
+                $ret[] = (string) $permission->attributes()->name;
             }
         }
         return $ret;

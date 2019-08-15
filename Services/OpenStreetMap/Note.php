@@ -210,14 +210,13 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
             if ($name === 'comments') {
                 $comments = [];
                 foreach ($child->children() as $gchild) {
-                    $comment = new Services_OpenStreetMap_Comment;
+                    $comment = new Services_OpenStreetMap_Comment();
                     $comment->setXml($gchild);
                     $comments[] = $comment;
                 }
                 $kids[] = $comments;
             } elseif ($name === 'id') {
                 $this->setId((string) $child);
-
             }
         }
         $this->comments = new Services_OpenStreetMap_Comments($comments);
@@ -227,4 +226,3 @@ class Services_OpenStreetMap_Note extends Services_OpenStreetMap_Object
     }
 }
 // vim:set et ts=4 sw=4:
-?>

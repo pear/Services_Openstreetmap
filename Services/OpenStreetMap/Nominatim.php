@@ -202,7 +202,9 @@ class Services_OpenStreetMap_Nominatim
         $response = $this->getTransport()->getResponse($url);
         if ($format === 'xml') {
             $xml = simplexml_load_string($response->getBody());
-            $reversegeocode = $xml->xpath('//reversegeocode');
+            if ($xml !== false) {
+                $reversegeocode = $xml->xpath('//reversegeocode');
+            }
         } elseif ($format === 'json' || $format === 'jsonv2') {
             $reversegeocode = json_decode($response->getBody());
         }
@@ -230,7 +232,9 @@ class Services_OpenStreetMap_Nominatim
         $response = $this->getTransport()->getResponse($url);
         if ($format === 'xml') {
             $xml = simplexml_load_string($response->getBody());
-            return $xml->xpath('//place');
+            if ($xml !== false) {
+                return $xml->xpath('//place');
+            }
         } elseif ($format === 'json' || $format === 'jsonv2') {
             return json_decode($response->getBody());
         } elseif ($format === 'html') {
@@ -251,7 +255,7 @@ class Services_OpenStreetMap_Nominatim
      */
     public function setFormat(string $format): Services_OpenStreetMap_Nominatim
     {
-        switch($format) {
+        switch ($format) {
         case 'html':
         case 'json':
         case 'jsonv2':
@@ -347,6 +351,11 @@ class Services_OpenStreetMap_Nominatim
             break;
         default:
             $parsed = parse_url($server);
+            if ($parsed === false) {
+                throw new Services_OpenStreetMap_RuntimeException(
+                    'Could not parse Server URL'
+                );
+            }
             if (isset($parsed['scheme'])
                 && isset($parsed['host'])
                 && isset($parsed['path'])
@@ -433,7 +442,7 @@ class Services_OpenStreetMap_Nominatim
      *
      * @return string|null
      */
-    public function getEmailAddress():? string
+    public function getEmailAddress():?string
     {
         return $this->email_address;
     }

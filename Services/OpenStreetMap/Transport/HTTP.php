@@ -286,7 +286,10 @@ class Services_OpenStreetMap_Transport_HTTP
         $class =  'Services_OpenStreetMap_' . ucfirst(strtolower($type));
         /** @var Services_OpenStreetMap_Object $obj */
         $obj = new $class();
-        $obj->setXml(simplexml_load_string($response->getBody()));
+        $xml = simplexml_load_string($response->getBody());
+        if ($xml !== false) {
+            $obj->setXml($xml);
+        }
         return $obj;
     }
 
@@ -379,7 +382,7 @@ class Services_OpenStreetMap_Transport_HTTP
     public function searchObjects(
         string $type,
         array $criteria
-    ):? Services_OpenStreetMap_Objects {
+    ):?Services_OpenStreetMap_Objects {
         $response = null;
         $query = [];
         foreach ($criteria as $criterion) {
