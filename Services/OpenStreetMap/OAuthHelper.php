@@ -80,7 +80,10 @@ class Services_OpenStreetMap_OAuthHelper
      * @return string|bool
      */
     public static function assocArrayToString(
-        array $arr, string $glue = '=', string $sep = '&', string $wrap = ''
+        array $arr,
+        string $glue = '=',
+        string $sep = '&',
+        string $wrap = ''
     ) {
         $str = '';
         $i = 0;
