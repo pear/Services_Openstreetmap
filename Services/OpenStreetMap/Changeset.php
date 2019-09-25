@@ -252,16 +252,18 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      * Commit changeset, posting to server.
      *
      * Generate osmChange document and post it to the server, when successful
-     * close the changeset.
+     * close the changeset. Return true on success, false otherwise.
      *
-     * @return void
+     * https://wiki.openstreetmap.org/wiki/API_v0.6#Close:_PUT_/api/0.6/changeset/#id/close
+     *
+     * @return bool Success
      * @link   http://wiki.openstreetmap.org/wiki/OsmChange
      * @throws Services_OpenStreetMap_RuntimeException If changeset Id is not
      *                                                 numeric.
      * @throws Services_OpenStreetMap_Exception        If changeset is already
      *                                                 closed.
      */
-    public function commit(): void
+    public function commit(): bool
     {
         if (!$this->open) {
             throw new Services_OpenStreetMap_Exception(
@@ -465,6 +467,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             );
         }
         $this->open = false;
+        return $code === 200;
     }
 
     /**

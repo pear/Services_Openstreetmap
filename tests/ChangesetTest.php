@@ -198,7 +198,8 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             $changeset->add($way);
         }
         $this->assertEquals(true, $changeset->isOpen());
-        $changeset->commit();
+        $success = $changeset->commit();
+        $this->assetEquals(true, $success);
     }
 
     /**
@@ -251,7 +252,8 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
             $changeset->add($way);
         }
         $this->assertEquals(true, $changeset->isOpen());
-        $changeset->commit();
+        $success = $changeset->commit();
+        $this->assertEquals(true, $success);
         $lat = 52.8638729;
         $lon = -8.1983611;
         $tags = ['building' => 'yes', 'amenity' => 'vet'];
@@ -354,8 +356,8 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $changeset->begin("Delete unrequired node.");
         $changeset->add($node->delete());
         $this->assertEquals(true, $changeset->isOpen());
-        $changeset->commit();
-        $changeset->commit();
+        $success = $changeset->commit();
+        $success = $changeset->commit();
         $node = $osm->getNode($nodeID);
         $this->assertFalse($node);
     }
@@ -403,7 +405,8 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $changeset->begin("Delete unrequired node.");
         $changeset->add($node->delete());
         $this->assertEquals(true, $changeset->isOpen());
-        $changeset->commit();
+        $success = $changeset->commit();
+        $this->assertEquals(true, $success);
     }
 
     /**
@@ -457,7 +460,8 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $changeset->begin("Delete unrequired node.");
         $changeset->add($node->delete());
         $this->assertEquals(true, $changeset->isOpen());
-        $changeset->commit();
+        $success = $changeset->commit();
+        $this->assertEquals(true, $success);
     }
 
     /**
@@ -500,7 +504,8 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $changeset->begin("Delete unrequired node.");
         $changeset->add($node->delete());
         $this->assertEquals(true, $changeset->isOpen());
-        $changeset->commit();
+        $success = $changeset->commit();
+        $this->assertEquals(true, $success);
     }
 
     /**
@@ -560,7 +565,8 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         $changeset = $osm->createChangeset();
         $changeset->begin("Add O'Kennedy vets in Nenagh");
         $changeset->add($node);
-        $changeset->commit();
+        $success = $changeset->commit();
+        $this->assertEquals(true, $success);
         $this->assertEquals($node->getId(), 1448499623);
     }
 }
