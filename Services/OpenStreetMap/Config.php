@@ -102,6 +102,14 @@ class Services_OpenStreetMap_Config
     protected $areaMaximum = null;
 
     /**
+     *
+     * Max size of area in relation to notes
+     *
+     * @var mixed
+     */
+    protected $noteAreaMaximum = null;
+
+    /**
      * Status of Database server: online, readonly or offline.
      *
      * @var string
@@ -575,6 +583,12 @@ class Services_OpenStreetMap_Config
             'maximum'
         );
 
+        $this->noteAreaMaximum = (int) $this->getXmlValue(
+            $xml,
+            'note_area',
+            'maximum'
+        );
+
         $this->databaseStatus = $this->getXmlValue(
             $xml,
             'status',
@@ -618,6 +632,16 @@ class Services_OpenStreetMap_Config
     public function getMaxArea(): float
     {
         return $this->areaMaximum;
+    }
+
+    /**
+     * Max size of area in relation to notes
+     *
+     * @return int
+     */
+    public function getMaxNoteArea(): int
+    {
+        return $this->noteAreaMaximum;
     }
 
     /**
