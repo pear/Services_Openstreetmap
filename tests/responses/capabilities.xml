@@ -19,6 +19,7 @@ Length: 324 [text/xml]
   <api>
     <version minimum="0.6" maximum="0.6"/>
     <area maximum="0.25"/>
+    <note_area maximum="10"/>
     <tracepoints per_page="5000"/>
     <waynodes maximum="2000"/>
     <changesets maximum_elements="50000"/>

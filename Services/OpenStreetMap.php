@@ -469,6 +469,16 @@ class Services_OpenStreetMap
     }
 
     /**
+     * note_area
+     *
+     * @return int
+     */
+    public function getMaxNoteArea(): int
+    {
+        return $this->getConfig()->getMaxNoteArea();
+    }
+
+    /**
      * Maximum number of tracepoints per page.
      *
      * Re gpx tracepoints.
