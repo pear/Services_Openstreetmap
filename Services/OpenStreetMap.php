@@ -469,7 +469,9 @@ class Services_OpenStreetMap
     }
 
     /**
-     * note_area
+     * The maximum area you're allowed to request notes from, in square degrees
+     *
+     * @link https://github.com/openstreetmap/openstreetmap-website/blob/master/config/settings.yml
      *
      * @return int
      */
