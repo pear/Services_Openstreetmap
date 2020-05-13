@@ -64,10 +64,11 @@ $packagexml->setLicense(
 $packagexml->addGlobalReplacement('package-info', '@PEAR-VER@', 'version');
 $packagexml->generateContents();
 
-if (isset($_GET['make'])
-    || (isset($_SERVER['argv'])
-    && @$_SERVER['argv'][1] == 'make')
-) {
+$argv =  $_SERVER['argv'];
+if (count($argv) > 1) {
+    $command = $argv[1];
+}
+if ($command === "make") {
     $packagexml->writePackageFile();
 } else {
     $packagexml->debugPackageFile();
