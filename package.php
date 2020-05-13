@@ -66,7 +66,7 @@ $packagexml->generateContents();
 
 $argv =  $_SERVER['argv'];
 if (count($argv) > 1) {
-    $command = $argv[1];
+    $command = filter_var($argv[1], FILTER_SANITIZE_STRING);
 }
 if ($command === "make") {
     $packagexml->writePackageFile();
