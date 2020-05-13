@@ -197,9 +197,6 @@ class Services_OpenStreetMap_Way extends Services_OpenStreetMap_Object
                 '',
                 $domd->saveXml($nodelist->item(0))
             );
-
-
-            return $domd->saveXml($nodelist->item(0));
         } else {
             return $xml;
         }
