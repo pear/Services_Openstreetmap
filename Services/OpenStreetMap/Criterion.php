@@ -117,7 +117,7 @@ class Services_OpenStreetMap_Criterion
             if (isset($args[1])) {
                 $after = $args[1];
                 $time = strtotime($after);
-                if ($time == -1 or $time === false) {
+                if ($time == -1 || $time === false) {
                     throw new Services_OpenStreetMap_InvalidArgumentException(
                         'Invalid time value'
                     );
@@ -127,7 +127,7 @@ class Services_OpenStreetMap_Criterion
             if (isset($args[2])) {
                 $before = $args[2];
                 $time = strtotime($before);
-                if ($time == -1 or $time === false) {
+                if ($time == -1 || $time === false) {
                     throw new Services_OpenStreetMap_InvalidArgumentException(
                         'Invalid time value'
                     );
@@ -151,18 +151,26 @@ class Services_OpenStreetMap_Criterion
      */
     public function query(): string
     {
+        $return = '';
         switch($this->type) {
         case 'bbox':
-            return "bbox={$this->value}";
+            $return = "bbox={$this->value}";
+            break;
         case 'closed':
-            return 'closed';
+            $return = 'closed';
+            break;
         case 'open':
-            return 'open';
+            $return = 'open';
+            break;
         case 'display_name':
         case 'time':
         case 'user':
-            return http_build_query([$this->type => $this->value]);
+            $return = http_build_query([$this->type => $this->value]);
+            break;
+        default:
+            $return = '';
         }
+        return $return;
     }
 
     /**
