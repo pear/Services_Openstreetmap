@@ -99,13 +99,14 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     /**
      * Begin changeset transaction.
      *
-     * @param string $message The changeset log message.
+     * @param string $message         The changeset log message.
+     * @param bool   $reviewRequested Set if a review of the changes is required.
      *
      * @return void
      * @throws Services_OpenStreetMap_RuntimeException If either user or
      *                                                 password are not set.
      */
-    public function begin(string $message): void
+    public function begin(string $message, bool $reviewRequested = false): void
     {
         $response = null;
         $code = null;
@@ -117,8 +118,11 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         '<osm version="0.6" generator="' . $userAgent . '">'
             . "<changeset id='0' open='false'>"
             . '<tag k="comment" v="' . $message . '"/>'
-            . '<tag k="created_by" v="' . $userAgent . '/0.1"/>'
-            . '</changeset></osm>';
+            . '<tag k="created_by" v="' . $userAgent . '/0.1"/>';
+        if ($reviewRequested) {
+            $doc .= '<tag k="review_requested" v="yes"/>';
+        }
+        $doc .= '</changeset></osm>';
         $url = $config->getValue('server')
             . 'api/'
             . $config->getValue('api_version')
