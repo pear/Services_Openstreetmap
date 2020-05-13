@@ -102,7 +102,6 @@ class Services_OpenStreetMap_Config
     protected $areaMaximum = null;
 
     /**
-     *
      * Max size of area in relation to notes
      *
      * @var mixed
@@ -467,11 +466,9 @@ class Services_OpenStreetMap_Config
                     = explode(':', $lines[0]);
             }
         } elseif (count($lines) === 2) {
-            if (strpos($lines[0], '#') === 0) {
-                if (strpos($lines[1], '#') !== 0) {
+            if ((strpos($lines[0], '#') === 0) && (strpos($lines[1], '#') !== 0)) {
                     list($this->config['user'], $this->config['password'])
                         = explode(':', $lines[1]);
-                }
             }
         } else {
             foreach ($lines as $line) {
