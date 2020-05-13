@@ -352,7 +352,7 @@ class Services_OpenStreetMap_Config
      * @param string $language ISO representation of language to validate
      *
      * @return void
-     * @throws Exception If language invalid
+     * @throws Services_OpenStreetMap_InvalidLanguageException If language invalid
      */
     private function _validateLanguage(string $language): void
     {
@@ -362,12 +362,12 @@ class Services_OpenStreetMap_Config
                 $subparts = explode("-", $lang);
                 foreach ($subparts as $subpart) {
                     if (!$this->_validateLanguageRegex($subpart)) {
-                        throw new Exception("Language Invalid: $language");
+                        throw new Services_OpenStreetMap_InvalidLanguageException("Language Invalid: $language");
                     }
                 }
             } else {
                 if (!$this->_validateLanguageRegex($lang)) {
-                    throw new Exception("Language Invalid: $language");
+                    throw new Services_OpenStreetMap_InvalidLanguageException("Language Invalid: $language");
                 }
             }
         }
@@ -543,8 +543,8 @@ class Services_OpenStreetMap_Config
 
         $this->minVersion = (float) $this->getXmlValue($xml, 'version', 'minimum');
         $this->maxVersion = (float) $this->getXmlValue($xml, 'version', 'maximum');
-        if (($this->minVersion > $this->api_version
-            || $this->api_version > $this->maxVersion)
+        if ($this->minVersion > $this->api_version
+            || $this->api_version > $this->maxVersion
         ) {
             throw new Services_OpenStreetMap_Exception(
                 'Specified API Version ' . $this->api_version . ' not supported.'

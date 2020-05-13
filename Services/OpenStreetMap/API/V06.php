@@ -178,18 +178,24 @@ class Services_OpenStreetMap_API_V06
      * <code>
      * $config = array('user' => 'fred@example.net', 'password' => 'wilma4eva');
      * $osm = new Services_OpenStreetMap($config);
-     * $changeset = $osm->createChangeset();
+     * $changeset = $osm->createChangeset(['reviewRequested' => true]);
      * </code>
      *
-     * @param boolean $atomic atomic changeset?
+     * @param array $settings Changeset settings e.g. reviewRequested, message
      *
      * @return Services_OpenStreetMap_Changeset
      * @see    setConfig
      */
     public function createChangeset(
-        bool $atomic = true
+        array $settings = []
     ): Services_OpenStreetMap_Changeset {
-        $changeset = new Services_OpenStreetMap_Changeset($atomic);
+        if (!array_key_exists('atomic', $settings)) {
+            $settings['atomic'] = true;
+        }
+        if (!array_key_exists('reviewRequested', $settings)) {
+            $settings['reviewRequested'] = false;
+        }
+        $changeset = new Services_OpenStreetMap_Changeset($settings);
         $changeset->setTransport($this->getTransport());
         $changeset->setConfig($this->getConfig());
         return $changeset;
