@@ -5,3 +5,4 @@ coverage.db
 coverage.xml
 tests/coverage/*
 docs/*
+build/*
