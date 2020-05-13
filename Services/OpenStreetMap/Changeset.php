@@ -292,12 +292,10 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         $code = null;
         // Generate URL that the osmChange document will be posted to
         $cId = $this->getId();
-        if (!is_numeric($cId)) {
-            if ($cId !== null) {
-                $msg = 'Changeset ID of unexpected type. (';
-                $msg .= var_export($cId, true) . ')';
-                throw new Services_OpenStreetMap_RuntimeException($msg);
-            }
+        if ((!is_numeric($cId)) && ($cId !== null)) {
+            $msg = 'Changeset ID of unexpected type. (';
+            $msg .= var_export($cId, true) . ')';
+            throw new Services_OpenStreetMap_RuntimeException($msg);
         }
         $config = $this->getConfig();
         $url = $config->getValue('server')
