@@ -87,39 +87,53 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     /**
      * Constructor
      *
-     * @param bool $atomic Whether changeset is atomic or not.
+     * @param array $settings Associative array of settings for the changeset.
+     *
+     *  bool   $atomic          Whether changeset is atomic or not.
+     *  string $message         The changeset log message.
+     *  bool   $reviewRequested Set if a review of the changes is required.
      *
      * @return Services_OpenStreetMap_Changeset
      */
-    public function __construct(bool $atomic = true)
+    public function __construct($settings = [])
     {
-        $this->atomic = $atomic;
+        if (array_key_exists('atomic', $settings)) {
+            $this->atomic = $settings['atomic'];
+        }
+        if (array_key_exists('message', $settings)) {
+            $this->message = $settings['message'];
+        }
+        if (array_key_exists('reviewRequested', $settings)) {
+            $this->reviewRequested = $settings['reviewRequested'];
+        }
     }
 
     /**
      * Begin changeset transaction.
      *
-     * @param string $message         The changeset log message.
-     * @param bool   $reviewRequested Set if a review of the changes is required.
+     * @param string $message The changeset log message. Overrides same as set in constructor.
      *
      * @return void
      * @throws Services_OpenStreetMap_RuntimeException If either user or
      *                                                 password are not set.
      */
-    public function begin(string $message, bool $reviewRequested = false): void
+    public function begin(string $message): void
     {
         $response = null;
         $code = null;
         $this->members = [];
         $this->open = true;
         $config = $this->getConfig();
+        if ($message == '') {
+            $message = $this->message;
+        }
         $userAgent = $config->getValue('User-Agent');
         $doc = "<?xml version='1.0' encoding=\"UTF-8\"?>\n" .
         '<osm version="0.6" generator="' . $userAgent . '">'
             . "<changeset id='0' open='false'>"
             . '<tag k="comment" v="' . $message . '"/>'
             . '<tag k="created_by" v="' . $userAgent . '/0.1"/>';
-        if ($reviewRequested) {
+        if ($this->reviewRequested) {
             $doc .= '<tag k="review_requested" v="yes"/>';
         }
         $doc .= '</changeset></osm>';
