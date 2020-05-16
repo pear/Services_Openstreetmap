@@ -356,6 +356,23 @@ class Services_OpenStreetMap
     }
 
     /**
+     * Create an object of specified class and XML
+     *
+     * @param string $class     Class name of object
+     * @param string $ObjectXml XML describing object to be created
+     *
+     * @return Services_OpenStreetMap_Object
+     */
+    private function createObject(string $class, string $ObjectXml)
+    {
+        $obj = new $class();
+        $obj->setTransport($this->getTransport());
+        $obj->setConfig($this->getConfig());
+        $obj->setXml(simplexml_load_string($ObjectXml));
+        return $obj;
+    }
+
+    /**
      * Search node for a specific key/value pair, allowing for value to be
      * included in a semicolon delimited list, or allowing for a wild-card
      * search.
@@ -378,25 +395,13 @@ class Services_OpenStreetMap
         foreach ($node->tag as $tag) {
             if ($tag['k'] == $key) {
                 if ($tag['v'] == $value) {
-                    $obj = new $class();
-                    $obj->setTransport($this->getTransport());
-                    $obj->setConfig($this->getConfig());
-                    $obj->setXml(simplexml_load_string($node->saveXML()));
-                    $results[] = $obj;
+                    $results[] = $this->createObject($class, $node->saveXML());
                 } elseif ($value === '*') {
-                    $obj = new $class();
-                    $obj->setTransport($this->getTransport());
-                    $obj->setConfig($this->getConfig());
-                    $obj->setXml(simplexml_load_string($node->saveXML()));
-                    $results[] = $obj;
+                    $results[] = $this->createObject($class, $node->saveXML());
                 } elseif (strpos($tag['v'], ';')) {
                     $array = explode(';', $tag['v']);
                     if (in_array($value, $array)) {
-                        $obj = new $class();
-                        $obj->setTransport($this->getTransport());
-                        $obj->setConfig($this->getConfig());
-                        $obj->setXml(simplexml_load_string($node->saveXML()));
-                        $results[] = $obj;
+                        $results[] = $this->createObject($class, $node->saveXML());
                     }
                 }
             }
