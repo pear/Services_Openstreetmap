@@ -206,7 +206,7 @@ class Services_OpenStreetMap_API_V06
      *
      * @param array $criteria Array of Services_OpenStreetMap_Criterion objects.
      *
-     * @return Services_OpenStreetMap_Changesets
+     * @return Services_OpenStreetMap_Changesets|null|Services_OpenStreetMap_Objects
      * @throws Services_OpenStreetMap_RuntimeException
      */
     public function searchChangesets(array $criteria)
@@ -438,7 +438,7 @@ XML;
      * $ways = $osm->getWays($wayId, $way2Id);
      * </code>
      *
-     * @return Services_OpenStreetMap_Ways
+     * @return Services_OpenStreetMap_Ways|Services_OpenStreetMap_Objects
      */
     public function getWays(): Services_OpenStreetMap_Objects
     {
@@ -492,7 +492,7 @@ XML;
      * var_dump($osm->getNodes(array(52245107, 52245108)));
      * </code>
      *
-     * @return Services_OpenStreetMap_Nodes
+     * @return Services_OpenStreetMap_Nodes|Services_OpenStreetMap_Objects
      */
     public function getNodes()
     {

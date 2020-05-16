@@ -83,6 +83,20 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      */
     protected $atomic;
 
+    /**
+     * The message set for the changeset
+     *
+     * @var string
+     */
+    protected $message = '';
+
+    /**
+     * Set if requesting for someone to review uploaded changeset.
+     *
+     * @var mixed
+     */
+    protected $reviewRequested = false;
+
     const ATOMIC = 'atomic';
     const MESSAGE = 'message';
     const REVIEW_REQUESTED = 'reviewRequested';
@@ -427,7 +441,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                     $reAuthString = rawurlencode($oauthString);
                 }
                 $hashString = '';
-                if (($reUrl !== false) && ($reAuthString !== false)) {
+                if (($reUrl !== '') && ($reAuthString !== '')) {
                     $hashString = HTTP_Request2::METHOD_PUT . '&' . $reUrl . '&' . $reAuthString;
                 }
 
@@ -685,8 +699,8 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     /**
      * Validate credentials for using the API backend.
      *
-     * @param string $user     Username
-     * @param string $password Password
+     * @param string|null $user     Username
+     * @param string|null $password Password
      *
      * @throws Services_OpenStreetMap_RuntimeException Thrown if user/password or password file not set
      *

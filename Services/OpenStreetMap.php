@@ -410,163 +410,6 @@ class Services_OpenStreetMap
     }
 
     /**
-     * Return the number of seconds that must elapse before a connection is
-     * considered to have timed-out.
-     *
-     * @return int
-     */
-    public function getTimeout(): int
-    {
-        return $this->getConfig()->getTimeout();
-    }
-
-    /**
-     * Minimum Version
-     *
-     * Min API version supported by connected server.
-     *
-     * <code>
-     * $config = array('user' => 'fred@example.net', 'password' => 'wilma4eva');
-     * $osm = new Services_OpenStreetMap($config);
-     * $min = $osm->getMinVersion();
-     * </code>
-     *
-     * @return float
-     */
-    public function getMinVersion(): float
-    {
-        return $this->getConfig()->getMinVersion();
-    }
-
-    /**
-     * Maximum Version
-     *
-     * Max API version supported by connected server.
-     *
-     * <code>
-     * $config = array('user' => 'fred@example.net', 'password' => 'wilma4eva');
-     * $osm = new Services_OpenStreetMap($config);
-     * $max = $osm->getMaxVersion();
-     * </code>
-     *
-     * @return float
-     */
-    public function getMaxVersion(): float
-    {
-        return $this->getConfig()->getMaxVersion();
-    }
-
-    /**
-     * Maximum Area
-     *
-     * Max size of area that can be downloaded in one request.
-     *
-     * <code>
-     * $osm = new Services_OpenStreetMap();
-     * $area_allowed = $osm->getMaxArea();
-     * </code>
-     *
-     * @return float
-     */
-    public function getMaxArea(): float
-    {
-        return $this->getConfig()->getMaxArea();
-    }
-
-    /**
-     * The maximum area you're allowed to request notes from, in square degrees
-     *
-     * @link https://github.com/openstreetmap/openstreetmap-website/blob/master/config/settings.yml
-     *
-     * @return int
-     */
-    public function getMaxNoteArea(): int
-    {
-        return $this->getConfig()->getMaxNoteArea();
-    }
-
-    /**
-     * Maximum number of tracepoints per page.
-     *
-     * Re gpx tracepoints.
-     *
-     * <code>
-     * $osm = new Services_OpenStreetMap();
-     * $tracepoints = $osm->getTracepointsPerPage();
-     * </code>
-     *
-     * @return float
-     */
-    public function getTracepointsPerPage(): float
-    {
-        return $this->getConfig()->getTracepointsPerPage();
-    }
-
-    /**
-     * Maximum number of nodes per way.
-     *
-     * Anymore than that and the way must be split.
-     *
-     * <code>
-     * $osm = new Services_OpenStreetMap();
-     * $max = $osm->getMaxNodes();
-     * </code>
-     *
-     * @return float
-     */
-    public function getMaxNodes(): float
-    {
-        return $this->getConfig()->getMaxNodes();
-    }
-
-    /**
-     * Number of elements allowed per changeset
-     *
-     * Maximum number of elements...
-     *
-     * <code>
-     * $osm = new Services_OpenStreetMap();
-     * $max = $osm->getMaxElements();
-     * </code>
-     *
-     * @return float
-     */
-    public function getMaxElements(): float
-    {
-        return $this->getConfig()->getMaxElements();
-    }
-
-    /**
-     * Status of the OSM database (offline/readonly/online)
-     *
-     * @return string
-     */
-    public function getDatabaseStatus(): ?string
-    {
-        return $this->getConfig()->getDatabaseStatus();
-    }
-
-    /**
-     * Status of the main OSM API (offline/readonly/online)
-     *
-     * @return string
-     */
-    public function getApiStatus(): ?string
-    {
-        return $this->getConfig()->getApiStatus();
-    }
-
-    /**
-     * Status of the OSM GPX API (offline/readonly/online)
-     *
-     * @return string
-     */
-    public function getGpxStatus(): ?string
-    {
-        return $this->getConfig()->getGpxStatus();
-    }
-
-    /**
      * Set Config object
      *
      * @param Services_OpenStreetMap_Config $config Config settings.
@@ -628,6 +471,22 @@ class Services_OpenStreetMap
      */
     public function __call(string $name, array $arguments)
     {
+        $configMethods = [
+            'getApiStatus',
+            'getDatabaseStatus',
+            'getGpxStatus',
+            'getMaxArea',
+            'getMaxElements',
+            'getMaxNodes',
+            'getMaxNoteArea',
+            'getMaxVersion',
+            'getMinVersion',
+            'getTimeout',
+            'getTracepointsPerPage',
+        ];
+        if (in_array($name, $configMethods)) {
+            return $this->getConfig()->$name();
+        }
         if (method_exists($this->api, $name)) {
             return call_user_func_array([$this->api, $name], $arguments);
         }
