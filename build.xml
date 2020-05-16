@@ -112,7 +112,7 @@
         </if>
     </target>
     <target name="phpcs" description="coding standards">
-        <phpcodesniffer format="checkstyle" standard="PEAR" haltonerror="yes"> 
+        <phpcodesniffer format="checkstyle" standard="PEAR" haltonerror="no"> 
         <formatter type="checkstyle" outfile="${builddir}/logs/checkstyle.xml"/>
             <fileset refid="Services"/>
         </phpcodesniffer>
