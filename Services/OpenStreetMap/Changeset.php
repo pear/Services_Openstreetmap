@@ -69,7 +69,6 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      */
     protected $osmChangeXml = null;
 
-
     /**
      * Used to keep track of Id updates.
      *
@@ -84,6 +83,10 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      */
     protected $atomic;
 
+    const ATOMIC = 'atomic';
+    const MESSAGE = 'message';
+    const REVIEW_REQUESTED = 'reviewRequested';
+
     /**
      * Constructor
      *
@@ -97,14 +100,14 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
      */
     public function __construct($settings = [])
     {
-        if (array_key_exists('atomic', $settings)) {
-            $this->atomic = $settings['atomic'];
+        if (array_key_exists(self::ATOMIC, $settings)) {
+            $this->atomic = $settings[self::ATOMIC];
         }
-        if (array_key_exists('message', $settings)) {
-            $this->message = $settings['message'];
+        if (array_key_exists(self::MESSAGE, $settings)) {
+            $this->message = $settings[self::MESSAGE];
         }
-        if (array_key_exists('reviewRequested', $settings)) {
-            $this->reviewRequested = $settings['reviewRequested'];
+        if (array_key_exists(self::REVIEW_REQUESTED, $settings)) {
+            $this->reviewRequested = $settings[self::REVIEW_REQUESTED];
         }
     }
 
@@ -133,9 +136,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             . "<changeset id='0' open='false'>"
             . '<tag k="comment" v="' . $message . '"/>'
             . '<tag k="created_by" v="' . $userAgent . '/0.1"/>';
-        if ($this->reviewRequested) {
-            $doc .= '<tag k="review_requested" v="yes"/>';
-        }
+        $doc .= $this->generateReviewRequestedTag();
         $doc .= '</changeset></osm>';
         $url = $config->getValue('server')
             . 'api/'
@@ -210,20 +211,11 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 ]
             );
         } else {
-            if ($user !== null && $password === null) {
-                throw new Services_OpenStreetMap_RuntimeException(
-                    "Password must be set"
-                );
-            } elseif ($user === null && $password !== null) {
-                throw new Services_OpenStreetMap_RuntimeException(
-                    "User must be set"
-                );
-            } elseif ($this->getConfig()->getValue('passwordfile') === null) {
-                throw new Services_OpenStreetMap_RuntimeException(
-                    "User & Password for user based auth OR oauth_consumer_key, " .
-                    "oauth_token, consumer_secret, oauth_token_secret have to be " .
-                    "defined to interact with OSM API"
-                );
+            try {
+                $this->_validateCredentials($user, $password);
+            } catch (Exception $ex) {
+                $message = $ex->getMessage();
+                throw new Services_OpenStreetMap_RuntimeException($message);
             }
         }
 
@@ -674,5 +666,48 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     public function getUpdateMap(): array
     {
         return $this->updateMap;
+    }
+
+    /**
+     * Generate the changeset tag to indicate if a review is requested
+     *
+     * @return string
+     */
+    private function generateReviewRequestedTag(): string
+    {
+        $tag = '<tag k="review_requested" v="no"/>';
+        if ($this->reviewRequested) {
+            $tag = '<tag k="review_requested" v="yes"/>';
+        }
+        return $tag;
+    }
+
+    /**
+     * Validate credentials for using the API backend.
+     *
+     * @param string $user     Username
+     * @param string $password Password
+     *
+     * @throws Services_OpenStreetMap_RuntimeException Thrown if user/password or password file not set
+     *
+     * @return void
+     */
+    private function _validateCredentials($user, $password)
+    {
+        if ($user !== null && $password === null) {
+            throw new Services_OpenStreetMap_RuntimeException(
+                "Password must be set"
+            );
+        } elseif ($user === null && $password !== null) {
+            throw new Services_OpenStreetMap_RuntimeException(
+                "User must be set"
+            );
+        } elseif ($this->getConfig()->getValue('passwordfile') === null) {
+            throw new Services_OpenStreetMap_RuntimeException(
+                "User & Password for user based auth OR oauth_consumer_key, " .
+                "oauth_token, consumer_secret, oauth_token_secret have to be " .
+                "defined to interact with OSM API"
+            );
+        }
     }
 }

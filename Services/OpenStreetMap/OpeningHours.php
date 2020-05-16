@@ -244,6 +244,7 @@ class Services_OpenStreetMap_OpeningHours
     {
         $days = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'];
         $spec = trim(strtolower($day_specification));
+        $retVal = null;
         if ($pos = strpos($spec, '-')) {
             $start_day = substr($spec, 0, $pos);
             $end_day = substr($spec, $pos + 1);
@@ -270,7 +271,7 @@ class Services_OpenStreetMap_OpeningHours
             return $days;
         } elseif (strlen($spec) === 2) {
             if (in_array($spec, $days)) {
-                return [$spec];
+                $retVal= [$spec];
             }
         } elseif (strpos($spec, ',')) {
             $delimited = explode(',', $spec);
@@ -280,9 +281,9 @@ class Services_OpenStreetMap_OpeningHours
                     $ret[] = $item;
                 }
             }
-            return $ret;
+            $retVal = $ret;
         }
-        return null;
+        return $retVal;
     }
 
     /**
@@ -298,11 +299,7 @@ class Services_OpenStreetMap_OpeningHours
         $start = $this->_startTime($time_spec);
         $d = getdate($start);
         $ctime = $d['hours'] * 60 + $d['minutes'];
-        if ($ctime < $start) {
-            return false;
-        } else {
-            return true;
-        }
+        return ($ctime >= $start);
     }
 
     /**
