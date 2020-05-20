@@ -180,9 +180,9 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             && !empty($consumer_secret)
             && !empty($oauth_token_secret)
         ) {
-            include_once 'Services/OpenStreetMap/OAuthHelper.php';
-            $timest = Services_OpenStreetMap_OAuthHelper::getOauthTimestamp();
-            $nonce = Services_OpenStreetMap_OAuthHelper::getOauthNonce();
+            include_once 'Services/OpenStreetMap/Helper/OAuth.php';
+            $timest = Services_OpenStreetMap_Helper_OAuth::getOauthTimestamp();
+            $nonce = Services_OpenStreetMap_Helper_OAuth::getOauthNonce();
 
             $oAuthArray = [
                 'oauth_consumer_key'     => $oauth_consumer_key,
@@ -193,19 +193,19 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 'oauth_version'          => '1.0'
             ];
 
-            $authString = Services_OpenStreetMap_OAuthHelper::assocArrayToString($oAuthArray);
+            $authString = Services_OpenStreetMap_Helper_OAuth::assocArrayToString($oAuthArray);
             $encoded = '';
             if (is_string($authString)) {
                 $encoded = rawurlencode($authString);
             }
             $hashString = HTTP_Request2::METHOD_PUT . '&' . rawurlencode($url) . '&' . $encoded;
 
-            $oAuthArray['oauth_signature'] = Services_OpenStreetMap_OAuthHelper::getOauthSignature(
+            $oAuthArray['oauth_signature'] = Services_OpenStreetMap_Helper_OAuth::getOauthSignature(
                 $consumer_secret . '&' . $oauth_token_secret,
                 $hashString
             );
 
-            $authStr = 'OAuth ' . Services_OpenStreetMap_OAuthHelper::assocArrayToString(
+            $authStr = 'OAuth ' . Services_OpenStreetMap_Helper_OAuth::assocArrayToString(
                 $oAuthArray,
                 '=',
                 ', ',
@@ -334,9 +334,9 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 && !empty($consumer_secret)
                 && !empty($oauth_token_secret)
             ) {
-                include_once 'Services/OpenStreetMap/OAuthHelper.php';
-                $timest = Services_OpenStreetMap_OAuthHelper::getOauthTimestamp();
-                $nonce = Services_OpenStreetMap_OAuthHelper::getOauthNonce();
+                include_once 'Services/OpenStreetMap/Helper/OAuth.php';
+                $timest = Services_OpenStreetMap_Helper_OAuth::getOauthTimestamp();
+                $nonce = Services_OpenStreetMap_Helper_OAuth::getOauthNonce();
 
                 $oAuthArray = [
                     'oauth_consumer_key'     => $oauth_consumer_key,
@@ -347,19 +347,19 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                     'oauth_version'          => '1.0'
                 ];
 
-                $oAuthString = Services_OpenStreetMap_OAuthHelper::assocArrayToString($oAuthArray);
+                $oAuthString = Services_OpenStreetMap_Helper_OAuth::assocArrayToString($oAuthArray);
                 $reUrl = rawurlencode($url);
                 $reAuthString = '';
                 if (is_string($oAuthString)) {
                     $reAuthString = rawurlencode($oAuthString);
                 }
                 $hashString = HTTP_Request2::METHOD_POST . '&' . $reUrl . '&' . $reAuthString;
-                $oAuthArray['oauth_signature'] = Services_OpenStreetMap_OAuthHelper::getOauthSignature(
+                $oAuthArray['oauth_signature'] = Services_OpenStreetMap_Helper_OAuth::getOauthSignature(
                     $consumer_secret . '&' . $oauth_token_secret,
                     $hashString
                 );
 
-                $authStr = 'OAuth ' . Services_OpenStreetMap_OAuthHelper::assocArrayToString(
+                $authStr = 'OAuth ' . Services_OpenStreetMap_Helper_OAuth::assocArrayToString(
                     $oAuthArray,
                     '=',
                     ', ',
@@ -421,9 +421,9 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 && !empty($consumer_secret)
                 && !empty($oauth_token_secret)
             ) {
-                include_once 'Services_OpenStreetMap_OAuthHelper.php';
-                $timest = Services_OpenStreetMap_OAuthHelper::getOauthTimestamp();
-                $nonce  = Services_OpenStreetMap_OAuthHelper::getOauthNonce();
+                include_once 'Services_OpenStreetMap_Helper_OAuth.php';
+                $timest = Services_OpenStreetMap_Helper_OAuth::getOauthTimestamp();
+                $nonce  = Services_OpenStreetMap_Helper_OAuth::getOauthNonce();
 
                 $oAuthArray = [
                     'oauth_consumer_key'     => $oauth_consumer_key,
@@ -434,7 +434,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                     'oauth_version'          => '1.0'
                 ];
 
-                $oauthString = Services_OpenStreetMap_OAuthHelper::assocArrayToString($oAuthArray);
+                $oauthString = Services_OpenStreetMap_Helper_OAuth::assocArrayToString($oAuthArray);
                 $reUrl = rawurlencode($url);
                 $reAuthString = '';
                 if (is_string($oauthString)) {
@@ -445,12 +445,12 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                     $hashString = HTTP_Request2::METHOD_PUT . '&' . $reUrl . '&' . $reAuthString;
                 }
 
-                $oAuthArray['oauth_signature'] = Services_OpenStreetMap_OAuthHelper::getOauthSignature(
+                $oAuthArray['oauth_signature'] = Services_OpenStreetMap_Helper_OAuth::getOauthSignature(
                     $consumer_secret . '&' . $oauth_token_secret,
                     $hashString
                 );
 
-                $authStr = 'OAuth ' . Services_OpenStreetMap_OAuthHelper::assocArrayToString(
+                $authStr = 'OAuth ' . Services_OpenStreetMap_Helper_OAuth::assocArrayToString(
                     $oAuthArray,
                     '=',
                     ', ',

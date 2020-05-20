@@ -541,8 +541,9 @@ class Services_OpenStreetMap_Config
             return false;
         }
 
-        $this->minVersion = (float) $this->getXmlValue($xml, 'version', 'minimum');
-        $this->maxVersion = (float) $this->getXmlValue($xml, 'version', 'maximum');
+        $helper = new Services_OpenStreetMap_Helper_Xml();
+        $this->minVersion = (float) $helper->getValue($xml, 'version', 'minimum');
+        $this->maxVersion = (float) $helper->getValue($xml, 'version', 'maximum');
         if ($this->minVersion > $this->api_version
             || $this->api_version > $this->maxVersion
         ) {
@@ -550,62 +551,62 @@ class Services_OpenStreetMap_Config
                 'Specified API Version ' . $this->api_version . ' not supported.'
             );
         }
-        $this->timeout = (int) $this->getXmlValue($xml, 'timeout', 'seconds');
+        $this->timeout = (int) $helper->getValue($xml, 'timeout', 'seconds');
 
         //changesets
-        $this->changesetMaximumElements = (int) $this->getXmlValue(
+        $this->changesetMaximumElements = (int) $helper->getValue(
             $xml,
             'changesets',
             'maximum_elements'
         );
 
         // Maximum number of nodes per way.
-        $this->waynodesMaximum = (int) $this->getXmlValue(
+        $this->waynodesMaximum = (int) $helper->getValue(
             $xml,
             'waynodes',
             'maximum'
         );
 
         // Number of tracepoints per way.
-        $this->tracepointsPerPage = (int) $this->getXmlValue(
+        $this->tracepointsPerPage = (int) $helper->getValue(
             $xml,
             'tracepoints',
             'per_page'
         );
 
         // Max size of area that can be downloaded in one request.
-        $this->areaMaximum = (float) $this->getXmlValue(
+        $this->areaMaximum = (float) $helper->getValue(
             $xml,
             'area',
             'maximum'
         );
 
-        $this->noteAreaMaximum = (int) $this->getXmlValue(
+        $this->noteAreaMaximum = (int) $helper->getValue(
             $xml,
             'note_area',
             'maximum'
         );
 
-        $this->databaseStatus = $this->getXmlValue(
+        $this->databaseStatus = $helper->getValue(
             $xml,
             'status',
             'database'
         );
 
-        $this->apiStatus = $this->getXmlValue(
+        $this->apiStatus = $helper->getValue(
             $xml,
             'status',
             'api'
         );
 
-        $this->gpxStatus = $this->getXmlValue(
+        $this->gpxStatus = $helper->getValue(
             $xml,
             'status',
             'gpx'
         );
 
         // What generated the XML.
-        $this->generator = '' . $this->getXmlValue(
+        $this->generator = '' . $helper->getValue(
             $xml,
             'osm',
             'generator',
@@ -775,28 +776,5 @@ class Services_OpenStreetMap_Config
     public function getGenerator(): string
     {
         return $this->generator;
-    }
-
-    /**
-     * Given SimpleXMLElement, retrieve tag value.
-     *
-     * @param SimpleXMLElement $xml       Object
-     * @param string           $tag       name of tag
-     * @param string           $attribute name of attribute
-     * @param mixed            $default   default value, optional
-     *
-     * @return string
-     */
-    public function getXmlValue(
-        SimpleXMLElement $xml,
-        string $tag,
-        string $attribute,
-        $default = null
-    ):?string {
-        $obj = $xml->xpath('//' . $tag);
-        if (empty($obj)) {
-            return $default;
-        }
-        return $obj[0]->attributes()->$attribute;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * OAuthHelper.php
+ * Helper_OAuth.php
  *
  * PHP Version 5
  *
@@ -9,19 +9,19 @@
  * @author   Ken Guest <kguest@php.net>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
- * @link     OAuthHelper.php
+ * @link     Helper_OAuth.php
  */
 
 /**
- * Services_OpenStreetMap_OAuthHelper
+ * Services_OpenStreetMap_Helper_OAuth
  *
  * @category Services
  * @package  Services_OpenStreetMap
  * @author   Valery Khvalov <khvalov@tut.by>
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
- * @link     OAuthHelper.php
+ * @link     Helper_OAuth.php
  */
-class Services_OpenStreetMap_OAuthHelper
+class Services_OpenStreetMap_Helper_OAuth
 {
     /**
      * Return time-stamp for oauth use
