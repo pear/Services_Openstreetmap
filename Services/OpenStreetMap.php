@@ -29,6 +29,9 @@ spl_autoload_register(['Services_OpenStreetMap', 'autoload']);
  * @license   BSD http://www.opensource.org/licenses/bsd-license.php
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Services_OpenStreetMap
+ *
+ *
+ * @method int getTimeout()
  */
 class Services_OpenStreetMap
 {
@@ -282,7 +285,11 @@ class Services_OpenStreetMap
      */
     public function loadXml(string $file): void
     {
-        $this->xml = file_get_contents($file);
+        $this->xml = '';
+        $contents = file_get_contents($file);
+        if ($contents !== false) {
+            $this->xml = $contents;
+        }
     }
 
     /**
@@ -334,18 +341,18 @@ class Services_OpenStreetMap
     {
         $results = [];
 
-        $xml = simplexml_load_string($this->xml);
-        if (!$xml) {
+        $xmlElement = simplexml_load_string($this->xml);
+        if (!$xmlElement) {
             return [];
         }
         foreach ($criteria as $key => $value) {
-            foreach ($xml->xpath('//way') as $node) {
+            foreach ($xmlElement->xpath('//way') as $node) {
                 $results = array_merge(
                     $results,
                     $this->searchNode($node, $key, $value, 'way')
                 );
             }
-            foreach ($xml->xpath('//node') as $node) {
+            foreach ($xmlElement->xpath('//node') as $node) {
                 $results = array_merge(
                     $results,
                     $this->searchNode($node, $key, $value, 'node')

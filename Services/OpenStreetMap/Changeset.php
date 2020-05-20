@@ -663,11 +663,9 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             return;
         }
         foreach ($this->members as $member) {
-            if ($member->getType() == $type) {
-                if ($member->getId() == $oldId) {
-                    $member->setId($newId);
-                    $this->updateMap[$oldId] = $newId;
-                }
+            if ($member->getType() == $type && $member->getId() == $oldId) {
+                $member->setId($newId);
+                $this->updateMap[$oldId] = $newId;
             }
         }
     }
