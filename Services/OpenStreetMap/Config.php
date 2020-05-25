@@ -460,28 +460,52 @@ class Services_OpenStreetMap_Config
         $this->config['passwordfile'] =  $file;
         $lines = array_map('trim', $lines);
 
-        if (count($lines) === 1) {
-            if (strpos($lines[0], '#') !== 0) {
-                list($this->config['user'], $this->config['password'])
-                    = explode(':', $lines[0]);
-            }
+        if (count($lines) === 1 && strpos($lines[0], '#') !== 0) {
+            list($this->config['user'], $this->config['password'])
+                = explode(':', $lines[0]);
         } elseif (count($lines) === 2) {
-            if ((strpos($lines[0], '#') === 0) && (strpos($lines[1], '#') !== 0)) {
-                    list($this->config['user'], $this->config['password'])
-                        = explode(':', $lines[1]);
-            }
+            list($user, $password) = $this->userPasswordFromTwolines($lines);
+            $this->config['password'] = $password;
+            $this->config['user'] = $user;
         } else {
-            foreach ($lines as $line) {
-                if (strpos($line, '#') === 0) {
-                    continue;
-                }
-                list($user, $pwd) = explode(':', $line);
-                if ($user == $this->config['user']) {
-                    $this->config['password'] = $pwd;
-                }
-            }
+            list($user, $password) = $this->userPasswordFromLines($lines);
+            $this->config['password'] = $password;
         }
         return $this;
+    }
+
+    public function userPasswordFromTwolines($lines)
+    {
+        $rUser = null;
+        $rPassword = null;
+        if ((strpos($lines[0], '#') === 0) && (strpos($lines[1], '#') !== 0)) {
+            list($rUser, $rPassword) = explode(':', $lines[1]);
+        }
+        return [$rUser, $rPassword];
+    }
+
+    /**
+     * Extract username and password from contents read from password file.
+     *
+     * @param array $lines Array of lines from reading password file
+     *
+     * @return array
+     */
+    public function userPasswordFromLines($lines)
+    {
+        $rUser = null;
+        $rPassword = null;
+        foreach ($lines as $line) {
+            if (strpos($line, '#') === 0) {
+                continue;
+            }
+            list($user, $password) = explode(':', $line);
+            if ($user == $this->config['user']) {
+                $rPassword = $password;
+                $rUser = $user;
+            }
+        }
+        return [$rUser, $rPassword];
     }
 
     /**
