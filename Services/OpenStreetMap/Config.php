@@ -325,7 +325,7 @@ class Services_OpenStreetMap_Config
             if ($config == 'server') {
                 $this->setServer($this->server);
             } elseif ($config == 'passwordfile') {
-                $this->setPasswordfile($value);
+                $this->setPasswordfile($value, $this->config['user']);
             }
         }
         return $this;
@@ -341,55 +341,9 @@ class Services_OpenStreetMap_Config
     public function setAcceptLanguage(
         string $language
     ): Services_OpenStreetMap_Config {
-        $this->_validateLanguage($language);
+        $validator = new Services_OpenStreetMap_Validator_Language($language);
         $this->config['accept-language'] = $language;
         return $this;
-    }
-
-    /**
-     * Validate specified language.
-     *
-     * @param string $language ISO representation of language to validate
-     *
-     * @return void
-     * @throws Services_OpenStreetMap_InvalidLanguageException If language invalid
-     */
-    private function _validateLanguage(string $language): void
-    {
-        $langs = explode(",", $language);
-        foreach ($langs as $lang) {
-            if (strpos($lang, '-') !== false) {
-                $subparts = explode("-", $lang);
-                foreach ($subparts as $subpart) {
-                    if (!$this->_validateLanguageRegex($subpart)) {
-                        throw new Services_OpenStreetMap_InvalidLanguageException("Language Invalid: $language");
-                    }
-                }
-            } else {
-                if (!$this->_validateLanguageRegex($lang)) {
-                    throw new Services_OpenStreetMap_InvalidLanguageException("Language Invalid: $language");
-                }
-            }
-        }
-    }
-
-    /**
-     * Validate a language via simple regex.
-     *
-     * Return true/false depending on outcome (alphabetic 1-8 chars long)
-     *
-     * @param string $language Language to validate.
-     *
-     * @return bool
-     */
-    private function _validateLanguageRegex(string $language): bool
-    {
-        $valid = filter_var(
-            $language,
-            FILTER_VALIDATE_REGEXP,
-            ['options' => ['regexp' => '/^[a-z]{1,8}$/i']]
-        );
-        return $valid !== false;
     }
 
     /**
@@ -446,66 +400,16 @@ class Services_OpenStreetMap_Config
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function setPasswordfile(string $file): Services_OpenStreetMap_Config
+    public function setPasswordfile(string $file, string $user = null): Services_OpenStreetMap_Config
     {
-        if ($file === '') {
-            return $this;
+        if ($user === null) {
+            $user = $this->config['user'];
         }
-        $lines = @file($file);
-        if ($lines === false) {
-            throw new Services_OpenStreetMap_Exception(
-                'Could not read password file'
-            );
-        }
+        $passwordfile = new Services_OpenStreetMap_Passwordfile($file, $user);
         $this->config['passwordfile'] =  $file;
-        $lines = array_map('trim', $lines);
-
-        if (count($lines) === 1 && strpos($lines[0], '#') !== 0) {
-            list($this->config['user'], $this->config['password'])
-                = explode(':', $lines[0]);
-        } elseif (count($lines) === 2) {
-            list($user, $password) = $this->userPasswordFromTwolines($lines);
-            $this->config['password'] = $password;
-            $this->config['user'] = $user;
-        } else {
-            list($user, $password) = $this->userPasswordFromLines($lines);
-            $this->config['password'] = $password;
-        }
+        $this->config['password'] = $passwordfile->getPassword();
+        $this->config['user'] = $passwordfile->getUser();
         return $this;
-    }
-
-    public function userPasswordFromTwolines($lines)
-    {
-        $rUser = null;
-        $rPassword = null;
-        if ((strpos($lines[0], '#') === 0) && (strpos($lines[1], '#') !== 0)) {
-            list($rUser, $rPassword) = explode(':', $lines[1]);
-        }
-        return [$rUser, $rPassword];
-    }
-
-    /**
-     * Extract username and password from contents read from password file.
-     *
-     * @param array $lines Array of lines from reading password file
-     *
-     * @return array
-     */
-    public function userPasswordFromLines($lines)
-    {
-        $rUser = null;
-        $rPassword = null;
-        foreach ($lines as $line) {
-            if (strpos($line, '#') === 0) {
-                continue;
-            }
-            list($user, $password) = explode(':', $line);
-            if ($user == $this->config['user']) {
-                $rPassword = $password;
-                $rUser = $user;
-            }
-        }
-        return [$rUser, $rPassword];
     }
 
     /**

@@ -149,7 +149,10 @@
      <file name="Notes.php" role="php">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
-     <file name="OAuthHelper.php" role="php">
+     <file name="Helper/OAuth.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="Helper/Xml.php" role="php">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
      <file name="Object.php" role="php">
@@ -159,6 +162,9 @@
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
      <file name="OpeningHours.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="Passwordfile.php" role="php">
       <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
      </file>
      <file name="Relation.php" role="php">
