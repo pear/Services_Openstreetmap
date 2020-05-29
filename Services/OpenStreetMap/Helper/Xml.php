@@ -11,8 +11,7 @@
  * @license  GPL (see http://www.gnu.org/licenses/gpl.txt)
  * @version  CVS: <cvs_id>
  * @link     Xml.php
- * @todo
-*/
+ */
 
 class Services_OpenStreetMap_Helper_Xml
 {

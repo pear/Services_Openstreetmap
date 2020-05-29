@@ -3,7 +3,7 @@
  * Language.php
  * 25-May-2020
  *
- * PHP Version 5
+ * PHP Version 7
  *
  * @category Language
  * @package  Language
@@ -11,8 +11,7 @@
  * @license  GPL (see http://www.gnu.org/licenses/gpl.txt)
  * @version  CVS: <cvs_id>
  * @link     Language.php
- * @todo
-*/
+ */
 
 class Services_OpenStreetMap_Validator_Language
 {

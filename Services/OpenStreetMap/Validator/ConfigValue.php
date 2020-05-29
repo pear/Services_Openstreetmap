@@ -3,7 +3,7 @@
  * ConfigValue.php
  * 29-May-2020
  *
- * PHP Version 5
+ * PHP Version 7
  *
  * @category Services
  * @package  Services_OpenStreetMap
@@ -11,7 +11,6 @@
  * @license  BSD http://www.opensource.org/licenses/bsd-license.php
  * @version  Release: @package_version@
  * @link     ConfigValue.php
- * @todo
  */
 
 /**
