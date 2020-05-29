@@ -16,9 +16,11 @@
 class Services_OpenStreetMap_Validator_Language
 {
 
-    public function __construct($language)
+    public function __construct($language = '')
     {
-        $this->validate($language);
+        if ($language !== '') {
+            $this->validate($language);
+        }
     }
     /**
      * Validate specified language.

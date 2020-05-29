@@ -62,30 +62,43 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         ];
 
         $osm = new Services_OpenStreetMap($config);
+        $expected = [
+            'accept-language' => 'en',
+            'adapter' => $mock,
+            'api_version' => '0.6',
+            'areaMaximum' => 0.25,
+            'changesetMaximumElements' => 50000,
+            'consumer_secret' => false,
+            'databaseStatus' => 'online',
+            'gpxStatus' => 'online',
+            'maxVersion' => 0.6,
+            'minVersion' => 0.6,
+            'noteAreaMaximum' => 10,
+            'oauth_consumer_key' => false,
+            'oauth_token' => false,
+            'oauth_token_secret' => false,
+            'passwordfile' => null,
+            'password' => null,
+            'server' => 'http://api06.dev.openstreetmap.org/',
+            'ssl_cafile' => null,
+            'ssl_local_cert' => null,
+            'ssl_passphrase' => null,
+            'ssl_verify_host' => true,
+            'ssl_verify_peer' => true,
+            'timeout' => 300,
+            'tracepointsPerPage' => 5000,
+            'User-Agent' => 'Services_OpenStreetMap',
+            'user' => null,
+            'verbose' => false,
+            'waynodesMaximum' => 2000,
+        ];
 
+        $configArray = $osm->getConfig()->asArray();
+        var_dump($configArray);
+        var_dump($expected);
         $this->assertEquals(
-            $osm->getConfig()->asArray(),
-            [
-                'accept-language' => 'en',
-                'api_version' => '0.6',
-                'User-Agent' => 'Services_OpenStreetMap',
-                'adapter' => $mock,
-                'server' => 'http://api06.dev.openstreetmap.org/',
-                'verbose' => false,
-                'user' => null,
-                'password' => null,
-                'passwordfile' => null,
-                'oauth_token' => false,
-                'oauth_token_secret' => false,
-                'oauth_consumer_key' => false,
-                'consumer_secret' => false,
-                'ssl_verify_peer' => true,
-                'ssl_verify_host' => true,
-                'ssl_cafile' => null,
-                'ssl_local_cert' => null,
-                'ssl_passphrase' => null,
-
-            ]
+            $configArray,
+            $expected
         );
         $this->assertEquals('0.6', $osm->getConfig()->getValue('api_version'));
         $osm->getConfig()->setValue('User-Agent', 'Acme 1.2');

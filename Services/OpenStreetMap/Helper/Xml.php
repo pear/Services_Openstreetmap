@@ -3,7 +3,7 @@
  * Xml.php
  * 20-May-2020
  *
- * PHP Version 5
+ * PHP Version 7
  *
  * @category Xml
  * @package  Xml

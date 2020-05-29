@@ -215,11 +215,8 @@ class Services_OpenStreetMap_Config
         if ($name === null) {
             return $this->config;
         }
-        if (!array_key_exists($name, $this->config)) {
-            throw new Services_OpenStreetMap_InvalidArgumentException(
-                "Unknown config parameter '$name'"
-            );
-        }
+        $validator = new Services_OpenStreetMap_Validator_ConfigValue();
+        $validator->validate($name, $this->config);
         return $this->config[$name];
     }
 
@@ -278,7 +275,9 @@ class Services_OpenStreetMap_Config
                 $validator->validate($key, $this->config);
                 switch ($key) {
                 case 'passwordfile':
-                    $this->setPasswordfile($value);
+                    if ($value !== null) {
+                        $this->setPasswordfile($value);
+                    }
                     break;
                 case 'api_version':
                     $this->config[$key] = $value;
@@ -334,7 +333,8 @@ class Services_OpenStreetMap_Config
     public function setAcceptLanguage(
         string $language
     ): Services_OpenStreetMap_Config {
-        $validator = new Services_OpenStreetMap_Validator_Language($language);
+        $validator = new Services_OpenStreetMap_Validator_Language();
+        $validator->validate($language);
         $this->config['accept-language'] = $language;
         return $this;
     }
@@ -359,13 +359,28 @@ class Services_OpenStreetMap_Config
             );
         }
         $this->server = $server;
-        $capabilities = $c->getBody();
-        if (!$this->_checkCapabilities($capabilities)) {
+        $xml = $c->getBody();
+        $capabilities = new Services_OpenStreetMap_Helper_Capabilities();
+        $capabilities->setApiVersion($this->api_version);
+
+        if (!$capabilities->extract($xml)) {
             throw new Services_OpenStreetMap_Exception(
                 'Problem checking server capabilities'
             );
         }
+        $details = $capabilities->getDetails();
         $this->config['server'] = $server;
+        $this->config['areaMaximum'] = $details['areaMaximum'];
+        $this->config['changesetMaximumElements'] = $details['changesetMaximumElements'];
+        $this->config['databaseStatus'] = $details['databaseStatus'];
+        $this->generator = $details['generator'];
+        $this->config['gpxStatus'] = $details['gpxStatus'];
+        $this->config['maxVersion'] = $details['maxVersion'];
+        $this->config['minVersion'] = $details['minVersion'];
+        $this->config['noteAreaMaximum'] = $details['noteAreaMaximum'];
+        $this->config['timeout'] = $details['timeout'];
+        $this->config['tracepointsPerPage'] = $details['tracepointsPerPage'];
+        $this->config['waynodesMaximum'] = $details['waynodesMaximum'];
 
         return $this;
     }
@@ -393,7 +408,8 @@ class Services_OpenStreetMap_Config
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function setPasswordfile(string $file, string $user = null): Services_OpenStreetMap_Config {
+    public function setPasswordfile(string $file, string $user = null): Services_OpenStreetMap_Config
+    {
         if ($user === null) {
             $user = $this->config['user'];
         }
@@ -456,66 +472,6 @@ class Services_OpenStreetMap_Config
      */
     private function _checkCapabilities($capabilities): bool
     {
-        $xml = simplexml_load_string($capabilities);
-        if (!$xml) {
-            return false;
-        }
-
-        $helper = new Services_OpenStreetMap_Helper_Xml();
-        $this->minVersion = (float) $helper->getValue($xml, 'version', 'minimum');
-        $this->maxVersion = (float) $helper->getValue($xml, 'version', 'maximum');
-        if ($this->minVersion > $this->api_version
-            || $this->api_version > $this->maxVersion
-        ) {
-            throw new Services_OpenStreetMap_Exception(
-                'Specified API Version ' . $this->api_version . ' not supported.'
-            );
-        }
-        $this->timeout = (int) $helper->getValue($xml, 'timeout', 'seconds');
-
-        //changesets
-        $this->changesetMaximumElements = (int) $helper->getValue(
-            $xml,
-            'changesets',
-            'maximum_elements'
-        );
-
-        // Maximum number of nodes per way.
-        $this->waynodesMaximum = (int) $helper->getValue(
-            $xml,
-            'waynodes',
-            'maximum'
-        );
-
-        // Number of tracepoints per way.
-        $this->tracepointsPerPage = (int) $helper->getValue(
-            $xml,
-            'tracepoints',
-            'per_page'
-        );
-
-        // Max size of area that can be downloaded in one request.
-        $this->areaMaximum = (float) $helper->getValue($xml, 'area', 'maximum');
-
-        $this->noteAreaMaximum = (int) $helper->getValue(
-            $xml,
-            'note_area',
-            'maximum'
-        );
-
-        $this->databaseStatus = $helper->getValue($xml, 'status', 'database');
-        $this->apiStatus = $helper->getValue($xml, 'status', 'api');
-        $this->gpxStatus = $helper->getValue($xml, 'status', 'gpx');
-
-        // What generated the XML.
-        $this->generator = '' . $helper->getValue(
-            $xml,
-            'osm',
-            'generator',
-            'OpenStreetMap server'
-        );
-
-        return true;
     }
 
     /**
