@@ -214,7 +214,8 @@ class Services_OpenStreetMap_Config
     {
         if ($name === null) {
             return $this->config;
-        } elseif (!array_key_exists($name, $this->config)) {
+        }
+        if (!array_key_exists($name, $this->config)) {
             throw new Services_OpenStreetMap_InvalidArgumentException(
                 "Unknown config parameter '$name'"
             );
@@ -266,22 +267,18 @@ class Services_OpenStreetMap_Config
      */
     public function setValue($config, $value = null): Services_OpenStreetMap_Config
     {
+        $validator = new Services_OpenStreetMap_Validator_ConfigValue();
         if (is_array($config)) {
             if (isset($config['adapter'])) {
                 $this->config['adapter'] = $config['adapter'];
             }
             $refreshServerSettings = 0;
+
             foreach ($config as $key => $value) {
-                if (!array_key_exists($key, $this->config)) {
-                    throw new Services_OpenStreetMap_InvalidArgumentException(
-                        "Unknown config parameter '$key'"
-                    );
-                }
+                $validator->validate($key, $this->config);
                 switch ($key) {
                 case 'passwordfile':
-                    if ($value !== null) {
-                        $this->setPasswordfile($value);
-                    }
+                    $this->setPasswordfile($value);
                     break;
                 case 'api_version':
                     $this->config[$key] = $value;
@@ -316,11 +313,7 @@ class Services_OpenStreetMap_Config
                 $this->setServer($this->config['server']);
             }
         } else {
-            if (!array_key_exists($config, $this->config)) {
-                throw new Services_OpenStreetMap_InvalidArgumentException(
-                    "Unknown config parameter '$config'"
-                );
-            }
+            $validator->validate($config, $this->config);
             $this->config[$config] = $value;
             if ($config == 'server') {
                 $this->setServer($this->server);
@@ -400,13 +393,12 @@ class Services_OpenStreetMap_Config
      *
      * @return Services_OpenStreetMap_Config
      */
-    public function setPasswordfile(string $file, string $user = null): Services_OpenStreetMap_Config
-    {
+    public function setPasswordfile(string $file, string $user = null): Services_OpenStreetMap_Config {
         if ($user === null) {
             $user = $this->config['user'];
         }
         $passwordfile = new Services_OpenStreetMap_Passwordfile($file, $user);
-        $this->config['passwordfile'] =  $file;
+        $this->config['passwordfile'] = $file;
         $this->config['password'] = $passwordfile->getPassword();
         $this->config['user'] = $passwordfile->getUser();
         return $this;
@@ -503,11 +495,7 @@ class Services_OpenStreetMap_Config
         );
 
         // Max size of area that can be downloaded in one request.
-        $this->areaMaximum = (float) $helper->getValue(
-            $xml,
-            'area',
-            'maximum'
-        );
+        $this->areaMaximum = (float) $helper->getValue($xml, 'area', 'maximum');
 
         $this->noteAreaMaximum = (int) $helper->getValue(
             $xml,
@@ -515,23 +503,9 @@ class Services_OpenStreetMap_Config
             'maximum'
         );
 
-        $this->databaseStatus = $helper->getValue(
-            $xml,
-            'status',
-            'database'
-        );
-
-        $this->apiStatus = $helper->getValue(
-            $xml,
-            'status',
-            'api'
-        );
-
-        $this->gpxStatus = $helper->getValue(
-            $xml,
-            'status',
-            'gpx'
-        );
+        $this->databaseStatus = $helper->getValue($xml, 'status', 'database');
+        $this->apiStatus = $helper->getValue($xml, 'status', 'api');
+        $this->gpxStatus = $helper->getValue($xml, 'status', 'gpx');
 
         // What generated the XML.
         $this->generator = '' . $helper->getValue(

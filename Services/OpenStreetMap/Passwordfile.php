@@ -32,6 +32,9 @@ class Services_OpenStreetMap_Passwordfile
         if ($file === '') {
             return $this;
         }
+        if ($file === null) {
+            return $this;
+        }
         $this->user = $user;
         if (!file_exists($file)) {
             throw new Services_OpenStreetMap_Exception(
