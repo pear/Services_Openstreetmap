@@ -370,17 +370,18 @@ class Services_OpenStreetMap_Config
         }
         $details = $capabilities->getDetails();
         $this->config['server'] = $server;
-        $this->config['areaMaximum'] = $details['areaMaximum'];
-        $this->config['changesetMaximumElements'] = $details['changesetMaximumElements'];
-        $this->config['databaseStatus'] = $details['databaseStatus'];
+        $this->areaMaximum = $details['areaMaximum'];
+        $this->changesetMaximumElements = $details['changesetMaximumElements'];
+        $this->databaseStatus = $details['databaseStatus'];
         $this->generator = $details['generator'];
-        $this->config['gpxStatus'] = $details['gpxStatus'];
-        $this->config['maxVersion'] = $details['maxVersion'];
-        $this->config['minVersion'] = $details['minVersion'];
-        $this->config['noteAreaMaximum'] = $details['noteAreaMaximum'];
-        $this->config['timeout'] = $details['timeout'];
-        $this->config['tracepointsPerPage'] = $details['tracepointsPerPage'];
-        $this->config['waynodesMaximum'] = $details['waynodesMaximum'];
+        $this->apiStatus = $details['apiStatus'];
+        $this->gpxStatus = $details['gpxStatus'];
+        $this->maxVersion = $details['maxVersion'];
+        $this->minVersion = $details['minVersion'];
+        $this->noteAreaMaximum = $details['noteAreaMaximum'];
+        $this->timeout = $details['timeout'];
+        $this->tracepointsPerPage = $details['tracepointsPerPage'];
+        $this->waynodesMaximum = $details['waynodesMaximum'];
 
         return $this;
     }
@@ -514,7 +515,7 @@ class Services_OpenStreetMap_Config
      *
      * @return float
      */
-    public function getMinVersion(): float
+    public function getMinVersion():? float
     {
         return $this->minVersion;
     }
@@ -542,7 +543,7 @@ class Services_OpenStreetMap_Config
      *
      * @return int
      */
-    public function getTimeout(): int
+    public function getTimeout():? int
     {
         return $this->timeout;
     }

@@ -66,14 +66,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
             'accept-language' => 'en',
             'adapter' => $mock,
             'api_version' => '0.6',
-            'areaMaximum' => 0.25,
-            'changesetMaximumElements' => 50000,
             'consumer_secret' => false,
-            'databaseStatus' => 'online',
-            'gpxStatus' => 'online',
-            'maxVersion' => 0.6,
-            'minVersion' => 0.6,
-            'noteAreaMaximum' => 10,
             'oauth_consumer_key' => false,
             'oauth_token' => false,
             'oauth_token_secret' => false,
@@ -85,17 +78,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase
             'ssl_passphrase' => null,
             'ssl_verify_host' => true,
             'ssl_verify_peer' => true,
-            'timeout' => 300,
-            'tracepointsPerPage' => 5000,
             'User-Agent' => 'Services_OpenStreetMap',
             'user' => null,
             'verbose' => false,
-            'waynodesMaximum' => 2000,
         ];
 
         $configArray = $osm->getConfig()->asArray();
-        var_dump($configArray);
-        var_dump($expected);
         $this->assertEquals(
             $configArray,
             $expected

@@ -25,6 +25,9 @@ class Services_OpenStreetMap_Helper_Capabilities
 
     public function extract(string $capabilities): bool
     {
+        if ($capabilities === '') {
+            return false;
+        }
         $xml = simplexml_load_string($capabilities);
         if (!$xml) {
             return false;
@@ -82,6 +85,7 @@ class Services_OpenStreetMap_Helper_Capabilities
 
         $this->details = [
             'areaMaximum' => $areaMaximum,
+            'apiStatus' => $apiStatus,
             'changesetMaximumElements' => $changesetMaximumElements,
             'databaseStatus' => $databaseStatus,
             'generator' => $generator,
