@@ -270,32 +270,10 @@ class Services_OpenStreetMap_OpeningHours
         $spec = trim(strtolower($day_specification));
         $retVal = null;
         if ($pos = strpos($spec, '-')) {
-            $start_day = substr($spec, 0, $pos);
-            $end_day = substr($spec, $pos + 1);
-            if ($start_day !== 'mo') {
-                foreach ($days as $day) {
-                    if ($day !== $start_day) {
-                        array_shift($days);
-                    } else {
-                        break;
-                    }
-                }
-            }
-            $rdays = array_reverse($days);
-            if ($end_day !== 'su') {
-                foreach ($rdays as $day) {
-                    if ($day !== $end_day) {
-                        array_shift($rdays);
-                    } else {
-                        break;
-                    }
-                }
-                $days = array_reverse($rdays);
-            }
-            return $days;
+            return $this->_narrowDayRange($days, $spec);
         } elseif (strlen($spec) === 2) {
             if (in_array($spec, $days)) {
-                $retVal= [$spec];
+                $retVal = [$spec];
             }
         } elseif (strpos($spec, ',')) {
             $delimited = explode(',', $spec);
@@ -308,6 +286,42 @@ class Services_OpenStreetMap_OpeningHours
             $retVal = $ret;
         }
         return $retVal;
+    }
+
+    /**
+     * Narrow day range
+     *
+     * @param array  $days Days
+     * @param string $spec day specification
+     *
+     * @return array
+     */
+    private function _narrowDayRange(array $days, string $spec): array
+    {
+        $pos = strpos($spec, '-');
+        $start_day = substr($spec, 0, $pos);
+        $end_day = substr($spec, $pos + 1);
+        if ($start_day !== 'mo') {
+            foreach ($days as $day) {
+                if ($day !== $start_day) {
+                    array_shift($days);
+                } else {
+                    break;
+                }
+            }
+        }
+        $rdays = array_reverse($days);
+        if ($end_day !== 'su') {
+            foreach ($rdays as $day) {
+                if ($day !== $end_day) {
+                    array_shift($rdays);
+                } else {
+                    break;
+                }
+            }
+            $days = array_reverse($rdays);
+        }
+        return $days;
     }
 
     /**
