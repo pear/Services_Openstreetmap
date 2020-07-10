@@ -162,74 +162,98 @@ class Services_OpenStreetMap_OpeningHours
             $time = time();
         }
 
-        $day = strtolower(substr(date('D', $time), 0, 2));
         $days = $this->_daySpecToArray(trim($portions[0], ":"));
-        $pattern = '/^[0-2][0-9]:[0-5][0-9]\+$/';
         if (is_array($days)) {
-            foreach ($days as $rday) {
-                if ($rday === $day) {
-                    //day is a match
-                    $time_spec = trim($portions[1]);
-                    if (strtolower($time_spec) === 'off') {
-                        return false;
-                    }
-                    if (strpos($time_spec, '-')
-                        && (strpos($time_spec, ',') === false)
-                    ) {
-                        // specified starting and end times for just one range - not
-                        // comma delimited.
-                        $startend_times = explode('-', $time_spec);
-                        $start = $this->_startTime($startend_times[0]);
-                        $end = $this->_endTime($startend_times[1]);
-                        $d = getdate($time);
-                        $ctime = $d['hours'] * 60 + $d['minutes'];
-                        return ($ctime >= $start && $ctime <= $end);
-                    } elseif (strpos($time_spec, '-') && (strpos($time_spec, ','))) {
-                        $times = explode(',', $time_spec);
-                        $d = getdate($time);
-                        $ctime = $d['hours'] * 60 + $d['minutes'];
-                        foreach ($times as $time_spec) {
-                            $startend_times = explode('-', trim($time_spec));
-                            $start = $this->_startTime($startend_times[0]);
-                            $end = $this->_endTime($startend_times[1]);
-                            if ($ctime >= $start && $ctime <= $end) {
-                                return true;
-                            }
-                        }
-                        return false;
-                    } elseif (preg_match($pattern, $time_spec)) {
-                        // open-ended.
-                        if (!$this->_evaluateOpenEnded($time_spec)) {
-                            return false;
-                        }
-                    }
-                }
-            }
-        } else {
-            // here we go again... need to refactor/decide a better algorithm.
-            $months = [
-                'jan', 'feb', 'mar', 'apr', 'may', 'jun',
-                'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
-            ];
-            if (in_array($portions[0], $months)) {
-                $month = strtolower(date('M', $time));
+            return $this->_openTimeSpecDays($portions, $days, $time);
+        }
+        return $this->_openTimeSpecMonths($portions, $time);
+    }
+
+    /**
+     * Work on time-spec with day portion in spec
+     *
+     * @param string $portions Part of an opening_hous specification
+     * @param array  $days     Day spec converted to array
+     * @param int    $time     time value to evaluate against
+     *
+     * @return null|boolean
+     */
+    private function _openTimeSpecDays($portions, $days, $time)
+    {
+        $day = strtolower(substr(date('D', $time), 0, 2));
+        $pattern = '/^[0-2][0-9]:[0-5][0-9]\+$/';
+        foreach ($days as $rday) {
+            if ($rday === $day) {
+                //day is a match
                 $time_spec = trim($portions[1]);
-                if ($portions[0] == $month && is_numeric($portions[1])) {
-                    $startend_times = explode('-', $portions[2]);
-                    $start = $this->_startTime($startend_times[0]);
-                    $end = $this->_endTime($startend_times[1]);
-                    $atime = getdate($time);
-                    $ctime = ($atime['hours'] * 60) + $atime['minutes'];
-                    return ($ctime >= $start && $ctime <= $end);
-                } elseif ($portions[0] === $month && $time_spec === 'off') {
+                if (strtolower($time_spec) === 'off') {
                     return false;
                 }
-            }
-            if ($portions[0] === '24/7') {
-                return true;
+                if (strpos($time_spec, '-')
+                    && (strpos($time_spec, ',') === false)
+                ) {
+                    // specified starting and end times for just one range - not
+                    // comma delimited.
+                    $startend_times = explode('-', $time_spec);
+                    $start = $this->_startTime($startend_times[0]);
+                    $end = $this->_endTime($startend_times[1]);
+                    $date = getdate($time);
+                    $ctime = $date['hours'] * 60 + $date['minutes'];
+                    return ($ctime >= $start && $ctime <= $end);
+                } elseif (strpos($time_spec, '-') && (strpos($time_spec, ','))) {
+                    $times = explode(',', $time_spec);
+                    $date = getdate($time);
+                    $ctime = $date['hours'] * 60 + $date['minutes'];
+                    foreach ($times as $time_spec) {
+                        $startend_times = explode('-', trim($time_spec));
+                        $start = $this->_startTime($startend_times[0]);
+                        $end = $this->_endTime($startend_times[1]);
+                        if ($ctime >= $start && $ctime <= $end) {
+                            return true;
+                        }
+                    }
+                    return false;
+                } elseif (preg_match($pattern, $time_spec)) {
+                    // open-ended.
+                    if (!$this->_evaluateOpenEnded($time_spec)) {
+                        return false;
+                    }
+                }
             }
         }
-        return null;
+    }
+
+    /**
+     * OpenTImeSpecMonths
+     *
+     * @param array   $spec time-spec
+     * @param integer $time time to evaluate against
+     *
+     * @return void
+     */
+    private function _openTImeSpecMonths($spec, $time)
+    {
+        $months = [
+            'jan', 'feb', 'mar', 'apr', 'may', 'jun',
+            'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
+        ];
+        if (in_array($spec[0], $months)) {
+            $month = strtolower(date('M', $time));
+            $time_spec = trim($spec[1]);
+            if ($spec[0] == $month && is_numeric($spec[1])) {
+                $startend_times = explode('-', $spec[2]);
+                $start = $this->_startTime($startend_times[0]);
+                $end = $this->_endTime($startend_times[1]);
+                $atime = getdate($time);
+                $ctime = ($atime['hours'] * 60) + $atime['minutes'];
+                return ($ctime >= $start && $ctime <= $end);
+            } elseif ($spec[0] === $month && $time_spec === 'off') {
+                return false;
+            }
+        }
+        if ($spec[0] === '24/7') {
+            return true;
+        }
     }
 
     /**
