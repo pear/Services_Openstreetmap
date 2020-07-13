@@ -115,9 +115,9 @@ class Services_OpenStreetMap_OpeningHours
     /**
      * Work on time-spec with day portion in spec
      *
-     * @param string $portions Part of an opening_hour specification
-     * @param array  $days     Day spec converted to array
-     * @param int    $time     time value to evaluate against
+     * @param array $portions Part of an opening_hour specification
+     * @param array $days     Day spec converted to array
+     * @param int   $time     time value to evaluate against
      *
      * @return null|boolean
      */
@@ -200,7 +200,7 @@ class Services_OpenStreetMap_OpeningHours
     /**
      * _evaluateComplexTimeSpec
      *
-     * @param imt $time Time to evaluate against
+     * @param int $time Time to evaluate against
      *
      * @return bool
      */
@@ -226,14 +226,14 @@ class Services_OpenStreetMap_OpeningHours
     }
 
     /**
-     * OpenTImeSpecMonths
+     * OpenTimeSpecMonths
      *
      * @param array   $spec time-spec
      * @param integer $time time to evaluate against
      *
-     * @return void
+     * @return bool
      */
-    private function _openTImeSpecMonths($spec, $time)
+    private function _openTimeSpecMonths($spec, $time): bool
     {
         $months = [
             'jan', 'feb', 'mar', 'apr', 'may', 'jun',
@@ -299,8 +299,11 @@ class Services_OpenStreetMap_OpeningHours
      */
     private function _narrowDayRange(array $days, string $spec): array
     {
+        $start_day = '';
         $pos = strpos($spec, '-');
-        $start_day = substr($spec, 0, $pos);
+        if ($pos !== false) {
+            $start_day = substr($spec, 0, $pos);
+        }
         $end_day = substr($spec, $pos + 1);
         if ($start_day !== 'mo') {
             foreach ($days as $day) {
