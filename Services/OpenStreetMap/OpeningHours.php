@@ -151,8 +151,8 @@ class Services_OpenStreetMap_OpeningHours
      * Return true/false/null if a valid portion of an opening_hours value
      * indicates whether a venue is open/closed or not incalculable.
      *
-     * @param mixed $portions Part of an opening_hours specification
-     * @param mixed $time     The time to calculate against.
+     * @param array $portions Part of an opening_hours specification
+     * @param int   $time     The time to calculate against.
      *
      * @return null|boolean
      */
@@ -201,18 +201,8 @@ class Services_OpenStreetMap_OpeningHours
                     $ctime = $date['hours'] * 60 + $date['minutes'];
                     return ($ctime >= $start && $ctime <= $end);
                 } elseif (strpos($time_spec, '-') && (strpos($time_spec, ','))) {
-                    $times = explode(',', $time_spec);
-                    $date = getdate($time);
-                    $ctime = $date['hours'] * 60 + $date['minutes'];
-                    foreach ($times as $time_spec) {
-                        $startend_times = explode('-', trim($time_spec));
-                        $start = $this->_startTime($startend_times[0]);
-                        $end = $this->_endTime($startend_times[1]);
-                        if ($ctime >= $start && $ctime <= $end) {
-                            return true;
-                        }
-                    }
-                    return false;
+                    $fa = $this->_timeIsBetweenTimeSpecTimes($time_spec, $time);
+                    return $fa;
                 } elseif (preg_match($pattern, $time_spec)) {
                     // open-ended.
                     if (!$this->_evaluateOpenEnded($time_spec)) {
@@ -221,6 +211,30 @@ class Services_OpenStreetMap_OpeningHours
                 }
             }
         }
+    }
+
+    /**
+     * _timeIsBetweenTimeSpecTimes
+     *
+     * @param string $time_spec Opening Hours specification
+     * @param int    $time      The time to calculate against.
+     *
+     * @return bool
+     */
+    private function _timeIsBetweenTimeSpecTimes($time_spec, $time)
+    {
+        $times = explode(',', $time_spec);
+        $date = getdate($time);
+        $ctime = $date['hours'] * 60 + $date['minutes'];
+        foreach ($times as $time_spec) {
+            $startend_times = explode('-', trim($time_spec));
+            $start = $this->_startTime($startend_times[0]);
+            $end = $this->_endTime($startend_times[1]);
+            if ($ctime >= $start && $ctime <= $end) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -269,7 +283,7 @@ class Services_OpenStreetMap_OpeningHours
         $days = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'];
         $spec = trim(strtolower($day_specification));
         $retVal = null;
-        if ($pos = strpos($spec, '-')) {
+        if (strpos($spec, '-')) {
             return $this->_narrowDayRange($days, $spec);
         } elseif (strlen($spec) === 2) {
             if (in_array($spec, $days)) {
