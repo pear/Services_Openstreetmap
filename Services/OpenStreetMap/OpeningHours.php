@@ -64,7 +64,7 @@ class Services_OpenStreetMap_OpeningHours
      * @link   http://wiki.openstreetmap.org/wiki/Key:opening_hours
      * @return null|boolean
      */
-    public function isOpen(int $time = null): ?bool
+    public function isOpen(?int $time = null): ?bool
     {
         if ($this->value === null) {
             return null;
@@ -156,12 +156,8 @@ class Services_OpenStreetMap_OpeningHours
      *
      * @return null|boolean
      */
-    private function _openTimeSpec($portions, $time): ?bool
+    private function _openTimeSpec($portions, $time):? bool
     {
-        if ($time === null) {
-            $time = time();
-        }
-
         $days = $this->_daySpecToArray(trim($portions[0], ":"));
         if (is_array($days)) {
             return $this->_openTimeSpecDays($portions, $days, $time);
@@ -172,45 +168,62 @@ class Services_OpenStreetMap_OpeningHours
     /**
      * Work on time-spec with day portion in spec
      *
-     * @param string $portions Part of an opening_hous specification
+     * @param string $portions Part of an opening_hour specification
      * @param array  $days     Day spec converted to array
      * @param int    $time     time value to evaluate against
      *
      * @return null|boolean
      */
-    private function _openTimeSpecDays($portions, $days, $time)
+    private function _openTimeSpecDays($portions, $days, $time):? bool
     {
-        $day = strtolower(substr(date('D', $time), 0, 2));
+        foreach ($days as $day) {
+            $result = $this->_openTimeSpecDay($portions, $day, $time);
+            if (is_bool($result)) {
+                return $result;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * _openTimeSpecDay
+     *
+     * @param array  $portions Part of an opening_hour specification
+     * @param string $day      Day spec
+     * @param int    $time     time value to evaluate against
+     *
+     * @return null|bool
+     */
+    private function _openTimeSpecDay(array $portions, string $day, int $time):? bool
+    {
+        $daytime = strtolower(substr(date('D', $time), 0, 2));
         $pattern = '/^[0-2][0-9]:[0-5][0-9]\+$/';
-        foreach ($days as $rday) {
-            if ($rday === $day) {
-                //day is a match
-                $time_spec = trim($portions[1]);
-                if (strtolower($time_spec) === 'off') {
+
+        if ($day === $daytime) {
+            //day is a match
+            $time_spec = trim($portions[1]);
+            if (strtolower($time_spec) === 'off') {
+                return false;
+            }
+            if (strpos($time_spec, '-') && (strpos($time_spec, ',') === false)) {
+                // specified starting and end times for just one range - not
+                // comma delimited.
+                $startend_times = explode('-', $time_spec);
+                $start = $this->_startTime($startend_times[0]);
+                $end = $this->_endTime($startend_times[1]);
+                $date = getdate($time);
+                $ctime = $date['hours'] * 60 + $date['minutes'];
+                return ($ctime >= $start && $ctime <= $end);
+            } elseif (strpos($time_spec, '-') && (strpos($time_spec, ','))) {
+                return $this->_timeIsBetweenTimeSpecTimes($time_spec, $time);
+            } elseif (preg_match($pattern, $time_spec)) {
+                // open-ended.
+                if (!$this->_evaluateOpenEnded($time_spec)) {
                     return false;
-                }
-                if (strpos($time_spec, '-')
-                    && (strpos($time_spec, ',') === false)
-                ) {
-                    // specified starting and end times for just one range - not
-                    // comma delimited.
-                    $startend_times = explode('-', $time_spec);
-                    $start = $this->_startTime($startend_times[0]);
-                    $end = $this->_endTime($startend_times[1]);
-                    $date = getdate($time);
-                    $ctime = $date['hours'] * 60 + $date['minutes'];
-                    return ($ctime >= $start && $ctime <= $end);
-                } elseif (strpos($time_spec, '-') && (strpos($time_spec, ','))) {
-                    $fa = $this->_timeIsBetweenTimeSpecTimes($time_spec, $time);
-                    return $fa;
-                } elseif (preg_match($pattern, $time_spec)) {
-                    // open-ended.
-                    if (!$this->_evaluateOpenEnded($time_spec)) {
-                        return false;
-                    }
                 }
             }
         }
+        return null;
     }
 
     /**
@@ -291,13 +304,12 @@ class Services_OpenStreetMap_OpeningHours
             }
         } elseif (strpos($spec, ',')) {
             $delimited = explode(',', $spec);
-            $ret = [];
+            $retVal = [];
             foreach ($delimited as $item) {
                 if (in_array($item, $days)) {
-                    $ret[] = $item;
+                    $retVal[] = $item;
                 }
             }
-            $retVal = $ret;
         }
         return $retVal;
     }

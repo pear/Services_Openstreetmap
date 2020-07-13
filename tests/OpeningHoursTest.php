@@ -33,7 +33,7 @@ require_once 'Services/OpenStreetMap.php';
 class OpeningHoursTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * test 24/7 syntax, should evaluate to true whenever.
+     * Test 24/7 syntax, should evaluate to true whenever.
      *
      * @return void
      */
@@ -41,11 +41,21 @@ class OpeningHoursTest extends PHPUnit_Framework_TestCase
     {
         $oh = new Services_OpenStreetMap_OpeningHours('24/7');
         $this->assertTrue($oh->isOpen(time()));
-
     }
 
     /**
-     * test null value
+     * Test 24/7 syntax with a null value, should always evaluate to true.
+     *
+     * @return void
+     */
+    public function test247againstNullValue()
+    {
+        $oh = new Services_OpenStreetMap_OpeningHours('24/7');
+        $this->assertTrue($oh->isOpen());
+    }
+
+    /**
+     * Test null value
      *
      * @return void
      */
@@ -57,7 +67,7 @@ class OpeningHoursTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test Sunrise-Sunset syntax
+     * Test Sunrise-Sunset syntax
      *
      * @return void
      */
@@ -68,15 +78,38 @@ class OpeningHoursTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($oh->isOpen(strtotime('October 24 2012 03:00')));
     }
 
+
+    /**
+     * Sunrise-Sunset every day
+     *
+     * @return void
+     */
+    public function testSunriseSunsetEveryDay()
+    {
+        $oh = new Services_OpenStreetMap_OpeningHours('sunrise-sunset');
+        $this->assertFalse($oh->isOpen(strtotime('October 24 2012 23:00')));
+    }
+
+    /**
+     * Test sunrise-sunset with calculated offsets
+     *
+     * @return void
+     */
     public function testSunriseSunsetWithCalculatedOffsets()
     {
         $oh = new Services_OpenStreetMap_OpeningHours('mo-su: (sunrise + 00:45) - (sunset - 01:30)');
         $this->assertFalse($oh->isOpen(strtotime('October 24 2012 23:00')));
         $this->assertFalse($oh->isOpen(strtotime('October 24 2012 03:00')));
     }
+    public function testSunriseSunsetWithCalculatedOffsetsd()
+    {
+        $oh = new Services_OpenStreetMap_OpeningHours('mo-su: (sunrise - 00:45) - (sunset + 01:30)');
+        $this->assertFalse($oh->isOpen(strtotime('October 24 2012 23:00')));
+        $this->assertFalse($oh->isOpen(strtotime('October 24 2012 03:00')));
+    }
 
     /**
-     * test general opening hours syntax
+     * Test general opening hours syntax
      *
      * @return void
      */
@@ -113,7 +146,7 @@ class OpeningHoursTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test off syntax, including precedence and priority of same.
+     * Test off syntax, including precedence and priority of same.
      *
      * @return void
      */
@@ -130,7 +163,7 @@ class OpeningHoursTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test month off syntax
+     * Test month off syntax
      *
      * @return void
      */
@@ -154,7 +187,7 @@ class OpeningHoursTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * testMultipleTimesSpecifiedForDays
+     * Test multiple times specified for days
      *
      * @return void
      */
