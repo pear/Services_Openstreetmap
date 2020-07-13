@@ -77,7 +77,7 @@ class Services_OpenStreetMap_OpeningHours
             $time = time();
         }
         if ($this->value === 'sunrise-sunset') {
-            return $this->isBetweenSunriseAndSunset($time);
+            return $this->_isBetweenSunriseAndSunset($time);
         }
         // other simple test would be sunrise-sunset - with
         // offsets that would need to be taken into account
@@ -88,27 +88,10 @@ class Services_OpenStreetMap_OpeningHours
             $matched
         );
         if ($isVariableSunRiseSunSet === 1) {
-            return $this->isBetweenVariableSunriseAndSunset($time, $matched);
+            return $this->_isBetweenVariableSunriseAndSunset($time, $matched);
         }
         // time specs...
-        $rule_sequences = explode(';', $this->value);
-        $day = strtolower(substr(date('D', $time), 0, 2));
-        $retval = false;
-        foreach ($rule_sequences as $rule_sequence) {
-            $rule_sequence = strtolower(trim($rule_sequence));
-            // If the day is explicitly specified in the rule sequence then
-            // processing it takes precedence.
-            if (preg_match('/' . $day . '/', $rule_sequence)) {
-                // @fixme: brittle. use preg_replace with \w
-                $portions = explode(' ', str_replace(', ', ',', $rule_sequence));
-                return $this->_openTimeSpec($portions, $time);
-            }
-            // @fixme: brittle. use preg_replace with \w
-            $portions = explode(' ', str_replace(', ', ',', $rule_sequence));
-            $open = $this->_openTimeSpec($portions, $time);
-            $retval = $open !== false;
-        }
-        return $retval;
+        return $this->_evaluateComplexTimeSpec($time);
     }
 
     /**
@@ -212,6 +195,34 @@ class Services_OpenStreetMap_OpeningHours
             }
         }
         return false;
+    }
+
+    /**
+     * _evaluateComplexTimeSpec
+     *
+     * @param imt $time Time to evaluate against
+     *
+     * @return bool
+     */
+    private function _evaluateComplexTimeSpec($time): bool
+    {
+        $rule_sequences = explode(';', $this->value);
+        $day = strtolower(substr(date('D', $time), 0, 2));
+        $retval = false;
+        foreach ($rule_sequences as $rule_sequence) {
+            $rule_sequence = strtolower(trim($rule_sequence));
+            // If the day is explicitly specified in the rule sequence then
+            // processing it takes precedence.
+            if (preg_match('/' . $day . '/', $rule_sequence)) {
+                // @fixme: brittle. use preg_replace with \w
+                $portions = explode(' ', str_replace(', ', ',', $rule_sequence));
+                return $this->_openTimeSpec($portions, $time);
+            }
+            // @fixme: brittle. use preg_replace with \w
+            $portions = explode(' ', str_replace(', ', ',', $rule_sequence));
+            $retval = $this->_openTimeSpec($portions, $time) !== false;
+        }
+        return $retval;
     }
 
     /**
@@ -360,7 +371,14 @@ class Services_OpenStreetMap_OpeningHours
         return $endhour * 60 + $endmin;
     }
 
-    private function isBetweenSunriseAndSunset($time): bool
+    /**
+     * Determine if the time is between a sunrise and sunset on day of that time
+     *
+     * @param int $time Time to check against
+     *
+     * @return bool
+     */
+    private function _isBetweenSunriseAndSunset($time): bool
     {
         $start = $this->_startTime(date_sunrise($time));
         $end = $this->_endTime(date_sunset($time));
@@ -377,7 +395,7 @@ class Services_OpenStreetMap_OpeningHours
      *
      * @return bool
      */
-    private function isBetweenVariableSunriseAndSunset($time, $matched): bool
+    private function _isBetweenVariableSunriseAndSunset($time, $matched): bool
     {
         $term1 = $matched[1];
         $term1modifier = '';
