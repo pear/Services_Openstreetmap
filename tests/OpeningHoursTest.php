@@ -101,7 +101,13 @@ class OpeningHoursTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($oh->isOpen(strtotime('October 24 2012 23:00')));
         $this->assertFalse($oh->isOpen(strtotime('October 24 2012 03:00')));
     }
-    public function testSunriseSunsetWithCalculatedOffsetsd()
+
+    /**
+     * Test sunrise-sunset with calculated offsets
+     *
+     * @return void
+     */
+    public function testSunriseSunsetWithCalculatedOffset2()
     {
         $oh = new Services_OpenStreetMap_OpeningHours('mo-su: (sunrise - 00:45) - (sunset + 01:30)');
         $this->assertFalse($oh->isOpen(strtotime('October 24 2012 23:00')));

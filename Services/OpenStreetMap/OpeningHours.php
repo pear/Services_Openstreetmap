@@ -77,11 +77,7 @@ class Services_OpenStreetMap_OpeningHours
             $time = time();
         }
         if ($this->value === 'sunrise-sunset') {
-            $start = $this->_startTime(date_sunrise($time));
-            $end = $this->_endTime(date_sunset($time));
-            $d = getdate($time);
-            $ctime = $d['hours'] * 60 + $d['minutes'];
-            return ($ctime >= $start && $ctime <= $end );
+            return $this->isBetweenSunriseAndSunset($time);
         }
         // other simple test would be sunrise-sunset - with
         // offsets that would need to be taken into account
@@ -92,39 +88,7 @@ class Services_OpenStreetMap_OpeningHours
             $matched
         );
         if ($isVariableSunRiseSunSet === 1) {
-            $term1 = $matched[1];
-            $term1modifier = '';
-            $bork = strpbrk($term1, "+-");
-            $term1minutes = 0;
-            if ($bork !== false) {
-                $term1modifier = $bork[0];
-                $term1segments = sscanf(trim(substr($bork, 1)), "%d:%d");
-                $term1minutes = $term1segments[0] * 60 + $term1segments[1];
-                if ($term1modifier === '-') {
-                    $term1minutes = -$term1minutes;
-                }
-            }
-
-            $term2 = $matched[2];
-            $bork2 = strpbrk($term2, "+-");
-            $term2minutes = 0;
-            if ($bork2 !== false) {
-                $term2modifier = $bork2[0];
-                $term2segments = sscanf(trim(substr($bork2, 1)), "%d:%d");
-                $term2minutes = $term2segments[0] * 60 + $term2segments[1];
-                if ($term2modifier === '-') {
-                    $term2minutes = -$term2minutes;
-                }
-            }
-            $start = $this->_startTime(date_sunrise($time));
-
-            $start += $term1minutes;
-            $end = $this->_endTime(date_sunset($time));
-            $end += $term2minutes;
-            $d = getdate($time);
-            $ctime = $d['hours'] * 60 + $d['minutes'];
-
-            return ($ctime >= $start && $ctime <= $end );
+            return $this->isBetweenVariableSunriseAndSunset($time, $matched);
         }
         // time specs...
         $rule_sequences = explode(';', $this->value);
@@ -394,6 +358,60 @@ class Services_OpenStreetMap_OpeningHours
         $endhour = (int) substr($time_spec, 0, 2);
         $endmin = (int) substr($time_spec, 3);
         return $endhour * 60 + $endmin;
+    }
+
+    private function isBetweenSunriseAndSunset($time): bool
+    {
+        $start = $this->_startTime(date_sunrise($time));
+        $end = $this->_endTime(date_sunset($time));
+        $d = getdate($time);
+        $ctime = $d['hours'] * 60 + $d['minutes'];
+        return ($ctime >= $start && $ctime <= $end);
+    }
+
+    /**
+     * Determine if the time is between a variable sunrise and sunset.
+     *
+     * @param int   $time    Time to check against
+     * @param array $matched Matches from regexp
+     *
+     * @return bool
+     */
+    private function isBetweenVariableSunriseAndSunset($time, $matched): bool
+    {
+        $term1 = $matched[1];
+        $term1modifier = '';
+        $bork = strpbrk($term1, "+-");
+        $term1minutes = 0;
+        if ($bork !== false) {
+            $term1modifier = $bork[0];
+            $term1segments = sscanf(trim(substr($bork, 1)), "%d:%d");
+            $term1minutes = $term1segments[0] * 60 + $term1segments[1];
+            if ($term1modifier === '-') {
+                $term1minutes = -$term1minutes;
+            }
+        }
+
+        $term2 = $matched[2];
+        $bork2 = strpbrk($term2, "+-");
+        $term2minutes = 0;
+        if ($bork2 !== false) {
+            $term2modifier = $bork2[0];
+            $term2segments = sscanf(trim(substr($bork2, 1)), "%d:%d");
+            $term2minutes = $term2segments[0] * 60 + $term2segments[1];
+            if ($term2modifier === '-') {
+                $term2minutes = -$term2minutes;
+            }
+        }
+        $start = $this->_startTime(date_sunrise($time));
+
+        $start += $term1minutes;
+        $end = $this->_endTime(date_sunset($time));
+        $end += $term2minutes;
+        $d = getdate($time);
+        $ctime = $d['hours'] * 60 + $d['minutes'];
+
+        return ($ctime >= $start && $ctime <= $end );
     }
 }
 // vim:set et ts=4 sw=4:
