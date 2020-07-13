@@ -52,10 +52,9 @@ class Services_OpenStreetMap_Validator_Changeset
         if (Services_OpenStreetMap_Transport::OK != $responseCode) {
             throw new Services_OpenStreetMap_Exception(
                 'Error posting changeset',
-                $code
+                $responseCode
             );
         }
-
     }
 
     /**

@@ -145,14 +145,14 @@ class Services_OpenStreetMap_OpeningHours
     {
         $daytime = strtolower(substr(date('D', $time), 0, 2));
         $pattern = '/^[0-2][0-9]:[0-5][0-9]\+$/';
+        $open = null;
 
         if ($day === $daytime) {
             //day is a match
             $time_spec = trim($portions[1]);
             if (strtolower($time_spec) === 'off') {
-                return false;
-            }
-            if (strpos($time_spec, '-') && (strpos($time_spec, ',') === false)) {
+                $open = false;
+            } elseif (strpos($time_spec, '-') && (strpos($time_spec, ',') === false)) {
                 // specified starting and end times for just one range - not
                 // comma delimited.
                 $startend_times = explode('-', $time_spec);
@@ -160,17 +160,17 @@ class Services_OpenStreetMap_OpeningHours
                 $end = $this->_endTime($startend_times[1]);
                 $date = getdate($time);
                 $ctime = $date['hours'] * 60 + $date['minutes'];
-                return ($ctime >= $start && $ctime <= $end);
+                $open = ($ctime >= $start && $ctime <= $end);
             } elseif (strpos($time_spec, '-') && (strpos($time_spec, ','))) {
                 return $this->_timeIsBetweenTimeSpecTimes($time_spec, $time);
             } elseif (preg_match($pattern, $time_spec)) {
                 // open-ended.
                 if (!$this->_evaluateOpenEnded($time_spec)) {
-                    return false;
+                    $open = false;
                 }
             }
         }
-        return null;
+        return $open;
     }
 
     /**
@@ -231,9 +231,9 @@ class Services_OpenStreetMap_OpeningHours
      * @param array   $spec time-spec
      * @param integer $time time to evaluate against
      *
-     * @return bool
+     * @return bool|null
      */
-    private function _openTimeSpecMonths($spec, $time): bool
+    private function _openTimeSpecMonths($spec, $time):? bool
     {
         $months = [
             'jan', 'feb', 'mar', 'apr', 'may', 'jun',
@@ -256,6 +256,7 @@ class Services_OpenStreetMap_OpeningHours
         if ($spec[0] === '24/7') {
             return true;
         }
+        return null;
     }
 
     /**
