@@ -239,6 +239,7 @@ class Services_OpenStreetMap_OpeningHours
             'jan', 'feb', 'mar', 'apr', 'may', 'jun',
             'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
         ];
+        $retVal = null;
         if (in_array($spec[0], $months)) {
             $month = strtolower(date('M', $time));
             $time_spec = trim($spec[1]);
@@ -248,15 +249,15 @@ class Services_OpenStreetMap_OpeningHours
                 $end = $this->_endTime($startend_times[1]);
                 $atime = getdate($time);
                 $ctime = ($atime['hours'] * 60) + $atime['minutes'];
-                return ($ctime >= $start && $ctime <= $end);
+                $retVal = ($ctime >= $start && $ctime <= $end);
             } elseif ($spec[0] === $month && $time_spec === 'off') {
-                return false;
+                $retVal = false;
             }
         }
         if ($spec[0] === '24/7') {
-            return true;
+            $retVal = true;
         }
-        return null;
+        return $retVal;
     }
 
     /**
