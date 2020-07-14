@@ -298,11 +298,9 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         $code = null;
         // Generate URL that the osmChange document will be posted to
         $cId = $this->getId();
-        if ((!is_numeric($cId)) && ($cId !== null)) {
-            $msg = 'Changeset ID of unexpected type. (';
-            $msg .= var_export($cId, true) . ')';
-            throw new Services_OpenStreetMap_RuntimeException($msg);
-        }
+        $changesetValidator = new Services_OpenStreetMap_Validator_Changeset();
+        $changesetValidator->validate($cId);
+
         $config = $this->getConfig();
         $url = $config->getValue('server')
             . 'api/'
@@ -391,12 +389,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         if (isset($response) && is_object($response)) {
             $code = $response->getStatus();
         }
-        if (Services_OpenStreetMap_Transport::OK != $code) {
-            throw new Services_OpenStreetMap_Exception(
-                'Error posting changeset',
-                $code
-            );
-        }
+        $changesetValidator->validateChangesetPostedOk($code);
         // Explicitly close the changeset
         $url = $config->getValue('server')
             . 'api/'
@@ -482,12 +475,7 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         if (isset($response) && is_object($response)) {
             $code = $response->getStatus();
         }
-        if (Services_OpenStreetMap_Transport::OK != $code) {
-            throw new Services_OpenStreetMap_Exception(
-                'Error closing changeset',
-                $code
-            );
-        }
+        $changesetValidator->validateChangesetClosedOk($code);
         $this->open = false;
         return $code === 200;
     }
