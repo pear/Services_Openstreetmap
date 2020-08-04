@@ -23,7 +23,7 @@
     "type": "library",
     "require": {
         "php": ">=7.1",
-        "pear/http_request2": "2.3.*",
+        "pear/http_request2": "2.4.*",
         "pear/log": "1.12.*|1.13.*",
         "ext-simplexml": "*"
     },
