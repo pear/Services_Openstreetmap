@@ -248,9 +248,9 @@ class Services_OpenStreetMap_API_V06
         array $tags = []
     ): Services_OpenStreetMap_Node {
         $node = new Services_OpenStreetMap_Node();
-        $config = $this->getConfig();
-        $apiVersion = $config->getValue('api_version');
-        $userAgent  = $config->getValue('User-Agent');
+        $configObj = $this->getConfig();
+        $apiVersion = $configObj->getValue('api_version');
+        $userAgent  = $configObj->getValue('User-Agent');
         foreach ($tags as $key => $value) {
             if (strlen($key) > 255 || strlen($value) > 255) {
                 throw new Services_OpenStreetMap_RuntimeException(
@@ -290,13 +290,13 @@ XML;
     {
         $response = null;
         $prefs = null;
-        $config = $this->getConfig()->asArray();
-        $url = $config['server']
+        $configObj = $this->getConfig()->asArray();
+        $url = $configObj['server']
             . 'api/'
-            . $config['api_version']
+            . $configObj['api_version']
             . '/user/details';
-        $user = $config['user'];
-        $password = $config['password'];
+        $user = $configObj['user'];
+        $password = $configObj['password'];
         try {
             $response = $this->getTransport()->getResponse(
                 $url,
@@ -314,8 +314,8 @@ XML;
                 throw $ex;
             }
         }
-        $url = $config['server'] . 'api/'
-             . $config['api_version']
+        $url = $configObj['server'] . 'api/'
+             . $configObj['api_version']
              . '/user/preferences';
         try {
             $prefs = $this->getTransport()->getResponse(
@@ -358,10 +358,10 @@ XML;
     public function getUserById(int $id)
     {
         $response = null;
-        $config = $this->getConfig()->asArray();
-        $url = $config['server']
+        $configObj = $this->getConfig()->asArray();
+        $url = $configObj['server']
             . 'api/'
-            . $config['api_version']
+            . $configObj['api_version']
             . '/user/' . $id;
         try {
             $response = $this->getTransport()->getResponse(
@@ -526,17 +526,17 @@ XML;
         int $limit = 100,
         int $closed = 7
     ): Services_OpenStreetMap_Notes {
-        $config = $this->getConfig();
-        $url = $config->getValue('server')
+        $configObj = $this->getConfig();
+        $url = $configObj->getValue('server')
             . 'api/'
-            . $config->getValue('api_version')
+            . $configObj->getValue('api_version')
             . "/notes.xml?bbox=$minLon,$minLat,$maxLon,$maxLat"
             . "&limit=$limit&closed=$closed";
         $response = $this->getTransport()->getResponse($url);
         $collection = new Services_OpenStreetMap_Notes();
         $sxe = @simplexml_load_string($response->getBody());
-        if ($config !== null) {
-            $collection->setConfig($config);
+        if ($configObj !== null) {
+            $collection->setConfig($configObj);
         }
         $collection->setTransport($this->getTransport());
         $collection->setXml($sxe);
@@ -572,10 +572,10 @@ XML;
         string $from = '',
         string $to = ''
     ): Services_OpenStreetMap_Notes {
-        $config = $this->getConfig();
-        $url = $config->getValue('server')
+        $configObj = $this->getConfig();
+        $url = $configObj->getValue('server')
             . 'api/'
-            . $config->getValue('api_version')
+            . $configObj->getValue('api_version')
             . "/notes.xml'?q=$searchTerm";
         if ($displayName !== "") {
             $url .= "&display_name=$displayName";
@@ -593,8 +593,8 @@ XML;
         $response = $this->getTransport()->getResponse($url);
         $collection = new Services_OpenStreetMap_Notes();
         $sxe = @simplexml_load_string($response->getBody());
-        if ($config !== null) {
-            $collection->setConfig($config);
+        if ($configObj !== null) {
+            $collection->setConfig($configObj);
         }
         $collection->setTransport($this);
         $collection->setXml($sxe);
@@ -620,12 +620,12 @@ XML;
     public function getPermissions()
     {
         $response = null;
-        $config = $this->getConfig()->asArray();
-        $user = $config['user'];
-        $password = $config['password'];
-        $url = $config['server']
+        $configObj = $this->getConfig()->asArray();
+        $user = $configObj['user'];
+        $password = $configObj['password'];
+        $url = $configObj['server']
             . 'api/'
-            . $config['api_version']
+            . $configObj['api_version']
             . '/permissions';
         try {
             $response = $this->getTransport()->getResponse(

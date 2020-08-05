@@ -157,11 +157,11 @@ class Services_OpenStreetMap_Node extends Services_OpenStreetMap_Object
      */
     public function getWays(): \Services_OpenStreetMap_Ways
     {
-        $config = $this->getConfig();
+        $configObj = $this->getConfig();
         $id = $this->getId();
-        $url = $config->getValue('server')
+        $url = $configObj->getValue('server')
             . 'api/'
-            . $config->getValue('api_version')
+            . $configObj->getValue('api_version')
             . "/node/$id/ways";
         $response = $this->getTransport()->getResponse($url);
         $obj = new Services_OpenStreetMap_Ways();

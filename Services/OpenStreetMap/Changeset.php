@@ -140,11 +140,11 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         $code = null;
         $this->members = [];
         $this->open = true;
-        $config = $this->getConfig();
+        $configObj = $this->getConfig();
         if ($message == '') {
             $message = $this->message;
         }
-        $userAgent = $config->getValue('User-Agent');
+        $userAgent = $configObj->getValue('User-Agent');
         $doc = "<?xml version='1.0' encoding=\"UTF-8\"?>\n" .
         '<osm version="0.6" generator="' . $userAgent . '">'
             . "<changeset id='0' open='false'>"
@@ -152,17 +152,17 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             . '<tag k="created_by" v="' . $userAgent . '/0.1"/>';
         $doc .= $this->generateReviewRequestedTag();
         $doc .= '</changeset></osm>';
-        $url = $config->getValue('server')
+        $url = $configObj->getValue('server')
             . 'api/'
-            . $config->getValue('api_version')
+            . $configObj->getValue('api_version')
             . '/changeset/create';
-        $user = $config->getValue('user');
-        $password = $config->getValue('password');
+        $user = $configObj->getValue('user');
+        $password = $configObj->getValue('password');
         /* Oauth1 Fields */
-        $oauth_consumer_key = $config->getValue('oauth_consumer_key');
-        $oauth_token = $config->getValue('oauth_token');
-        $consumer_secret = $config->getValue('consumer_secret');
-        $oauth_token_secret = $config->getValue('oauth_token_secret');
+        $oauth_consumer_key = $configObj->getValue('oauth_consumer_key');
+        $oauth_token = $configObj->getValue('oauth_token');
+        $consumer_secret = $configObj->getValue('consumer_secret');
+        $oauth_token_secret = $configObj->getValue('oauth_token_secret');
 
 
         if ($user !== null && $password !== null) {
@@ -301,19 +301,19 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         $changesetValidator = new Services_OpenStreetMap_Validator_Changeset();
         $changesetValidator->validate($cId);
 
-        $config = $this->getConfig();
-        $url = $config->getValue('server')
+        $configObj = $this->getConfig();
+        $url = $configObj->getValue('server')
             . 'api/'
-            . $config->getValue('api_version') .
+            . $configObj->getValue('api_version') .
             "/changeset/{$cId}/upload";
 
-        $user = $config->getValue('user');
-        $password = $config->getValue('password');
+        $user = $configObj->getValue('user');
+        $password = $configObj->getValue('password');
         /* Oauth1 Fields */
-        $oauth_consumer_key = $config->getValue('oauth_consumer_key');
-        $oauth_token = $config->getValue('oauth_token');
-        $consumer_secret = $config->getValue('consumer_secret');
-        $oauth_token_secret = $config->getValue('oauth_token_secret');
+        $oauth_consumer_key = $configObj->getValue('oauth_consumer_key');
+        $oauth_token = $configObj->getValue('oauth_token');
+        $consumer_secret = $configObj->getValue('consumer_secret');
+        $oauth_token_secret = $configObj->getValue('oauth_token_secret');
 
         // Post the osmChange document to the server
         try {
@@ -391,9 +391,9 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         }
         $changesetValidator->validateChangesetPostedOk($code);
         // Explicitly close the changeset
-        $url = $config->getValue('server')
+        $url = $configObj->getValue('server')
             . 'api/'
-            . $config->getValue('api_version')
+            . $configObj->getValue('api_version')
             . "/changeset/{$cId}/close";
 
         $code = null;

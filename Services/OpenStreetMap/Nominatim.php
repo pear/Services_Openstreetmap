@@ -178,8 +178,7 @@ class Services_OpenStreetMap_Nominatim
         int $addressdetails = 1,
         int $zoom = 18
     ) {
-        $format = $this->format;
-        if ($format === 'html') {
+        if ($this->format === 'html') {
             throw new Services_OpenStreetMap_RuntimeException(
                 'html format not accepted for reverseGeocode'
             );
@@ -187,7 +186,7 @@ class Services_OpenStreetMap_Nominatim
         $params = [
             'accept-language' => $this->accept_language,
             'addressdetails'  => $addressdetails,
-            'format' => $format,
+            'format' => $this->format,
             'lat' => $lat,
             'lon' => $lon,
             'zoom' => $zoom
@@ -200,12 +199,12 @@ class Services_OpenStreetMap_Nominatim
 
         $reversegeocode = null;
         $response = $this->getTransport()->getResponse($url);
-        if ($format === 'xml') {
+        if ($this->format === 'xml') {
             $xml = simplexml_load_string($response->getBody());
             if ($xml !== false) {
                 $reversegeocode = $xml->xpath('//reversegeocode');
             }
-        } elseif ($format === 'json' || $format === 'jsonv2') {
+        } elseif ($this->format === 'json' || $this->format === 'jsonv2') {
             $reversegeocode = json_decode($response->getBody());
         }
         return $reversegeocode;
@@ -225,19 +224,18 @@ class Services_OpenStreetMap_Nominatim
             $this->setLimit($limit);
         }
 
-        $format = $this->format;
         $query = $this->_buildQuery($place);
         $url = $this->server . 'search?' . $query;
 
         $response = $this->getTransport()->getResponse($url);
-        if ($format === 'xml') {
+        if ($this->format === 'xml') {
             $xml = simplexml_load_string($response->getBody());
             if ($xml !== false) {
                 return $xml->xpath('//place');
             }
-        } elseif ($format === 'json' || $format === 'jsonv2') {
+        } elseif ($this->format === 'json' || $this->format === 'jsonv2') {
             return json_decode($response->getBody());
-        } elseif ($format === 'html') {
+        } elseif ($this->format === 'html') {
             return $response->getBody();
         }
     }

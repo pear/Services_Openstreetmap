@@ -179,21 +179,21 @@ class Services_OpenStreetMap_Object
      */
     public function getOsmChangeXml():?string
     {
-        $type = $this->getType();
+        $objectType = $this->getType();
         if ($this->dirty) {
             $version = $this->getVersion();
             $version++;
             $domd = new DOMDocument();
             $domd->loadXml($this->getXml());
             $xpath = new DOMXPath($domd);
-            $nodelist = $xpath->query("//{$type}");
+            $nodelist = $xpath->query("//{$objectType}");
             $nodelist->item(0)->setAttribute('action', $this->action);
             $nodelist->item(0)->setAttribute('id', $this->getId());
 
             if ($this->changesetId !== null) {
                 $nodelist->item(0)->setAttribute('changeset', $this->changesetId);
             }
-            $tags = $xpath->query("//{$type}/tag");
+            $tags = $xpath->query("//{$objectType}/tag");
 
             $set = [];
             for ($i = 0; $i < $tags->length; $i++) {
@@ -227,7 +227,7 @@ class Services_OpenStreetMap_Object
             $domd = new DOMDocument();
             $domd->loadXml($this->getXml());
             $xpath = new DOMXPath($domd);
-            $n = $xpath->query("//{$type}");
+            $n = $xpath->query("//{$objectType}");
             $version = $this->getVersion();
             $version++;
             if ($this->changesetId !== null) {
@@ -393,14 +393,14 @@ class Services_OpenStreetMap_Object
     public function history(): Services_OpenStreetMap_Objects
     {
         $transport = null;
-        $type = $this->getType();
+        $objectType = $this->getType();
         $id = $this->getId();
-        $config = $this->getConfig();
-        $url = $config->getValue('server')
+        $configObj = $this->getConfig();
+        $url = $configObj->getValue('server')
             . 'api/'
-            . $config->getValue('api_version')
-            . "/$type/$id/history";
-        $class = 'Services_OpenStreetMap_' . ucfirst($type) . 's';
+            . $configObj->getValue('api_version')
+            . "/$objectType/$id/history";
+        $class = 'Services_OpenStreetMap_' . ucfirst($objectType) . 's';
         $transport = $this->getTransport();
         $response = $transport->getResponse($url);
         $obj = new $class();
@@ -420,13 +420,13 @@ class Services_OpenStreetMap_Object
      */
     public function getRelations(): \Services_OpenStreetMap_Relations
     {
-        $type = $this->getType();
+        $objectType = $this->getType();
         $id = $this->getId();
-        $config = $this->getConfig();
-        $url = $config->getValue('server')
+        $configObj = $this->getConfig();
+        $url = $configObj->getValue('server')
             . 'api/'
-            . $config->getValue('api_version')
-            . "/$type/$id/relations";
+            . $configObj->getValue('api_version')
+            . "/$objectType/$id/relations";
         $response = $this->getTransport()->getResponse($url);
         $obj = new Services_OpenStreetMap_Relations();
         $sxe = @simplexml_load_string($response->getBody());

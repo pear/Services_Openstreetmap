@@ -121,26 +121,26 @@ class Services_OpenStreetMap_Transport_HTTP
         if ($headers === null) {
             $headers = [];
         }
-        $config = $this->getConfig();
+        $configObj = $this->getConfig();
 
 
-        if ($config->getValue('verbose')) {
+        if ($configObj->getValue('verbose')) {
             $this->log->log($url);
         }
 
         $request = $this->getRequest();
         $request->setUrl($url);
         $request->setMethod($method);
-        $request->setAdapter($config->getValue('adapter'));
+        $request->setAdapter($configObj->getValue('adapter'));
 
         /* Issue 32 - SSL Config */
-        $request->setConfig('ssl_verify_peer', $config->getValue('ssl_verify_peer'));
-        $request->setConfig('ssl_verify_host', $config->getValue('ssl_verify_host'));
-        $request->setConfig('ssl_cafile', $config->getValue('ssl_cafile'));
-        $request->setConfig('ssl_local_cert', $config->getValue('ssl_local_cert'));
-        $request->setConfig('ssl_passphrase', $config->getValue('ssl_passphrase'));
+        $request->setConfig('ssl_verify_peer', $configObj->getValue('ssl_verify_peer'));
+        $request->setConfig('ssl_verify_host', $configObj->getValue('ssl_verify_host'));
+        $request->setConfig('ssl_cafile', $configObj->getValue('ssl_cafile'));
+        $request->setConfig('ssl_local_cert', $configObj->getValue('ssl_local_cert'));
+        $request->setConfig('ssl_passphrase', $configObj->getValue('ssl_passphrase'));
 
-        $request->setHeader('User-Agent', $config->getValue('User-Agent'));
+        $request->setHeader('User-Agent', $configObj->getValue('User-Agent'));
 
         if ($user !== null && $password !== null) {
             $request->setAuth($user, $password);
@@ -258,9 +258,9 @@ class Services_OpenStreetMap_Transport_HTTP
             );
         }*/
 
-        $config = $this->getConfig()->asArray();
+        $configObj = $this->getConfig()->asArray();
         $url = sprintf(
-            "%sapi/%s/%s/%s", $config['server'], $config['api_version'], $type,
+            "%sapi/%s/%s/%s", $configObj['server'], $configObj['api_version'], $type,
             $id
         );
         if ($version !== null) {
@@ -313,10 +313,10 @@ class Services_OpenStreetMap_Transport_HTTP
         }
         */
         $response = null;
-        $config = $this->getConfig();
+        $configObj = $this->getConfig();
         $url = sprintf(
-            "%sapi/%s/%ss?%ss=%s", $config->getValue('server'),
-            $config->getValue('api_version'), $type, $type, implode(',', $ids)
+            "%sapi/%s/%ss?%ss=%s", $configObj->getValue('server'),
+            $configObj->getValue('api_version'), $type, $type, implode(',', $ids)
         );
         try {
             $response = $this->getResponse($url);
@@ -335,7 +335,7 @@ class Services_OpenStreetMap_Transport_HTTP
         $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($type)) . 's';
         /** @var Services_OpenStreetMap_Objects $obj */
         $obj = new $class();
-        $obj->setConfig($config);
+        $obj->setConfig($configObj);
         $obj->setTransport($this);
         $sxe = @simplexml_load_string($response->getBody());
         if (!$sxe) {
@@ -388,10 +388,10 @@ class Services_OpenStreetMap_Transport_HTTP
         foreach ($criteria as $criterion) {
             $query[] = $criterion->query();
         }
-        $config = $this->getConfig();
-        $url = $config->getValue('server')
+        $configObj = $this->getConfig();
+        $url = $configObj->getValue('server')
             . 'api/'
-            . $config->getValue('api_version')
+            . $configObj->getValue('api_version')
             . '/' . $type . 's?' . implode('&', $query);
         try {
             $response = $this->getResponse($url);

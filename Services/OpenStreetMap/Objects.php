@@ -155,9 +155,9 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
     {
         $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($this->getType()));
         $object = new $class();
-        $config = $this->getConfig();
-        if ($config !== null) {
-            $object->setConfig($config);
+        $configObj = $this->getConfig();
+        if ($configObj !== null) {
+            $object->setConfig($configObj);
         }
         $transport = $this->getTransport();
         if ($transport !== null) {
@@ -224,9 +224,9 @@ class Services_OpenStreetMap_Objects implements Iterator, ArrayAccess, Countable
     {
         $class = 'Services_OpenStreetMap_' . ucfirst(strtolower($this->getType()));
         $object = new $class();
-        $config = $this->getConfig();
-        if ($config !== null) {
-            $object->setConfig($config);
+        $configObj = $this->getConfig();
+        if ($configObj !== null) {
+            $object->setConfig($configObj);
         }
         $transport = $this->getTransport();
         if ($transport !== null) {

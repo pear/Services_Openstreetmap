@@ -424,10 +424,10 @@ class Services_OpenStreetMap_User
     {
         $doc = '';
         $this->preferences = $preferences;
-        $config = $this->getConfig()->asArray();
-        $url = $config['server']
+        $configObj = $this->getConfig()->asArray();
+        $url = $configObj['server']
             . 'api/'
-            . $config['api_version']
+            . $configObj['api_version']
             . '/user/preferences';
         if (count($preferences) > 1) {
             $doc = "<osm version='0.6' generator='Services_OpenStreetMap'>"
@@ -446,8 +446,8 @@ class Services_OpenStreetMap_User
             $response = $this->getTransport()->getResponse(
                 $url,
                 HTTP_Request2::METHOD_PUT,
-                $config['user'],
-                $config['password'],
+                $configObj['user'],
+                $configObj['password'],
                 $doc,
                 null,
                 [['Content-type', 'text/xml', true]]
@@ -495,7 +495,7 @@ class Services_OpenStreetMap_User
     /**
      * Set Config object
      *
-     * @param Services_OpenStreetMap_Config $config Config object
+     * @param Services_OpenStreetMap_Config $configObj Config object
      *
      * @return Services_OpenStreetMap_User
      */

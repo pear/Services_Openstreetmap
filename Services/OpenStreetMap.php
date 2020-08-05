@@ -166,10 +166,10 @@ class Services_OpenStreetMap
         string $maxLon,
         string $maxLat
     ): string {
-        $config = $this->getConfig();
-        $url = $config->getValue('server')
+        $configObj = $this->getConfig();
+        $url = $configObj->getValue('server')
             . 'api/'
-            . $config->getValue('api_version')
+            . $configObj->getValue('api_version')
             . "/map?bbox=$minLon,$minLat,$maxLon,$maxLat";
         $response = $this->getTransport()->getResponse($url);
         $this->xml = $response->getBody();
