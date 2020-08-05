@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8fc0fbdadf8361a8dc17114fe4500d95",
+    "content-hash": "388bc734f1d1d61e013174063658ff8c",
     "packages": [
         {
             "name": "pear/http_request2",
@@ -3342,16 +3342,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.43.0",
+            "version": "v1.43.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "597a03e85a60af6feee4f5127f3ef4279a1694c3"
+                "reference": "2311602f6a208715252febe682fa7c38e56a3373"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/597a03e85a60af6feee4f5127f3ef4279a1694c3",
-                "reference": "597a03e85a60af6feee4f5127f3ef4279a1694c3",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/2311602f6a208715252febe682fa7c38e56a3373",
+                "reference": "2311602f6a208715252febe682fa7c38e56a3373",
                 "shasum": ""
             },
             "require": {
@@ -3402,7 +3402,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2020-07-05T13:00:49+00:00"
+            "time": "2020-08-05T15:05:05+00:00"
         },
         {
             "name": "webmozart/assert",

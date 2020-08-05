@@ -24,7 +24,7 @@
     "require": {
         "php": ">=7.1",
         "pear/http_request2": "2.4.*",
-        "pear/log": "1.12.*|1.13.*",
+        "pear/log": "1.12.*|1.13.*|1.14.*",
         "ext-simplexml": "*"
     },
     "require-dev": {
