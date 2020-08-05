@@ -11,7 +11,6 @@
  * @license  GPL (see http://www.gnu.org/licenses/gpl.txt)
  * @version  CVS: <cvs_id>
  * @link     Paswordfile.php
- * @todo
  */
 
 class Services_OpenStreetMap_Passwordfile
