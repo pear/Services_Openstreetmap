@@ -547,12 +547,12 @@ class Services_OpenStreetMap_Object
      */
     public function removeTags(array $keys): Services_OpenStreetMap_Object
     {
-        if (count($keys) === 0) {
+        if (empty($keys)) {
             return $this;
         }
         $tags = $this->getTags();
 
-        if (count($tags) === 0) {
+        if (empty($tags)) {
             return $this;
         }
         foreach ($keys as $key) {
