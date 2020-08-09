@@ -630,9 +630,8 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         $attribs = $this->getAttributes();
         if ($attribs !== null) {
             return $attribs->open == 'true';
-        } else {
-            return $this->open;
         }
+        return $this->open;
     }
 
     /**
@@ -686,9 +685,8 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         $p_id = parent::getId();
         if ($p_id === null) {
             return $this->id;
-        } else {
-            return $p_id;
         }
+        return $p_id;
     }
 
     /**
