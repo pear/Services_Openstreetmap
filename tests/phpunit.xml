@@ -1,5 +1,5 @@
 <phpunit colors='true'>
  <logging>
-  <log type='coverage-html' target='coverage' charset='UTF-8' yui='true' highlight='false'/>
+  <log type='coverage-html' target='coverage' />
  </logging>
 </phpunit>
