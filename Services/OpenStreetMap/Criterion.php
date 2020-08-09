@@ -112,29 +112,7 @@ class Services_OpenStreetMap_Criterion
         case 'open':
             break;
         case 'time':
-            $before = null;
-            $after = null;
-            if (isset($args[1])) {
-                $after = $args[1];
-                $time = strtotime($after);
-                if ($time == -1 || $time === false) {
-                    throw new Services_OpenStreetMap_InvalidArgumentException(
-                        'Invalid time value'
-                    );
-                }
-                $after = gmstrftime('%Y-%m-%dT%H:%M:%SZ', $time);
-            }
-            if (isset($args[2])) {
-                $before = $args[2];
-                $time = strtotime($before);
-                if ($time == -1 || $time === false) {
-                    throw new Services_OpenStreetMap_InvalidArgumentException(
-                        'Invalid time value'
-                    );
-                }
-                $before = gmstrftime('%Y-%m-%dT%H:%M:%SZ', $time);
-            }
-            $this->value = $before !== null ? "{$after},{$before}" : $after;
+            $this->value = $this->_timeCriterion($args);
             break;
         default:
             $this->type = null;
@@ -181,6 +159,41 @@ class Services_OpenStreetMap_Criterion
     public function type(): string
     {
         return $this->type;
+    }
+
+    /**
+     * _timeCriterion
+     *
+     * @param array $args Constructor arguments
+     *
+     * @return void
+     * @throws Services_OpenStreetMap_InvalidArgumentException
+     */
+    private function _timeCriterion($args)
+    {
+        $before = null;
+        $after = null;
+        if (isset($args[1])) {
+            $after = $args[1];
+            $time = strtotime($after);
+            if ($time == -1 || $time === false) {
+                throw new Services_OpenStreetMap_InvalidArgumentException(
+                    'Invalid time value'
+                );
+            }
+            $after = gmstrftime('%Y-%m-%dT%H:%M:%SZ', $time);
+        }
+        if (isset($args[2])) {
+            $before = $args[2];
+            $time = strtotime($before);
+            if ($time == -1 || $time === false) {
+                throw new Services_OpenStreetMap_InvalidArgumentException(
+                    'Invalid time value'
+                );
+            }
+            $before = gmstrftime('%Y-%m-%dT%H:%M:%SZ', $time);
+        }
+        return $before !== null ? "{$after},{$before}" : $after;
     }
 }
 
