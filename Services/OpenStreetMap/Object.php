@@ -219,11 +219,11 @@ class Services_OpenStreetMap_Object
                 $nodelist->item(0)->appendChild($new);
             }
 
-            $xml = $domd->saveXml($nodelist->item(0));
-            $xml = "<{$this->action}>{$xml}</{$this->action}>";
-            return $this->osmChangeXml($xml);
+            $changeXml = $domd->saveXml($nodelist->item(0));
+            $changeXml = "<{$this->action}>{$changeXml}</{$this->action}>";
+            return $this->osmChangeXml($changeXml);
         } elseif ($this->action === 'delete') {
-            $xml = null;
+            $changeXml = null;
             $domd = new DOMDocument();
             $domd->loadXml($this->getXml());
             $xpath = new DOMXPath($domd);
@@ -234,8 +234,8 @@ class Services_OpenStreetMap_Object
                 $n->item(0)->setAttribute('changeset', $this->changesetId);
             }
             $n->item(0)->setAttribute('action', 'delete');
-            $xml = $domd->saveXml($n->item(0));
-            return $this->osmChangeXml("<delete>{$xml}</delete>");
+            $changeXml = $domd->saveXml($n->item(0));
+            return $this->osmChangeXml("<delete>{$changeXml}</delete>");
         }
         return '';
     }
