@@ -12,15 +12,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         Option::AUTOLOAD_PATHS,
         [
         __DIR__ . '/vendor/autoload.php',
-        __DIR__ . "/tests",
         __DIR__ . '/Services/OpenStreetMap/',
-        __DIR__ . '/vendor/phpunit/phpunit/src/'
         ]
     );
 
-    /*
     $parameters->set(
         Option::EXCLUDE_PATHS,
         [ __DIR__ . '/vendor/*', ]
-    ); */
+    );
 };
