@@ -36,23 +36,32 @@ if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       ConfigTest.php
  */
-class LanguageValidatorTest extends PHPUnit_Framework_TestCase
+class LanguageValidatorTest extends PHPUnit\Framework\TestCase
 {
+    /**
+     * Test constructor
+     *
+     * @return void
+     */
     public function testValidatorLanguageConstructor()
     {
         $v = new Services_OpenStreetMap_Validator_Language('en');
+        $this->assertEquals($v->valid, true);
         $v = new Services_OpenStreetMap_Validator_Language('en-ie');
+        $this->assertEquals($v->valid, true);
     }
+
     /**
-     * testValidatorLanguageConstructorInvalid
-     *
-     * @expectedException        Services_OpenStreetMap_InvalidLanguageException
-     * @expectedExceptionMessage Language Invalid: 1
+     * Test invalid constructor
      *
      * @return void
      */
     public function testValidatorLanguageConstructorInvalid()
     {
+        $this->expectException(
+            Services_OpenStreetMap_InvalidLanguageException::class
+        );
+        $this->expectExceptionMessage('Language Invalid: 1');
         $v = new Services_OpenStreetMap_Validator_Language('1');
         $v = new Services_OpenStreetMap_Validator_Language('1-2');
     }

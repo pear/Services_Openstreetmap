@@ -75,7 +75,7 @@ class Log_OSMTest_Observer extends Log_observer
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       OSMTest.php
  */
-class OSMTest extends PHPUnit_Framework_TestCase
+class OSMTest extends PHPUnit\Framework\TestCase
 {
     /**
      * Check that a Services_OpenStreetMap object can be created ok.
@@ -178,13 +178,12 @@ class OSMTest extends PHPUnit_Framework_TestCase
      * If the minimum version supported by the server is greater than what this
      * package supports then an exception should be thrown.
      *
-     * @expectedException        Services_OpenStreetMap_Exception
-     * @expectedExceptionMessage Specified API Version 0.6 not supported.
-     *
      * @return void
      */
     public function testCapabilitiesMin()
     {
+        $this->expectException(Services_OpenStreetMap_Exception::class);
+        $this->expectExceptionMessage('Specified API Version 0.6 not supported.');
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities_min.xml', 'rb'));
 
@@ -199,13 +198,13 @@ class OSMTest extends PHPUnit_Framework_TestCase
      * If the maximum version supported by the server is lower than a version
      * supported by this package, then an exception should be thrown.
      *
-     * @expectedException        Services_OpenStreetMap_Exception
-     * @expectedExceptionMessage Specified API Version 0.6 not supported.
      *
      * @return void
      */
     public function testCapabilitiesMax()
     {
+        $this->expectException(Services_OpenStreetMap_Exception::class);
+        $this->expectExceptionMessage('Specified API Version 0.6 not supported.');
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities_max.xml', 'rb'));
 
@@ -219,13 +218,12 @@ class OSMTest extends PHPUnit_Framework_TestCase
     /**
      * If invalid/no capabilities are retrieving an exception should be thrown.
      *
-     * @expectedException        Services_OpenStreetMap_Exception
-     * @expectedExceptionMessage Problem checking server capabilities
-     *
      * @return void
      */
     public function testCapabilitiesInvalid()
     {
+        $this->expectException(Services_OpenStreetMap_Exception::class);
+        $this->expectExceptionMessage('Problem checking server capabilities');
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(
             fopen(__DIR__ . '/responses/capabilities_invalid.xml', 'rb')
@@ -548,13 +546,13 @@ class OSMTest extends PHPUnit_Framework_TestCase
      * An exception should be thrown if the place of interest can not be
      * found.
      *
-     * @expectedException        Services_OpenStreetMap_Exception
-     * @expectedExceptionMessage Could not get coords for Neeenaaa, Ireland
      *
      * @return void
      */
     public function testGetCoordsOfNonExistentPlace()
     {
+        $this->expectException(Services_OpenStreetMap_Exception::class);
+        $this->expectExceptionMessage('Could not get coords for Neeenaaa, Ireland');
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(
             fopen(

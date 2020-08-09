@@ -36,7 +36,7 @@ if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       https://github.com/kenguest/Services_Openstreetmap/issues/12
  */
-class TagsWithSameValueTest extends PHPUnit_Framework_TestCase
+class TagsWithSameValueTest extends PHPUnit\Framework\TestCase
 {
 
     /**

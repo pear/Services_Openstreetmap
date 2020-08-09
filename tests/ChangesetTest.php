@@ -38,7 +38,7 @@ if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       ChangesetTest.php
  */
-class ChangesetTest extends PHPUnit_Framework_TestCase
+class ChangesetTest extends PHPUnit\Framework\TestCase
 {
     protected $credentialsFile = '/credentials';
 
@@ -48,7 +48,7 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function setup()
+    public function setup(): void
     {
         if (file_exists(__DIR__ . $this->credentialsFile)) {
             $this->credentialsFile = __DIR__ . $this->credentialsFile;
@@ -90,13 +90,12 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * An exception should be thrown when starting a changeset without having a
      * password set.
      *
-     * @expectedException        Services_OpenStreetMap_RuntimeException
-     * @expectedExceptionMessage Password must be set
-     *
      * @return void
      */
     public function testPasswordNotSet()
     {
+        $this->expectException(Services_OpenStreetMap_RuntimeException::class);
+        $this->expectExceptionMessage('Password must be set');
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
@@ -118,13 +117,12 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * An exception should be thrown when starting a changeset without having a
      * [valid] username set.
      *
-     * @expectedException        Services_OpenStreetMap_RuntimeException
-     * @expectedExceptionMessage User must be set
-     *
      * @return void
      */
     public function testUserNotSet()
     {
+        $this->expectException(Services_OpenStreetMap_RuntimeException::class);
+        $this->expectExceptionMessage('User must be set');
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changeset_id', 'rb'));
@@ -206,13 +204,12 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * Test that an object can not be added to a closed changeset.
      * A changeset is closed after it has been committed.
      *
-     * @expectedException        Services_OpenStreetMap_RuntimeException
-     * @expectedExceptionMessage Object added to closed changeset
-     *
      * @return void
      */
     public function testObjectAddedToChangesetAfterCommit()
     {
+        $this->expectException(Services_OpenStreetMap_RuntimeException::class);
+        $this->expectExceptionMessage('Object added to closed changeset');
         if (!file_exists($this->credentialsFile)) {
             $this->markTestSkipped('Credentials file does not exist.');
         }
@@ -264,13 +261,12 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
     /**
      * Test that the same object can not be added to the same changeset.
      *
-     * @expectedException        Services_OpenStreetMap_RuntimeException
-     * @expectedExceptionMessage Object added to changeset already
-     *
      * @return void
      */
     public function testSameObjectAddedToChangeset()
     {
+        $this->expectException(Services_OpenStreetMap_RuntimeException::class);
+        $this->expectExceptionMessage('Object added to changeset already');
         if (!file_exists($this->credentialsFile)) {
             $this->markTestSkipped('Credentials file does not exist.');
         }
@@ -316,13 +312,12 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
     /**
      * Test deleting a node - including an 'accidental' second commit...
      *
-     * @expectedException        Services_OpenStreetMap_Exception
-     * @expectedExceptionMessage Attempt to commit a closed changeset
-     *
      * @return void
      */
     public function testDeleteNode()
     {
+        $this->expectException(Services_OpenStreetMap_Exception::class);
+        $this->expectExceptionMessage('Attempt to commit a closed changeset');
         if (!file_exists($this->credentialsFile)) {
             $this->markTestSkipped('Credentials file does not exist.');
         }
@@ -366,13 +361,12 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * If a 404 error occurs while closing a changeset [during a commit] then
      * an exception should be thrown. Test for this.
      *
-     * @expectedException        Services_OpenStreetMap_Exception
-     * @expectedExceptionMessage Error closing changeset
-     *
      * @return void
      */
     public function testDeleteNodeClosingError404()
     {
+        $this->expectException(Services_OpenStreetMap_Exception::class);
+        $this->expectExceptionMessage('Error closing changeset');
         if (!file_exists($this->credentialsFile)) {
             $this->markTestSkipped('Credentials file does not exist.');
         }
@@ -413,9 +407,6 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * If an error occurs while closing a changeset [during a commit] then
      * an exception should be thrown. Test for this.
      *
-     * @expectedException       Services_OpenStreetMap_Exception
-     * @xpectedExceptionMessage Error closing changeset
-     *
      * @return void
      */
     public function testDeleteNodeClosingError400()
@@ -423,6 +414,8 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
         if (!file_exists($this->credentialsFile)) {
             $this->markTestSkipped('Credentials file does not exist.');
         }
+        $this->expectException(Services_OpenStreetMap_Exception::class);
+        $this->expectExceptionMessage('Error closing changeset');
 
         $nodeID = 1436433375;
 
@@ -468,13 +461,12 @@ class ChangesetTest extends PHPUnit_Framework_TestCase
      * If an error occurs while posting changeset information to the server an
      * exception should be thrown.
      *
-     * @expectedException        Services_OpenStreetMap_Exception
-     * @expectedExceptionMessage Error posting changeset
-     *
      * @return void
      */
     public function testDeleteNodeDiffError400()
     {
+        $this->expectException(Services_OpenStreetMap_Exception::class);
+        $this->expectExceptionMessage('Error posting changeset');
         if (!file_exists($this->credentialsFile)) {
             $this->markTestSkipped('Credentials file does not exist.');
         }

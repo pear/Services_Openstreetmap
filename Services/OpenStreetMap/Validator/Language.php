@@ -16,12 +16,22 @@
 class Services_OpenStreetMap_Validator_Language
 {
 
+    public $valid = false;
+
+    /**
+     * __construct
+     *
+     * @param string $language Optional. Validated if specified.
+     *
+     * @return void
+     */
     public function __construct($language = '')
     {
         if ($language !== '') {
             $this->validate($language);
         }
     }
+
     /**
      * Validate specified language.
      *
@@ -38,12 +48,18 @@ class Services_OpenStreetMap_Validator_Language
                 $subparts = explode("-", $lang);
                 foreach ($subparts as $subpart) {
                     if (!$this->_validateLanguageRegex($subpart)) {
+                        $this->valid = false;
                         throw new Services_OpenStreetMap_InvalidLanguageException("Language Invalid: $language");
+                    } else {
+                        $this->valid = true;
                     }
                 }
             } else {
                 if (!$this->_validateLanguageRegex($lang)) {
                     throw new Services_OpenStreetMap_InvalidLanguageException("Language Invalid: $language");
+                    $this->valid = false;
+                } else {
+                    $this->valid = true;
                 }
             }
         }

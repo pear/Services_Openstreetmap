@@ -38,7 +38,7 @@ if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       RelationTest.php
  */
-class RelationTest extends PHPUnit_Framework_TestCase
+class RelationTest extends PHPUnit\Framework\TestCase
 {
     /**
      * Test retrieving just one relation.

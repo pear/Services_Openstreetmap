@@ -21,7 +21,7 @@ if (strstr($version, 'package_version')) {
 
 require_once 'Services/OpenStreetMap.php';
 
-class OpeningHoursWithCommentTest extends PHPUnit_Framework_TestCase
+class OpeningHoursWithCommentTest extends PHPUnit\Framework\TestCase
 {
     public function testCommentIncluded()
     {

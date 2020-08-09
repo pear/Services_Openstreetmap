@@ -37,7 +37,7 @@ if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       CriterionTest.php
  */
-class CriterionTest extends PHPUnit_Framework_TestCase
+class CriterionTest extends PHPUnit\Framework\TestCase
 {
     /**
      * Search by user id.
@@ -72,13 +72,13 @@ class CriterionTest extends PHPUnit_Framework_TestCase
      * Searching by an unrecognised constraint type ('uid') should throw an
      * exception.
      *
-     * @expectedException        Services_OpenStreetMap_InvalidArgumentException
-     * @expectedExceptionMessage Unknown constraint type
      *
      * @return void
      */
     public function testSearchInvalid()
     {
+        $this->expectException(Services_OpenStreetMap_InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unknown constraint type');
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
@@ -118,13 +118,13 @@ class CriterionTest extends PHPUnit_Framework_TestCase
      * Check that an exception is thrown if attempting to search by both
      * user id and display_name
      *
-     * @expectedException        Services_OpenStreetMap_RuntimeException
-     * @expectedExceptionMessage Can't supply both user and display_name criteria
      *
      * @return void
      */
     public function testSearchByDisplayNameAndUser()
     {
+        $this->expectException(Services_OpenStreetMap_RuntimeException::class);
+        $this->expectExceptionMessage("Can't supply both user and display_name criteria");
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/changesets_11324.xml', 'rb'));
@@ -264,13 +264,13 @@ class CriterionTest extends PHPUnit_Framework_TestCase
     /**
      * User value must be numeric.
      *
-     * @expectedException        Services_OpenStreetMap_InvalidArgumentException
-     * @expectedExceptionMessage User UID must be numeric
      *
      * @return void
      */
     public function testInvalidUserValue()
     {
+        $this->expectException(Services_OpenStreetMap_InvalidArgumentException::class);
+        $this->expectExceptionMessage('User UID must be numeric');
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 

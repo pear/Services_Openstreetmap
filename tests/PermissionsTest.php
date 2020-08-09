@@ -37,7 +37,7 @@ if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       PermissionsTest.php
  */
-class PermissionsTest extends PHPUnit_Framework_TestCase
+class PermissionsTest extends PHPUnit\Framework\TestCase
 {
     /**
      * Test that permission data is parsed correctly.

@@ -60,7 +60,7 @@ class AllTests
      */
     public static function main()
     {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
+        PHPUnit\TextUI\TestRunner::run(self::suite());
     }
 
     /**
@@ -72,7 +72,7 @@ class AllTests
      */
     public static function suite()
     {
-        $suite = new PHPUnit_Framework_TestSuite('Services_OpenStreetMap Tests');
+        $suite = new PHPUnit\Framework\TestSuite('Services_OpenStreetMap Tests');
 
         $suite->addTestSuite('ChangesetTest');
         $suite->addTestSuite('ConfigTest');

@@ -34,7 +34,7 @@ if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       NodeTest.php
  */
-class MapquestReverseGeocodeTest extends PHPUnit_Framework_TestCase
+class MapquestReverseGeocodeTest extends PHPUnit\Framework\TestCase
 {
     /**
      * Test reverse lookup

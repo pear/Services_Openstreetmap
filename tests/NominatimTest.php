@@ -38,7 +38,7 @@ if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       ConfigTest.php
  */
-class NominatimTest extends PHPUnit_Framework_TestCase
+class NominatimTest extends PHPUnit\Framework\TestCase
 {
 
     /**
@@ -64,13 +64,12 @@ class NominatimTest extends PHPUnit_Framework_TestCase
      * An exception should be thrown if the place of interest can not be
      * found.
      *
-     * @expectedException        Services_OpenStreetMap_Exception
-     * @expectedExceptionMessage Could not get coords for Neeenaaa, Ireland
-     *
      * @return void
      */
     public function testGetCoordsOfNonExistentPlace()
     {
+        $this->expectException(Services_OpenStreetMap_Exception::class);
+        $this->expectExceptionMessage('Could not get coords for Neeenaaa, Ireland');
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(
             fopen(
@@ -129,13 +128,12 @@ class NominatimTest extends PHPUnit_Framework_TestCase
      * Check that an exception is thrown when attempting to set format to an
      * unrecognised value.
      *
-     * @expectedException        Services_OpenStreetMap_RuntimeException
-     * @expectedExceptionMessage Unrecognised format (xhtml)
-     *
      * @return void
      */
     public function testInvalidFormat()
     {
+        $this->expectException(Services_OpenStreetMap_RuntimeException::class);
+        $this->expectExceptionMessage('Unrecognised format (xhtml)');
         $osm = new Services_OpenStreetMap();
         $transport = $osm->getTransport();
         $nominatim = new Services_OpenStreetMap_Nominatim($transport);
@@ -326,13 +324,12 @@ class NominatimTest extends PHPUnit_Framework_TestCase
      * Check that an exception is thrown when attempting to set limit to an
      * unrecognised value.
      *
-     * @expectedException        Services_OpenStreetMap_RuntimeException
-     * @expectedExceptionMessage Server endpoint invalid
-     *
      * @return void
      */
     public function testSetInvalidServerURL()
     {
+        $this->expectException(Services_OpenStreetMap_RuntimeException::class);
+        $this->expectExceptionMessage('Server endpoint invalid');
         $osm = new Services_OpenStreetMap();
         $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
         $nominatim->setServer('invalid');
@@ -377,13 +374,12 @@ class NominatimTest extends PHPUnit_Framework_TestCase
     /**
      * Check what happens when attempting to set an invalid email address.
      *
-     * @expectedException        Services_OpenStreetMap_RuntimeException
-     * @expectedExceptionMessage Email address 'test example.com' is not valid
-     *
      * @return void
      */
     public function testSetInvalidEmailAddress()
     {
+        $this->expectException(Services_OpenStreetMap_RuntimeException::class);
+        $this->expectExceptionMessage("Email address 'test example.com' is not valid");
         $osm = new Services_OpenStreetMap();
         $nominatim = new Services_OpenStreetMap_Nominatim($osm->getTransport());
         $nominatim->setEmailAddress('test example.com');

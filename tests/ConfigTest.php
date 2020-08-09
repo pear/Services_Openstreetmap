@@ -38,7 +38,7 @@ if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       ConfigTest.php
  */
-class ConfigTest extends PHPUnit_Framework_TestCase
+class ConfigTest extends PHPUnit\Framework\TestCase
 {
     /**
      * General test of the Config class
@@ -102,13 +102,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     /**
      * Test unknown config detection.
      *
-     * @expectedException        Services_OpenStreetMap_InvalidArgumentException
-     * @expectedExceptionMessage Unknown config parameter 'api'
-     *
      * @return void
      */
     public function testUnknownConfig()
     {
+        $this->expectException(Services_OpenStreetMap_InvalidArgumentException::class);
+        $this->expectExceptionMessage("Unknown config parameter 'api'");
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
@@ -121,13 +120,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     /**
      * Test unknown config detection.
      *
-     * @expectedException        Services_OpenStreetMap_InvalidArgumentException
-     * @expectedExceptionMessage Unknown config parameter 'api'
-     *
      * @return void
      */
     public function testConfig3()
     {
+        $this->expectException(Services_OpenStreetMap_InvalidArgumentException::class);
+        $this->expectExceptionMessage("Unknown config parameter 'api'");
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
@@ -165,13 +163,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     /**
      * Setting an unrecognised config setting should raise an exception.
      *
-     * @expectedException        Services_OpenStreetMap_InvalidArgumentException
-     * @expectedExceptionMessage Unknown config parameter 'UserAgent'
-     *
      * @return void
      */
     public function testUnrecognisedConfig()
     {
+        $this->expectException(Services_OpenStreetMap_InvalidArgumentException::class);
+        $this->expectExceptionMessage("Unknown config parameter 'UserAgent'");
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
@@ -182,13 +179,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     /**
      * Try the same, this time with the config settings in an array.
      *
-     * @expectedException        Services_OpenStreetMap_InvalidArgumentException
-     * @expectedExceptionMessage Unknown config parameter 'UserAgent'
-     *
      * @return void
      */
     public function testUnrecognisedConfigByArray()
     {
+        $this->expectException(Services_OpenStreetMap_InvalidArgumentException::class);
+        $this->expectExceptionMessage("Unknown config parameter 'UserAgent'");
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
@@ -278,13 +274,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      * Exception should be thrown if the password file being set doesn't exist.
      * Do this via the setValue method.
      *
-     * @expectedException        Services_OpenStreetMap_Exception
-     * @expectedExceptionMessage Could not read password file
-     *
      * @return void
      */
     public function testSetNonExistingPasswordFile()
     {
+        $this->expectException(Services_OpenStreetMap_Exception::class);
+        $this->expectExceptionMessage('Could not read password file');
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
@@ -296,13 +291,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      * Exception should be thrown if the password file being set doesn't exist
      * Do this via the explicit setPasswordfile method.
      *
-     * @expectedException        Services_OpenStreetMap_Exception
-     * @expectedExceptionMessage Could not read password file
-     *
      * @return void
      */
     public function testSetNonExistingPasswordFileExplicitMethod()
     {
+        $this->expectException(Services_OpenStreetMap_Exception::class);
+        $this->expectExceptionMessage('Could not read password file');
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 

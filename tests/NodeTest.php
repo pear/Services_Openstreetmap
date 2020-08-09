@@ -38,7 +38,7 @@ if (stream_resolve_include_path('PHPUnit/Framework/TestCase.php')) {
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       NodeTest.php
  */
-class NodeTest extends PHPUnit_Framework_TestCase
+class NodeTest extends PHPUnit\Framework\TestCase
 {
     /**
      * Test the getNode method.
@@ -143,13 +143,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test how a 500 status code is handled.
      *
-     * @expectedException        Services_OpenStreetMap_Exception
-     * @expectedExceptionMessage Unexpected HTTP status: 500 Internal Server Error
-     *
      * @return void
      */
     public function testGetNode500()
     {
+        $this->expectException(Services_OpenStreetMap_Exception::class);
+        $this->expectExceptionMessage('Unexpected HTTP status: 500 Internal Server Error');
         $id = 52245107;
 
         $mock = new HTTP_Request2_Adapter_Mock();
@@ -208,13 +207,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test invalid latitude value in constructor
      *
-     * @expectedException        InvalidArgumentException
-     * @expectedExceptionMessage Latitude can't be greater than 90
-     *
      * @return void
      */
     public function testCreateNodeInvalidLatitude()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Latitude can't be greater than 90");
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
@@ -232,13 +230,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
      * Test invalid latitude value in constructor and that value can't be
      * less than -90 degrees.
      *
-     * @expectedException        InvalidArgumentException
-     * @expectedExceptionMessage Latitude can't be less than -90
-     *
      * @return void
      */
     public function testCreateNodeInvalidLessThanMinus90()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Latitude can't be less than -90");
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
@@ -298,13 +295,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
      * Test invalid longitude value in constructor and that value greater than
      * 180 degrees causes an exception.
      *
-     * @expectedException        InvalidArgumentException
-     * @expectedExceptionMessage Longitude can't be greater than 180
-     *
      * @return void
      */
     public function testCreateNodeInvalidLongitude()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Longitude can't be greater than 180");
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
@@ -321,13 +317,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test invalid longitude value in constructor
      *
-     * @expectedException        InvalidArgumentException
-     * @expectedExceptionMessage Longitude can't be less than -180
-     *
      * @return void
      */
     public function testCreateNodeInvalidLongitudeLessThanMinus180()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Longitude can't be less than -180");
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
 
@@ -497,13 +492,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test how a 500 status code is handled.
      *
-     * @expectedException        Services_OpenStreetMap_Exception
-     * @expectedExceptionMessage Unexpected HTTP status: 500 Internal Server Error
-     *
      * @return void
      */
     public function testGetNodes500()
     {
+        $this->expectException(Services_OpenStreetMap_Exception::class);
+        $this->expectExceptionMessage('Unexpected HTTP status: 500 Internal Server Error');
         $mock = new HTTP_Request2_Adapter_Mock();
         $mock->addResponse(fopen(__DIR__ . '/responses/capabilities.xml', 'rb'));
         $mock->addResponse(fopen(__DIR__ . '/responses/500', 'rb'));
@@ -632,14 +626,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test length constraints
      *
-     * @expectedException Services_OpenStreetMap_RuntimeException
-     *
-     * @expectedExceptionMessageRegExp /.* capped at 255 characters$/
-     *
      * @return void
      */
     public function testCreateNodeMaxKeyLengthConstraintExceeded()
     {
+        $this->expectException(Services_OpenStreetMap_RuntimeException::class);
+        $this->expectExceptionMessage('capped at 255 characters');
         $osm = new Services_OpenStreetMap();
         $lat = 52.8638729;
         $lon = -8.1983611;
@@ -653,14 +645,12 @@ class NodeTest extends PHPUnit_Framework_TestCase
     /**
      * Test length constraints
      *
-     * @expectedException Services_OpenStreetMap_RuntimeException
-     *
-     * @expectedExceptionMessageRegExp /.* capped at 255 characters$/
-     *
      * @return void
      */
     public function testCreateNodeMaxValLengthConstraintExceeded()
     {
+        $this->expectException(Services_OpenStreetMap_RuntimeException::class);
+        $this->expectExceptionMessage('capped at 255 characters');
         $osm = new Services_OpenStreetMap();
         $lat = 52.8638729;
         $lon = -8.1983611;
@@ -672,7 +662,7 @@ class NodeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * testCreateNodeMaxValLengthAllowed
+     * TestCreateNodeMaxValLengthAllowed
      *
      * @return void
      */

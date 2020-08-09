@@ -34,7 +34,7 @@ require_once 'HTTP/Request2/Adapter/Mock.php';
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       WayTest.php
  */
-class WayFullTest extends PHPUnit_Framework_TestCase
+class WayFullTest extends PHPUnit\Framework\TestCase
 {
 
     /**
@@ -57,8 +57,8 @@ class WayFullTest extends PHPUnit_Framework_TestCase
         ];
         $osm = new Services_OpenStreetMap($config);
         $way = $osm->getWayFull($id, 1);
-        //var_dump($way);
+        $this->assertEquals($id, $way->getId());
         $way = $osm->getWay($id);
-        //var_dump($way);
+        $this->assertEquals($id, $way->getId());
     }
 }

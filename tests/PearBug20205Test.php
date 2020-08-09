@@ -32,7 +32,7 @@ require_once 'HTTP/Request2/Adapter/Mock.php';
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       PearBug20205Test.php
  */
-class PearBug20205Test extends PHPUnit_Framework_TestCase
+class PearBug20205Test extends PHPUnit\Framework\TestCase
 {
 
     /**

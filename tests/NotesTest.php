@@ -74,7 +74,7 @@ class Log_Observer_Simple extends Log_observer
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       NodeTest.php
  */
-class NotesTest extends PHPUnit_Framework_TestCase
+class NotesTest extends PHPUnit\Framework\TestCase
 {
     /**
      * Test getNotesByBBox

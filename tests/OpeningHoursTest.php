@@ -30,7 +30,7 @@ require_once 'Services/OpenStreetMap.php';
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       OpeningHoursTest.php
  */
-class OpeningHoursTest extends PHPUnit_Framework_TestCase
+class OpeningHoursTest extends PHPUnit\Framework\TestCase
 {
     /**
      * Test 24/7 syntax, should evaluate to true whenever.

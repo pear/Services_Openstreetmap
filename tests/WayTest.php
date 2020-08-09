@@ -34,7 +34,7 @@ require_once 'HTTP/Request2/Adapter/Mock.php';
  * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       WayTest.php
  */
-class WayTest extends PHPUnit_Framework_TestCase
+class WayTest extends PHPUnit\Framework\TestCase
 {
 
     /**
@@ -211,14 +211,12 @@ class WayTest extends PHPUnit_Framework_TestCase
      * Check that an exception is thrown when an incorrect identifier is used
      * to specify a node to remove from a way.
      *
-     * @expectedException        InvalidArgumentException
-     * @expectedExceptionMessage $node must be either an instance of
-     *                           Services_OpenStreetMap_Node or a numeric id
-     *
      * @return void
      */
     public function testIncorrectTypeToRemoveNode()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('$node must be either an instance of Services_OpenStreetMap_Node or a numeric id');
         $id = 23010474;
 
         $mock = new HTTP_Request2_Adapter_Mock();
