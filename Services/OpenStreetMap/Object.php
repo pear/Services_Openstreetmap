@@ -394,23 +394,22 @@ class Services_OpenStreetMap_Object
     {
         $transport = null;
         $objectType = $this->getType();
-        $id = $this->getId();
         $configObj = $this->getConfig();
         $url = $configObj->getValue('server')
             . 'api/'
             . $configObj->getValue('api_version')
-            . "/$objectType/$id/history";
+            . "/$objectType/". $this->getId() .'/history';
         $class = 'Services_OpenStreetMap_' . ucfirst($objectType) . 's';
         $transport = $this->getTransport();
         $response = $transport->getResponse($url);
-        $obj = new $class();
+        $object = new $class();
         $sxe = @simplexml_load_string($response->getBody());
         if (!$sxe) {
-            $obj->setVal(trim($response->getBody()));
+            $object->setVal(trim($response->getBody()));
         } else {
-            $obj->setXml($sxe);
+            $object->setXml($sxe);
         }
-        return $obj;
+        return $object;
     }
 
     /**
@@ -421,21 +420,20 @@ class Services_OpenStreetMap_Object
     public function getRelations(): \Services_OpenStreetMap_Relations
     {
         $objectType = $this->getType();
-        $id = $this->getId();
         $configObj = $this->getConfig();
         $url = $configObj->getValue('server')
             . 'api/'
             . $configObj->getValue('api_version')
-            . "/$objectType/$id/relations";
+            . "/$objectType/" . $this->getId() . "/relations";
         $response = $this->getTransport()->getResponse($url);
-        $obj = new Services_OpenStreetMap_Relations();
+        $object = new Services_OpenStreetMap_Relations();
         $sxe = @simplexml_load_string($response->getBody());
         if (!$sxe) {
-            $obj->setVal(trim($response->getBody()));
+            $object->setVal(trim($response->getBody()));
         } else {
-            $obj->setXml($sxe);
+            $object->setXml($sxe);
         }
-        return $obj;
+        return $object;
     }
 
     /**

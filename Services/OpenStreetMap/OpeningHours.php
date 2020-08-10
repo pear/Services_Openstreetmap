@@ -66,32 +66,35 @@ class Services_OpenStreetMap_OpeningHours
      */
     public function isOpen(?int $time = null): ?bool
     {
-        if ($this->value === null) {
-            return null;
-        }
-        if ($this->value === '24/7') {
-            return true;
-        }
-
         if ($time === null) {
             $time = time();
         }
-        if ($this->value === 'sunrise-sunset') {
-            return $this->_isBetweenSunriseAndSunset($time);
+        $rVal = null;
+        switch ($this->value) {
+        case null:
+            $rVal = null;
+            break;
+        case '24/7':
+            $rVal = true;
+            break;
+        case 'sunrise-sunset':
+            $rVal = $this->_isBetweenSunriseAndSunset($time);
+            break;
+        default:
+            $matched = [];
+            $isVariableSunRiseSunSet = preg_match(
+                '/([^\(]?sunrise.*[^\)-]+).*-.*([^\(]?sunset.*[^\)])/u',
+                $this->value,
+                $matched
+            );
+            if ($isVariableSunRiseSunSet === 1) {
+                return $this->_isBetweenVariableSunriseAndSunset($time, $matched);
+            }
+            // time specs...
+            $rVal = $this->_evaluateComplexTimeSpec($time);
+
         }
-        // other simple test would be sunrise-sunset - with
-        // offsets that would need to be taken into account
-        $matched = [];
-        $isVariableSunRiseSunSet = preg_match(
-            '/([^\(]?sunrise.*[^\)-]+).*-.*([^\(]?sunset.*[^\)])/u',
-            $this->value,
-            $matched
-        );
-        if ($isVariableSunRiseSunSet === 1) {
-            return $this->_isBetweenVariableSunriseAndSunset($time, $matched);
-        }
-        // time specs...
-        return $this->_evaluateComplexTimeSpec($time);
+        return $rVal;
     }
 
     /**
