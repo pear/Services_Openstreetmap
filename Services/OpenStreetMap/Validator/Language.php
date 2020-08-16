@@ -73,11 +73,10 @@ class Services_OpenStreetMap_Validator_Language
      */
     private function _validateLanguageRegex(string $language): bool
     {
-        $valid = filter_var(
+        return filter_var(
             $language,
             FILTER_VALIDATE_REGEXP,
             ['options' => ['regexp' => '/^[a-z]{1,8}$/i']]
-        );
-        return $valid !== false;
+        ) !== false;
     }
 }
