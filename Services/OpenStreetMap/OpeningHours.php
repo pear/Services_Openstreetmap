@@ -312,21 +312,19 @@ class Services_OpenStreetMap_OpeningHours
         $end_day = substr($spec, $pos + 1);
         if ($start_day !== 'mo') {
             foreach ($days as $day) {
-                if ($day !== $start_day) {
-                    array_shift($days);
-                } else {
+                if ($day === $start_day) {
                     break;
                 }
+                array_shift($days);
             }
         }
         $rdays = array_reverse($days);
         if ($end_day !== 'su') {
             foreach ($rdays as $day) {
-                if ($day !== $end_day) {
-                    array_shift($rdays);
-                } else {
+                if ($day === $end_day) {
                     break;
                 }
+                array_shift($rdays);
             }
             $days = array_reverse($rdays);
         }

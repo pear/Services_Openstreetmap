@@ -42,9 +42,8 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
     {
         if ($this->obj[0] !== null) {
             return $this->obj[0]->action;
-        } else {
-            return '';
         }
+        return '';
     }
 
     /**
@@ -54,11 +53,10 @@ class Services_OpenStreetMap_Comment extends Services_OpenStreetMap_Object
      */
     public function getDate(): int
     {
-        if ($this->obj[0] !== null) {
-            return $this->obj[0]->date;
-        } else {
+        if ($this->obj[0] === null) {
             return 0;
         }
+        return $this->obj[0]->date;
     }
 
     /**

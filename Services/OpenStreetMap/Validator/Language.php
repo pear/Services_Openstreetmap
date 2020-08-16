@@ -43,6 +43,7 @@ class Services_OpenStreetMap_Validator_Language
     public function validate($language): void
     {
         $langs = explode(",", $language);
+        $this->valid = true;
         foreach ($langs as $lang) {
             if (strpos($lang, '-') !== false) {
                 $subparts = explode("-", $lang);
@@ -50,16 +51,12 @@ class Services_OpenStreetMap_Validator_Language
                     if (!$this->_validateLanguageRegex($subpart)) {
                         $this->valid = false;
                         throw new Services_OpenStreetMap_InvalidLanguageException("Language Invalid: $language");
-                    } else {
-                        $this->valid = true;
                     }
                 }
             } else {
                 if (!$this->_validateLanguageRegex($lang)) {
-                    throw new Services_OpenStreetMap_InvalidLanguageException("Language Invalid: $language");
                     $this->valid = false;
-                } else {
-                    $this->valid = true;
+                    throw new Services_OpenStreetMap_InvalidLanguageException("Language Invalid: $language");
                 }
             }
         }
