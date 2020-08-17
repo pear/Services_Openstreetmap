@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "f2bb223aaa985fc5cec6dd7044c2c231",
@@ -236,21 +236,21 @@
     "packages-dev": [
         {
             "name": "composer/package-versions-deprecated",
-            "version": "1.10.99",
+            "version": "1.10.99.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/package-versions-deprecated.git",
-                "reference": "dd51b4443d58b34b6d9344cf4c288e621c9a826f"
+                "reference": "68c9b502036e820c33445ff4d174327f6bb87486"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/dd51b4443d58b34b6d9344cf4c288e621c9a826f",
-                "reference": "dd51b4443d58b34b6d9344cf4c288e621c9a826f",
+                "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/68c9b502036e820c33445ff4d174327f6bb87486",
+                "reference": "68c9b502036e820c33445ff4d174327f6bb87486",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.1.0 || ^2.0",
-                "php": "^7"
+                "php": "^7 || ^8"
             },
             "replace": {
                 "ocramius/package-versions": "1.10.99"
@@ -287,7 +287,21 @@
                 }
             ],
             "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-            "time": "2020-07-15T08:39:18+00:00"
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/composer",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-13T12:55:41+00:00"
         },
         {
             "name": "composer/xdebug-handler",
@@ -331,20 +345,34 @@
                 "Xdebug",
                 "performance"
             ],
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/composer",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-06-04T11:16:35+00:00"
         },
         {
             "name": "doctrine/annotations",
-            "version": "1.10.3",
+            "version": "1.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "5db60a4969eba0e0c197a19c077780aadbc43c5d"
+                "reference": "bfe91e31984e2ba76df1c1339681770401ec262f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/5db60a4969eba0e0c197a19c077780aadbc43c5d",
-                "reference": "5db60a4969eba0e0c197a19c077780aadbc43c5d",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/bfe91e31984e2ba76df1c1339681770401ec262f",
+                "reference": "bfe91e31984e2ba76df1c1339681770401ec262f",
                 "shasum": ""
             },
             "require": {
@@ -354,7 +382,8 @@
             },
             "require-dev": {
                 "doctrine/cache": "1.*",
-                "phpunit/phpunit": "^7.5"
+                "phpstan/phpstan": "^0.12.20",
+                "phpunit/phpunit": "^7.5 || ^9.1.5"
             },
             "type": "library",
             "extra": {
@@ -400,7 +429,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2020-05-25T17:24:27+00:00"
+            "time": "2020-08-10T19:35:50+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -477,6 +506,20 @@
                 "uppercase",
                 "words"
             ],
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Finflector",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-05-29T15:13:26+00:00"
         },
         {
@@ -532,6 +575,20 @@
             "keywords": [
                 "constructor",
                 "instantiate"
+            ],
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Finstantiator",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-05-29T17:27:14+00:00"
         },
@@ -594,6 +651,20 @@
                 "lexer",
                 "parser",
                 "php"
+            ],
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Flexer",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-05-25T17:44:05+00:00"
         },
@@ -693,6 +764,12 @@
                 "duplicate",
                 "object",
                 "object graph"
+            ],
+            "funding": [
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/myclabs/deep-copy",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-06-29T13:22:24+00:00"
         },
@@ -902,16 +979,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.7.0",
+            "version": "v4.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "21dce06dfbf0365c6a7cc8fdbdc995926c6a9300"
+                "reference": "8c58eb4cd4f3883f82611abeac2efbc3dbed787e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/21dce06dfbf0365c6a7cc8fdbdc995926c6a9300",
-                "reference": "21dce06dfbf0365c6a7cc8fdbdc995926c6a9300",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8c58eb4cd4f3883f82611abeac2efbc3dbed787e",
+                "reference": "8c58eb4cd4f3883f82611abeac2efbc3dbed787e",
                 "shasum": ""
             },
             "require": {
@@ -919,8 +996,8 @@
                 "php": ">=7.0"
             },
             "require-dev": {
-                "ircmaxell/php-yacc": "0.0.5",
-                "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0"
+                "ircmaxell/php-yacc": "^0.0.6",
+                "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0"
             },
             "bin": [
                 "bin/php-parse"
@@ -928,7 +1005,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.7-dev"
+                    "dev-master": "4.8-dev"
                 }
             },
             "autoload": {
@@ -950,7 +1027,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2020-07-25T13:18:53+00:00"
+            "time": "2020-08-09T10:23:20+00:00"
         },
         {
             "name": "ondram/ci-detector",
@@ -1381,16 +1458,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.36",
+            "version": "0.12.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "eaeff985e395ff4e7aebf3251a43fca6c9be1af3"
+                "reference": "5e16d83e6eb2dd784fbdaeaece5e2bca72e4f68a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/eaeff985e395ff4e7aebf3251a43fca6c9be1af3",
-                "reference": "eaeff985e395ff4e7aebf3251a43fca6c9be1af3",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/5e16d83e6eb2dd784fbdaeaece5e2bca72e4f68a",
+                "reference": "5e16d83e6eb2dd784fbdaeaece5e2bca72e4f68a",
                 "shasum": ""
             },
             "require": {
@@ -1419,7 +1496,21 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "time": "2020-08-05T09:29:40+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/ondrejmirtes",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/phpstan",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-09T14:32:41+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
@@ -1727,6 +1818,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {
@@ -1809,6 +1901,16 @@
                 "phpunit",
                 "testing",
                 "xunit"
+            ],
+            "funding": [
+                {
+                    "url": "https://phpunit.de/donate.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/sebastianbergmann",
+                    "type": "github"
+                }
             ],
             "time": "2020-06-22T07:06:58+00:00"
         },
@@ -2050,21 +2152,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "v0.7.63",
+            "version": "v0.7.64",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "0f25a84740237a1816f4e6b09a62b23f784116f9"
+                "reference": "b7f9a04177b2059a4fb4c6926857da8a2b59cce1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/0f25a84740237a1816f4e6b09a62b23f784116f9",
-                "reference": "0f25a84740237a1816f4e6b09a62b23f784116f9",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/b7f9a04177b2059a4fb4c6926857da8a2b59cce1",
+                "reference": "b7f9a04177b2059a4fb4c6926857da8a2b59cce1",
                 "shasum": ""
             },
             "require": {
                 "composer/xdebug-handler": "^1.4",
-                "doctrine/annotations": "^1.10.2",
+                "doctrine/annotations": "^1.10.4",
                 "doctrine/inflector": "^1.4|^2.0",
                 "ext-json": "*",
                 "jean85/pretty-package-versions": "^1.2",
@@ -2083,13 +2185,13 @@
                 "symfony/dependency-injection": "^4.4.8|^5.0.6",
                 "symfony/finder": "^4.4.8|^5.0.6",
                 "symfony/process": "^4.4.8|^5.0.6",
-                "symplify/auto-bind-parameter": "^8.1.20",
-                "symplify/autowire-array-parameter": "^8.1.20",
-                "symplify/console-color-diff": "^8.1.20",
-                "symplify/package-builder": "^8.1.20",
-                "symplify/parameter-name-guard": "^8.1.20",
-                "symplify/set-config-resolver": "^8.1.20",
-                "symplify/smart-file-system": "^8.1.20",
+                "symplify/auto-bind-parameter": "^8.2.2",
+                "symplify/autowire-array-parameter": "^8.2.2",
+                "symplify/console-color-diff": "^8.2.2",
+                "symplify/easy-testing": "^8.2.2",
+                "symplify/package-builder": "^8.2.2",
+                "symplify/set-config-resolver": "^8.2.2",
+                "symplify/smart-file-system": "^8.2.2",
                 "tracy/tracy": "^2.7"
             },
             "replace": {
@@ -2098,18 +2200,19 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.16",
                 "johnkary/phpunit-speedtrap": "^3.2",
-                "migrify/config-transformer": "^0.3.16",
+                "migrify/config-transformer": "^0.3.25",
+                "migrify/easy-ci": "^0.3.25",
                 "nette/application": "^3.0",
                 "nette/forms": "^3.0",
                 "ocramius/package-versions": "^1.4|^1.5",
                 "phpunit/phpunit": "^8.5|^9.0",
                 "psr/event-dispatcher": "^1.0",
                 "slam/phpstan-extensions": "^5.0",
-                "symplify/changelog-linker": "^8.1.20",
-                "symplify/easy-coding-standard": "^8.1.20",
-                "symplify/easy-testing": "^8.1.20",
-                "symplify/monorepo-builder": "^8.1.20",
-                "symplify/phpstan-extensions": "^8.1.20",
+                "symplify/changelog-linker": "^8.2.2",
+                "symplify/easy-coding-standard": "^8.2.2",
+                "symplify/easy-testing": "^8.2.2",
+                "symplify/monorepo-builder": "^8.2.2",
+                "symplify/phpstan-extensions": "^8.2.2",
                 "thecodingmachine/phpstan-strict-rules": "^0.12"
             },
             "bin": [
@@ -2184,7 +2287,7 @@
                     "Rector\\PHPOffice\\": "rules/php-office/src",
                     "Rector\\PhpDeglobalize\\": "rules/php-deglobalize/src",
                     "Rector\\PhpSpecToPHPUnit\\": "rules/php-spec-to-phpunit/src",
-                    "Rector\\Polyfill\\": "packages/polyfill/src",
+                    "Rector\\Polyfill\\": "rules/polyfill/src",
                     "Rector\\Privatization\\": "rules/privatization/src",
                     "Rector\\RectorGenerator\\": "packages/rector-generator/src",
                     "Rector\\Set\\": "packages/set/src",
@@ -2243,7 +2346,13 @@
                 "instant refactoring",
                 "instant upgrades"
             ],
-            "time": "2020-08-06T10:32:51+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-08-16T13:50:35+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -3016,6 +3125,20 @@
                 "caching",
                 "psr6"
             ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-23T17:22:30+00:00"
         },
         {
@@ -3077,6 +3200,20 @@
                 "interfaces",
                 "interoperability",
                 "standards"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-07-06T13:23:11+00:00"
         },
@@ -3144,6 +3281,20 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-15T10:53:22+00:00"
         },
         {
@@ -3223,6 +3374,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-06T13:23:11+00:00"
         },
         {
@@ -3298,6 +3463,20 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-23T08:36:24+00:00"
         },
         {
@@ -3348,6 +3527,20 @@
             ],
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-06-06T08:49:21+00:00"
         },
         {
@@ -3405,6 +3598,20 @@
             ],
             "description": "Symfony ErrorHandler Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-23T08:36:24+00:00"
         },
         {
@@ -3477,6 +3684,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-06-18T18:24:02+00:00"
         },
         {
@@ -3539,6 +3760,20 @@
                 "interoperability",
                 "standards"
             ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-06T13:23:11+00:00"
         },
         {
@@ -3589,6 +3824,20 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-05-30T20:35:19+00:00"
         },
         {
@@ -3638,6 +3887,20 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-05-20T17:43:50+00:00"
         },
         {
@@ -3699,6 +3962,20 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-23T10:04:31+00:00"
         },
         {
@@ -3798,6 +4075,20 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-24T04:22:56+00:00"
         },
         {
@@ -3859,6 +4150,20 @@
                 "ctype",
                 "polyfill",
                 "portable"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-07-14T12:35:20+00:00"
         },
@@ -3923,6 +4228,20 @@
                 "polyfill",
                 "portable",
                 "shim"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-07-14T12:35:20+00:00"
         },
@@ -3991,6 +4310,20 @@
                 "portable",
                 "shim"
             ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-14T12:35:20+00:00"
         },
         {
@@ -4054,6 +4387,20 @@
                 "portable",
                 "shim"
             ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-14T12:35:20+00:00"
         },
         {
@@ -4115,6 +4462,20 @@
                 "polyfill",
                 "portable",
                 "shim"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-07-14T12:35:20+00:00"
         },
@@ -4182,6 +4543,20 @@
                 "portable",
                 "shim"
             ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-14T12:35:20+00:00"
         },
         {
@@ -4232,6 +4607,20 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-23T08:36:24+00:00"
         },
         {
@@ -4293,6 +4682,20 @@
                 "interfaces",
                 "interoperability",
                 "standards"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-07-06T13:23:11+00:00"
         },
@@ -4364,6 +4767,20 @@
                 "unicode",
                 "utf-8",
                 "utf8"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-07-08T08:27:49+00:00"
         },
@@ -4441,6 +4858,20 @@
                 "debug",
                 "dump"
             ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-06-24T13:36:18+00:00"
         },
         {
@@ -4501,6 +4932,20 @@
                 "hydrate",
                 "instantiate",
                 "serialize"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-06-07T15:42:22+00:00"
         },
@@ -4565,20 +5010,34 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-05-20T17:43:50+00:00"
         },
         {
             "name": "symplify/auto-bind-parameter",
-            "version": "v8.2.1",
+            "version": "v8.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/auto-bind-parameter.git",
-                "reference": "a3d3f177dd6e8418f1bd3c765b3e1812f37c46b8"
+                "reference": "14255a0cac43aeaba13439582016f0863e54273b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/auto-bind-parameter/zipball/a3d3f177dd6e8418f1bd3c765b3e1812f37c46b8",
-                "reference": "a3d3f177dd6e8418f1bd3c765b3e1812f37c46b8",
+                "url": "https://api.github.com/repos/symplify/auto-bind-parameter/zipball/14255a0cac43aeaba13439582016f0863e54273b",
+                "reference": "14255a0cac43aeaba13439582016f0863e54273b",
                 "shasum": ""
             },
             "require": {
@@ -4589,7 +5048,7 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "^8.5|^9.0",
-                "symplify/package-builder": "^8.2.1"
+                "symplify/package-builder": "^8.2.3"
             },
             "type": "library",
             "extra": {
@@ -4607,27 +5066,33 @@
                 "MIT"
             ],
             "description": "Auto bind parameters for your Symfony applications",
-            "time": "2020-08-07T22:34:58+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-08-13T23:06:17+00:00"
         },
         {
             "name": "symplify/autowire-array-parameter",
-            "version": "v8.2.1",
+            "version": "v8.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/autowire-array-parameter.git",
-                "reference": "839b65ff06fe065c9aaf9f49b57e1aa0f4715267"
+                "reference": "b2005aca4bbdadd1ec1b4bae67f920de4f1a5165"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/autowire-array-parameter/zipball/839b65ff06fe065c9aaf9f49b57e1aa0f4715267",
-                "reference": "839b65ff06fe065c9aaf9f49b57e1aa0f4715267",
+                "url": "https://api.github.com/repos/symplify/autowire-array-parameter/zipball/b2005aca4bbdadd1ec1b4bae67f920de4f1a5165",
+                "reference": "b2005aca4bbdadd1ec1b4bae67f920de4f1a5165",
                 "shasum": ""
             },
             "require": {
                 "nette/utils": "^3.0",
                 "php": "^7.2",
                 "symfony/dependency-injection": "^4.4|^5.0",
-                "symplify/package-builder": "^8.2.1"
+                "symplify/package-builder": "^8.2.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "^8.5|^9.0"
@@ -4648,20 +5113,26 @@
                 "MIT"
             ],
             "description": "Autowire array parameters for your Symfony applications",
-            "time": "2020-08-07T22:34:58+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-08-13T23:06:17+00:00"
         },
         {
             "name": "symplify/console-color-diff",
-            "version": "v8.2.1",
+            "version": "v8.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/console-color-diff.git",
-                "reference": "6a199ccf3c4c67e835bc385b7ba108a98a7cd819"
+                "reference": "a47370f09498f16e1dfb502c82887e87e3ccb9d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/console-color-diff/zipball/6a199ccf3c4c67e835bc385b7ba108a98a7cd819",
-                "reference": "6a199ccf3c4c67e835bc385b7ba108a98a7cd819",
+                "url": "https://api.github.com/repos/symplify/console-color-diff/zipball/a47370f09498f16e1dfb502c82887e87e3ccb9d9",
+                "reference": "a47370f09498f16e1dfb502c82887e87e3ccb9d9",
                 "shasum": ""
             },
             "require": {
@@ -4671,7 +5142,7 @@
                 "symfony/console": "^4.4|^5.0",
                 "symfony/dependency-injection": "^4.4|^5.0",
                 "symfony/http-kernel": "^4.4|^5.0",
-                "symplify/package-builder": "^8.2.1"
+                "symplify/package-builder": "^8.2.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "^8.5|^9.0"
@@ -4692,20 +5163,74 @@
                 "MIT"
             ],
             "description": "Package to print diffs in console with colors",
-            "time": "2020-08-07T22:34:58+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-08-13T23:06:17+00:00"
         },
         {
-            "name": "symplify/package-builder",
-            "version": "v8.2.1",
+            "name": "symplify/easy-testing",
+            "version": "v8.2.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symplify/package-builder.git",
-                "reference": "797d3e2508e92684f2714f5afdab835d4195e691"
+                "url": "https://github.com/symplify/easy-testing.git",
+                "reference": "53a882fc68d61cadd27ecd5ceada69adc6699917"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/package-builder/zipball/797d3e2508e92684f2714f5afdab835d4195e691",
-                "reference": "797d3e2508e92684f2714f5afdab835d4195e691",
+                "url": "https://api.github.com/repos/symplify/easy-testing/zipball/53a882fc68d61cadd27ecd5ceada69adc6699917",
+                "reference": "53a882fc68d61cadd27ecd5ceada69adc6699917",
+                "shasum": ""
+            },
+            "require": {
+                "nette/utils": "^3.0",
+                "php": "^7.2",
+                "symfony/finder": "^4.4|^5.0",
+                "symplify/package-builder": "^8.2.3",
+                "symplify/smart-file-system": "^8.2.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5|^9.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "8.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symplify\\EasyTesting\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Testing made easy",
+            "funding": [
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-08-13T23:06:17+00:00"
+        },
+        {
+            "name": "symplify/package-builder",
+            "version": "v8.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symplify/package-builder.git",
+                "reference": "d1154b2a677dcd333b6d716a67e4eeba38ca0633"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symplify/package-builder/zipball/d1154b2a677dcd333b6d716a67e4eeba38ca0633",
+                "reference": "d1154b2a677dcd333b6d716a67e4eeba38ca0633",
                 "shasum": ""
             },
             "require": {
@@ -4738,62 +5263,26 @@
                 "MIT"
             ],
             "description": "Dependency Injection, Console and Kernel toolkit for Symplify packages.",
-            "time": "2020-08-07T20:33:15+00:00"
-        },
-        {
-            "name": "symplify/parameter-name-guard",
-            "version": "v8.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symplify/parameter-name-guard.git",
-                "reference": "b98df8f15446bab35a283df2c1dedb7a6d70d7a1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symplify/parameter-name-guard/zipball/b98df8f15446bab35a283df2c1dedb7a6d70d7a1",
-                "reference": "b98df8f15446bab35a283df2c1dedb7a6d70d7a1",
-                "shasum": ""
-            },
-            "require": {
-                "nette/utils": "^3.0",
-                "php": "^7.2",
-                "symfony/config": "^4.4|^5.0",
-                "symfony/dependency-injection": "^4.4|^5.0",
-                "symfony/http-kernel": "^4.4|^5.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^8.5|^9.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "8.3-dev"
+            "funding": [
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
                 }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symplify\\ParameterNameGuard\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
             ],
-            "description": "Prevent silent parameter typos that silently break your app",
             "time": "2020-08-07T20:33:15+00:00"
         },
         {
             "name": "symplify/set-config-resolver",
-            "version": "v8.2.1",
+            "version": "v8.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/set-config-resolver.git",
-                "reference": "24ce1ea5a9bc448f8ed91330387f71c017909114"
+                "reference": "c574dd79661486b8ab489def8355d5bea3682d1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/set-config-resolver/zipball/24ce1ea5a9bc448f8ed91330387f71c017909114",
-                "reference": "24ce1ea5a9bc448f8ed91330387f71c017909114",
+                "url": "https://api.github.com/repos/symplify/set-config-resolver/zipball/c574dd79661486b8ab489def8355d5bea3682d1a",
+                "reference": "c574dd79661486b8ab489def8355d5bea3682d1a",
                 "shasum": ""
             },
             "require": {
@@ -4805,7 +5294,7 @@
                 "symfony/filesystem": "^4.4|^5.0",
                 "symfony/finder": "^4.4|^5.0",
                 "symfony/yaml": "^4.4|^5.0",
-                "symplify/smart-file-system": "^8.2.1"
+                "symplify/smart-file-system": "^8.2.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "^8.5|^9.0"
@@ -4826,20 +5315,26 @@
                 "MIT"
             ],
             "description": "Resolve config and sets from configs and cli opptions for CLI applications",
-            "time": "2020-08-07T22:34:58+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-08-13T23:06:17+00:00"
         },
         {
             "name": "symplify/smart-file-system",
-            "version": "v8.2.1",
+            "version": "v8.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/smart-file-system.git",
-                "reference": "ccafb93d253a4fc7f4cea02904e9c0b85487f469"
+                "reference": "2eba75a73d477040f26adf56f9badf5358d9b994"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/smart-file-system/zipball/ccafb93d253a4fc7f4cea02904e9c0b85487f469",
-                "reference": "ccafb93d253a4fc7f4cea02904e9c0b85487f469",
+                "url": "https://api.github.com/repos/symplify/smart-file-system/zipball/2eba75a73d477040f26adf56f9badf5358d9b994",
+                "reference": "2eba75a73d477040f26adf56f9badf5358d9b994",
                 "shasum": ""
             },
             "require": {
@@ -4868,6 +5363,12 @@
                 "MIT"
             ],
             "description": "Sanitized FileInfo with safe getRealPath() and other handy methods",
+            "funding": [
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
             "time": "2020-08-07T20:33:15+00:00"
         },
         {
@@ -4908,6 +5409,12 @@
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
+            "funding": [
+                {
+                    "url": "https://github.com/theseer",
+                    "type": "github"
+                }
+            ],
             "time": "2020-07-12T23:59:07+00:00"
         },
         {
@@ -5042,5 +5549,6 @@
         "php": ">=7.2.5",
         "ext-simplexml": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
