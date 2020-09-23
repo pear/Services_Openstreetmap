@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25a358c8874c1c64f2df7784629e1604",
+    "content-hash": "9653e2f3afe199a055ba44c7586a8022",
     "packages": [
         {
             "name": "pear/http_request2",
@@ -3011,63 +3011,36 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.9.2",
+            "version": "3.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "2acf168de78487db620ab4bc524135a13cfe6745"
+                "reference": "e97627871a7eab2f70e59166072a6b767d5834e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/2acf168de78487db620ab4bc524135a13cfe6745",
-                "reference": "2acf168de78487db620ab4bc524135a13cfe6745",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/e97627871a7eab2f70e59166072a6b767d5834e0",
+                "reference": "e97627871a7eab2f70e59166072a6b767d5834e0",
                 "shasum": ""
             },
             "require": {
                 "ext-simplexml": "*",
                 "ext-tokenizer": "*",
                 "ext-xmlwriter": "*",
-                "php": ">=5.1.2"
+                "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
             },
             "bin": [
-                "scripts/phpcs",
-                "scripts/phpcbf"
+                "bin/phpcs",
+                "bin/phpcbf"
             ],
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.x-dev"
+                    "dev-master": "3.x-dev"
                 }
-            },
-            "autoload": {
-                "classmap": [
-                    "CodeSniffer.php",
-                    "CodeSniffer/CLI.php",
-                    "CodeSniffer/Exception.php",
-                    "CodeSniffer/File.php",
-                    "CodeSniffer/Fixer.php",
-                    "CodeSniffer/Report.php",
-                    "CodeSniffer/Reporting.php",
-                    "CodeSniffer/Sniff.php",
-                    "CodeSniffer/Tokens.php",
-                    "CodeSniffer/Reports/",
-                    "CodeSniffer/Tokenizers/",
-                    "CodeSniffer/DocGenerators/",
-                    "CodeSniffer/Standards/AbstractPatternSniff.php",
-                    "CodeSniffer/Standards/AbstractScopeSniff.php",
-                    "CodeSniffer/Standards/AbstractVariableSniff.php",
-                    "CodeSniffer/Standards/IncorrectPatternException.php",
-                    "CodeSniffer/Standards/Generic/Sniffs/",
-                    "CodeSniffer/Standards/MySource/Sniffs/",
-                    "CodeSniffer/Standards/PEAR/Sniffs/",
-                    "CodeSniffer/Standards/PSR1/Sniffs/",
-                    "CodeSniffer/Standards/PSR2/Sniffs/",
-                    "CodeSniffer/Standards/Squiz/Sniffs/",
-                    "CodeSniffer/Standards/Zend/Sniffs/"
-                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -3080,12 +3053,12 @@
                 }
             ],
             "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
-            "homepage": "http://www.squizlabs.com/php-codesniffer",
+            "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
             "keywords": [
                 "phpcs",
                 "standards"
             ],
-            "time": "2018-11-07T22:31:41+00:00"
+            "time": "2020-08-10T04:50:15+00:00"
         },
         {
             "name": "symfony/cache",
@@ -5072,12 +5045,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/auto-bind-parameter.git",
-                "reference": "555d98f41db7dbbfb31c72b2a7fcc44cb561231e"
+                "reference": "d0124492f20a89dcfd79ce979310522f2a63cdf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/auto-bind-parameter/zipball/555d98f41db7dbbfb31c72b2a7fcc44cb561231e",
-                "reference": "555d98f41db7dbbfb31c72b2a7fcc44cb561231e",
+                "url": "https://api.github.com/repos/symplify/auto-bind-parameter/zipball/d0124492f20a89dcfd79ce979310522f2a63cdf4",
+                "reference": "d0124492f20a89dcfd79ce979310522f2a63cdf4",
                 "shasum": ""
             },
             "require": {
@@ -5112,6 +5085,7 @@
                     "type": "github"
                 }
             ],
+            "abandoned": true,
             "time": "2020-09-02T20:45:10+00:00"
         },
         {
@@ -5120,12 +5094,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/autowire-array-parameter.git",
-                "reference": "a69ce2dd00ef099b3ac3882b0709d4a70f1b5845"
+                "reference": "29b018ebf0820846f6d645bfd0d6ca332341add7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/autowire-array-parameter/zipball/a69ce2dd00ef099b3ac3882b0709d4a70f1b5845",
-                "reference": "a69ce2dd00ef099b3ac3882b0709d4a70f1b5845",
+                "url": "https://api.github.com/repos/symplify/autowire-array-parameter/zipball/29b018ebf0820846f6d645bfd0d6ca332341add7",
+                "reference": "29b018ebf0820846f6d645bfd0d6ca332341add7",
                 "shasum": ""
             },
             "require": {
@@ -5167,12 +5141,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/console-color-diff.git",
-                "reference": "fa5bd286ae6ebe3595a51894603f86b017545020"
+                "reference": "34bf667156c1c651caf6c59c05ad1491ed886364"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/console-color-diff/zipball/fa5bd286ae6ebe3595a51894603f86b017545020",
-                "reference": "fa5bd286ae6ebe3595a51894603f86b017545020",
+                "url": "https://api.github.com/repos/symplify/console-color-diff/zipball/34bf667156c1c651caf6c59c05ad1491ed886364",
+                "reference": "34bf667156c1c651caf6c59c05ad1491ed886364",
                 "shasum": ""
             },
             "require": {
@@ -5217,12 +5191,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/easy-testing.git",
-                "reference": "581bb9a6cb62e1060c5c58e7930f84d5f9c8ddc9"
+                "reference": "708b7f478de0f0a79c79ace69e88290013b4506c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/easy-testing/zipball/581bb9a6cb62e1060c5c58e7930f84d5f9c8ddc9",
-                "reference": "581bb9a6cb62e1060c5c58e7930f84d5f9c8ddc9",
+                "url": "https://api.github.com/repos/symplify/easy-testing/zipball/708b7f478de0f0a79c79ace69e88290013b4506c",
+                "reference": "708b7f478de0f0a79c79ace69e88290013b4506c",
                 "shasum": ""
             },
             "require": {
@@ -5265,12 +5239,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/package-builder.git",
-                "reference": "0ff6d617e85b6dfeb31a15226fda654cf8ee6dab"
+                "reference": "9eaf6090ced7e8a6efa0441c473b8c6d78cf67cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/package-builder/zipball/0ff6d617e85b6dfeb31a15226fda654cf8ee6dab",
-                "reference": "0ff6d617e85b6dfeb31a15226fda654cf8ee6dab",
+                "url": "https://api.github.com/repos/symplify/package-builder/zipball/9eaf6090ced7e8a6efa0441c473b8c6d78cf67cf",
+                "reference": "9eaf6090ced7e8a6efa0441c473b8c6d78cf67cf",
                 "shasum": ""
             },
             "require": {
@@ -5317,12 +5291,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/set-config-resolver.git",
-                "reference": "4dd1f1c79e45213bc09eea8c89221ae74e09ae1b"
+                "reference": "b9e463fee3625352300b09129eeda4fe4bd8cec9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/set-config-resolver/zipball/4dd1f1c79e45213bc09eea8c89221ae74e09ae1b",
-                "reference": "4dd1f1c79e45213bc09eea8c89221ae74e09ae1b",
+                "url": "https://api.github.com/repos/symplify/set-config-resolver/zipball/b9e463fee3625352300b09129eeda4fe4bd8cec9",
+                "reference": "b9e463fee3625352300b09129eeda4fe4bd8cec9",
                 "shasum": ""
             },
             "require": {
@@ -5369,12 +5343,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/smart-file-system.git",
-                "reference": "06b3893e62e691b81e3bda5b4fd23d3574ec7ea5"
+                "reference": "678af220a56f25f069c7afcf20d100d5548ade44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/smart-file-system/zipball/06b3893e62e691b81e3bda5b4fd23d3574ec7ea5",
-                "reference": "06b3893e62e691b81e3bda5b4fd23d3574ec7ea5",
+                "url": "https://api.github.com/repos/symplify/smart-file-system/zipball/678af220a56f25f069c7afcf20d100d5548ade44",
+                "reference": "678af220a56f25f069c7afcf20d100d5548ade44",
                 "shasum": ""
             },
             "require": {
