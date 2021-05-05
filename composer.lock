@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "9653e2f3afe199a055ba44c7586a8022",
@@ -62,20 +62,20 @@
         },
         {
             "name": "pear/log",
-            "version": "1.13.2",
+            "version": "1.13.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/Log.git",
-                "reference": "d8cde3dba893a36ec561bf6188fdc39f4221c4d3"
+                "reference": "21af0be11669194d72d88b5ee9d5f176dc75d9a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/Log/zipball/d8cde3dba893a36ec561bf6188fdc39f4221c4d3",
-                "reference": "d8cde3dba893a36ec561bf6188fdc39f4221c4d3",
+                "url": "https://api.github.com/repos/pear/Log/zipball/21af0be11669194d72d88b5ee9d5f176dc75d9a3",
+                "reference": "21af0be11669194d72d88b5ee9d5f176dc75d9a3",
                 "shasum": ""
             },
             "require": {
-                "pear/pear_exception": "1.0.1",
+                "pear/pear_exception": "1.0.1 || 1.0.2",
                 "php": ">5.2"
             },
             "require-dev": {
@@ -88,7 +88,10 @@
             "autoload": {
                 "psr-0": {
                     "Log": "./"
-                }
+                },
+                "exclude-from-classmap": [
+                    "/examples/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "include-path": [
@@ -111,7 +114,11 @@
                 "log",
                 "logging"
             ],
-            "time": "2020-06-02T00:04:03+00:00"
+            "support": {
+                "issues": "https://github.com/pear/Log/issues",
+                "source": "https://github.com/pear/Log"
+            },
+            "time": "2021-05-04T23:51:30+00:00"
         },
         {
             "name": "pear/net_url2",
@@ -179,23 +186,23 @@
         },
         {
             "name": "pear/pear_exception",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/PEAR_Exception.git",
-                "reference": "dbb42a5a0e45f3adcf99babfb2a1ba77b8ac36a7"
+                "reference": "b14fbe2ddb0b9f94f5b24cf08783d599f776fff0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/PEAR_Exception/zipball/dbb42a5a0e45f3adcf99babfb2a1ba77b8ac36a7",
-                "reference": "dbb42a5a0e45f3adcf99babfb2a1ba77b8ac36a7",
+                "url": "https://api.github.com/repos/pear/PEAR_Exception/zipball/b14fbe2ddb0b9f94f5b24cf08783d599f776fff0",
+                "reference": "b14fbe2ddb0b9f94f5b24cf08783d599f776fff0",
                 "shasum": ""
             },
             "require": {
-                "php": ">=4.4.0"
+                "php": ">=5.2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "*"
+                "phpunit/phpunit": "<9"
             },
             "type": "class",
             "extra": {
@@ -230,7 +237,11 @@
             "keywords": [
                 "exception"
             ],
-            "time": "2019-12-10T10:24:42+00:00"
+            "support": {
+                "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=PEAR_Exception",
+                "source": "https://github.com/pear/PEAR_Exception"
+            },
+            "time": "2021-03-21T15:43:46+00:00"
         }
     ],
     "packages-dev": [
@@ -5046,5 +5057,6 @@
         "php": ">=7.2.5",
         "ext-simplexml": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
