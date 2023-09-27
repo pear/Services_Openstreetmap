@@ -28,6 +28,13 @@
 class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
 {
     /**
+     * Array of tags in key/value format
+     *
+     * @var array
+     */
+    protected $tags = [];
+
+    /**
      * What type object this is.
      *
      * @var string
@@ -126,6 +133,52 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     }
 
     /**
+     * Set tag to [new] key/value pair.
+     *
+     * The object is returned, supporting Fluent coding style.
+     *
+     * <code>
+     * $changeset->setTag('key', 'value')->setTag(...);
+     * </code>
+     *
+     * @param mixed $key   key
+     * @param mixed $value value
+     *
+     * @return Services_OpenStreetMap_Changeset
+     */
+    public function setTag($key, $value): Services_OpenStreetMap_Changeset
+    {
+        $this->tags[$key] = $value;
+        return $this;
+    }
+    /**
+     * Return the tags set for this changeset in question.
+     *
+     * @return array tags
+     */
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Return value of specified tag as set against this changeset.
+     * If tag isn't set, return null.
+     *
+     * @param string $key Key value, For example, 'created_by', 'automatic' etc
+     *
+     * @return string|null
+     */
+    public function getTag(string $key): ?string
+    {
+        if (isset($this->tags[$key])) {
+            return $this->tags[$key];
+        } else {
+            return null;
+        }
+    }
+    
+    /**
      * Begin changeset transaction.
      *
      * @param string $message The changeset log message. Overrides same as set in constructor.
@@ -147,10 +200,14 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         $userAgent = $configObj->getValue('User-Agent');
         $doc = "<?xml version='1.0' encoding=\"UTF-8\"?>\n" .
         '<osm version="0.6" generator="' . $userAgent . '">'
-            . "<changeset id='0' open='false'>"
-            . '<tag k="comment" v="' . $message . '"/>'
-            . '<tag k="created_by" v="' . $userAgent . '/0.1"/>';
-        $doc .= $this->generateReviewRequestedTag();
+            . "<changeset id='0' open='false'>";
+        $this->setTag('comment' , $message);
+        $this->setTag('created_by' , $userAgent . '/0.1');
+        $this->setTag('review_requested' , ($this->reviewRequested ? 'yes' : 'no'));
+        $tags = $this->getTags();
+        foreach ($tags as $key => $value) {
+            $doc .=  '<tag k="' . $key . '" v="' . $value . '"/>';
+        }      
         $doc .= '</changeset></osm>';
         $url = $configObj->getValue('server')
             . 'api/'
@@ -748,20 +805,6 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     public function getUpdateMap(): array
     {
         return $this->updateMap;
-    }
-
-    /**
-     * Generate the changeset tag to indicate if a review is requested
-     *
-     * @return string
-     */
-    private function generateReviewRequestedTag(): string
-    {
-        $tag = '<tag k="review_requested" v="no"/>';
-        if ($this->reviewRequested) {
-            $tag = '<tag k="review_requested" v="yes"/>';
-        }
-        return $tag;
     }
 
     /**
