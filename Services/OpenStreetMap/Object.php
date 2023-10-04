@@ -341,6 +341,9 @@ class Services_OpenStreetMap_Object
     public function getAttributes()
     {
 
+        if ($this->obj === null) {
+            return null;
+        }
         if ($this->obj[0] === null) {
             return null;
         }
