@@ -13,10 +13,10 @@
   <email>kguest@php.net</email>
   <active>yes</active>
  </lead>
- <date>2019-05-28</date>
- <time>23:14:59</time>
+ <date>2023-10-04</date>
+ <time>22:43:59</time>
  <version>
-  <release>1.0.0RC2</release>
+  <release>1.0.0RC3</release>
   <api>0.5.0</api>
  </version>
  <stability>
@@ -25,15 +25,7 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
  <notes>
- * Minimum version of PHP raised to PHP 7.1
- * Should be compatible with PHP 7.2
- * Retrieval of notes via search endpoint added (thanks to LiamBailey)
- * Some key/value checks for max length 255 (thanks to LiamBailey)
- * Documentation broken out to separate files (thanks to franciscollanquipichun)
- * SSL Options can be configured (Issue #32)
- * Support for Wildcard Search has been added (Issue #22)
- * Support for OAuth has been added (thanks to khvalov)
- * Support for variable times around sunset/sunrise has been added.
+ * New methods to add custom tags to changeset
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -652,6 +644,29 @@ This release supports parsing of opening_hours values.
  * Possibility to get further addressdetails on looking for a place - thanks to FireLizard
  * Some refactoring and PHP 7 Compatibility work.
  * Various dependency updates - thanks to FireLizard.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2019-05-28</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
+   <notes>
+ * Minimum version of PHP raised to PHP 7.1
+ * Should be compatible with PHP 7.2
+ * Retrieval of notes via search endpoint added (thanks to LiamBailey)
+ * Some key/value checks for max length 255 (thanks to LiamBailey)
+ * Documentation broken out to separate files (thanks to franciscollanquipichun)
+ * SSL Options can be configured (Issue #32)
+ * Support for Wildcard Search has been added (Issue #22)
+ * Support for OAuth has been added (thanks to khvalov)
+ * Support for variable times around sunset/sunrise has been added.
    </notes>
   </release>
  </changelog>
