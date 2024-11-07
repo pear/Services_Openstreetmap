@@ -24,6 +24,7 @@
  */
 class Services_OpenStreetMap_Config
 {
+    protected $oauth2_token = null;
     protected $oauth_consumer_key = null;
     protected $oauth_token = null;
     protected $oauth_token_secret = null;
@@ -153,6 +154,7 @@ class Services_OpenStreetMap_Config
         'user'            => null,
         'verbose'         => false,
         /* Fields for OAuth auth */
+        'oauth2_token'    => false,
         'oauth_token'     => false,
         'oauth_token_secret' => false,
         'oauth_consumer_key' => false,
@@ -241,6 +243,7 @@ class Services_OpenStreetMap_Config
      *  <li> 'User-Agent'         - User-Agent (string)</li>
      *  <li> 'user'               - user (string, optional)</li>
      *  <li> 'verbose'            - verbose (boolean, optional)</li>
+     *  <li> 'oauth2_token'       - false</li>
      *  <li> 'oauth_token'        - false</li>
      *  <li> 'oauth_token_secret' - false</li>
      *  <li> 'oauth_consumer_key' - false</li>
@@ -291,6 +294,7 @@ class Services_OpenStreetMap_Config
                 case 'accept_language':
                     $this->setAcceptLanguage($value);
                     break;
+                case 'oauth2_token':
                 case 'oauth_token':
                 case 'oauth_token_secret':
                 case 'oauth_consumer_key':

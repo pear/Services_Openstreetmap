@@ -215,6 +215,8 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             . '/changeset/create';
         $user = $configObj->getValue('user');
         $password = $configObj->getValue('password');
+        /* Oauth2 Field */
+        $oauth2_token = $configObj->getValue('oauth2_token');        
         /* Oauth1 Fields */
         $oauth_consumer_key = $configObj->getValue('oauth_consumer_key');
         $oauth_token = $configObj->getValue('oauth_token');
@@ -231,6 +233,19 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 $doc,
                 null,
                 [['Content-type', 'text/xml', true]]
+            );
+        } elseif (!empty($oauth2_token)) {
+            $response = $this->getTransport()->getResponse(
+                $url,
+                HTTP_Request2::METHOD_PUT,
+                null,
+                null,
+                $doc,
+                null,
+                [
+                    ['Content-type', 'text/xml', true],
+                    ['Authorization', 'Bearer ' . $oauth2_token, true]
+                ]
             );
         } elseif (!empty($oauth_consumer_key)
             && !empty($oauth_token)
@@ -366,6 +381,8 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
 
         $user = $configObj->getValue('user');
         $password = $configObj->getValue('password');
+        /* Oauth2 Field */
+        $oauth2_token = $configObj->getValue('oauth2_token');
         /* Oauth1 Fields */
         $oauth_consumer_key = $configObj->getValue('oauth_consumer_key');
         $oauth_token = $configObj->getValue('oauth_token');
@@ -377,13 +394,17 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         try {
             $response = $this->_uploadWithUsernameAndPassword($url, $user, $password);
             if ($response === null) {
+                $response = $this->_uploadWithOauth2($url, $oauth2_token);
+            }
+            if ($response === null) {
                 $response = $this->_uploadWithOauth($url, $oauth_consumer_key, $oauth_token, $consumer_secret, $oauth_token_secret);
             }
             if ($response === null) {
                 throw new Services_OpenStreetMap_RuntimeException(
-                    "User & Password for user based auth OR oauth_consumer_key, " .
-                    "oauth_token, consumer_secret, oauth_token_secret " .
-                    "have to be defined to interact with OSM  API"
+                    "User & Password for user based auth " .
+                    "OR oauth2_token " .
+                    "OR oauth_consumer_key,  oauth_token, consumer_secret, oauth_token_secret " .
+                    "have to be defined to interact with OSM API"
                 );
             }
             $this->updateObjectIds($response->getBody());
@@ -406,7 +427,10 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         try {
             $response = $this->_closeWithUsernameAndPassword($url, $user, $password);
             if ($response === null) {
-                $response = _closeWithOauth(
+                $response = $this->_closeWithOauth2($url, $oauth2_token);
+            }
+            if ($response === null) {
+                $response = $this->_closeWithOauth(
                     $url,
                     $oauth_consumer_key,
                     $oauth_token,
@@ -416,9 +440,10 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             }
             if ($response === null) {
                 throw new Services_OpenStreetMap_RuntimeException(
-                    "User and Password for user based auth OR oauth_consumer_key, " .
-                    "oauth_token,consumer_secret, oauth_token_secret have to be " .
-                    "defined to interact with OSM  API"
+                    "User & Password for user based auth " .
+                    "OR oauth2_token " .
+                    "OR oauth_consumer_key,  oauth_token, consumer_secret, oauth_token_secret " .
+                    "have to be defined to interact with OSM API"
                 );
             }
         } catch (Exception $ex) {
@@ -459,6 +484,36 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
         );
     }
 
+    /**
+     * Upload changeset via Oauth2 details
+     *
+     * @param string $url                URL for uploading changeset
+     * @param string $oauth2_token       Oauth2 token
+     *
+     * @return void
+     */
+    private function _uploadWithOauth2($url, $oauth2_token)
+    {
+        if (!empty($oauth2_token)) {
+            
+            $response = $this->getTransport()->getResponse(
+                $url,
+                HTTP_Request2::METHOD_POST,
+                null,
+                null,
+                $this->getOsmChangeXml(),
+                null,
+                [
+                    ['Content-type', 'text/xml', true],
+                    ['Authorization', 'Bearer ' . $oauth2_token, true]
+                ]
+            );
+
+            return $response;
+        }
+        return null;
+    }
+            
     /**
      * Upload changeset via Oauth details
      *
@@ -516,8 +571,10 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
                 null,
                 $this->getOsmChangeXml(),
                 null,
-                [['Content-type', 'text/xml', true],
-                    ['Authorization', $authStr, true]]
+                [
+                    ['Content-type', 'text/xml', true],
+                    ['Authorization', $authStr, true]
+                ]
             );
 
             return $response;
@@ -551,7 +608,36 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
     }
 
     /**
-     * Close uploaded changeset with oauth details
+     * Close uploaded changeset with Oauth2 details
+     *
+     * @param string $url                URL for closing uploaded changeset
+     * @param string $oauth2_token       Oauth2 token
+     *
+     * @return $request
+     */
+    private function _closeWithOauth2($url, $oauth2_token)
+    {
+        if (!empty($oauth2_token)) {
+     
+            $response = $this->getTransport()->getResponse(
+                $url,
+                HTTP_Request2::METHOD_PUT,
+                null,
+                null,
+                null,
+                null,
+                [
+                    ['Content-type', 'text/xml', true],
+                    ['Authorization', 'Bearer ' . $oauth2_token, true]
+                ]
+            );
+            return $response;
+        }
+        return null;
+    }
+    
+    /**
+     * Close uploaded changeset with Oauth details
      *
      * @param string $url                URL for closing uploaded changeset
      * @param string $oauth_consumer_key Consumer key
@@ -829,9 +915,10 @@ class Services_OpenStreetMap_Changeset extends Services_OpenStreetMap_Object
             );
         } elseif ($this->getConfig()->getValue('passwordfile') === null) {
             throw new Services_OpenStreetMap_RuntimeException(
-                "User & Password for user based auth OR oauth_consumer_key, " .
-                "oauth_token, consumer_secret, oauth_token_secret have to be " .
-                "defined to interact with OSM API"
+                "User & Password for user based auth " .
+                "OR oauth2_token " .
+                "OR oauth_consumer_key,  oauth_token, consumer_secret, oauth_token_secret " .
+                "have to be defined to interact with OSM API"
             );
         }
     }
