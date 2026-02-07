@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - master
-      - phpunit
   pull_request:
 
 concurrency:
