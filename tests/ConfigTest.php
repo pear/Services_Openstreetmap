@@ -68,6 +68,7 @@ class ConfigTest extends PHPUnit\Framework\TestCase
             'api_version' => '0.6',
             'consumer_secret' => false,
             'oauth_consumer_key' => false,
+            'oauth2_token' => false,
             'oauth_token' => false,
             'oauth_token_secret' => false,
             'passwordfile' => null,

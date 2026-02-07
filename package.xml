@@ -13,11 +13,10 @@
   <email>kguest@php.net</email>
   <active>yes</active>
  </lead>
- <date>2023-10-04</date>
- <time>22:43:59</time>
+ <date>2026-02-07</date>
  <version>
-  <release>1.0.0RC3</release>
-  <api>0.5.0</api>
+  <release>1.0.0RC4</release>
+  <api>0.6.0</api>
  </version>
  <stability>
   <release>beta</release>
@@ -25,7 +24,7 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
  <notes>
- * New methods to add custom tags to changeset
+bump to PHP 7.4 minimum due to return type covariance
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -424,9 +423,6 @@
     <file name="ConfigTest.php" role="test">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
-    <file name="credentials" role="test">
-     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-    </file>
     <file name="credentials.dist" role="test">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
@@ -484,7 +480,7 @@
  <dependencies>
   <required>
    <php>
-    <min>7.1.0</min>
+    <min>7.4</min>
    </php>
    <pearinstaller>
     <min>1.10.1</min>
@@ -667,6 +663,21 @@ This release supports parsing of opening_hours values.
  * Support for Wildcard Search has been added (Issue #22)
  * Support for OAuth has been added (thanks to khvalov)
  * Support for variable times around sunset/sunrise has been added.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC3</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2023-10-04</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.html">BSD License</license>
+   <notes>
+ * New methods to add custom tags to changeset
    </notes>
   </release>
  </changelog>

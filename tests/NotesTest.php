@@ -58,7 +58,7 @@ class Log_Observer_Simple extends Log_observer
      *
      * @return void
      */
-    public function notify($event)
+    public function notify($event): void
     {
         $this->entries[] = $event;
     }

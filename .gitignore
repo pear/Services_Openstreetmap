@@ -6,3 +6,6 @@ coverage.xml
 tests/coverage/*
 docs/*
 build/*
+tests/.phpunit*
+composer.lock
+vendor/

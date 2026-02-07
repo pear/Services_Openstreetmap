@@ -22,7 +22,7 @@
     "name": "kenguest/services-openstreetmap",
     "type": "library",
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.4",
         "pear/http_request2": "2.4.*",
         "pear/log": "1.12.*|1.13.*|1.14.*",
         "ext-simplexml": "*"
@@ -34,6 +34,11 @@
     },
     "suggest": {
         "pear/cache": "*"
+    },
+    "config": {
+        "audit": {
+            "block-insecure": false
+        }
     },
     "support": {
         "issues": "https://pear.php.net/bugs/search.php?cmd=display&package_name[]=Services_OpenStreetMap",
